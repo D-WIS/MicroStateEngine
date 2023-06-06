@@ -1,0 +1,571 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "TupleOfMicroStatesAndThresholdsAndSignals",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "Item1": {
+      "$ref": "#/definitions/MicroStates"
+    },
+    "Item2": {
+      "$ref": "#/definitions/Thresholds"
+    },
+    "Item3": {
+      "$ref": "#/definitions/Signals"
+    }
+  },
+  "definitions": {
+    "MicroStates": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "TimeStampUTC": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Part1": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Part2": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Part3": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Part4": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Part5": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "Thresholds": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "TimeStampUTC": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "StableAxialVelocityTopOfStringThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "StableRotationalVelocityTopOfStringThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "StableFlowTopOfStringThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "StableTensionTopOfStringThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "AtmosphericPressureThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "StablePressureTopOfStringThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "StableTorqueTopOfStringThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "StableFlowAnnulusOutletThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "StableBottomOfStringRockForceThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "StableRotationalVelocityBottomOfStringThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "StableAxialVelocityBottomOfStringThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "StableFlowBottomOfStringThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "StableFlowHoleOpenerThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "MinimumTensionTopOfString": {
+          "type": "number",
+          "format": "double"
+        },
+        "MinimumPressureFloatValve": {
+          "type": "number",
+          "format": "double"
+        },
+        "StableFlowBoosterPumpThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "StableFlowBackPressurePumpThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "MinimumDifferentialPressureRCDSealingThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "MinimumDifferentialPressureSealBalanceThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "StableFlowFillPumpDGDThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "StableFlowLiftPumpDGDThreshold": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "Signals": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "TimeStampUTC": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "MaximumBindingRefreshInterval": {
+          "type": "string",
+          "format": "duration"
+        },
+        "AxialVelocityTopOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "StandardDeviationAxialVelocityTopOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "RotationalVelocityTopOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "StandardDeviationRotationalVelocityTopOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "FlowTopOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "StandardDeviationFlowTopOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "TensionTopOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "ForceBottomTopDrive": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "ForceElevator": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "StandardDeviationTensionTopOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "PressureTopOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "StandardDeviationPressureTopOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "TorqueTopOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "StandardDeviationTorqueTopOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "FlowAnnulusOutlet": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "StandardDeviationFlowAnnulusOutlet": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "FlowCuttingsAnnulusOutlet": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "ForceBottomOfStringOnRock": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "StandardDeviationForceBottomOfStringOnRock": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "ForceHoleOpenerOnRock": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "RotationaVelocityBottomOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "StandardDeviationRotationalVelocityBottomOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "FlowCuttingsBottomHole": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "FlowCuttingsTopOfRateHole": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "AxialVelocityBottomOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "StandardDeviationAxialVelocityBottomOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "FlowBottomOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "StableFlowBottomOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "FlowHoleOpener": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "StableFlowHoleOpener": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "ForceOnLedge": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "ForceOnCuttingsBed": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "ForceDifferentialSticking": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "FlowFluidFromOrToFormation": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "FlowFormationFluidAnnulusOutlet": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "FlowCavingsFromFormation": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "FlowCavingsAnnulusOutlet": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "FlowPipeToAnnulus": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "WhirlRateBottomOfString": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "WhirlRateHoleOpener": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "DifferentialPressureFloatValve": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "UnderReamerOpen": {
+          "$ref": "#/definitions/ReadableReferenceOfBooleanValue"
+        },
+        "CirculationSubOpen": {
+          "$ref": "#/definitions/ReadableReferenceOfBooleanValue"
+        },
+        "PortedFloatOpen": {
+          "$ref": "#/definitions/ReadableReferenceOfBooleanValue"
+        },
+        "WhipstockAttached": {
+          "$ref": "#/definitions/ReadableReferenceOfBooleanValue"
+        },
+        "PlugAttached": {
+          "$ref": "#/definitions/ReadableReferenceOfBooleanValue"
+        },
+        "LinerAttached": {
+          "$ref": "#/definitions/ReadableReferenceOfBooleanValue"
+        },
+        "FlowBoosterPump": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "StandardDeviationFlowBoosterPump": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "FlowBackPressurePump": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "StandardDeviationFlowBackPressurePump": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "OpeningMPDChoke": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "DifferentialPressureRCD": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "IsolationSealActivated": {
+          "$ref": "#/definitions/ReadableReferenceOfBooleanValue"
+        },
+        "DifferentialPressureIsolationSeal": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "BearingAssemblyLatched": {
+          "$ref": "#/definitions/ReadableReferenceOfBooleanValue"
+        },
+        "ScreenMPDChokePlugged": {
+          "$ref": "#/definitions/ReadableReferenceOfBooleanValue"
+        },
+        "MainFlowPathMPDEstablished": {
+          "$ref": "#/definitions/ReadableReferenceOfBooleanValue"
+        },
+        "AlternateFlowPathMPDEstablished": {
+          "$ref": "#/definitions/ReadableReferenceOfBooleanValue"
+        },
+        "FlowFillPumpDGD": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "FlowLiftPumpDGD": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "StandardDeviationFlowFillPumpDGD": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "StandardDeviationFlowLiftPumpDGD": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        }
+      }
+    },
+    "ReadableReferenceOfScalarValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Name": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "PlainTextSymbol": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "LatexSymbol": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "ID": {
+          "type": "string",
+          "format": "guid"
+        },
+        "SparQLQuery": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "SemanticDescription": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/SemanticGraph"
+            }
+          ]
+        },
+        "RootConcept": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/Concept"
+            }
+          ]
+        }
+      }
+    },
+    "SemanticGraph": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Facts": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/Statement"
+          }
+        }
+      }
+    },
+    "Statement": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Subject": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/Concept"
+            }
+          ]
+        },
+        "Verb": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/Predicate"
+            }
+          ]
+        },
+        "Object": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/Concept"
+            }
+          ]
+        }
+      }
+    },
+    "Concept": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "DisplayName": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "Type": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/ConceptType"
+            }
+          ]
+        }
+      }
+    },
+    "ConceptType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "DisplayName": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "Generalization": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/ConceptType"
+            }
+          ]
+        }
+      }
+    },
+    "Predicate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "DisplayName": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "Generalization": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/Predicate"
+            }
+          ]
+        }
+      }
+    },
+    "ReadableReferenceOfBooleanValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Name": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "PlainTextSymbol": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "LatexSymbol": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "ID": {
+          "type": "string",
+          "format": "guid"
+        },
+        "SparQLQuery": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "SemanticDescription": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/SemanticGraph"
+            }
+          ]
+        },
+        "RootConcept": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/Concept"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
