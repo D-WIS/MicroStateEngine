@@ -20,7 +20,7 @@ static void GenerateJsonSchemas()
         }
     } while (!found);
     rootDir += "DWIS.MicroState.JsonSchema\\";
-    var RigOSCapabilitiesSchema = JsonSchema.FromType<Tuple<MicroStates, Thresholds, Signals>>();
+    var RigOSCapabilitiesSchema = JsonSchema.FromType < Tuple < MicroStates, Thresholds, Signals, MicroStates.MicroStateIndex>>();
     var WellPathSchemaSchemaJson = RigOSCapabilitiesSchema.ToJson();
     using (StreamWriter writer = new StreamWriter(rootDir + "MicroStates.json"))
     {
