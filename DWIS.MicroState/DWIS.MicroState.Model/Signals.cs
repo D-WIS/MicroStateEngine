@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using DWIS.RigOS.Capabilities.ModelShared;
@@ -82,7 +83,48 @@ namespace DWIS.MicroState.Model
         public ReadableReferenceOfScalarValue StandardDeviationFlowFillPumpDGD { get; set; }
         public ReadableReferenceOfScalarValue StandardDeviationFlowLiftPumpDGD { get; set; }
 
+        public List<Guid> GetScalarIDs() 
+        {
+            Type type = typeof(Signals);
 
+            PropertyInfo[] properties = type.GetProperties()
+                .Where(p => p.PropertyType == typeof(ReadableReferenceOfScalarValue))
+                .ToArray();
+            List<Guid> ids = new List<Guid>();
+            foreach (PropertyInfo property in properties)
+            {
+                if (property != null)
+                {
+                    ReadableReferenceOfScalarValue readable = (ReadableReferenceOfScalarValue)property.GetValue(this);
+                    if (readable != null && readable.ID != Guid.Empty)
+                    {
+                        ids.Add(readable.ID);
+                    }
+                }
+            }
+            return ids;
+        }
 
+        public List<Guid> GetBooleanIDs()
+        {
+            Type type = typeof(Signals);
+
+            PropertyInfo[] properties = type.GetProperties()
+                .Where(p => p.PropertyType == typeof(ReadableReferenceOfBooleanValue))
+                .ToArray();
+            List<Guid> ids = new List<Guid>();
+            foreach (PropertyInfo property in properties)
+            {
+                if (property != null)
+                {
+                    ReadableReferenceOfBooleanValue readable = (ReadableReferenceOfBooleanValue)property.GetValue(this);
+                    if (readable != null && readable.ID != Guid.Empty)
+                    {
+                        ids.Add(readable.ID);
+                    }
+                }
+            }
+            return ids;
+        }
     }
 }

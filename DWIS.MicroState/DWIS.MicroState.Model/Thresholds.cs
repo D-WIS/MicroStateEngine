@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,5 +35,34 @@ namespace DWIS.MicroState.Model
         public double StableFlowFillPumpDGDThreshold { get; set; }
         public double StableFlowLiftPumpDGDThreshold { get; set; }
 
+        public void CopyTo(Thresholds destination)
+        {
+            if (destination != null)
+            {
+                destination.TimeStampUTC = TimeStampUTC;
+                destination.StableAxialVelocityTopOfStringThreshold = StableAxialVelocityTopOfStringThreshold;
+                destination.StableRotationalVelocityTopOfStringThreshold = StableRotationalVelocityTopOfStringThreshold;
+                destination.StableFlowTopOfStringThreshold = StableFlowTopOfStringThreshold;
+                destination.StableTensionTopOfStringThreshold = StableTensionTopOfStringThreshold;
+                destination.AtmosphericPressureThreshold = AtmosphericPressureThreshold;
+                destination.StablePressureTopOfStringThreshold = StablePressureTopOfStringThreshold;
+                destination.StableTorqueTopOfStringThreshold = StableTorqueTopOfStringThreshold;
+                destination.StableFlowAnnulusOutletThreshold = StableFlowAnnulusOutletThreshold;
+                destination.StableBottomOfStringRockForceThreshold = StableBottomOfStringRockForceThreshold;
+                destination.StableRotationalVelocityBottomOfStringThreshold = StableRotationalVelocityBottomOfStringThreshold;
+                destination.StableAxialVelocityBottomOfStringThreshold = StableAxialVelocityBottomOfStringThreshold;
+                destination.StableFlowBottomOfStringThreshold = StableFlowBottomOfStringThreshold;
+                destination.StableFlowHoleOpenerThreshold = StableFlowHoleOpenerThreshold;
+                destination.MinimumTensionTopOfString = MinimumTensionTopOfString;
+                destination.MinimumPressureFloatValve = MinimumPressureFloatValve;
+                destination.StableFlowBoosterPumpThreshold = StableFlowBoosterPumpThreshold;
+                destination.StableFlowBackPressurePumpThreshold = StableFlowBackPressurePumpThreshold;
+                destination.MinimumDifferentialPressureRCDSealingThreshold = MinimumDifferentialPressureRCDSealingThreshold;
+                destination.MinimumDifferentialPressureSealBalanceThreshold = MinimumDifferentialPressureSealBalanceThreshold;
+                destination.StableFlowFillPumpDGDThreshold = StableFlowFillPumpDGDThreshold;
+                destination.StableFlowLiftPumpDGDThreshold = StableFlowLiftPumpDGDThreshold;
+
+            }
+        }
     }
 }

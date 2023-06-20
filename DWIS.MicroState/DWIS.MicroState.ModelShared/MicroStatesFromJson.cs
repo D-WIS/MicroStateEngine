@@ -607,6 +607,15 @@ namespace DWIS.MicroState.ModelShared
         StableLiftPumpDGD = 60,
 
 
+        EnteringHardStringer = 61,
+
+
+        InsideHardStringer = 62,
+
+
+        ExitingHardStringer = 63,
+
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.9.0.0 (Newtonsoft.Json v9.0.0.0)")]

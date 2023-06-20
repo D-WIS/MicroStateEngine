@@ -8,4 +8,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="DWIS.MicroState.ModelShared" Version="1.0.1" />
+    <PackageReference Include="MQTTnet" Version="4.2.1.781" />
+    <PackageReference Include="MQTTnet.Extensions.ManagedClient" Version="4.2.1.781" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DWIS.MicroState.ModelShared\DWIS.MicroState.ModelShared.csproj" />
+    <ProjectReference Include="..\DWIS.MicroState.MQTT\DWIS.MicroState.MQTT.csproj" />
+  </ItemGroup>
+
 </Project>

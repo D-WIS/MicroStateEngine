@@ -9,13 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.Intepretati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.Viewer", "DWIS.MicroState.Viewer\DWIS.MicroState.Viewer.csproj", "{2119D4BF-CAB4-4748-93A7-F16BD4131604}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DWIS.MicroState.Model", "DWIS.MicroState.Model\DWIS.MicroState.Model.csproj", "{4BDFDB60-680A-4B11-889C-C2076F2044EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.Model", "DWIS.MicroState.Model\DWIS.MicroState.Model.csproj", "{4BDFDB60-680A-4B11-889C-C2076F2044EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DWIS.MicroState.JsonSD", "DWIS.MicroState.JsonSD\DWIS.MicroState.JsonSD.csproj", "{4D87F508-0F11-41D7-8C01-025A93A399A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.JsonSD", "DWIS.MicroState.JsonSD\DWIS.MicroState.JsonSD.csproj", "{4D87F508-0F11-41D7-8C01-025A93A399A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DWIS.MicroState.JsonCS", "DWIS.MicroState.JsonCS\DWIS.MicroState.JsonCS.csproj", "{851D5F09-2039-44AC-A2CA-E84090B165D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.JsonCS", "DWIS.MicroState.JsonCS\DWIS.MicroState.JsonCS.csproj", "{851D5F09-2039-44AC-A2CA-E84090B165D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DWIS.MicroState.ModelShared", "DWIS.MicroState.ModelShared\DWIS.MicroState.ModelShared.csproj", "{610B5B54-1BDC-40F1-8F76-6F875038CAEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.ModelShared", "DWIS.MicroState.ModelShared\DWIS.MicroState.ModelShared.csproj", "{610B5B54-1BDC-40F1-8F76-6F875038CAEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DWIS.MicroState.MQTT", "DWIS.MicroState.MQTT\DWIS.MicroState.MQTT.csproj", "{88714A6C-4225-4D67-967F-AD661A8E21B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{610B5B54-1BDC-40F1-8F76-6F875038CAEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{610B5B54-1BDC-40F1-8F76-6F875038CAEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{610B5B54-1BDC-40F1-8F76-6F875038CAEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88714A6C-4225-4D67-967F-AD661A8E21B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88714A6C-4225-4D67-967F-AD661A8E21B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88714A6C-4225-4D67-967F-AD661A8E21B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88714A6C-4225-4D67-967F-AD661A8E21B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

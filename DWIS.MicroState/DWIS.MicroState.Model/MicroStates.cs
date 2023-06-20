@@ -67,7 +67,10 @@
             FillPumpDGD,
             LiftPumpDGD,
             StableFillPumpDGD,
-            StableLiftPumpDGD
+            StableLiftPumpDGD,
+            EnteringHardStringer,
+            InsideHardStringer,
+            ExitingHardStringer
         }
         /// <summary>
         /// the time stamp in UTC when the state has been updated
@@ -94,5 +97,15 @@
         /// </summary>
         public int Part5 { get; set; }
 
+
+        public void CopyTo(ref MicroStates dest)
+        {
+            dest.TimeStampUTC = TimeStampUTC;
+            dest.Part1 = Part1;
+            dest.Part2 = Part2;
+            dest.Part3 = Part3;
+            dest.Part4 = Part4;
+            dest.Part5 = Part5;
+        }
     }
 }
