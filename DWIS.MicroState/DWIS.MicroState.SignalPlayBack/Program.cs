@@ -36,7 +36,7 @@ namespace DWIS.MicroState.SignalPlayBack
         {
             // Configure MQTT client options
             var options = new MqttClientOptionsBuilder()
-                .WithTcpServer("localhost", 707) // Replace with your MQTT broker details
+                .WithTcpServer("172.30.49.246", 707) // Replace with your MQTT broker details
                 .Build();
 
             // Create MQTT client
