@@ -1,23 +1,21 @@
-﻿// See https://aka.ms/new-console-template for more information
+using DWIS.MicroState.MQTT;
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Extensions.ManagedClient;
 using Newtonsoft.Json;
-using System.Data;
-using System.Text;
 using OSDC.DotnetLibraries.General.Common;
-using DWIS.MicroState.MQTT;
-using System.Xml.Schema;
-using System.Timers;
-using System.Net.Sockets;
 using System.Net;
+using System.Net.Sockets;
 using System.Reflection.Emit;
-using System.Transactions;
+using System.Text;
 
 namespace DWIS.MicroState.SignalGenerator
 {
-    public class Generator
+    public class Worker : BackgroundService
     {
+        private readonly ILogger<Worker> _logger;
+        private Configuration Configuration { get; set; } = new Configuration();
+        private static int TCPPort_ = 12345;
         private IManagedMqttClient mqttReceiverClient_;
         public IMqttClient mqttClient_;
         private List<string> subscribedSignalTopic_ = new List<string>();
@@ -25,43 +23,74 @@ namespace DWIS.MicroState.SignalGenerator
         private double?[] scalarSignals_ = new double?[60];
         private bool?[] boolSignals_ = new bool?[20];
 
-        static async Task Main(string[] args)
+
+        public Worker(ILogger<Worker> logger)
         {
-            Generator generator = new Generator();
-            await generator.ConnectAndSubscribeEmitterAsync();
-            if (generator.mqttClient_ != null)
+            _logger = logger;
+            Initialize();
+        }
+
+        private async Task Initialize()
+        {
+            string homeDirectory = ".." + Path.DirectorySeparatorChar + "home";
+            if (!Directory.Exists(homeDirectory))
             {
-                string serverIp = "127.0.0.1"; // Change this to the desired server IP
-                int serverPort = 12345; // Change this to the desired server port
-                TcpListener listener = new TcpListener(IPAddress.Parse(serverIp), serverPort);
+                try
+                {
+                    Directory.CreateDirectory(homeDirectory);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Impossible to create home directory for local storage");
+                }
+            }
+            if (Directory.Exists(homeDirectory))
+            {
+                string configName = homeDirectory + Path.DirectorySeparatorChar + "config.json";
+                if (File.Exists(configName))
+                {
+                    string jsonContent = File.ReadAllText(configName);
+                    if (!string.IsNullOrEmpty(jsonContent))
+                    {
+                        Configuration config = JsonConvert.DeserializeObject<Configuration>(jsonContent);
+                        if (config != null)
+                        {
+                            Configuration = config;
+                        }
+                    }
+                }
+            }
+        }
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            await ConnectAndSubscribeEmitterAsync();
+            if (mqttClient_ != null)
+            {
+                TcpListener listener = new TcpListener(TCPPort_);
                 try
                 {
                     // Start listening for incoming connections
                     listener.Start();
-                    Console.WriteLine("Server listening on " + serverIp + ":" + serverPort);
-
-                    while (true)
+                    _logger.LogInformation("Server listnening on port " + TCPPort_);
+                    while (!stoppingToken.IsCancellationRequested)
                     {
                         // Accept a client connection
                         TcpClient client = listener.AcceptTcpClient();
 
                         // Handle the client connection asynchronously
-                        _ = generator.HandleClientAsync(client);
+                        await HandleClientAsync(client);
                     }
-                } catch (Exception ex)
+                }
+                catch (Exception e)
                 {
-                    Console.WriteLine("Error: " + ex.Message);
+                    _logger.LogError(e.ToString());
                 }
             }
-            // run the loop
-            Console.WriteLine("when finished hit return");
-            Console.ReadLine();
-            if (generator.mqttClient_ != null)
+            if (mqttClient_ != null)
             {
-                await generator.mqttClient_.DisconnectAsync();
+                await mqttClient_.DisconnectAsync();
             }
         }
-
         private async Task HandleClientAsync(TcpClient client)
         {
             using (NetworkStream stream = client.GetStream())
@@ -446,7 +475,7 @@ namespace DWIS.MicroState.SignalGenerator
                 dvalue = null;
                 return true;
             }
-            else if (svalue.ToLowerInvariant() == "null") 
+            else if (svalue.ToLowerInvariant() == "null")
             {
                 dvalue = null;
                 return true;
@@ -495,14 +524,12 @@ namespace DWIS.MicroState.SignalGenerator
 
             }
         }
-        private async Task Loop()
-        {
-        }
+
         public async Task ConnectAndSubscribeEmitterAsync()
         {
             // Configure MQTT client options
             var options = new MqttClientOptionsBuilder()
-                .WithTcpServer("localhost", 707) // Replace with your MQTT broker details
+                .WithTcpServer(Configuration.MQTTServerName, Configuration.MQTTServerPort) // Replace with your MQTT broker details
                 .Build();
 
             // Create MQTT client
@@ -531,6 +558,5 @@ namespace DWIS.MicroState.SignalGenerator
             await mqttClient_.PublishAsync(signalsMQTTMessage);
 
         }
-
     }
 }
