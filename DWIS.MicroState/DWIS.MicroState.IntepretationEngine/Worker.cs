@@ -14,6 +14,7 @@ namespace DWIS.MicroState.IntepretationEngine
 {
     public class Worker : BackgroundService
     {
+        private Configuration Configuration { get; set; } = new Configuration();
         private readonly ILogger<Worker> _logger;
         private IManagedMqttClient mqttReceiverClient_;
         public IMqttClient mqttClient_;
@@ -42,7 +43,6 @@ namespace DWIS.MicroState.IntepretationEngine
             while (!stoppingToken.IsCancellationRequested)
             {
                 await RefreshSignals();
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await Task.Delay(1000, stoppingToken);
             }
             await mqttClient_.DisconnectAsync();
@@ -50,6 +50,34 @@ namespace DWIS.MicroState.IntepretationEngine
 
         private void Initialize()
         {
+            string homeDirectory = ".." + Path.DirectorySeparatorChar + "home";
+            if (!Directory.Exists(homeDirectory))
+            {
+                try
+                {
+                    Directory.CreateDirectory(homeDirectory);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Impossible to create home directory for local storage");
+                }
+            }
+            if (Directory.Exists(homeDirectory))
+            {
+                string configName = homeDirectory + Path.DirectorySeparatorChar + "config.json";
+                if (File.Exists(configName))
+                {
+                    string jsonContent = File.ReadAllText(configName);
+                    if (!string.IsNullOrEmpty(jsonContent))
+                    {
+                        Configuration config = JsonConvert.DeserializeObject<Configuration>(jsonContent);
+                        if (config != null)
+                        {
+                            Configuration = config;
+                        }
+                    }
+                }
+            }
             thresholds_ = new Thresholds();
             thresholds_.TimeStampUTC = DateTime.UtcNow;
             thresholds_.StableAxialVelocityTopOfStringThreshold = 0.5 / 3600.0;
@@ -160,7 +188,7 @@ namespace DWIS.MicroState.IntepretationEngine
         {
             // Configure MQTT client options
             var options = new MqttClientOptionsBuilder()
-                .WithTcpServer("localhost", 707) // Replace with your MQTT broker details
+                .WithTcpServer(Configuration.MQTTServerName, Configuration.MQTTServerPort) // Replace with your MQTT broker details
                 .Build();
 
             // Create MQTT client
@@ -196,7 +224,7 @@ namespace DWIS.MicroState.IntepretationEngine
             var options = new ManagedMqttClientOptionsBuilder()
                 .WithAutoReconnectDelay(TimeSpan.FromSeconds(5))
                 .WithClientOptions(new MqttClientOptionsBuilder()
-                    .WithTcpServer("localhost", 707) // Replace with your MQTT broker details
+                    .WithTcpServer(Configuration.MQTTServerName, Configuration.MQTTServerPort) // Replace with your MQTT broker details
                     .Build())
                 .Build();
 
