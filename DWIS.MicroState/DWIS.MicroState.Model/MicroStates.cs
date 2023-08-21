@@ -63,14 +63,14 @@
             IsolationSealPressureBalance,
             BearingAssemblyLatched,
             ScreenMPDChokePlugged,
-            FlowPathStable,
+            MainFlowPathStable,
+            AlternateFlowPathStable,
             FillPumpDGD,
             LiftPumpDGD,
             StableFillPumpDGD,
             StableLiftPumpDGD,
-            EnteringHardStringer,
-            InsideHardStringer,
-            ExitingHardStringer
+            FormationChange,
+            InsideHardStringer
         }
         /// <summary>
         /// the time stamp in UTC when the state has been updated

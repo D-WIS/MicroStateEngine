@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,16 @@ namespace DWIS.MicroState.Model
         public double MinimumDifferentialPressureSealBalanceThreshold { get; set; }
         public double StableFlowFillPumpDGDThreshold { get; set; }
         public double StableFlowLiftPumpDGDThreshold { get; set; }
+        public double StableCuttingsFlowThreshold { get; set; }
+        public double HardStringerThreshold { get; set; }
+        public double ChangeOfFormationUCSSlopeThreshold { get; set; }
+        public double ForceOnLedgeThreshold { get; set; }
+        public double ForceOnCuttingsBedThreshold { get; set; }
+        public double ForceDifferentialStickingThreshold { get; set; }
+        public double FluidFlowFormationThreshold { get; set; }
+        public double FlowCavingsFromFormationThreshold { get; set; }
+        public double WhirlRateThreshold { get; set; }
+        public double FlowPipeToAnnulusThreshold { get; set; }
 
         public void CopyTo(Thresholds destination)
         {
@@ -61,7 +72,16 @@ namespace DWIS.MicroState.Model
                 destination.MinimumDifferentialPressureSealBalanceThreshold = MinimumDifferentialPressureSealBalanceThreshold;
                 destination.StableFlowFillPumpDGDThreshold = StableFlowFillPumpDGDThreshold;
                 destination.StableFlowLiftPumpDGDThreshold = StableFlowLiftPumpDGDThreshold;
-
+                destination.StableCuttingsFlowThreshold = StableCuttingsFlowThreshold;
+                destination.HardStringerThreshold = HardStringerThreshold;
+                destination.ChangeOfFormationUCSSlopeThreshold = ChangeOfFormationUCSSlopeThreshold;
+                destination.ForceOnLedgeThreshold = ForceOnLedgeThreshold;
+                destination.ForceOnCuttingsBedThreshold = ForceOnCuttingsBedThreshold;
+                destination.ForceDifferentialStickingThreshold = ForceDifferentialStickingThreshold;
+                destination.FluidFlowFormationThreshold = FluidFlowFormationThreshold;
+                destination.FlowCavingsFromFormationThreshold = FlowCavingsFromFormationThreshold;
+                destination.WhirlRateThreshold = WhirlRateThreshold;
+                destination.FlowPipeToAnnulusThreshold = FlowPipeToAnnulusThreshold;
             }
         }
     }

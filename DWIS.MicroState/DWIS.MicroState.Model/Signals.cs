@@ -82,7 +82,9 @@ namespace DWIS.MicroState.Model
         public ReadableReferenceOfScalarValue FlowLiftPumpDGD { get; set; }
         public ReadableReferenceOfScalarValue StandardDeviationFlowFillPumpDGD { get; set; }
         public ReadableReferenceOfScalarValue StandardDeviationFlowLiftPumpDGD { get; set; }
-
+        public ReadableReferenceOfScalarValue UCS { get; set; }
+        public ReadableReferenceOfScalarValue UCSSlope { get; set; }
+        public ReadableReferenceOfScalarValue MinimumTensionForTwistOffDetection { get; set; }
         public List<Guid> GetScalarIDs() 
         {
             Type type = typeof(Signals);

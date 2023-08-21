@@ -102,6 +102,36 @@ namespace DWIS.MicroState.ModelShared
         [Newtonsoft.Json.JsonProperty("StableFlowLiftPumpDGDThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public double StableFlowLiftPumpDGDThreshold { get; set; }
 
+        [Newtonsoft.Json.JsonProperty("StableCuttingsFlowThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double StableCuttingsFlowThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("HardStringerThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double HardStringerThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ChangeOfFormationUCSSlopeThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double ChangeOfFormationUCSSlopeThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ForceOnLedgeThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double ForceOnLedgeThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ForceOnCuttingsBedThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double ForceOnCuttingsBedThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ForceDifferentialStickingThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double ForceDifferentialStickingThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FluidFlowFormationThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double FluidFlowFormationThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowCavingsFromFormationThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double FlowCavingsFromFormationThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("WhirlRateThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double WhirlRateThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowPipeToAnnulusThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double FlowPipeToAnnulusThreshold { get; set; }
+
 
     }
 
@@ -302,6 +332,15 @@ namespace DWIS.MicroState.ModelShared
 
         [Newtonsoft.Json.JsonProperty("StandardDeviationFlowLiftPumpDGD", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public ReadableReferenceOfScalarValue StandardDeviationFlowLiftPumpDGD { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("UCS", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ReadableReferenceOfScalarValue UCS { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("UCSSlope", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ReadableReferenceOfScalarValue UCSSlope { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("MinimumTensionForTwistOffDetection", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ReadableReferenceOfScalarValue MinimumTensionForTwistOffDetection { get; set; }
 
 
     }
@@ -592,28 +631,28 @@ namespace DWIS.MicroState.ModelShared
         ScreenMPDChokePlugged = 55,
 
 
-        FlowPathStable = 56,
+        MainFlowPathStable = 56,
 
 
-        FillPumpDGD = 57,
+        AlternateFlowPathStable = 57,
 
 
-        LiftPumpDGD = 58,
+        FillPumpDGD = 58,
 
 
-        StableFillPumpDGD = 59,
+        LiftPumpDGD = 59,
 
 
-        StableLiftPumpDGD = 60,
+        StableFillPumpDGD = 60,
 
 
-        EnteringHardStringer = 61,
+        StableLiftPumpDGD = 61,
 
 
-        InsideHardStringer = 62,
+        FormationChange = 62,
 
 
-        ExitingHardStringer = 63,
+        InsideHardStringer = 63,
 
 
     }

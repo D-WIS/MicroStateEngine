@@ -10,7 +10,7 @@ namespace DWIS.MicroState.IntepretationEngine
     {
         public string MQTTTopic { get; set; }
         public int Index { get; set; }
-        public object Value { get; set; }
+        public object? Value { get; set; }
 
         public SignalMapping() { }
         public SignalMapping(string topic, int index)

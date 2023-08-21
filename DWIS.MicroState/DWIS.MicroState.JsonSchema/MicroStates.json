@@ -139,6 +139,46 @@
         "StableFlowLiftPumpDGDThreshold": {
           "type": "number",
           "format": "double"
+        },
+        "StableCuttingsFlowThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "HardStringerThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "ChangeOfFormationUCSSlopeThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "ForceOnLedgeThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "ForceOnCuttingsBedThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "ForceDifferentialStickingThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "FluidFlowFormationThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "FlowCavingsFromFormationThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "WhirlRateThreshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "FlowPipeToAnnulusThreshold": {
+          "type": "number",
+          "format": "double"
         }
       }
     },
@@ -341,6 +381,15 @@
           "$ref": "#/definitions/ReadableReferenceOfScalarValue"
         },
         "StandardDeviationFlowLiftPumpDGD": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "UCS": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "UCSSlope": {
+          "$ref": "#/definitions/ReadableReferenceOfScalarValue"
+        },
+        "MinimumTensionForTwistOffDetection": {
           "$ref": "#/definitions/ReadableReferenceOfScalarValue"
         }
       }
@@ -630,14 +679,14 @@
         "IsolationSealPressureBalance",
         "BearingAssemblyLatched",
         "ScreenMPDChokePlugged",
-        "FlowPathStable",
+        "MainFlowPathStable",
+        "AlternateFlowPathStable",
         "FillPumpDGD",
         "LiftPumpDGD",
         "StableFillPumpDGD",
         "StableLiftPumpDGD",
-        "EnteringHardStringer",
-        "InsideHardStringer",
-        "ExitingHardStringer"
+        "FormationChange",
+        "InsideHardStringer"
       ],
       "enum": [
         0,

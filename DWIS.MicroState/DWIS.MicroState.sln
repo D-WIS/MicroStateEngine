@@ -5,8 +5,6 @@ VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.SignalPlayBack", "DWIS.MicroState.SignalPlayBack\DWIS.MicroState.SignalPlayBack.csproj", "{81615D56-254F-4187-AC99-27E36330CFCA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.IntepretationEngine", "DWIS.MicroState.IntepretationEngine\DWIS.MicroState.IntepretationEngine.csproj", "{673A0818-7F0C-489C-9150-D5C69ABF8705}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.Viewer", "DWIS.MicroState.Viewer\DWIS.MicroState.Viewer.csproj", "{2119D4BF-CAB4-4748-93A7-F16BD4131604}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.Model", "DWIS.MicroState.Model\DWIS.MicroState.Model.csproj", "{4BDFDB60-680A-4B11-889C-C2076F2044EB}"
@@ -19,7 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.ModelShared
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.MQTT", "DWIS.MicroState.MQTT\DWIS.MicroState.MQTT.csproj", "{88714A6C-4225-4D67-967F-AD661A8E21B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DWIS.MicroState.MQTTSignalReader", "DWIS.MicroState.MQTTSignalReader\DWIS.MicroState.MQTTSignalReader.csproj", "{135C8B3C-69E1-4AA4-A706-6F6E7FA3B18F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.MQTTSignalReader", "DWIS.MicroState.MQTTSignalReader\DWIS.MicroState.MQTTSignalReader.csproj", "{135C8B3C-69E1-4AA4-A706-6F6E7FA3B18F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.SignalGenerator", "DWIS.MicroState.SignalGenerator\DWIS.MicroState.SignalGenerator.csproj", "{6AA52D02-86D7-478D-9A68-AAF5FB6A1A6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DWIS.MicroState.IntepretationEngine", "DWIS.MicroState.IntepretationEngine\DWIS.MicroState.IntepretationEngine.csproj", "{3C193114-0671-48CE-BE35-F10DD62C1272}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +33,6 @@ Global
 		{81615D56-254F-4187-AC99-27E36330CFCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81615D56-254F-4187-AC99-27E36330CFCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81615D56-254F-4187-AC99-27E36330CFCA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{673A0818-7F0C-489C-9150-D5C69ABF8705}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{673A0818-7F0C-489C-9150-D5C69ABF8705}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{673A0818-7F0C-489C-9150-D5C69ABF8705}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{673A0818-7F0C-489C-9150-D5C69ABF8705}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2119D4BF-CAB4-4748-93A7-F16BD4131604}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2119D4BF-CAB4-4748-93A7-F16BD4131604}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2119D4BF-CAB4-4748-93A7-F16BD4131604}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,6 +61,14 @@ Global
 		{135C8B3C-69E1-4AA4-A706-6F6E7FA3B18F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{135C8B3C-69E1-4AA4-A706-6F6E7FA3B18F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{135C8B3C-69E1-4AA4-A706-6F6E7FA3B18F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AA52D02-86D7-478D-9A68-AAF5FB6A1A6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AA52D02-86D7-478D-9A68-AAF5FB6A1A6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AA52D02-86D7-478D-9A68-AAF5FB6A1A6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AA52D02-86D7-478D-9A68-AAF5FB6A1A6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C193114-0671-48CE-BE35-F10DD62C1272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C193114-0671-48CE-BE35-F10DD62C1272}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C193114-0671-48CE-BE35-F10DD62C1272}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C193114-0671-48CE-BE35-F10DD62C1272}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
