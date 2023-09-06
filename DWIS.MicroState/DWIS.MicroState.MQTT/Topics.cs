@@ -1,4 +1,4 @@
-﻿namespace DWIS.MicroState.MQTT
+﻿namespace DWIS.MicroState.MQTTTopics
 {
     public class Topics
     {
