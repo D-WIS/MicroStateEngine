@@ -3,7 +3,6 @@ using MQTTnet.Client;
 using MQTTnet.Extensions.ManagedClient;
 using Newtonsoft.Json;
 using DWIS.MicroState.Model;
-using DWIS.MicroState.MQTT;
 using OSDC.DotnetLibraries.General.Common;
 using System.Text;
 using System.Timers;
@@ -200,7 +199,7 @@ namespace DWIS.MicroState.IntepretationEngine
             // Create MQTT message and publish
             string thresholdsPayload = JsonConvert.SerializeObject(thresholds_);
             var thresholdsMQTTMessage = new MqttApplicationMessageBuilder()
-                .WithTopic(Topics.Thresholds)
+                .WithTopic(DWIS.MicroState.MQTTTopics.Topics.Thresholds)
                 .WithPayload(thresholdsPayload)
                 .WithQualityOfServiceLevel(MQTTnet.Protocol.MqttQualityOfServiceLevel.AtMostOnce)
                 .WithRetainFlag(true)
@@ -209,7 +208,7 @@ namespace DWIS.MicroState.IntepretationEngine
 
             string signalsPayload = JsonConvert.SerializeObject(signals_);
             var signalsMQTTMessage = new MqttApplicationMessageBuilder()
-                .WithTopic(Topics.SignalsInputs)
+                .WithTopic(DWIS.MicroState.MQTTTopics.Topics.SignalsInputs)
                 .WithPayload(signalsPayload)
                 .WithQualityOfServiceLevel(MQTTnet.Protocol.MqttQualityOfServiceLevel.AtMostOnce)
                 .WithRetainFlag(true)
@@ -236,8 +235,8 @@ namespace DWIS.MicroState.IntepretationEngine
 
             // Connect and subscribe to topic
             await mqttReceiverClient_.StartAsync(options);
-            await mqttReceiverClient_.SubscribeAsync(Topics.SignalsInputs);
-            await mqttReceiverClient_.SubscribeAsync(Topics.ThresholdsRequests);
+            await mqttReceiverClient_.SubscribeAsync(DWIS.MicroState.MQTTTopics.Topics.SignalsInputs);
+            await mqttReceiverClient_.SubscribeAsync(DWIS.MicroState.MQTTTopics.Topics.ThresholdsRequests);
 
             // Additional setup or logic can be added here
         }
@@ -249,13 +248,13 @@ namespace DWIS.MicroState.IntepretationEngine
                 if (eventArgs.ApplicationMessage != null)
                 {
                     string payload = Encoding.UTF8.GetString(eventArgs.ApplicationMessage.Payload);
-                    if (eventArgs.ApplicationMessage.Topic == Topics.SignalsInputs)
+                    if (eventArgs.ApplicationMessage.Topic == DWIS.MicroState.MQTTTopics.Topics.SignalsInputs)
                     {
                         // Deserialize the JSON payload
                         var message = JsonConvert.DeserializeObject<Signals>(payload);
 
                     }
-                    else if (eventArgs.ApplicationMessage.Topic == Topics.ThresholdsRequests)
+                    else if (eventArgs.ApplicationMessage.Topic == DWIS.MicroState.MQTTTopics.Topics.ThresholdsRequests)
                     {
                         // Deserialize the JSON payload
                         var message = JsonConvert.DeserializeObject<Thresholds>(payload);
@@ -268,7 +267,7 @@ namespace DWIS.MicroState.IntepretationEngine
 
                             // Create MQTT message and publish
                             var mqttMessage = new MqttApplicationMessageBuilder()
-                                .WithTopic(Topics.Thresholds)
+                                .WithTopic(DWIS.MicroState.MQTTTopics.Topics.Thresholds)
                                 .WithPayload(thresholdsPayload)
                                 .WithQualityOfServiceLevel(MQTTnet.Protocol.MqttQualityOfServiceLevel.AtMostOnce)
                                 .WithRetainFlag(true)
@@ -277,7 +276,7 @@ namespace DWIS.MicroState.IntepretationEngine
 
                         }
                     }
-                    else if (eventArgs.ApplicationMessage.Topic == Topics.SignalSourceScalars)
+                    else if (eventArgs.ApplicationMessage.Topic == DWIS.MicroState.MQTTTopics.Topics.SignalSourceScalars)
                     {
                         var message = JsonConvert.DeserializeObject<double?[]>(payload);
                         if (message != null)
@@ -285,7 +284,7 @@ namespace DWIS.MicroState.IntepretationEngine
                             await ProcessSignals(eventArgs.ApplicationMessage.Topic, message);
                         }
                     }
-                    else if (eventArgs.ApplicationMessage.Topic == Topics.SignalSourceBooleans)
+                    else if (eventArgs.ApplicationMessage.Topic == DWIS.MicroState.MQTTTopics.Topics.SignalSourceBooleans)
                     {
                         var message = JsonConvert.DeserializeObject<bool?[]>(payload);
                         if (message != null)
@@ -300,13 +299,13 @@ namespace DWIS.MicroState.IntepretationEngine
         private async Task RefreshSignals()
         {
             // start refresh
-            if (!subscribedSignalTopic_.Contains(Topics.SignalSourceScalars) && mqttReceiverClient_ != null)
+            if (!subscribedSignalTopic_.Contains(DWIS.MicroState.MQTTTopics.Topics.SignalSourceScalars) && mqttReceiverClient_ != null)
             {
-                await mqttReceiverClient_.SubscribeAsync(Topics.SignalSourceScalars);
+                await mqttReceiverClient_.SubscribeAsync(DWIS.MicroState.MQTTTopics.Topics.SignalSourceScalars);
             }
-            if (!subscribedSignalTopic_.Contains(Topics.SignalSourceBooleans) && mqttReceiverClient_ != null)
+            if (!subscribedSignalTopic_.Contains(DWIS.MicroState.MQTTTopics.Topics.SignalSourceBooleans) && mqttReceiverClient_ != null)
             {
-                await mqttReceiverClient_.SubscribeAsync(Topics.SignalSourceBooleans);
+                await mqttReceiverClient_.SubscribeAsync(DWIS.MicroState.MQTTTopics.Topics.SignalSourceBooleans);
             }
             if (signals_ != null)
             {
@@ -317,11 +316,11 @@ namespace DWIS.MicroState.IntepretationEngine
                     signalDictionary_.Clear();
                     for (int i = 0; i < scalarIDs.Count; i++)
                     {
-                        signalDictionary_.Add(scalarIDs[i], new SignalMapping(Topics.SignalSourceScalars, i));
+                        signalDictionary_.Add(scalarIDs[i], new SignalMapping(DWIS.MicroState.MQTTTopics.Topics.SignalSourceScalars, i));
                     }
                     for (int i = 0; i < booleanIDs.Count; i++)
                     {
-                        signalDictionary_.Add(booleanIDs[i], new SignalMapping(Topics.SignalSourceBooleans, i));
+                        signalDictionary_.Add(booleanIDs[i], new SignalMapping(DWIS.MicroState.MQTTTopics.Topics.SignalSourceBooleans, i));
                     }
                 }
 
@@ -330,7 +329,7 @@ namespace DWIS.MicroState.IntepretationEngine
             signals_.TimeStampUTC = DateTime.UtcNow;
             string signalsPayload = JsonConvert.SerializeObject(signals_);
             var signalsMQTTMessage = new MqttApplicationMessageBuilder()
-                .WithTopic(Topics.SignalsInputs)
+                .WithTopic(DWIS.MicroState.MQTTTopics.Topics.SignalsInputs)
                 .WithPayload(signalsPayload)
                 .WithQualityOfServiceLevel(MQTTnet.Protocol.MqttQualityOfServiceLevel.AtMostOnce)
                 .WithRetainFlag(true)
@@ -367,7 +366,7 @@ namespace DWIS.MicroState.IntepretationEngine
                     microStates.TimeStampUTC = DateTime.UtcNow;
                     string microStatePayload = JsonConvert.SerializeObject(microStates);
                     var microStateMQTTMessage = new MqttApplicationMessageBuilder()
-                        .WithTopic(Topics.CurrentMicroStates)
+                        .WithTopic(DWIS.MicroState.MQTTTopics.Topics.CurrentMicroStates)
                         .WithPayload(microStatePayload)
                         .WithQualityOfServiceLevel(MQTTnet.Protocol.MqttQualityOfServiceLevel.AtMostOnce)
                         .WithRetainFlag(true)
@@ -406,7 +405,7 @@ namespace DWIS.MicroState.IntepretationEngine
                     microStates.TimeStampUTC = DateTime.UtcNow;
                     string microStatePayload = JsonConvert.SerializeObject(microStates);
                     var microStateMQTTMessage = new MqttApplicationMessageBuilder()
-                        .WithTopic(Topics.CurrentMicroStates)
+                        .WithTopic(DWIS.MicroState.MQTTTopics.Topics.CurrentMicroStates)
                         .WithPayload(microStatePayload)
                         .WithQualityOfServiceLevel(MQTTnet.Protocol.MqttQualityOfServiceLevel.AtMostOnce)
                         .WithRetainFlag(true)
