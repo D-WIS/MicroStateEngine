@@ -1,48 +1,65 @@
 using MQTTnet.Extensions.ManagedClient;
-using MQTTnet;
-using MQTTnet.Client;
-using MQTTnet.Extensions.ManagedClient;
 using Newtonsoft.Json;
-using System.Text;
-using DWIS.MicroState.MQTT;
 using DWIS.MicroState.ModelShared;
+using DWIS.Client.ReferenceImplementation;
+using DWIS.SPARQL.Utils;
+using DWIS.Vocabulary.Schemas;
 
 namespace DWIS.MicroState.Viewer
 {
     public partial class MicroStateViewer : Form
     {
+        private static readonly string microStatesQueryName_ = "DWIS:eRAP:MicroStatesQuery";
         private IManagedMqttClient mqttReceiverClient_;
         private MicroStates currentMicroStates_;
+        private IOPCUADWISClient? DDHubClient_ = null;
+        private AcquiredSignals? microStateSignals_ = null;
         private object lock_ = new object();
 
         public MicroStateViewer()
         {
             InitializeComponent();
-            ConnectAndSubscribeReceiverAsync();
+            ConnectToDDHub();
+            AcquireMicroStates();
+            Thread thread = new Thread(Loop);
+            thread.Start();
+        }
+        private void ConnectToDDHub()
+        {
+            try
+            {
+                DefaultDWISClientConfiguration defaultDWISClientConfiguration = new DefaultDWISClientConfiguration();
+                defaultDWISClientConfiguration.UseWebAPI = false;
+                defaultDWISClientConfiguration.ServerAddress = "opc.tcp://localhost:48030";
+                DDHubClient_ = null; // new DWISClient(defaultDWISClientConfiguration, new UAApplicationConfiguration(), null, null, new DWIS.OPCUA.UALicenseManager.LicenseManager());
+            }
+            catch (Exception e)
+            {
+
+            }
         }
 
-        public async Task ConnectAndSubscribeReceiverAsync()
+        private void AcquireMicroStates()
         {
-            // Configure MQTT client options
-            var options = new ManagedMqttClientOptionsBuilder()
-                .WithAutoReconnectDelay(TimeSpan.FromSeconds(5))
-                .WithClientOptions(new MqttClientOptionsBuilder()
-                    .WithTcpServer("localhost", 707) // Replace with your MQTT broker details
-                    .Build())
-                .Build();
+            if (DDHubClient_ != null && DDHubClient_.Connected)
+            {
+                string processState = "?processState";
+                string dwis = "?dwis";
+                QueryBuilder queryBuilder = new QueryBuilder();
+                queryBuilder.AddSelectedVariable(QueryBuilder.SIGNAL_VARIABLE);
+                queryBuilder.AddPatternItem(QueryBuilder.DATAPOINT_VARIABLE, Verbs.IsGeneratedBy, processState);
+                queryBuilder.AddPatternItem(processState, QueryBuilder.RDFTYPE, "ddhub:" + Nouns.ProcessState);
+                queryBuilder.AddPatternItem(processState, Verbs.IsProvidedBy, dwis);
+                queryBuilder.AddPatternItem(dwis, QueryBuilder.RDFTYPE, "ddhub:" + Nouns.DWISInternalService);
+                string query = queryBuilder.Build();
 
-            // Create MQTT client
-            mqttReceiverClient_ = new MqttFactory().CreateManagedMqttClient();
-
-            // Wire up event handlers
-            mqttReceiverClient_.ApplicationMessageReceivedAsync += HandleMqttMessageReceived;
-
-            // Connect and subscribe to topic
-            await mqttReceiverClient_.StartAsync(options);
-            await mqttReceiverClient_.SubscribeAsync(Topics.CurrentMicroStates);
-
-            // Additional setup or logic can be added here
-            RefreshConnected();
+                var result = DDHubClient_.GetQueryResult(query);
+                if (result != null && result.Results != null && result.Results.Count > 0)
+                {
+                    microStateSignals_ = AcquiredSignals.CreateWithSubscription(new string[] { query }, new string[] { microStatesQueryName_ }, 0, DDHubClient_);
+                }
+                RefreshConnected();
+            }
         }
 
         public void RefreshConnected()
@@ -62,27 +79,55 @@ namespace DWIS.MicroState.Viewer
             connectedButton.BackColor = Color.LightGreen;
         }
 
-        private async Task HandleMqttMessageReceived(MqttApplicationMessageReceivedEventArgs eventArgs)
+        private void Loop()
         {
-            if (eventArgs != null)
+            while (true)
             {
-                if (eventArgs.ApplicationMessage != null)
+                DateTime d1 = DateTime.UtcNow;
+                ManageChanges();
+                DateTime d2 = DateTime.UtcNow;
+                TimeSpan elapsed = d2 - d1;
+                if (elapsed < TimeSpan.FromSeconds(1))
                 {
-
-                    string payload = Encoding.UTF8.GetString(eventArgs.ApplicationMessage.Payload);
-                    if (eventArgs.ApplicationMessage.Topic == Topics.CurrentMicroStates)
+                    Thread.Sleep(TimeSpan.FromSeconds(1) - elapsed);
+                }
+            }
+        }
+        private void ManageChanges()
+        {
+            if (microStateSignals_ != null && microStateSignals_.ContainsKey(microStatesQueryName_))
+            {
+                var result = microStateSignals_[microStatesQueryName_];
+                if (result != null && result.Count > 0)
+                {
+                    AcquiredSignal signal = result[0];
+                    if (signal != null)
                     {
-                        // Deserialize the JSON payload
-                        var currentMicroStates = JsonConvert.DeserializeObject<MicroStates>(payload);
-                        lock (lock_)
+                        string? json = signal.GetValue<string>();
+                        if (!string.IsNullOrEmpty(json))
                         {
-                            currentMicroStates_ = currentMicroStates;
+                            try
+                            {
+                                var currentMicroStates = JsonConvert.DeserializeObject<MicroStates>(json);
+                                if (currentMicroStates != null)
+                                {
+                                    lock (lock_)
+                                    {
+                                        currentMicroStates_ = currentMicroStates;
+                                    }
+                                }
+                                RefreshDisplay();
+                            }
+                            catch (Exception ex)
+                            {
+
+                            }
                         }
-                        RefreshDisplay();
                     }
                 }
             }
         }
+
         private void RefreshDisplay()
         {
             if (InvokeRequired)
@@ -110,7 +155,7 @@ namespace DWIS.MicroState.Viewer
             {
                 foreach (var choice in Enum.GetValues(typeof(MicroStateIndex)))
                 {
-                    string choiceName = Enum.GetName(typeof(MicroStateIndex), choice);
+                    string? choiceName = Enum.GetName(typeof(MicroStateIndex), choice);
                     if (!string.IsNullOrEmpty(choiceName))
                     {
                         // find the corresponding button

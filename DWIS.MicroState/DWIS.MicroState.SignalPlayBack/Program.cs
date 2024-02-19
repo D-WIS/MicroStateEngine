@@ -5,7 +5,7 @@ using MQTTnet.Extensions.ManagedClient;
 using Newtonsoft.Json;
 using System.Text;
 using System.Timers;
-using DWIS.MicroState.MQTT;
+using DWIS.MicroState.MQTTTopics;
 
 namespace DWIS.MicroState.SignalPlayBack
 {
@@ -58,12 +58,14 @@ namespace DWIS.MicroState.SignalPlayBack
             }
             string scalarPayload = JsonConvert.SerializeObject(scalars);
             // Create MQTT message and publish
+            /*
             var mqttScalarMessage = new MqttApplicationMessageBuilder()
                 .WithTopic(Topics.SignalSourceScalars)
                 .WithPayload(scalarPayload)
                 .WithRetainFlag()
                 .Build();
             await mqttClient_.PublishAsync(mqttScalarMessage);
+            */
 
             bool[] booleans = new bool[100];
             for (int i = 0; i < booleans.Length; i++)
@@ -73,12 +75,14 @@ namespace DWIS.MicroState.SignalPlayBack
 
             string booleanPayload = JsonConvert.SerializeObject(booleans);
             // Create MQTT message and publish
+            /*
             var mqttBooleanMessage = new MqttApplicationMessageBuilder()
                 .WithTopic(Topics.SignalSourceBooleans)
                 .WithPayload(booleanPayload)
                 .WithRetainFlag()
                 .Build();
             await mqttClient_.PublishAsync(mqttBooleanMessage);
+            */
 
         }
     }

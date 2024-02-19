@@ -47,7 +47,7 @@ namespace DWIS.MicroState.Model
         public ReadableReferenceOfScalarValue StandardDeviationAxialVelocityBottomOfString { get; set; }
         public ReadableReferenceOfScalarValue FlowBottomOfString { get; set; }
         public ReadableReferenceOfScalarValue StableFlowBottomOfString { get; set; }
-        public ReadableReferenceOfScalarValue FlowHoleOpener { get; set; }  
+        public ReadableReferenceOfScalarValue FlowHoleOpener { get; set; }
         public ReadableReferenceOfScalarValue StableFlowHoleOpener { get; set; }
         public ReadableReferenceOfScalarValue ForceOnLedge { get; set; }
         public ReadableReferenceOfScalarValue ForceOnCuttingsBed { get; set; }
@@ -64,8 +64,8 @@ namespace DWIS.MicroState.Model
         public ReadableReferenceOfBooleanValue CirculationSubOpen { get; set; }
         public ReadableReferenceOfBooleanValue PortedFloatOpen { get; set; }
         public ReadableReferenceOfBooleanValue WhipstockAttached { get; set; }
-        public ReadableReferenceOfBooleanValue PlugAttached {get; set; }
-        public ReadableReferenceOfBooleanValue LinerAttached { get; set; }  
+        public ReadableReferenceOfBooleanValue PlugAttached { get; set; }
+        public ReadableReferenceOfBooleanValue LinerAttached { get; set; }
         public ReadableReferenceOfScalarValue FlowBoosterPump { get; set; }
         public ReadableReferenceOfScalarValue StandardDeviationFlowBoosterPump { get; set; }
         public ReadableReferenceOfScalarValue FlowBackPressurePump { get; set; }
@@ -77,15 +77,21 @@ namespace DWIS.MicroState.Model
         public ReadableReferenceOfBooleanValue BearingAssemblyLatched { get; set; }
         public ReadableReferenceOfBooleanValue ScreenMPDChokePlugged { get; set; }
         public ReadableReferenceOfBooleanValue MainFlowPathMPDEstablished { get; set; }
-        public ReadableReferenceOfBooleanValue AlternateFlowPathMPDEstablished { get; set; }    
+        public ReadableReferenceOfBooleanValue AlternateFlowPathMPDEstablished { get; set; }
         public ReadableReferenceOfScalarValue FlowFillPumpDGD { get; set; }
         public ReadableReferenceOfScalarValue FlowLiftPumpDGD { get; set; }
         public ReadableReferenceOfScalarValue StandardDeviationFlowFillPumpDGD { get; set; }
         public ReadableReferenceOfScalarValue StandardDeviationFlowLiftPumpDGD { get; set; }
         public ReadableReferenceOfScalarValue UCS { get; set; }
         public ReadableReferenceOfScalarValue UCSSlope { get; set; }
-        public ReadableReferenceOfScalarValue MinimumTensionForTwistOffDetection { get; set; }
-        public List<Guid> GetScalarIDs() 
+        public ReadableReferenceOfScalarValue MinimumTorqueForTwistOffDetection { get; set; }
+        public ReadableReferenceOfScalarValue ToolJoint1Height { get; set; }
+        public ReadableReferenceOfScalarValue ToolJoint2Height { get; set; }
+        public ReadableReferenceOfScalarValue ToolJoint3Height { get; set; }
+        public ReadableReferenceOfScalarValue ToolJoint4Height { get; set; }
+        public ReadableReferenceOfScalarValue LowestDrillHeight { get; set; }
+        public ReadableReferenceOfScalarValue StickUpHeight { get; set; }
+        public List<Guid> GetScalarIDs()
         {
             Type type = typeof(Signals);
 

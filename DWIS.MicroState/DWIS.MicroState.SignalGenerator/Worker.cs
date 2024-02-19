@@ -1,4 +1,4 @@
-using DWIS.MicroState.MQTT;
+using DWIS.MicroState.MQTTTopics;
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Extensions.ManagedClient;
@@ -448,6 +448,7 @@ namespace DWIS.MicroState.SignalGenerator
 
                 // Create MQTT message and publish
                 string scalarSignalPayload = JsonConvert.SerializeObject(scalarSignals_);
+                /*
                 var scalarSignalsMQTTMessage = new MqttApplicationMessageBuilder()
                     .WithTopic(Topics.SignalSourceScalars)
                     .WithPayload(scalarSignalPayload)
@@ -455,8 +456,10 @@ namespace DWIS.MicroState.SignalGenerator
                     .WithRetainFlag(true)
                     .Build();
                 await mqttClient_.PublishAsync(scalarSignalsMQTTMessage);
+                */
 
                 string boolSignalPayload = JsonConvert.SerializeObject(boolSignals_);
+                /*
                 var boolSignalsMQTTMessage = new MqttApplicationMessageBuilder()
                     .WithTopic(Topics.SignalSourceBooleans)
                     .WithPayload(boolSignalPayload)
@@ -464,7 +467,7 @@ namespace DWIS.MicroState.SignalGenerator
                     .WithRetainFlag(true)
                     .Build();
                 await mqttClient_.PublishAsync(boolSignalsMQTTMessage);
-
+                */
             }
         }
 
@@ -540,6 +543,7 @@ namespace DWIS.MicroState.SignalGenerator
 
             // Create MQTT message and publish
             string scalarSignalPayload = JsonConvert.SerializeObject(scalarSignals_);
+            /*
             var thresholdsMQTTMessage = new MqttApplicationMessageBuilder()
                 .WithTopic(Topics.SignalSourceScalars)
                 .WithPayload(scalarSignalPayload)
@@ -547,8 +551,9 @@ namespace DWIS.MicroState.SignalGenerator
                 .WithRetainFlag(true)
                 .Build();
             await mqttClient_.PublishAsync(thresholdsMQTTMessage);
-
+            */
             string boolSignalPayload = JsonConvert.SerializeObject(boolSignals_);
+            /*
             var signalsMQTTMessage = new MqttApplicationMessageBuilder()
                 .WithTopic(Topics.SignalSourceBooleans)
                 .WithPayload(boolSignalPayload)
@@ -556,6 +561,7 @@ namespace DWIS.MicroState.SignalGenerator
                 .WithRetainFlag(true)
                 .Build();
             await mqttClient_.PublishAsync(signalsMQTTMessage);
+            */
 
         }
     }

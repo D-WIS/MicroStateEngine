@@ -10,5 +10,8 @@ namespace DWIS.MicroState.IntepretationEngine
     {
         public string MQTTServerName { get; set; } = "localhost";
         public int MQTTServerPort { get; set; } = 707;
+        public TimeSpan LoopDuration { get; set; } = TimeSpan.FromSeconds(1.0);
+        public string? OPCUAURL { get; set; } = "opc.tcp://localhost:48030";
+
     }
 }

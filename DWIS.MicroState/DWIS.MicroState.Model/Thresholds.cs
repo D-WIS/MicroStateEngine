@@ -1,11 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace DWIS.MicroState.Model
 {
     public class Thresholds
@@ -45,6 +38,8 @@ namespace DWIS.MicroState.Model
         public double FlowCavingsFromFormationThreshold { get; set; }
         public double WhirlRateThreshold { get; set; }
         public double FlowPipeToAnnulusThreshold { get; set; }
+        public double AtDrillHeightThreshold { get; set; }
+        public double AtStickUpHeightThreshold { get; set; }
 
         public void CopyTo(Thresholds destination)
         {
@@ -82,6 +77,8 @@ namespace DWIS.MicroState.Model
                 destination.FlowCavingsFromFormationThreshold = FlowCavingsFromFormationThreshold;
                 destination.WhirlRateThreshold = WhirlRateThreshold;
                 destination.FlowPipeToAnnulusThreshold = FlowPipeToAnnulusThreshold;
+                destination.AtDrillHeightThreshold = AtDrillHeightThreshold;
+                destination.AtStickUpHeightThreshold = AtStickUpHeightThreshold;
             }
         }
     }

@@ -162,6 +162,16 @@
             label79 = new Label();
             StableLiftPumpDGDButton = new Button();
             label80 = new Label();
+            label63 = new Label();
+            label64 = new Label();
+            label65 = new Label();
+            label66 = new Label();
+            label67 = new Label();
+            ToolJoint1AtLowestDrillHeightButton = new Button();
+            ToolJoint1AtStickUpHeightButton = new Button();
+            ToolJoint2AtStickUpHeightButton = new Button();
+            ToolJoint3AtStickUpHeightButton = new Button();
+            ToolJoint4AtStickUpHeightButton = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -1360,6 +1370,16 @@
             // groupBox4
             // 
             groupBox4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            groupBox4.Controls.Add(ToolJoint4AtStickUpHeightButton);
+            groupBox4.Controls.Add(ToolJoint3AtStickUpHeightButton);
+            groupBox4.Controls.Add(ToolJoint2AtStickUpHeightButton);
+            groupBox4.Controls.Add(ToolJoint1AtStickUpHeightButton);
+            groupBox4.Controls.Add(ToolJoint1AtLowestDrillHeightButton);
+            groupBox4.Controls.Add(label67);
+            groupBox4.Controls.Add(label66);
+            groupBox4.Controls.Add(label65);
+            groupBox4.Controls.Add(label64);
+            groupBox4.Controls.Add(label63);
             groupBox4.Controls.Add(StableFillPumpDGDButton);
             groupBox4.Controls.Add(label41);
             groupBox4.Controls.Add(InsideHardStringerButton);
@@ -1442,6 +1462,91 @@
             label80.Size = new Size(121, 15);
             label80.TabIndex = 0;
             label80.Text = "Stable Lift Pump DGD";
+            // 
+            // label63
+            // 
+            label63.AutoSize = true;
+            label63.Location = new Point(9, 160);
+            label63.Name = "label63";
+            label63.Size = new Size(133, 15);
+            label63.TabIndex = 42;
+            label63.Text = "TJ #1 @ Min Drill Height";
+            // 
+            // label64
+            // 
+            label64.AutoSize = true;
+            label64.Location = new Point(9, 194);
+            label64.Name = "label64";
+            label64.Size = new Size(132, 15);
+            label64.TabIndex = 43;
+            label64.Text = "TJ #1 @ Stick-up Height";
+            // 
+            // label65
+            // 
+            label65.AutoSize = true;
+            label65.Location = new Point(9, 229);
+            label65.Name = "label65";
+            label65.Size = new Size(132, 15);
+            label65.TabIndex = 44;
+            label65.Text = "TJ #2 @ Stick-up Height";
+            // 
+            // label66
+            // 
+            label66.AutoSize = true;
+            label66.Location = new Point(9, 262);
+            label66.Name = "label66";
+            label66.Size = new Size(132, 15);
+            label66.TabIndex = 45;
+            label66.Text = "TJ #3 @ Stick-up Height";
+            // 
+            // label67
+            // 
+            label67.AutoSize = true;
+            label67.Location = new Point(9, 292);
+            label67.Name = "label67";
+            label67.Size = new Size(132, 15);
+            label67.TabIndex = 46;
+            label67.Text = "TJ #4 @ Stick-up Height";
+            // 
+            // ToolJoint1AtLowestDrillHeightButton
+            // 
+            ToolJoint1AtLowestDrillHeightButton.Location = new Point(246, 156);
+            ToolJoint1AtLowestDrillHeightButton.Name = "ToolJoint1AtLowestDrillHeightButton";
+            ToolJoint1AtLowestDrillHeightButton.Size = new Size(60, 23);
+            ToolJoint1AtLowestDrillHeightButton.TabIndex = 47;
+            ToolJoint1AtLowestDrillHeightButton.UseVisualStyleBackColor = true;
+            // 
+            // ToolJoint1AtStickUpHeightButton
+            // 
+            ToolJoint1AtStickUpHeightButton.Location = new Point(246, 190);
+            ToolJoint1AtStickUpHeightButton.Name = "ToolJoint1AtStickUpHeightButton";
+            ToolJoint1AtStickUpHeightButton.Size = new Size(60, 23);
+            ToolJoint1AtStickUpHeightButton.TabIndex = 48;
+            ToolJoint1AtStickUpHeightButton.UseVisualStyleBackColor = true;
+            // 
+            // ToolJoint2AtStickUpHeightButton
+            // 
+            ToolJoint2AtStickUpHeightButton.Location = new Point(246, 225);
+            ToolJoint2AtStickUpHeightButton.Name = "ToolJoint2AtStickUpHeightButton";
+            ToolJoint2AtStickUpHeightButton.Size = new Size(60, 23);
+            ToolJoint2AtStickUpHeightButton.TabIndex = 49;
+            ToolJoint2AtStickUpHeightButton.UseVisualStyleBackColor = true;
+            // 
+            // ToolJoint3AtStickUpHeightButton
+            // 
+            ToolJoint3AtStickUpHeightButton.Location = new Point(246, 258);
+            ToolJoint3AtStickUpHeightButton.Name = "ToolJoint3AtStickUpHeightButton";
+            ToolJoint3AtStickUpHeightButton.Size = new Size(60, 23);
+            ToolJoint3AtStickUpHeightButton.TabIndex = 50;
+            ToolJoint3AtStickUpHeightButton.UseVisualStyleBackColor = true;
+            // 
+            // ToolJoint4AtStickUpHeightButton
+            // 
+            ToolJoint4AtStickUpHeightButton.Location = new Point(246, 292);
+            ToolJoint4AtStickUpHeightButton.Name = "ToolJoint4AtStickUpHeightButton";
+            ToolJoint4AtStickUpHeightButton.Size = new Size(60, 23);
+            ToolJoint4AtStickUpHeightButton.TabIndex = 51;
+            ToolJoint4AtStickUpHeightButton.UseVisualStyleBackColor = true;
             // 
             // MicroStateViewer
             // 
@@ -1602,5 +1707,15 @@
         private Label label41;
         private Button AlternateFlowPathStableButton;
         private Label label62;
+        private Label label67;
+        private Label label66;
+        private Label label65;
+        private Label label64;
+        private Label label63;
+        private Button ToolJoint1AtLowestDrillHeightButton;
+        private Button ToolJoint1AtStickUpHeightButton;
+        private Button ToolJoint2AtStickUpHeightButton;
+        private Button ToolJoint4AtStickUpHeightButton;
+        private Button ToolJoint3AtStickUpHeightButton;
     }
 }

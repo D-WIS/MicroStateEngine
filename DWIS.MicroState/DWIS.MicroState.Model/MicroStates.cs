@@ -8,69 +8,76 @@
         public enum MicroStateIndex
         {
             AxialVelocityTopOfString = 0,
-            StableAxialVelocityTopOfString,
-            RotationalVelocityTopOfString,
-            StableRotationalVelocityTopOfString,
-            FlowAtTopOfString,
-            StableFlowAtTopOfString,
-            SlipState,
-            StableTensionTopOfString,
-            PressureTopOfString,
-            StablePressureTopOfString,
-            TorqueTopOfString,
-            StableTorqueTopOfString,
-            FlowAtAnnulusOutlet,
-            StableFlowAtAnnulusOutlet,
-            CuttingsReturnAtAnnulusOutlet,
-            OnBottomBottomOfString,
-            StableBottomOfStringRockForce,
-            OnBottomHoleOpener,
-            RotationalVelocityBottomOfString,
-            StableRotationalVelocityBottomOfString,
-            Drilling,
-            HoleOpening,
-            AxialVelocityBottomOfString,
-            StableAxialVelocityBottomOfString,
-            FlowBottomOfString,
-            StableFlowBottomOfString,
-            FlowHoleOpener,
-            StableFlowHoleOpener,
-            LedgeKeySeat,
-            CuttingsBed,
-            DifferentialSticking,
-            TwistOffBackOff,
-            WellIntegrity,
-            FormationFluidAtAnnulusOutlet,
-            FormationCollapse,
-            CavingsAtAnnulusOutlet,
-            PipeWashout,
-            WhirlBottomOfString,
-            WhirlHoleOpener,
-            FloatSub,
-            UnderReamer,
-            CirculationSub,
-            PortedFloat,
-            Whipstock,
-            Plug,
-            Liner,
-            BoosterPumping,
-            StableBoosterPumping,
-            BackPressurePumping,
-            StableBackPressurePumping,
-            MPDChokeOpening,
-            RCDSealing,
-            IsolationSeal,
-            IsolationSealPressureBalance,
-            BearingAssemblyLatched,
-            ScreenMPDChokePlugged,
-            MainFlowPathStable,
-            AlternateFlowPathStable,
-            FillPumpDGD,
-            LiftPumpDGD,
-            StableFillPumpDGD,
-            StableLiftPumpDGD,
-            FormationChange,
-            InsideHardStringer
+            StableAxialVelocityTopOfString, // 1
+            RotationalVelocityTopOfString, // 2
+            StableRotationalVelocityTopOfString, // 3
+            FlowAtTopOfString, // 4
+            StableFlowAtTopOfString, // 5
+            SlipState, // 6
+            StableTensionTopOfString, // 7
+            PressureTopOfString, // 8
+            StablePressureTopOfString, // 9
+            TorqueTopOfString, // 10
+            StableTorqueTopOfString, // 11
+            FlowAtAnnulusOutlet, // 12
+            StableFlowAtAnnulusOutlet, // 13
+            CuttingsReturnAtAnnulusOutlet, // 14
+            OnBottomBottomOfString, // 15
+            StableBottomOfStringRockForce, // 16
+            OnBottomHoleOpener, // 17
+            RotationalVelocityBottomOfString, // 18
+            StableRotationalVelocityBottomOfString, // 19
+            Drilling, // 20
+            HoleOpening, // 21
+            AxialVelocityBottomOfString, //22
+            StableAxialVelocityBottomOfString, // 23
+            FlowBottomOfString, // 24
+            StableFlowBottomOfString, // 25
+            FlowHoleOpener, // 26
+            StableFlowHoleOpener, // 27
+            LedgeKeySeat, // 28
+            CuttingsBed, // 29
+            DifferentialSticking, // 30
+            TwistOffBackOff, // 31
+            WellIntegrity, // 32
+            FormationFluidAtAnnulusOutlet, // 33
+            FormationCollapse, // 34
+            CavingsAtAnnulusOutlet, // 35
+            PipeWashout, // 36
+            WhirlBottomOfString, // 37
+            WhirlHoleOpener, // 38
+            FloatSub, // 39
+            UnderReamer, // 40
+            CirculationSub, // 41
+            PortedFloat, // 42
+            Whipstock, // 43
+            Plug, // 44
+            Liner, // 45
+            BoosterPumping, // 46
+            StableBoosterPumping, // 47
+            BackPressurePumping, // 48
+            StableBackPressurePumping, // 49
+            MPDChokeOpening, // 50
+            RCDSealing, // 51
+            IsolationSeal, // 52
+            IsolationSealPressureBalance, // 53
+            BearingAssemblyLatched, // 54
+            ScreenMPDChokePlugged, // 55
+            MainFlowPathStable, // 56
+            AlternateFlowPathStable, // 57
+            FillPumpDGD, // 58
+            LiftPumpDGD, // 59
+            StableFillPumpDGD, // 60
+            StableLiftPumpDGD, // 61
+            FormationChange, // 62
+            InsideHardStringer, // 63
+            ToolJoint1AtLowestDrillHeight, // 64
+            ToolJoint1AtStickUpHeight, // 65
+            ToolJoint2AtStickUpHeight, // 66
+            ToolJoint3AtStickUpHeight, // 67
+            ToolJoint4AtStickUpHeight, // 68
+            HeaveCompensation, // 69
+            LastStandToBottomHole // 70
         }
         /// <summary>
         /// the time stamp in UTC when the state has been updated

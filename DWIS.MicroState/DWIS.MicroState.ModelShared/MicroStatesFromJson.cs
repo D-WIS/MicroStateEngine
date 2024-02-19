@@ -132,6 +132,12 @@ namespace DWIS.MicroState.ModelShared
         [Newtonsoft.Json.JsonProperty("FlowPipeToAnnulusThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public double FlowPipeToAnnulusThreshold { get; set; }
 
+        [Newtonsoft.Json.JsonProperty("AtDrillHeightThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double AtDrillHeightThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("AtStickUpHeightThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double AtStickUpHeightThreshold { get; set; }
+
 
     }
 
@@ -339,8 +345,26 @@ namespace DWIS.MicroState.ModelShared
         [Newtonsoft.Json.JsonProperty("UCSSlope", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public ReadableReferenceOfScalarValue UCSSlope { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("MinimumTensionForTwistOffDetection", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public ReadableReferenceOfScalarValue MinimumTensionForTwistOffDetection { get; set; }
+        [Newtonsoft.Json.JsonProperty("MinimumTorqueForTwistOffDetection", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ReadableReferenceOfScalarValue MinimumTorqueForTwistOffDetection { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ToolJoint1Height", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ReadableReferenceOfScalarValue ToolJoint1Height { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ToolJoint2Height", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ReadableReferenceOfScalarValue ToolJoint2Height { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ToolJoint3Height", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ReadableReferenceOfScalarValue ToolJoint3Height { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ToolJoint4Height", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ReadableReferenceOfScalarValue ToolJoint4Height { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("LowestDrillHeight", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ReadableReferenceOfScalarValue LowestDrillHeight { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StickUpHeight", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ReadableReferenceOfScalarValue StickUpHeight { get; set; }
 
 
     }
@@ -653,6 +677,27 @@ namespace DWIS.MicroState.ModelShared
 
 
         InsideHardStringer = 63,
+
+
+        ToolJoint1AtLowestDrillHeight = 64,
+
+
+        ToolJoint1AtStickUpHeight = 65,
+
+
+        ToolJoint2AtStickUpHeight = 66,
+
+
+        ToolJoint3AtStickUpHeight = 67,
+
+
+        ToolJoint4AtStickUpHeight = 68,
+
+
+        HeaveCompensation = 69,
+
+
+        LastStandToBottomHole = 70,
 
 
     }
