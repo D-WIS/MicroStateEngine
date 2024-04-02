@@ -1,4 +1,6 @@
 ﻿
+using OSDC.DotnetLibraries.Drilling.DrillingProperties;
+
 namespace DWIS.MicroState.Model
 {
     public class Thresholds
@@ -7,39 +9,39 @@ namespace DWIS.MicroState.Model
         /// the timestamp in UTC when the thresholds have been updated
         /// </summary>
         public DateTime TimeStampUTC { get; set; }
-        public double StableAxialVelocityTopOfStringThreshold { get; set; }
-        public double StableRotationalVelocityTopOfStringThreshold { get; set; }
-        public double StableFlowTopOfStringThreshold { get; set; }
-        public double StableTensionTopOfStringThreshold { get; set; }
-        public double AtmosphericPressureThreshold { get; set; }
-        public double StablePressureTopOfStringThreshold { get; set; }
-        public double StableTorqueTopOfStringThreshold { get; set; }
-        public double StableFlowAnnulusOutletThreshold { get; set; }
-        public double StableBottomOfStringRockForceThreshold { get; set; }
-        public double StableRotationalVelocityBottomOfStringThreshold { get; set; }
-        public double StableAxialVelocityBottomOfStringThreshold { get; set; }
-        public double StableFlowBottomOfStringThreshold { get; set; }
-        public double StableFlowHoleOpenerThreshold { get; set; }
-        public double MinimumTensionTopOfString { get; set; }
-        public double MinimumPressureFloatValve { get; set; }
-        public double StableFlowBoosterPumpThreshold { get; set; }
-        public double StableFlowBackPressurePumpThreshold { get; set; }
-        public double MinimumDifferentialPressureRCDSealingThreshold { get; set; }
-        public double MinimumDifferentialPressureSealBalanceThreshold { get; set; }
-        public double StableFlowFillPumpDGDThreshold { get; set; }
-        public double StableFlowLiftPumpDGDThreshold { get; set; }
-        public double StableCuttingsFlowThreshold { get; set; }
-        public double HardStringerThreshold { get; set; }
-        public double ChangeOfFormationUCSSlopeThreshold { get; set; }
-        public double ForceOnLedgeThreshold { get; set; }
-        public double ForceOnCuttingsBedThreshold { get; set; }
-        public double ForceDifferentialStickingThreshold { get; set; }
-        public double FluidFlowFormationThreshold { get; set; }
-        public double FlowCavingsFromFormationThreshold { get; set; }
-        public double WhirlRateThreshold { get; set; }
-        public double FlowPipeToAnnulusThreshold { get; set; }
-        public double AtDrillHeightThreshold { get; set; }
-        public double AtStickUpHeightThreshold { get; set; }
+        public ScalarDrillingProperty StableAxialVelocityTopOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty StableRotationalVelocityTopOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty StableFlowTopOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty StableTensionTopOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty AtmosphericPressureThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty StablePressureTopOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty StableTorqueTopOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty StableFlowAnnulusOutletThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty StableBottomOfStringRockForceThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty StableRotationalVelocityBottomOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty StableAxialVelocityBottomOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty StableFlowBottomOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty StableFlowHoleOpenerThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty MinimumTensionTopOfString { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty MinimumPressureFloatValve { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty StableFlowBoosterPumpThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty StableFlowBackPressurePumpThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty MinimumDifferentialPressureRCDSealingThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty MinimumDifferentialPressureSealBalanceThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty StableFlowFillPumpDGDThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty StableFlowLiftPumpDGDThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty StableCuttingsFlowThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty HardStringerThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty ChangeOfFormationUCSSlopeThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty ForceOnLedgeThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty ForceOnCuttingsBedThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty ForceDifferentialStickingThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty FluidFlowFormationThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty FlowCavingsFromFormationThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty WhirlRateThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty FlowPipeToAnnulusThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty AtDrillHeightThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarDrillingProperty AtStickUpHeightThreshold { get; set; } = new ScalarDrillingProperty();
 
         public void CopyTo(Thresholds destination)
         {

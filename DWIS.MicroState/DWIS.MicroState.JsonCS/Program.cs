@@ -9,7 +9,7 @@ static async Task Generate(string[] args)
     bool found = false;
     do
     {
-        DirectoryInfo info = Directory.GetParent(solutionRootDir);
+        DirectoryInfo? info = Directory.GetParent(solutionRootDir);
         if (info != null && "DWIS.MicroState".Equals(info.Name))
         {
             found = true;

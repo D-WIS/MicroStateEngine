@@ -9,7 +9,7 @@ static void GenerateJsonSchemas()
     bool found = false;
     do
     {
-        DirectoryInfo info = Directory.GetParent(rootDir);
+        DirectoryInfo? info = Directory.GetParent(rootDir);
         if (info != null && "DWIS.MicroState".Equals(info.Name))
         {
             found = true;
@@ -20,7 +20,7 @@ static void GenerateJsonSchemas()
         }
     } while (!found);
     rootDir += "DWIS.MicroState.JsonSchema\\";
-    var RigOSCapabilitiesSchema = JsonSchema.FromType < Tuple < MicroStates, Thresholds, Signals, MicroStates.MicroStateIndex>>();
+    var RigOSCapabilitiesSchema = JsonSchema.FromType < Tuple < MicroStates, Thresholds, SignalGroup, MicroStates.MicroStateIndex>>();
     var WellPathSchemaSchemaJson = RigOSCapabilitiesSchema.ToJson();
     using (StreamWriter writer = new StreamWriter(rootDir + "MicroStates.json"))
     {

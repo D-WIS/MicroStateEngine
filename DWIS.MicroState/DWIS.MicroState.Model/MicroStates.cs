@@ -77,7 +77,13 @@
             ToolJoint3AtStickUpHeight, // 67
             ToolJoint4AtStickUpHeight, // 68
             HeaveCompensation, // 69
-            LastStandToBottomHole // 70
+            LastStandToBottomHole, // 70
+            WhirlInDrillString, // 71
+            HFTO, // 72
+            AxialOscillations, // 73
+            TorsionalOscillations, // 74
+            LateralShocksInBHA, // 75
+            LateralShokcsInDrillString // 76
         }
         /// <summary>
         /// the time stamp in UTC when the state has been updated
