@@ -1,5 +1,18 @@
-﻿namespace DWIS.MicroState.Model
+﻿using DWIS.Vocabulary.Schemas;
+using OSDC.DotnetLibraries.Drilling.DrillingProperties;
+
+namespace DWIS.MicroState.Model
 {
+    [AccessToVariable(CommonProperty.VariableAccessType.Assignable)]
+    [Mandatory(CommonProperty.MandatoryType.General)]
+    [SemanticFact("8796c92c-96a3-4854-a263-3a6aa67344bf", Nouns.Enum.DynamicDrillingSignal)]
+    [SemanticFact("DWIS:MicroStates:Current", Nouns.Enum.ComputedData)]
+    [SemanticFact("DWIS:MicroStates:Current", Verbs.Enum.HasDynamicValue, "8796c92c-96a3-4854-a263-3a6aa67344bf")]
+    [SemanticFact("DWIS:MicroStates:ProcessState", Nouns.Enum.ProcessState)]
+    [SemanticFact("DWIS:MicroStates:ProcessState", Nouns.Enum.DeterministicModel)]
+    [SemanticFact("DWIS:MicroStates:Current", Verbs.Enum.IsGeneratedBy, "DWIS:MicroStates:ProcessState")]
+    [SemanticFact("DWIS:Provider:DrillingProcessStateInterpreter", Nouns.Enum.DWISDrillingProcessStateInterpreter)]
+    [SemanticFact("DWIS:MicroStates:ProcessState", Verbs.Enum.IsProvidedBy, "DWIS:Provider:DrillingProcessStateInterpreter")]
     public struct MicroStates
     {
         /// <summary>

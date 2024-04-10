@@ -288,7 +288,6 @@ namespace DWIS.MicroState.IntepretationEngine
                             microStateThresholds.StableRotationalVelocityTopOfStringThreshold.ScalarValue = 0.5 / 60.0;
                             microStateThresholds.StableFlowTopOfStringThreshold.ScalarValue = 10.0 / 60000.0;
                             microStateThresholds.StableTensionTopOfStringThreshold.ScalarValue = 1000.0;
-                            microStateThresholds.AtmosphericPressureThreshold.ScalarValue = OSDC.DotnetLibraries.General.Common.Constants.EarthStandardAtmosphericPressure / 10.0;
                             microStateThresholds.StablePressureTopOfStringThreshold.ScalarValue = 0.1 * 1e5;
                             microStateThresholds.StableTorqueTopOfStringThreshold.ScalarValue = 10.0;
                             microStateThresholds.StableFlowAnnulusOutletThreshold.ScalarValue = 1.0 / 60000.0;
@@ -297,22 +296,20 @@ namespace DWIS.MicroState.IntepretationEngine
                             microStateThresholds.StableAxialVelocityBottomOfStringThreshold.ScalarValue = 0.1 / 3600.0;
                             microStateThresholds.StableFlowBottomOfStringThreshold.ScalarValue = 1.0 / 60000.0;
                             microStateThresholds.StableFlowHoleOpenerThreshold.ScalarValue = 1.0 / 60000.0;
-                            microStateThresholds.MinimumTensionTopOfString.ScalarValue = 10000.0;
                             microStateThresholds.MinimumPressureFloatValve.ScalarValue = 1e5;
                             microStateThresholds.StableFlowBoosterPumpThreshold.ScalarValue = 10.0 / 60000.0;
                             microStateThresholds.StableFlowBackPressurePumpThreshold.ScalarValue = 10.0 / 60000.0;
                             microStateThresholds.MinimumDifferentialPressureRCDSealingThreshold.ScalarValue = 1e5;
                             microStateThresholds.MinimumDifferentialPressureSealBalanceThreshold.ScalarValue = 1e5;
                             microStateThresholds.StableFlowFillPumpDGDThreshold.ScalarValue = 10.0 / 60000.0;
-                            microStateThresholds.StableFlowLiftPumpDGDThreshold.ScalarValue = 10.0 / 60000.0;
-                            microStateThresholds.StableCuttingsFlowThreshold.ScalarValue = 1.0 / 60000.0;
                             microStateThresholds.HardStringerThreshold.ScalarValue = 60e6;
                             microStateThresholds.ChangeOfFormationUCSSlopeThreshold.ScalarValue = 2.5e6;
                             microStateThresholds.ForceOnLedgeThreshold.ScalarValue = 10000;
                             microStateThresholds.ForceOnCuttingsBedThreshold.ScalarValue = 10000;
                             microStateThresholds.ForceDifferentialStickingThreshold.ScalarValue = 10000;
                             microStateThresholds.FluidFlowFormationThreshold.ScalarValue = 10.0 / 60000.0;
-                            microStateThresholds.WhirlRateThreshold.ScalarValue = 0.5;
+                            microStateThresholds.WhirlRateBottomOfStringThreshold.ScalarValue = 0.5;
+                            microStateThresholds.WhirlRateHoleOpenerThreshold.ScalarValue = 0.5;
                             microStateThresholds.FlowPipeToAnnulusThreshold.ScalarValue = 0.5 / 60000.0;
                             microStateThresholds.FlowCavingsFromFormationThreshold.ScalarValue = 0.5 / 60000.0;
                             microStateThresholds.AtStickUpHeightThreshold.ScalarValue = 0.1;
@@ -507,8 +504,8 @@ namespace DWIS.MicroState.IntepretationEngine
 
         private async Task RefreshSignals()
         {
-            MicroStates microStates = new MicroStates();
-            SignalGroup signals = null;
+            MicroStates microStates = new();
+            SignalGroup? signals = null;
             if (microStateInputSignals_ != null && microStateInputSignals_.ContainsKey(microStatesInputSignalsQueryName_))
             {
                 List<AcquiredSignal> sigs = microStateInputSignals_[microStatesInputSignalsQueryName_];
@@ -541,14 +538,14 @@ namespace DWIS.MicroState.IntepretationEngine
             if (signals != null && thresholds_ != null)
             {
                 if (signals.AxialVelocityTopOfString?.Mean != null &&
-                    thresholds_.StableAxialVelocityTopOfStringThreshold?.ScalarValue != null)
+                    thresholds_.ZeroAxialVelocityTopOfStringThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.AxialVelocityTopOfString.Mean, 0, thresholds_.StableAxialVelocityTopOfStringThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.AxialVelocityTopOfString.Mean, 0, thresholds_.ZeroAxialVelocityTopOfStringThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
-                    else if (Numeric.GT(signals.AxialVelocityTopOfString.Mean, 0, thresholds_.StableAxialVelocityTopOfStringThreshold.ScalarValue.Value))
+                    else if (Numeric.GT(signals.AxialVelocityTopOfString.Mean, 0, thresholds_.ZeroAxialVelocityTopOfStringThreshold.ScalarValue.Value))
                     {
                         code = 2;
                     }
@@ -573,14 +570,14 @@ namespace DWIS.MicroState.IntepretationEngine
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableAxialVelocityTopOfString, code);
                 }
                 if (signals.RotationalVelocityTopOfString?.Mean != null &&
-                    thresholds_.StableRotationalVelocityTopOfStringThreshold?.ScalarValue != null)
+                    thresholds_.ZeroRotationalVelocityTopOfStringThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.RotationalVelocityTopOfString.Mean, 0, thresholds_.StableRotationalVelocityTopOfStringThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.RotationalVelocityTopOfString.Mean, 0, thresholds_.ZeroRotationalVelocityTopOfStringThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
-                    else if (Numeric.GT(signals.RotationalVelocityTopOfString.Mean, 0, thresholds_.StableRotationalVelocityTopOfStringThreshold.ScalarValue.Value))
+                    else if (Numeric.GT(signals.RotationalVelocityTopOfString.Mean, 0, thresholds_.ZeroRotationalVelocityTopOfStringThreshold.ScalarValue.Value))
                     {
                         code = 2;
                     }
@@ -605,10 +602,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableRotationalVelocityTopOfString, code);
                 }
                 if (signals.FlowTopOfString?.Mean != null &&
-                    thresholds_.StableFlowTopOfStringThreshold?.ScalarValue != null)
+                    thresholds_.ZeroFlowTopOfStringThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.FlowTopOfString.Mean, 0, thresholds_.StableFlowTopOfStringThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.FlowTopOfString.Mean, 0, thresholds_.ZeroFlowTopOfStringThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
@@ -635,17 +632,17 @@ namespace DWIS.MicroState.IntepretationEngine
                 if (signals.TensionTopOfString?.Mean != null &&
                     signals.ForceBottomTopDrive?.Mean != null &&
                     signals.ForceElevator?.Mean != null &&
-                    thresholds_.StableTensionTopOfStringThreshold?.ScalarValue != null)
+                    thresholds_.ZeroTensionTopOfStringThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.TensionTopOfString.Mean, signals.ForceBottomTopDrive.Mean, thresholds_.StableTensionTopOfStringThreshold.ScalarValue.Value) || 
-                        Numeric.EQ(signals.TensionTopOfString.Mean, signals.ForceElevator.Mean, thresholds_.StableTensionTopOfStringThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.TensionTopOfString.Mean, signals.ForceBottomTopDrive.Mean, thresholds_.ZeroTensionTopOfStringThreshold.ScalarValue.Value) || 
+                        Numeric.EQ(signals.TensionTopOfString.Mean, signals.ForceElevator.Mean, thresholds_.ZeroTensionTopOfStringThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
-                    else if (!Numeric.EQ(signals.TensionTopOfString.Mean, 0, thresholds_.StableTensionTopOfStringThreshold.ScalarValue.Value) && 
-                             Numeric.EQ(signals.ForceBottomTopDrive.Mean, 0, thresholds_.StableTensionTopOfStringThreshold.ScalarValue.Value) &&
-                             Numeric.EQ(signals.ForceElevator.Mean, 0, thresholds_.StableTensionTopOfStringThreshold.ScalarValue.Value))
+                    else if (!Numeric.EQ(signals.TensionTopOfString.Mean, 0, thresholds_.ZeroTensionTopOfStringThreshold.ScalarValue.Value) && 
+                             Numeric.EQ(signals.ForceBottomTopDrive.Mean, 0, thresholds_.ZeroTensionTopOfStringThreshold.ScalarValue.Value) &&
+                             Numeric.EQ(signals.ForceElevator.Mean, 0, thresholds_.ZeroTensionTopOfStringThreshold.ScalarValue.Value))
                     {
                         code = 2;
                     }
@@ -670,10 +667,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableTensionTopOfString, code);
                 }
                 if (signals.PressureTopOfString?.Mean != null &&
-                    thresholds_.StablePressureTopOfStringThreshold?.ScalarValue != null)
+                    thresholds_.ZeroPressureTopOfStringThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.LE(signals.PressureTopOfString.Mean, Constants.EarthStandardAtmosphericPressure, thresholds_.StablePressureTopOfStringThreshold.ScalarValue.Value))
+                    if (Numeric.LE(signals.PressureTopOfString.Mean, Constants.EarthStandardAtmosphericPressure, thresholds_.ZeroPressureTopOfStringThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
@@ -698,10 +695,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StablePressureTopOfString, code);
                 }
                 if (signals.TorqueTopOfString?.Mean != null &&
-                    thresholds_.StableTorqueTopOfStringThreshold?.ScalarValue != null)
+                    thresholds_.ZeroTorqueTopOfStringThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.TorqueTopOfString.Mean, 0, thresholds_.StableTorqueTopOfStringThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.TorqueTopOfString.Mean, 0, thresholds_.ZeroTorqueTopOfStringThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
@@ -726,10 +723,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableTorqueTopOfString, code);
                 }
                 if (signals.FlowAnnulusOutlet?.Mean != null &&
-                    thresholds_.StableFlowAnnulusOutletThreshold?.ScalarValue != null)
+                    thresholds_.ZeroFlowAnnulusOutletThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.FlowAnnulusOutlet.Mean, 0, thresholds_.StableFlowAnnulusOutletThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.FlowAnnulusOutlet.Mean, 0, thresholds_.ZeroFlowAnnulusOutletThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
@@ -754,10 +751,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableFlowAtAnnulusOutlet, code);
                 }
                 if (signals.FlowCuttingsAnnulusOutlet?.Mean != null &&
-                    thresholds_.StableCuttingsFlowThreshold?.ScalarValue != null)
+                    thresholds_.ZeroCuttingsFlowAnnulusOutletThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.FlowCuttingsAnnulusOutlet.Mean, 0, thresholds_.StableCuttingsFlowThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.FlowCuttingsAnnulusOutlet.Mean, 0, thresholds_.ZeroCuttingsFlowAnnulusOutletThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
@@ -768,10 +765,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.CuttingsReturnAtAnnulusOutlet, code);
                 }
                 if (signals.ForceBottomOfStringOnRock?.Mean != null &&
-                    thresholds_.StableBottomOfStringRockForceThreshold?.ScalarValue != null)
+                    thresholds_.ZeroBottomOfStringRockForceThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.ForceBottomOfStringOnRock?.Mean, 0, thresholds_.StableBottomOfStringRockForceThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.ForceBottomOfStringOnRock?.Mean, 0, thresholds_.ZeroBottomOfStringRockForceThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
@@ -796,10 +793,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableBottomOfStringRockForce, code);
                 }
                 if (signals.ForceHoleOpenerOnRock?.Mean != null &&
-                    thresholds_.StableBottomOfStringRockForceThreshold?.ScalarValue != null)
+                    thresholds_.ZeroHoleOpenerOnRockForceThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.ForceHoleOpenerOnRock?.Mean, 0, thresholds_.StableBottomOfStringRockForceThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.ForceHoleOpenerOnRock?.Mean, 0, thresholds_.ZeroHoleOpenerOnRockForceThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
@@ -810,14 +807,14 @@ namespace DWIS.MicroState.IntepretationEngine
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.OnBottomHoleOpener, code);
                 }
                 if (signals.RotationaVelocityBottomOfString?.Mean != null &&
-                    thresholds_.StableRotationalVelocityBottomOfStringThreshold?.ScalarValue != null)
+                    thresholds_.ZeroRotationalVelocityBottomOfStringThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.RotationaVelocityBottomOfString.Mean, 0, thresholds_.StableRotationalVelocityBottomOfStringThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.RotationaVelocityBottomOfString.Mean, 0, thresholds_.ZeroRotationalVelocityBottomOfStringThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
-                    else if (Numeric.GT(signals.RotationaVelocityBottomOfString.Mean, thresholds_.StableRotationalVelocityBottomOfStringThreshold.ScalarValue.Value))
+                    else if (Numeric.GT(signals.RotationaVelocityBottomOfString.Mean, thresholds_.ZeroRotationalVelocityBottomOfStringThreshold.ScalarValue.Value))
                     {
                         code = 2;
                     }
@@ -842,10 +839,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableRotationalVelocityBottomOfString, code);
                 }
                 if (signals.FlowCuttingsBottomHole?.Mean != null &&
-                    thresholds_.StableCuttingsFlowThreshold?.ScalarValue != null)
+                    thresholds_.ZeroCuttingsFlowBottomHoleThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.FlowCuttingsBottomHole.Mean, 0, thresholds_.StableCuttingsFlowThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.FlowCuttingsBottomHole.Mean, 0, thresholds_.ZeroCuttingsFlowBottomHoleThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
@@ -855,10 +852,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.Drilling, code);
                 }
-                if (signals.FlowCuttingsTopOfRateHole?.Mean != null && thresholds_.StableCuttingsFlowThreshold?.ScalarValue != null)
+                if (signals.FlowCuttingsTopOfRateHole?.Mean != null && thresholds_.ZeroCuttingsFlowTopOfRatHoleThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.FlowCuttingsTopOfRateHole.Mean, 0, thresholds_.StableCuttingsFlowThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.FlowCuttingsTopOfRateHole.Mean, 0, thresholds_.ZeroCuttingsFlowTopOfRatHoleThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
@@ -868,14 +865,14 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.HoleOpening, code);
                 }
-                if (signals.AxialVelocityBottomOfString?.Mean != null && thresholds_.StableAxialVelocityBottomOfStringThreshold?.ScalarValue != null)
+                if (signals.AxialVelocityBottomOfString?.Mean != null && thresholds_.ZeroAxialVelocityBottomOfStringThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.AxialVelocityBottomOfString.Mean, 0, thresholds_.StableAxialVelocityBottomOfStringThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.AxialVelocityBottomOfString.Mean, 0, thresholds_.ZeroAxialVelocityBottomOfStringThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
-                    else if (Numeric.GT(signals.AxialVelocityBottomOfString.Mean, 0, thresholds_.StableAxialVelocityBottomOfStringThreshold.ScalarValue.Value))
+                    else if (Numeric.GT(signals.AxialVelocityBottomOfString.Mean, 0, thresholds_.ZeroAxialVelocityBottomOfStringThreshold.ScalarValue.Value))
                     {
                         code = 2;
                     }
@@ -898,14 +895,14 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableAxialVelocityBottomOfString, code);
                 }
-                if (signals.FlowBottomOfString?.Mean != null && thresholds_.StableFlowBottomOfStringThreshold?.ScalarValue != null)
+                if (signals.FlowBottomOfString?.Mean != null && thresholds_.ZeroFlowBottomOfStringThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.FlowBottomOfString.Mean, 0, thresholds_.StableFlowBottomOfStringThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.FlowBottomOfString.Mean, 0, thresholds_.ZeroFlowBottomOfStringThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
-                    else if (Numeric.GT(signals.FlowBottomOfString.Mean, 0, thresholds_.StableFlowBottomOfStringThreshold.ScalarValue.Value))
+                    else if (Numeric.GT(signals.FlowBottomOfString.Mean, 0, thresholds_.ZeroFlowBottomOfStringThreshold.ScalarValue.Value))
                     {
                         code = 2;
                     }
@@ -928,14 +925,14 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableFlowBottomOfString, code);
                 }
-                if (signals.FlowHoleOpener?.Mean != null && thresholds_.StableFlowHoleOpenerThreshold?.ScalarValue != null)
+                if (signals.FlowHoleOpener?.Mean != null && thresholds_.ZeroFlowHoleOpenerThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.FlowHoleOpener.Mean, 0, thresholds_.StableFlowHoleOpenerThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.FlowHoleOpener.Mean, 0, thresholds_.ZeroFlowHoleOpenerThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
-                    else if (Numeric.GT(signals.FlowHoleOpener.Mean, 0, thresholds_.StableFlowHoleOpenerThreshold.ScalarValue.Value))
+                    else if (Numeric.GT(signals.FlowHoleOpener.Mean, 0, thresholds_.ZeroFlowHoleOpenerThreshold.ScalarValue.Value))
                     {
                         code = 2;
                     }
@@ -1088,14 +1085,14 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.PipeWashout, code);
                 }
-                if (signals.WhirlRateBottomOfString?.Mean != null && thresholds_.WhirlRateThreshold?.ScalarValue != null)
+                if (signals.WhirlRateBottomOfString?.Mean != null && thresholds_.WhirlRateBottomOfStringThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.WhirlRateBottomOfString.Mean, 0, thresholds_.WhirlRateThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.WhirlRateBottomOfString.Mean, 0, thresholds_.WhirlRateBottomOfStringThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
-                    else if (Numeric.GT(signals.WhirlRateBottomOfString.Mean, 0, thresholds_.WhirlRateThreshold.ScalarValue.Value))
+                    else if (Numeric.GT(signals.WhirlRateBottomOfString.Mean, 0, thresholds_.WhirlRateBottomOfStringThreshold.ScalarValue.Value))
                     {
                         code = 2;
                     }
@@ -1105,14 +1102,14 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.WhirlBottomOfString, code);
                 }
-                if (signals.WhirlRateHoleOpener?.Mean != null && thresholds_.WhirlRateThreshold?.ScalarValue != null)
+                if (signals.WhirlRateHoleOpener?.Mean != null && thresholds_.WhirlRateHoleOpenerThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.WhirlRateHoleOpener.Mean, 0, thresholds_.WhirlRateThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.WhirlRateHoleOpener.Mean, 0, thresholds_.WhirlRateHoleOpenerThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
-                    else if (Numeric.GT(signals.WhirlRateHoleOpener.Mean, 0, thresholds_.WhirlRateThreshold.ScalarValue.Value))
+                    else if (Numeric.GT(signals.WhirlRateHoleOpener.Mean, 0, thresholds_.WhirlRateHoleOpenerThreshold.ScalarValue.Value))
                     {
                         code = 2;
                     }
@@ -1135,10 +1132,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.FloatSub, code);
                 }
-                if (signals.UnderReamerOpen != null)
+                if (signals.UnderReamerOpen != null && signals.UnderReamerOpen.BooleanValue != null)
                 {
                     uint code = 0;
-                    if ((bool)signals.UnderReamerOpen)
+                    if (signals.UnderReamerOpen.BooleanValue.Value)
                     {
                         code = 1;
                     }
@@ -1148,10 +1145,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.UnderReamer, code);
                 }
-                if (signals.CirculationSubOpen != null)
+                if (signals.CirculationSubOpen != null && signals.CirculationSubOpen.BooleanValue != null)
                 {
                     uint code = 0;
-                    if ((bool)signals.CirculationSubOpen)
+                    if (signals.CirculationSubOpen.BooleanValue.Value)
                     {
                         code = 1;
                     }
@@ -1161,10 +1158,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.CirculationSub, code);
                 }
-                if (signals.PortedFloatOpen != null)
+                if (signals.PortedFloatOpen != null && signals.PortedFloatOpen.BooleanValue != null)
                 {
                     uint code = 0;
-                    if ((bool)signals.PortedFloatOpen)
+                    if (signals.PortedFloatOpen.BooleanValue.Value)
                     {
                         code = 1;
                     }
@@ -1174,10 +1171,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.PortedFloat, code);
                 }
-                if (signals.WhipstockAttached != null)
+                if (signals.WhipstockAttached != null && signals.WhipstockAttached.BooleanValue != null)
                 {
                     uint code = 0;
-                    if ((bool)signals.WhipstockAttached)
+                    if (signals.WhipstockAttached.BooleanValue.Value)
                     {
                         code = 1;
                     }
@@ -1187,10 +1184,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.Whipstock, code);
                 }
-                if (signals.PlugAttached != null)
+                if (signals.PlugAttached != null && signals.PlugAttached.BooleanValue != null)
                 {
                     uint code = 0;
-                    if ((bool)signals.PlugAttached)
+                    if (signals.PlugAttached.BooleanValue.Value)
                     {
                         code = 1;
                     }
@@ -1200,10 +1197,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.Plug, code);
                 }
-                if (signals.LinerAttached != null)
+                if (signals.LinerAttached != null && signals.LinerAttached.BooleanValue != null)
                 {
                     uint code = 0;
-                    if ((bool)signals.LinerAttached)
+                    if (signals.LinerAttached.BooleanValue.Value)
                     {
                         code = 1;
                     }
@@ -1213,10 +1210,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.Liner, code);
                 }
-                if (signals.FlowBoosterPump?.Mean != null && thresholds_.StableFlowBoosterPumpThreshold?.ScalarValue != null)
+                if (signals.FlowBoosterPump?.Mean != null && thresholds_.ZeroFlowBoosterPumpThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.FlowBoosterPump.Mean, 0, thresholds_.StableFlowBoosterPumpThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.FlowBoosterPump.Mean, 0, thresholds_.ZeroFlowBoosterPumpThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
@@ -1239,10 +1236,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableBoosterPumping, code);
                 }
-                if (signals.FlowBackPressurePump?.Mean != null && thresholds_.StableFlowBackPressurePumpThreshold?.ScalarValue != null)
+                if (signals.FlowBackPressurePump?.Mean != null && thresholds_.ZeroFlowBackPressurePumpThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.FlowBackPressurePump.Mean, 0, thresholds_.StableFlowBackPressurePumpThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.FlowBackPressurePump.Mean, 0, thresholds_.ZeroFlowBackPressurePumpThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
@@ -1295,10 +1292,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.RCDSealing, code);
                 }
-                if (signals.IsolationSealActivated != null)
+                if (signals.IsolationSealActivated != null && signals.IsolationSealActivated.BooleanValue != null)
                 {
                     uint code = 0;
-                    if (!(bool)signals.IsolationSealActivated)
+                    if (!signals.IsolationSealActivated.BooleanValue.Value)
                     {
                         code = 1;
                     }
@@ -1321,10 +1318,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.IsolationSealPressureBalance, code);
                 }
-                if (signals.BearingAssemblyLatched != null)
+                if (signals.BearingAssemblyLatched != null && signals.BearingAssemblyLatched.BooleanValue != null)
                 {
                     uint code = 0;
-                    if (!(bool)signals.BearingAssemblyLatched)
+                    if (!signals.BearingAssemblyLatched.BooleanValue.Value)
                     {
                         code = 1;
                     }
@@ -1334,10 +1331,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.BearingAssemblyLatched, code);
                 }
-                if (signals.ScreenMPDChokePlugged != null)
+                if (signals.ScreenMPDChokePlugged != null && signals.ScreenMPDChokePlugged.BooleanValue != null)
                 {
                     uint code = 0;
-                    if ((bool)signals.ScreenMPDChokePlugged)
+                    if (signals.ScreenMPDChokePlugged.BooleanValue.Value)
                     {
                         code = 1;
                     }
@@ -1347,10 +1344,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.ScreenMPDChokePlugged, code);
                 }
-                if (signals.MainFlowPathMPDEstablished != null)
+                if (signals.MainFlowPathMPDEstablished != null && signals.MainFlowPathMPDEstablished.BooleanValue != null)
                 {
                     uint code = 0;
-                    if (!(bool)signals.MainFlowPathMPDEstablished)
+                    if (!signals.MainFlowPathMPDEstablished.BooleanValue.Value)
                     {
                         code = 1;
                     }
@@ -1360,10 +1357,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.MainFlowPathStable, code);
                 }
-                if (signals.AlternateFlowPathMPDEstablished != null)
+                if (signals.AlternateFlowPathMPDEstablished != null && signals.AlternateFlowPathMPDEstablished.BooleanValue != null)
                 {
                     uint code = 0;
-                    if (!(bool)signals.AlternateFlowPathMPDEstablished)
+                    if (!signals.AlternateFlowPathMPDEstablished.BooleanValue.Value)
                     {
                         code = 1;
                     }
@@ -1373,10 +1370,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.AlternateFlowPathStable, code);
                 }
-                if (signals.FlowFillPumpDGD?.Mean != null && thresholds_.StableFlowFillPumpDGDThreshold?.ScalarValue != null)
+                if (signals.FlowFillPumpDGD?.Mean != null && thresholds_.ZeroFlowFillPumpDGDThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.FlowFillPumpDGD.Mean, 0, thresholds_.StableFlowFillPumpDGDThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.FlowFillPumpDGD.Mean, 0, thresholds_.ZeroFlowFillPumpDGDThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
@@ -1399,10 +1396,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableFillPumpDGD, code);
                 }
-                if (signals.FlowLiftPumpDGD?.Mean != null && thresholds_.StableFlowLiftPumpDGDThreshold?.ScalarValue != null)
+                if (signals.FlowLiftPumpDGD?.Mean != null && thresholds_.ZeroFlowLiftPumpDGDThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.EQ(signals.FlowLiftPumpDGD.Mean, 0, thresholds_.StableFlowLiftPumpDGDThreshold.ScalarValue.Value))
+                    if (Numeric.EQ(signals.FlowLiftPumpDGD.Mean, 0, thresholds_.ZeroFlowLiftPumpDGDThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
@@ -1412,10 +1409,10 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.LiftPumpDGD, code);
                 }
-                if (signals.StandardDeviationFlowLiftPumpDGD?.Mean != null && thresholds_.StableFlowFillPumpDGDThreshold?.ScalarValue != null)
+                if (signals.StandardDeviationFlowLiftPumpDGD?.Mean != null && thresholds_.StableFlowLiftPumpDGDThreshold?.ScalarValue != null)
                 {
                     uint code = 0;
-                    if (Numeric.GT(signals.StandardDeviationFlowLiftPumpDGD.Mean, thresholds_.StableFlowFillPumpDGDThreshold.ScalarValue))
+                    if (Numeric.GT(signals.StandardDeviationFlowLiftPumpDGD.Mean, thresholds_.StableFlowLiftPumpDGDThreshold.ScalarValue))
                     {
                         code = 1;
                     }
@@ -1526,18 +1523,21 @@ namespace DWIS.MicroState.IntepretationEngine
                     }
                     UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.ToolJoint4AtStickUpHeight, code);
                 }
-                if (signals.HeaveCompensationInactive != null && signals.HeaveCompensationActive != null)
+                if (signals.HeaveCompensationInactive != null && 
+                    signals.HeaveCompensationInactive.BooleanValue != null &&
+                    signals.HeaveCompensationActive != null &&
+                    signals.HeaveCompensationActive.BooleanValue != null)
                 {
                     uint code = 0;
-                    if (signals.HeaveCompensationInactive.Value && !signals.HeaveCompensationActive.Value)
+                    if (signals.HeaveCompensationInactive.BooleanValue.Value && !signals.HeaveCompensationActive.BooleanValue.Value)
                     {
                         code = 1;
                     }
-                    else if (signals.HeaveCompensationActive.Value && !signals.HeaveCompensationInactive.Value)
+                    else if (signals.HeaveCompensationActive.BooleanValue.Value && !signals.HeaveCompensationInactive.BooleanValue.Value)
                     {
                         code = 2;
                     }
-                    else if (!signals.HeaveCompensationActive.Value && !signals.HeaveCompensationInactive.Value)
+                    else if (!signals.HeaveCompensationActive.BooleanValue.Value && !signals.HeaveCompensationInactive.BooleanValue.Value)
                     {
                         code = 3;
                     }

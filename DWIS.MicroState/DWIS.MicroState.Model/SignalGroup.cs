@@ -2,6 +2,7 @@
 using OSDC.DotnetLibraries.Drilling.DrillingProperties;
 using OSDC.UnitConversion.Conversion;
 using OSDC.UnitConversion.Conversion.DrillingEngineering;
+using System.Reflection;
 
 namespace DWIS.MicroState.Model
 {
@@ -3239,80 +3240,18 @@ namespace DWIS.MicroState.Model
         {
             if (src != null)
             {
-                AxialVelocityTopOfString = src.AxialVelocityTopOfString;
-                StandardDeviationAxialVelocityTopOfString = src.StandardDeviationAxialVelocityTopOfString;
-                RotationalVelocityTopOfString = src.RotationalVelocityTopOfString;
-                StandardDeviationRotationalVelocityTopOfString = src.StandardDeviationRotationalVelocityTopOfString;
-                FlowTopOfString = src.FlowTopOfString;
-                StandardDeviationFlowTopOfString = src.StandardDeviationFlowTopOfString;
-                TensionTopOfString = src.TensionTopOfString;
-                ForceBottomTopDrive = src.ForceBottomTopDrive;
-                ForceElevator = src.ForceElevator;
-                StandardDeviationTensionTopOfString = src.StandardDeviationTensionTopOfString;
-                PressureTopOfString = src.PressureTopOfString;
-                StandardDeviationPressureTopOfString = src.StandardDeviationPressureTopOfString;
-                TorqueTopOfString = src.TorqueTopOfString;
-                StandardDeviationTorqueTopOfString = src.StandardDeviationTorqueTopOfString;
-                FlowAnnulusOutlet = src.FlowAnnulusOutlet;
-                StandardDeviationFlowAnnulusOutlet = src.StandardDeviationFlowAnnulusOutlet;
-                FlowCuttingsAnnulusOutlet = src.FlowCuttingsAnnulusOutlet;
-                ForceBottomOfStringOnRock = src.ForceBottomOfStringOnRock;
-                StandardDeviationForceBottomOfStringOnRock = src.StandardDeviationForceBottomOfStringOnRock;
-                ForceHoleOpenerOnRock = src.ForceHoleOpenerOnRock;
-                RotationaVelocityBottomOfString = src.RotationaVelocityBottomOfString;
-                StandardDeviationRotationalVelocityBottomOfString = src.StandardDeviationRotationalVelocityBottomOfString;
-                FlowCuttingsBottomHole = src.FlowCuttingsBottomHole;
-                FlowCuttingsTopOfRateHole = src.FlowCuttingsTopOfRateHole;
-                AxialVelocityBottomOfString = src.AxialVelocityBottomOfString;
-                StandardDeviationAxialVelocityBottomOfString = src.StandardDeviationAxialVelocityBottomOfString;
-                FlowBottomOfString = src.FlowBottomOfString;
-                StableFlowBottomOfString = src.StableFlowBottomOfString;
-                FlowHoleOpener = src.FlowHoleOpener;
-                StableFlowHoleOpener = src.StableFlowHoleOpener;
-                ForceOnLedge = src.ForceOnLedge;
-                ForceOnCuttingsBed = src.ForceOnCuttingsBed;
-                ForceDifferentialSticking = src.ForceDifferentialSticking;
-                FlowFluidFromOrToFormation = src.FlowFluidFromOrToFormation;
-                FlowFormationFluidAnnulusOutlet = src.FlowFormationFluidAnnulusOutlet;
-                FlowCavingsFromFormation = src.FlowCavingsFromFormation;
-                FlowCavingsAnnulusOutlet = src.FlowCavingsAnnulusOutlet;
-                FlowPipeToAnnulus = src.FlowPipeToAnnulus;
-                WhirlRateBottomOfString = src.WhirlRateBottomOfString;
-                WhirlRateHoleOpener = src.WhirlRateHoleOpener;
-                DifferentialPressureFloatValve = src.DifferentialPressureFloatValve;
-                UnderReamerOpen = src.UnderReamerOpen;
-                CirculationSubOpen = src.CirculationSubOpen;
-                PortedFloatOpen = src.PortedFloatOpen;
-                WhipstockAttached = src.WhipstockAttached;
-                PlugAttached = src.PlugAttached;
-                LinerAttached = src.LinerAttached;
-                FlowBoosterPump = src.FlowBoosterPump;
-                StandardDeviationFlowBoosterPump = src.StandardDeviationFlowBoosterPump;
-                FlowBackPressurePump = src.FlowBackPressurePump;
-                StandardDeviationFlowBackPressurePump = src.StandardDeviationFlowBackPressurePump;
-                OpeningMPDChoke = src.OpeningMPDChoke;
-                DifferentialPressureRCD = src.DifferentialPressureRCD;
-                IsolationSealActivated = src.IsolationSealActivated;
-                DifferentialPressureIsolationSeal = src.DifferentialPressureIsolationSeal;
-                BearingAssemblyLatched = src.BearingAssemblyLatched;
-                ScreenMPDChokePlugged = src.ScreenMPDChokePlugged;
-                MainFlowPathMPDEstablished = src.MainFlowPathMPDEstablished;
-                AlternateFlowPathMPDEstablished = src.AlternateFlowPathMPDEstablished;
-                FlowFillPumpDGD = src.FlowFillPumpDGD;
-                FlowLiftPumpDGD = src.FlowLiftPumpDGD;
-                StandardDeviationFlowFillPumpDGD = src.StandardDeviationFlowFillPumpDGD;
-                StandardDeviationFlowLiftPumpDGD = src.StandardDeviationFlowLiftPumpDGD;
-                UCS = src.UCS;
-                UCSSlope = src.UCSSlope;
-                MinimumTensionForTwistOffDetection = src.MinimumTensionForTwistOffDetection;
-                ToolJoint1Height = src.ToolJoint1Height;
-                ToolJoint2Height = src.ToolJoint2Height;
-                ToolJoint3Height = src.ToolJoint3Height;
-                ToolJoint4Height = src.ToolJoint4Height;
-                MinDrillHeight = src.MinDrillHeight;
-                StickUpHeight = src.StickUpHeight;
-                HeaveCompensationActive = src.HeaveCompensationActive;
-                HeaveCompensationInactive = src.HeaveCompensationInactive;
+                PropertyInfo[] sourceProperties = src.GetType().GetProperties();
+                Type destinationType = this.GetType();
+
+                foreach (PropertyInfo property in sourceProperties)
+                {
+                    PropertyInfo? destinationProperty = destinationType.GetProperty(property.Name);
+                    if (destinationProperty != null && destinationProperty.CanWrite)
+                    {
+                        object? value = property.GetValue(this);
+                        destinationProperty.SetValue(this, value);
+                    }
+                }
             }
         }
     }
