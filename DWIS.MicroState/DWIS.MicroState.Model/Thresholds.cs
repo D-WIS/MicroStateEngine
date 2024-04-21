@@ -28,7 +28,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroAxialVelocityTopOfStringThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroAxialVelocityTopOfStringThreshold#01")]
-        public ScalarDrillingProperty ZeroAxialVelocityTopOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroAxialVelocityTopOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -44,7 +44,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "StandardDeviation")]
         [OptionalFact(1, "StableAxialVelocityTopOfStringThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "StableAxialVelocityTopOfStringThreshold#01")]
-        public ScalarDrillingProperty StableAxialVelocityTopOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty StableAxialVelocityTopOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -61,7 +61,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroRotationalVelocityTopOfStringThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroRotationalVelocityTopOfStringThreshold#01")]
-        public ScalarDrillingProperty ZeroRotationalVelocityTopOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroRotationalVelocityTopOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -77,7 +77,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "StandardDeviation")]
         [OptionalFact(1, "StableRotationalVelocityTopOfStringThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "StableRotationalVelocityTopOfStringThreshold#01")]
-        public ScalarDrillingProperty StableRotationalVelocityTopOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty StableRotationalVelocityTopOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -94,7 +94,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroFlowTopOfStringThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroFlowTopOfStringThreshold#01")]
-        public ScalarDrillingProperty ZeroFlowTopOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroFlowTopOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -110,7 +110,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "StandardDeviation")]
         [OptionalFact(1, "StableFlowTopOfStringThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "StableFlowTopOfStringThreshold#01")]
-        public ScalarDrillingProperty StableFlowTopOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty StableFlowTopOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -127,7 +127,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroTensionTopOfStringThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroTensionTopOfStringThreshold#01")]
-        public ScalarDrillingProperty ZeroTensionTopOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroTensionTopOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -143,7 +143,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "StandardDeviation")]
         [OptionalFact(1, "StableTensionTopOfStringThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "StableTensionTopOfStringThreshold#01")] 
-        public ScalarDrillingProperty StableTensionTopOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty StableTensionTopOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -160,7 +160,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroPressureTopOfStringThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroPressureTopOfStringThreshold#01")]
-        public ScalarDrillingProperty ZeroPressureTopOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroPressureTopOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -176,7 +176,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "StandardDeviation")]
         [OptionalFact(1, "StablePressureTopOfStringThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "StablePressureTopOfStringThreshold#01")]
-        public ScalarDrillingProperty StablePressureTopOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty StablePressureTopOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -193,7 +193,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroTorqueTopOfStringThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroTorqueTopOfStringThreshold#01")]
-        public ScalarDrillingProperty ZeroTorqueTopOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroTorqueTopOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -209,7 +209,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "StandardDeviation")]
         [OptionalFact(1, "StableTorqueTopOfStringThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "StableTorqueTopOfStringThreshold#01")]
-        public ScalarDrillingProperty StableTorqueTopOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty StableTorqueTopOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -234,7 +234,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroFlowAnnulusOutletThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroFlowAnnulusOutletThreshold#01")]
-        public ScalarDrillingProperty ZeroFlowAnnulusOutletThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroFlowAnnulusOutletThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -258,7 +258,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "StandardDeviation")]
         [OptionalFact(1, "StableFlowAnnulusOutletThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "StableFlowAnnulusOutletThreshold#01")]
-        public ScalarDrillingProperty StableFlowAnnulusOutletThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty StableFlowAnnulusOutletThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -271,7 +271,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("ZeroBottomOfStringRockForceThreshold#01", Verbs.Enum.IsOfMeasurableQuantity, DrillingPhysicalQuantity.QuantityEnum.DrillingForce)]
         [OptionalFact(4, "bos#01", Nouns.Enum.BottomOfStringReferenceLocation)]
         [OptionalFact(4, "ZeroBottomOfStringRockForceThreshold#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
-        [OptionalFact(5, "dst#01", Nouns.Enum.DrillStemTerminator)]
+        [OptionalFact(5, "dst#01", Nouns.Enum.DrillstemTerminator)]
         [OptionalFact(5, "logical_dst#01", Nouns.Enum.MechanicalLogicalElement)]
         [OptionalFact(5, "logical_dst#01", Verbs.Enum.IsAMechanicalRepresentationFor, "dst#01")]
         [OptionalFact(5, "ZeroBottomOfStringRockForceThreshold#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_dst#01")]
@@ -280,7 +280,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroBottomOfStringRockForceThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroBottomOfStringRockForceThreshold#01")]
-        public ScalarDrillingProperty ZeroBottomOfStringRockForceThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroBottomOfStringRockForceThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -293,7 +293,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("StableBottomOfStringRockForceThreshold#01", Verbs.Enum.IsOfMeasurableQuantity, DrillingPhysicalQuantity.QuantityEnum.DrillingForce)]
         [OptionalFact(4, "bos#01", Nouns.Enum.BottomOfStringReferenceLocation)]
         [OptionalFact(4, "StableBottomOfStringRockForceThreshold#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
-        [OptionalFact(5, "dst#01", Nouns.Enum.DrillStemTerminator)]
+        [OptionalFact(5, "dst#01", Nouns.Enum.DrillstemTerminator)]
         [OptionalFact(5, "logical_dst#01", Nouns.Enum.MechanicalLogicalElement)]
         [OptionalFact(5, "logical_dst#01", Verbs.Enum.IsAMechanicalRepresentationFor, "dst#01")]
         [OptionalFact(5, "StableBottomOfStringRockForceThreshold#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_dst#01")]
@@ -302,7 +302,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "StandardDeviation")]
         [OptionalFact(1, "StableBottomOfStringRockForceThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "StableBottomOfStringRockForceThreshold#01")]
-        public ScalarDrillingProperty StableBottomOfStringRockForceThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty StableBottomOfStringRockForceThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -315,7 +315,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("ZeroBottomOfStringRotationalVelocityThreshold#01", Verbs.Enum.IsOfMeasurableQuantity, DrillingPhysicalQuantity.QuantityEnum.DrillingAngularVelocity)]
         [OptionalFact(4, "bos#01", Nouns.Enum.BottomOfStringReferenceLocation)]
         [OptionalFact(4, "ZeroBottomOfStringRotationalVelocityThreshold#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
-        [OptionalFact(5, "dst#01", Nouns.Enum.DrillStemTerminator)]
+        [OptionalFact(5, "dst#01", Nouns.Enum.DrillstemTerminator)]
         [OptionalFact(5, "logical_dst#01", Nouns.Enum.MechanicalLogicalElement)]
         [OptionalFact(5, "logical_dst#01", Verbs.Enum.IsAMechanicalRepresentationFor, "dst#01")]
         [OptionalFact(5, "ZeroBottomOfStringRotationalVelocityThreshold#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_dst#01")]
@@ -324,7 +324,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroBottomOfStringRotationalVelocityThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroBottomOfStringRotationalVelocityThreshold#01")]
-        public ScalarDrillingProperty ZeroRotationalVelocityBottomOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroRotationalVelocityBottomOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -337,7 +337,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("StableBottomOfStringRotationalVelocityThreshold#01", Verbs.Enum.IsOfMeasurableQuantity, DrillingPhysicalQuantity.QuantityEnum.DrillingAngularVelocity)]
         [OptionalFact(4, "bos#01", Nouns.Enum.BottomOfStringReferenceLocation)]
         [OptionalFact(4, "StableBottomOfStringRotationalVelocityThreshold#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
-        [OptionalFact(5, "dst#01", Nouns.Enum.DrillStemTerminator)]
+        [OptionalFact(5, "dst#01", Nouns.Enum.DrillstemTerminator)]
         [OptionalFact(5, "logical_dst#01", Nouns.Enum.MechanicalLogicalElement)]
         [OptionalFact(5, "logical_dst#01", Verbs.Enum.IsAMechanicalRepresentationFor, "dst#01")]
         [OptionalFact(5, "StableBottomOfStringRotationalVelocityThreshold#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_dst#01")]
@@ -346,7 +346,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "StandardDeviation")]
         [OptionalFact(1, "StableBottomOfStringRotationalVelocityThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "StableBottomOfStringRotationalVelocityThreshold#01")]
-        public ScalarDrillingProperty StableRotationalVelocityBottomOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty StableRotationalVelocityBottomOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -359,7 +359,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("ZeroBottomOfStringAxialVelocityThreshold#01", Verbs.Enum.IsOfMeasurableQuantity, DrillingPhysicalQuantity.QuantityEnum.BlockVelocity)]
         [OptionalFact(4, "bos#01", Nouns.Enum.BottomOfStringReferenceLocation)]
         [OptionalFact(4, "ZeroBottomOfStringAxialVelocityThreshold#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
-        [OptionalFact(5, "dst#01", Nouns.Enum.DrillStemTerminator)]
+        [OptionalFact(5, "dst#01", Nouns.Enum.DrillstemTerminator)]
         [OptionalFact(5, "logical_dst#01", Nouns.Enum.MechanicalLogicalElement)]
         [OptionalFact(5, "logical_dst#01", Verbs.Enum.IsAMechanicalRepresentationFor, "dst#01")]
         [OptionalFact(5, "ZeroBottomOfStringAxialVelocityThreshold#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_dst#01")]
@@ -368,7 +368,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroBottomOfStringAxialVelocityThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroBottomOfStringAxialVelocityThreshold#01")]
-        public ScalarDrillingProperty ZeroAxialVelocityBottomOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroAxialVelocityBottomOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -381,7 +381,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("StableBottomOfStringAxialVelocityThreshold#01", Verbs.Enum.IsOfMeasurableQuantity, DrillingPhysicalQuantity.QuantityEnum.BlockVelocity)]
         [OptionalFact(4, "bos#01", Nouns.Enum.BottomOfStringReferenceLocation)]
         [OptionalFact(4, "StableBottomOfStringAxialVelocityThreshold#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
-        [OptionalFact(5, "dst#01", Nouns.Enum.DrillStemTerminator)]
+        [OptionalFact(5, "dst#01", Nouns.Enum.DrillstemTerminator)]
         [OptionalFact(5, "logical_dst#01", Nouns.Enum.MechanicalLogicalElement)]
         [OptionalFact(5, "logical_dst#01", Verbs.Enum.IsAMechanicalRepresentationFor, "dst#01")]
         [OptionalFact(5, "StableBottomOfStringAxialVelocityThreshold#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_dst#01")]
@@ -390,7 +390,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "StandardDeviation")]
         [OptionalFact(1, "StableBottomOfStringAxialVelocityThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "StableBottomOfStringAxialVelocityThreshold#01")]
-        public ScalarDrillingProperty StableAxialVelocityBottomOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty StableAxialVelocityBottomOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -403,7 +403,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("ZeroBottomOfStringFlowThreshold#01", Verbs.Enum.IsOfMeasurableQuantity, DrillingPhysicalQuantity.QuantityEnum.DrillingVolumetricFlowrate)]
         [OptionalFact(4, "bos#01", Nouns.Enum.BottomOfStringReferenceLocation)]
         [OptionalFact(4, "ZeroBottomOfStringFlowThreshold#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
-        [OptionalFact(5, "dst#01", Nouns.Enum.DrillStemTerminator)]
+        [OptionalFact(5, "dst#01", Nouns.Enum.DrillstemTerminator)]
         [OptionalFact(5, "logical_dst#01", Nouns.Enum.MechanicalLogicalElement)]
         [OptionalFact(5, "logical_dst#01", Verbs.Enum.IsAMechanicalRepresentationFor, "dst#01")]
         [OptionalFact(5, "ZeroBottomOfStringFlowThreshold#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_dst#01")]
@@ -412,7 +412,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroBottomOfStringFlowThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroBottomOfStringFlowThreshold#01")]
-        public ScalarDrillingProperty ZeroFlowBottomOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroFlowBottomOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -425,7 +425,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("StableBottomOfStringFlowThreshold#01", Verbs.Enum.IsOfMeasurableQuantity, DrillingPhysicalQuantity.QuantityEnum.DrillingVolumetricFlowrate)]
         [OptionalFact(4, "bos#01", Nouns.Enum.BottomOfStringReferenceLocation)]
         [OptionalFact(4, "StableBottomOfStringFlowThreshold#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
-        [OptionalFact(5, "dst#01", Nouns.Enum.DrillStemTerminator)]
+        [OptionalFact(5, "dst#01", Nouns.Enum.DrillstemTerminator)]
         [OptionalFact(5, "logical_dst#01", Nouns.Enum.MechanicalLogicalElement)]
         [OptionalFact(5, "logical_dst#01", Verbs.Enum.IsAMechanicalRepresentationFor, "dst#01")]
         [OptionalFact(5, "StableBottomOfStringFlowThreshold#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_dst#01")]
@@ -434,7 +434,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "StandardDeviation")]
         [OptionalFact(1, "StableBottomOfStringFlowThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "StableBottomOfStringFlowThreshold#01")]
-        public ScalarDrillingProperty StableFlowBottomOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty StableFlowBottomOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -444,7 +444,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("ZeroHoleOpenerFlowThreshold#01", Nouns.Enum.Limit)]
         [SemanticFact("ZeroHoleOpenerFlowThreshold#01", Verbs.Enum.HasValue, "ZeroHoleOpenerFlowThreshold")]
         [SemanticFact("ZeroHoleOpenerFlowThreshold#01", Verbs.Enum.IsOfMeasurableQuantity, DrillingPhysicalQuantity.QuantityEnum.DrillingVolumetricFlowrate)]
-        [SemanticFact("urho#01", Nouns.Enum.HoleEnlargementElement)]
+        [SemanticFact("urho#01", Nouns.Enum.HoleOpener)]
         [SemanticFact("logical_urho#01", Nouns.Enum.MechanicalLogicalElement)]
         [SemanticFact("logical_urho#01", Verbs.Enum.IsAMechanicalRepresentationFor, "urho#01")]
         [SemanticFact("ZeroHoleOpenerFlowThreshold#01", Verbs.Enum.IsHydraulicallyLocatedAt, "logical_urho#01")]
@@ -453,7 +453,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroHoleOpenerFlowThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroHoleOpenerFlowThreshold#01")]
-        public ScalarDrillingProperty ZeroFlowHoleOpenerThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroFlowHoleOpenerThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -463,7 +463,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("StableHoleOpenerFlowThreshold#01", Nouns.Enum.Limit)]
         [SemanticFact("StableHoleOpenerFlowThreshold#01", Verbs.Enum.HasValue, "StableHoleOpenerFlowThreshold")]
         [SemanticFact("StableHoleOpenerFlowThreshold#01", Verbs.Enum.IsOfMeasurableQuantity, DrillingPhysicalQuantity.QuantityEnum.DrillingVolumetricFlowrate)]
-        [SemanticFact("urho#01", Nouns.Enum.HoleEnlargementElement)]
+        [SemanticFact("urho#01", Nouns.Enum.HoleOpener)]
         [SemanticFact("logical_urho#01", Nouns.Enum.MechanicalLogicalElement)]
         [SemanticFact("logical_urho#01", Verbs.Enum.IsAMechanicalRepresentationFor, "urho#01")]
         [SemanticFact("StableHoleOpenerFlowThreshold#01", Verbs.Enum.IsHydraulicallyLocatedAt, "logical_urho#01")]
@@ -472,7 +472,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "StandardDeviation")]
         [OptionalFact(1, "StableHoleOpenerFlowThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "StableHoleOpenerFlowThreshold#01")]
-        public ScalarDrillingProperty StableFlowHoleOpenerThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty StableFlowHoleOpenerThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -483,7 +483,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("ZeroHoleOpenerOnRockForceThreshold#01", Nouns.Enum.Limit)]
         [SemanticFact("ZeroHoleOpenerOnRockForceThreshold#01", Verbs.Enum.HasValue, "ZeroHoleOpenerOnRockForceThreshold")]
         [SemanticFact("ZeroHoleOpenerOnRockForceThreshold#01", Verbs.Enum.IsOfMeasurableQuantity, DrillingPhysicalQuantity.QuantityEnum.DrillingForce)]
-        [SemanticFact("urho#01", Nouns.Enum.HoleEnlargementElement)]
+        [SemanticFact("urho#01", Nouns.Enum.HoleOpener)]
         [SemanticFact("logical_urho#01", Nouns.Enum.MechanicalLogicalElement)]
         [SemanticFact("logical_urho#01", Verbs.Enum.IsAMechanicalRepresentationFor, "urho#01")]
         [SemanticFact("ZeroHoleOpenerOnRockForceThreshold#01", Verbs.Enum.IsHydraulicallyLocatedAt, "logical_urho#01")]
@@ -492,7 +492,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroHoleOpenerOnRockForceThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroHoleOpenerOnRockForceThreshold#01")]
-        public ScalarDrillingProperty ZeroHoleOpenerOnRockForceThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroHoleOpenerOnRockForceThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -502,7 +502,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MinimumPressureFloatValve#01", Nouns.Enum.MinimumLimit)]
         [SemanticFact("MinimumPressureFloatValve#01", Verbs.Enum.HasValue, "MinimumPressureFloatValve")]
         [SemanticFact("MinimumPressureFloatValve#01", Verbs.Enum.IsOfMeasurableQuantity, DrillingPhysicalQuantity.QuantityEnum.DrillingPressure)]
-        [SemanticFact("FloatValve#01", Nouns.Enum.FloatValve)]
+        [SemanticFact("FloatValve#01", Nouns.Enum.FloatValveNonreturnValve)]
         [SemanticFact("Logical_FloatValve#01", Nouns.Enum.HydraulicLogicalElement)]
         [SemanticFact("Logical_FloatValve#01", Verbs.Enum.IsAHydraulicRepresentationFor, "FloatValve#01")]
         [SemanticFact("MinimumPressureFloatValve#01", Verbs.Enum.IsHydraulicallyLocatedAt, "Logical_FloatValve#01")]
@@ -513,7 +513,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "MinimumPressureFloatValve#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "MinimumPressureFloatValve#01")]
-        public ScalarDrillingProperty MinimumPressureFloatValve { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty MinimumPressureFloatValve { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -532,7 +532,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroFlowBoosterPumpThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroFlowBoosterPumpThreshold#01")]
-        public ScalarDrillingProperty ZeroFlowBoosterPumpThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroFlowBoosterPumpThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -551,7 +551,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "StandardDeviation")]
         [OptionalFact(1, "StableFlowBoosterPumpThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "StableFlowBoosterPumpThreshold#01")]
-        public ScalarDrillingProperty StableFlowBoosterPumpThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty StableFlowBoosterPumpThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -570,7 +570,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroFlowBackPressurePumpThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroFlowBackPressurePumpThreshold#01")]
-        public ScalarDrillingProperty ZeroFlowBackPressurePumpThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroFlowBackPressurePumpThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -589,7 +589,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "StandardDeviation")]
         [OptionalFact(1, "StableFlowBackPressurePumpThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "StableFlowBackPressurePumpThreshold#01")]
-        public ScalarDrillingProperty StableFlowBackPressurePumpThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty StableFlowBackPressurePumpThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -610,7 +610,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "MinimumDifferentialPressureRCDSealing#01", Verbs.Enum.IsToBeGreaterThan, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeSmallerThan, "MinimumDifferentialPressureRCDSealing#01")]
-        public ScalarDrillingProperty MinimumDifferentialPressureRCDSealingThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty MinimumDifferentialPressureRCDSealingThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -631,7 +631,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "MinimumDifferentialPressureSealBalance#01", Verbs.Enum.IsToBeSmallerThan, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeGreaterThan, "MinimumDifferentialPressureSealBalance#01")]
-        public ScalarDrillingProperty MinimumDifferentialPressureSealBalanceThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty MinimumDifferentialPressureSealBalanceThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -650,7 +650,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroFlowFillPumpDGDThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroFlowFillPumpDGDThreshold#01")]
-        public ScalarDrillingProperty ZeroFlowFillPumpDGDThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroFlowFillPumpDGDThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -669,7 +669,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "StandardDeviation")]
         [OptionalFact(1, "StableFlowFillPumpDGDThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "StableFlowFillPumpDGDThreshold#01")]
-        public ScalarDrillingProperty StableFlowFillPumpDGDThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty StableFlowFillPumpDGDThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -688,7 +688,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroFlowLiftPumpDGDThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroFlowLiftPumpDGDThreshold#01")]
-        public ScalarDrillingProperty ZeroFlowLiftPumpDGDThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroFlowLiftPumpDGDThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -707,7 +707,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "StandardDeviation")]
         [OptionalFact(1, "StableFlowLiftPumpDGDThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "StableFlowLiftPumpDGDThreshold#01")]
-        public ScalarDrillingProperty StableFlowLiftPumpDGDThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty StableFlowLiftPumpDGDThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -733,7 +733,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroCuttingsFlowAnnulusOutletThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroCuttingsFlowAnnulusOutletThreshold#01")]
-        public ScalarDrillingProperty ZeroCuttingsFlowAnnulusOutletThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroCuttingsFlowAnnulusOutletThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -757,7 +757,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroCuttingsFlowBottomHoleThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroCuttingsFlowBottomHoleThreshold#01")]
-        public ScalarDrillingProperty ZeroCuttingsFlowBottomHoleThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroCuttingsFlowBottomHoleThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -781,7 +781,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ZeroCuttingsFlowTopOfRatHoleThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ZeroCuttingsFlowTopOfRatHoleThreshold#01")]
-        public ScalarDrillingProperty ZeroCuttingsFlowTopOfRatHoleThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ZeroCuttingsFlowTopOfRatHoleThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -804,7 +804,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "HardStringerThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "HardStringerThreshold#01")]
-        public ScalarDrillingProperty HardStringerThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty HardStringerThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -827,7 +827,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ChangeOfFormationUCSSlopeThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ChangeOfFormationUCSSlopeThreshold#01")]
-        public ScalarDrillingProperty ChangeOfFormationUCSSlopeThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ChangeOfFormationUCSSlopeThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -844,7 +844,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ForceOnLedgeThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ForceOnLedgeThreshold#01")]
-        public ScalarDrillingProperty ForceOnLedgeThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ForceOnLedgeThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -861,7 +861,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "ForceOnCuttingsBedThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ForceOnCuttingsBedThreshold#01")]
-        public ScalarDrillingProperty ForceOnCuttingsBedThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ForceOnCuttingsBedThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -878,7 +878,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "StandardDeviation")]
         [OptionalFact(1, "ForceDifferentialStickingThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "ForceDifferentialStickingThreshold#01")]
-        public ScalarDrillingProperty ForceDifferentialStickingThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty ForceDifferentialStickingThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -895,7 +895,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "FluidFlowFormationThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "FluidFlowFormationThreshold#01")]
-        public ScalarDrillingProperty FluidFlowFormationThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty FluidFlowFormationThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -912,7 +912,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "FlowCavingsFromFormationThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "FlowCavingsFromFormationThreshold#01")]
-        public ScalarDrillingProperty FlowCavingsFromFormationThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty FlowCavingsFromFormationThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -925,7 +925,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("WhirlRateBottomOfStringThreshold#01", Verbs.Enum.IsOfMeasurableQuantity, DrillingPhysicalQuantity.QuantityEnum.DrillingAngularVelocity)]
         [OptionalFact(4, "bos#01", Nouns.Enum.BottomOfStringReferenceLocation)]
         [OptionalFact(4, "WhirlRateBottomOfStringThreshold#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
-        [OptionalFact(5, "dst#01", Nouns.Enum.DrillStemTerminator)]
+        [OptionalFact(5, "dst#01", Nouns.Enum.DrillstemTerminator)]
         [OptionalFact(5, "logical_dst#01", Nouns.Enum.MechanicalLogicalElement)]
         [OptionalFact(5, "logical_dst#01", Verbs.Enum.IsAMechanicalRepresentationFor, "dst#01")]
         [OptionalFact(5, "WhirlRateBottomOfStringThreshold#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_dst#01")]
@@ -934,7 +934,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "WhirlRateBottomOfStringThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "WhirlRateBottomOfStringThreshold#01")]
-        public ScalarDrillingProperty WhirlRateBottomOfStringThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty WhirlRateBottomOfStringThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -944,7 +944,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("WhirlRateHoleOpenerThreshold#01", Nouns.Enum.Limit)]
         [SemanticFact("WhirlRateHoleOpenerThreshold#01", Verbs.Enum.HasValue, "WhirlRateHoleOpenerThreshold")]
         [SemanticFact("WhirlRateHoleOpenerThreshold#01", Verbs.Enum.IsOfMeasurableQuantity, DrillingPhysicalQuantity.QuantityEnum.DrillingAngularVelocity)]
-        [SemanticFact("urho#01", Nouns.Enum.HoleEnlargementElement)]
+        [SemanticFact("urho#01", Nouns.Enum.HoleOpener)]
         [SemanticFact("logical_urho#01", Nouns.Enum.MechanicalLogicalElement)]
         [SemanticFact("logical_urho#01", Verbs.Enum.IsAMechanicalRepresentationFor, "urho#01")]
         [SemanticFact("WhirlRateHoleOpenerThreshold#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_urho#01")]
@@ -953,7 +953,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "WhirlRateHoleOpenerThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "WhirlRateHoleOpenerThreshold#01")]
-        public ScalarDrillingProperty WhirlRateHoleOpenerThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty WhirlRateHoleOpenerThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -970,7 +970,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "FlowPipeToAnnulusThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "FlowPipeToAnnulusThreshold#01")]
-        public ScalarDrillingProperty FlowPipeToAnnulusThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty FlowPipeToAnnulusThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -987,7 +987,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "AtDrillHeightThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "AtDrillHeightThreshold#01")]
-        public ScalarDrillingProperty AtDrillHeightThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty AtDrillHeightThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1004,7 +1004,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("signal#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [OptionalFact(1, "AtStickUpHeightThreshold#01", Verbs.Enum.IsToBeComparedWith, "signal#01")]
         [OptionalFact(2, "signal#01", Verbs.Enum.IsToBeComparedWith, "AtStickUpHeightThreshold#01")]
-        public ScalarDrillingProperty AtStickUpHeightThreshold { get; set; } = new ScalarDrillingProperty();
+        public ScalarRDFDrillingProperty AtStickUpHeightThreshold { get; set; } = new ScalarRDFDrillingProperty();
 
         public void CopyTo(Thresholds destination)
         {

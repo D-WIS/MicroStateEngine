@@ -4,7 +4,7 @@ using OSDC.DotnetLibraries.Drilling.DrillingProperties;
 namespace DWIS.MicroState.Model
 {
     [AccessToVariable(CommonProperty.VariableAccessType.Assignable)]
-    [Mandatory(CommonProperty.MandatoryType.General)]
+    [SemanticTypeVariable("8796c92c-96a3-4854-a263-3a6aa67344bf")]
     [SemanticFact("8796c92c-96a3-4854-a263-3a6aa67344bf", Nouns.Enum.DynamicDrillingSignal)]
     [SemanticFact("DWIS:MicroStates:Current", Nouns.Enum.ComputedData)]
     [SemanticFact("DWIS:MicroStates:Current", Verbs.Enum.HasDynamicValue, "8796c92c-96a3-4854-a263-3a6aa67344bf")]
