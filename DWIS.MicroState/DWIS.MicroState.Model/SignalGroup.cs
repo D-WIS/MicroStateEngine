@@ -1,7 +1,10 @@
-﻿using DWIS.Vocabulary.Schemas;
+﻿using DWIS.API.DTO;
+using DWIS.Client.ReferenceImplementation;
+using DWIS.Vocabulary.Schemas;
 using OSDC.DotnetLibraries.Drilling.DrillingProperties;
 using OSDC.UnitConversion.Conversion;
 using OSDC.UnitConversion.Conversion.DrillingEngineering;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace DWIS.MicroState.Model
@@ -51,7 +54,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "v_tos_prop#01")]
         [OptionalFact(3, "v_tos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "v_tos#01")]
-        public GaussianRDFDrillingProperty AxialVelocityTopOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty AxialVelocityTopOfString { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -96,7 +99,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "sigma_v_tos_prop#01")]
         [OptionalFact(3, "sigma_v_tos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "sigma_v_tos#01")]
-        public GaussianRDFDrillingProperty StandardDeviationAxialVelocityTopOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty StandardDeviationAxialVelocityTopOfString { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -141,7 +144,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "omega_tos_prop#01")]
         [OptionalFact(3, "omega_tos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "omega_tos#01")]
-        public GaussianRDFDrillingProperty RotationalVelocityTopOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty RotationalVelocityTopOfString { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -186,7 +189,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "sigma_omega_tos_prop#01")]
         [OptionalFact(3, "sigma_omega_tos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "sigma_omega_tos#01")]
-        public GaussianRDFDrillingProperty StandardDeviationRotationalVelocityTopOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty StandardDeviationRotationalVelocityTopOfString { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -231,7 +234,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "Q_tos_prop#01")]
         [OptionalFact(3, "Q_tos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "Q_tos#01")]
-        public GaussianRDFDrillingProperty FlowTopOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty FlowTopOfString { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -276,7 +279,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "sigma_Q_tos_prop#01")]
         [OptionalFact(3, "sigma_Q_tos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "sigma_Q_tos#01")]
-        public GaussianRDFDrillingProperty StandardDeviationFlowTopOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty StandardDeviationFlowTopOfString { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -321,7 +324,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "T_tos_prop#01")]
         [OptionalFact(3, "T_tos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "T_tos#01")]
-        public GaussianRDFDrillingProperty TensionTopOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty TensionTopOfString { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -369,7 +372,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "F_btd_prop#01")]
         [OptionalFact(3, "F_btd#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "F_btd#01")]
-        public GaussianRDFDrillingProperty ForceBottomTopDrive { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty ForceBottomTopDrive { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -416,7 +419,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "F_elev_prop#01")]
         [OptionalFact(3, "F_elev#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "F_elev#01")]
-        public GaussianRDFDrillingProperty ForceElevator { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty ForceElevator { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -461,7 +464,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "sigma_T_tos_prop#01")]
         [OptionalFact(3, "sigma_T_tos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "sigma_T_tos#01")]
-        public GaussianRDFDrillingProperty StandardDeviationTensionTopOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty StandardDeviationTensionTopOfString { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -508,7 +511,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "p_tos_prop#01")]
         [OptionalFact(3, "p_tos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "p_tos#01")]
-        public GaussianRDFDrillingProperty PressureTopOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty PressureTopOfString { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -555,7 +558,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "sigma_p_tos_prop#01")]
         [OptionalFact(3, "sigma_p_tos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "sigma_p_tos#01")]
-        public GaussianRDFDrillingProperty StandardDeviationPressureTopOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty StandardDeviationPressureTopOfString { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -600,7 +603,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "trq_tos_prop#01")]
         [OptionalFact(3, "trq_tos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "trq_tos#01")]
-        public GaussianRDFDrillingProperty TorqueTopOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty TorqueTopOfString { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -645,7 +648,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "sigma_trq_tos_prop#01")]
         [OptionalFact(3, "sigma_trq_tos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "sigma_trq_tos#01")]
-        public GaussianRDFDrillingProperty StandardDeviationTorqueTopOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty StandardDeviationTorqueTopOfString { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -698,7 +701,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "Q_out_prop#01")]
         [OptionalFact(3, "Q_out#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "Q_out#01")]
-        public GaussianRDFDrillingProperty FlowAnnulusOutlet { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty FlowAnnulusOutlet { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -751,7 +754,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "sigma_Q_out_prop#01")]
         [OptionalFact(3, "sigma_Q_out#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "sigma_Q_out#01")]
-        public GaussianRDFDrillingProperty StandardDeviationFlowAnnulusOutlet { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty StandardDeviationFlowAnnulusOutlet { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -804,7 +807,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "Q_cuttings_out_prop#01")]
         [OptionalFact(3, "Q_cuttings_out#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "Q_cuttings_out#01")]
-        public GaussianRDFDrillingProperty FlowCuttingsAnnulusOutlet { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty FlowCuttingsAnnulusOutlet { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -854,7 +857,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "F_bos_prop#01")]
         [OptionalFact(3, "F_bos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "F_bos#01")]
-        public GaussianRDFDrillingProperty ForceBottomOfStringOnRock { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty ForceBottomOfStringOnRock { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -904,7 +907,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "sigma_F_bos_prop#01")]
         [OptionalFact(3, "sigma_F_bos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "sigma_F_bos#01")]
-        public GaussianRDFDrillingProperty StandardDeviationForceBottomOfStringOnRock { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty StandardDeviationForceBottomOfStringOnRock { get; set; } = new GaussianDrillingProperty();
 
         [Mandatory(CommonProperty.MandatoryType.General)]
         [SemanticGaussianVariable("F_urho", "sigma_F_urho")]
@@ -950,7 +953,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "F_urho_prop#01")]
         [OptionalFact(3, "F_urho#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "F_urho#01")]
-        public GaussianRDFDrillingProperty ForceHoleOpenerOnRock { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty ForceHoleOpenerOnRock { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1002,7 +1005,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "omega_bos_prop#01")]
         [OptionalFact(3, "omega_bos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "omega_bos#01")]
-        public GaussianRDFDrillingProperty RotationaVelocityBottomOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty RotationaVelocityBottomOfString { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1054,7 +1057,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "sigma_omega_bos_prop#01")]
         [OptionalFact(3, "sigma_omega_bos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "sigma_omega_bos#01")]
-        public GaussianRDFDrillingProperty StandardDeviationRotationalVelocityBottomOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty StandardDeviationRotationalVelocityBottomOfString { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1105,7 +1108,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "Q_cuttings_bh_prop#01")]
         [OptionalFact(3, "Q_cuttings_bh#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "Q_cuttings_bh#01")]
-        public GaussianRDFDrillingProperty FlowCuttingsBottomHole { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty FlowCuttingsBottomHole { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1156,7 +1159,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "Q_cuttings_trh_prop#01")]
         [OptionalFact(3, "Q_cuttings_trh#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "Q_cuttings_trh#01")]
-        public GaussianRDFDrillingProperty FlowCuttingsTopOfRateHole { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty FlowCuttingsTopOfRateHole { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1206,7 +1209,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "sigma_va_bos_prop#01")]
         [OptionalFact(3, "sigma_va_bos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "sigma_va_bos#01")]
-        public GaussianRDFDrillingProperty AxialVelocityBottomOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty AxialVelocityBottomOfString { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1256,7 +1259,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "sigma_va_bos_prop#01")]
         [OptionalFact(3, "sigma_va_bos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "sigma_va_bos#01")]
-        public GaussianRDFDrillingProperty StandardDeviationAxialVelocityBottomOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty StandardDeviationAxialVelocityBottomOfString { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1306,7 +1309,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "Q_bos_prop#01")]
         [OptionalFact(3, "Q_bos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "Q_bos#01")]
-        public GaussianRDFDrillingProperty FlowBottomOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty FlowBottomOfString { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1356,7 +1359,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "sigma_Q_bos_prop#01")]
         [OptionalFact(3, "sigma_Q_bos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "sigma_Q_bos#01")]
-        public GaussianRDFDrillingProperty StableFlowBottomOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty StableFlowBottomOfString { get; set; } = new GaussianDrillingProperty();
 
         [Mandatory(CommonProperty.MandatoryType.General)]
         [SemanticGaussianVariable("Q_urho", "sigma_Q_urho")]
@@ -1402,7 +1405,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "Q_urho_prop#01")]
         [OptionalFact(3, "Q_urho#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "Q_urho#01")]
-        public GaussianRDFDrillingProperty FlowHoleOpener { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty FlowHoleOpener { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1449,7 +1452,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "sigma_Q_urho_prop#01")]
         [OptionalFact(3, "sigma_Q_urho#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "sigma_Q_urho#01")]
-        public GaussianRDFDrillingProperty StableFlowHoleOpener { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty StableFlowHoleOpener { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1494,7 +1497,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "F_ledge_prop#01")]
         [OptionalFact(3, "F_ledge#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "F_ledge#01")]
-        public GaussianRDFDrillingProperty ForceOnLedge { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty ForceOnLedge { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1539,7 +1542,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "F_bed_prop#01")]
         [OptionalFact(3, "F_bed#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "F_bed#01")]
-        public GaussianRDFDrillingProperty ForceOnCuttingsBed { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty ForceOnCuttingsBed { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1584,7 +1587,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "F_DifferentialSticking_prop#01")]
         [OptionalFact(3, "F_DifferentialSticking#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "F_DifferentialSticking#01")]
-        public GaussianRDFDrillingProperty ForceDifferentialSticking { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty ForceDifferentialSticking { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1629,7 +1632,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "Q_FormationFluidFlow_prop#01")]
         [OptionalFact(3, "Q_FormationFluidFlow#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "Q_FormationFluidFlow#01")]
-        public GaussianRDFDrillingProperty FlowFluidFromOrToFormation { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty FlowFluidFromOrToFormation { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1686,7 +1689,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "Q_FormationFluid_out_prop#01")]
         [OptionalFact(3, "Q_FormationFluid_out#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "Q_FormationFluid_out#01")]
-        public GaussianRDFDrillingProperty FlowFormationFluidAnnulusOutlet { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty FlowFormationFluidAnnulusOutlet { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1731,7 +1734,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "Q_CavingsFormation_prop#01")]
         [OptionalFact(3, "Q_CavingsFormation#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "Q_CavingsFormation#01")]
-        public GaussianRDFDrillingProperty FlowCavingsFromFormation { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty FlowCavingsFromFormation { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1788,7 +1791,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "Q_Cavings_out_prop#01")]
         [OptionalFact(3, "Q_Cavings_out#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "Q_Cavings_out#01")]
-        public GaussianRDFDrillingProperty FlowCavingsAnnulusOutlet { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty FlowCavingsAnnulusOutlet { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1833,7 +1836,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "Q_PipeWashout_prop#01")]
         [OptionalFact(3, "Q_PipeWashout#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "Q_PipeWashout#01")]
-        public GaussianRDFDrillingProperty FlowPipeToAnnulus { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty FlowPipeToAnnulus { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1885,7 +1888,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "whirl_bos_prop#01")]
         [OptionalFact(3, "whirl_bos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "whirl_bos#01")]
-        public GaussianRDFDrillingProperty WhirlRateBottomOfString { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty WhirlRateBottomOfString { get; set; } = new GaussianDrillingProperty();
 
         [Mandatory(CommonProperty.MandatoryType.General)]
         [SemanticGaussianVariable("whirl_urho", "sigma_whirl_urho")]
@@ -1933,7 +1936,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "whirl_urho_prop#01")]
         [OptionalFact(3, "whirl_urho#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "whirl_urho#01")]
-        public GaussianRDFDrillingProperty WhirlRateHoleOpener { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty WhirlRateHoleOpener { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1982,11 +1985,12 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "dp_float_prop#01")]
         [OptionalFact(3, "dp_float#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "dp_float#01")]
-        public GaussianRDFDrillingProperty DifferentialPressureFloatValve { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty DifferentialPressureFloatValve { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
-        [SemanticBernoulliVariable("ur_open_probabilist", "ur_open_determinist", 0.25)]
+        [SemanticBernoulliVariable("ur_open_probabilist")]
+        [SemanticDeterministicBernoulliVariable("ur_open_determinist")]
         [SemanticExclusiveOr(1, 2)]
         [SemanticFact("underReamer", Nouns.Enum.Underreamers)]
         [SemanticFact("logical_underReamer", Nouns.Enum.MechanicalLogicalElement)]
@@ -2004,11 +2008,12 @@ namespace DWIS.MicroState.Model
         [OptionalFact(2, "ur_open_determinist#01", Nouns.Enum.DrillingDataPoint)]
         [OptionalFact(2, "ur_open_determinist#01", Verbs.Enum.HasDynamicValue, "ur_open_determinist")]
         [OptionalFact(2, "ur_open_determinist#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_underReamer")]
-        public BernoulliRDFDrillingProperty UnderReamerOpen { get; set; } = new BernoulliRDFDrillingProperty();
+        public BernoulliDrillingProperty UnderReamerOpen { get; set; } = new BernoulliDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
-        [SemanticBernoulliVariable("cs_open_probabilist", "cs_open_determinist", 0.25)]
+        [SemanticBernoulliVariable("cs_open_probabilist")]
+        [SemanticDeterministicBernoulliVariable("cs_open_determinist")]
         [SemanticExclusiveOr(1, 2)]
         [SemanticFact("circulationSub", Nouns.Enum.CirculationSub)]
         [SemanticFact("logical_circulationSub", Nouns.Enum.MechanicalLogicalElement)]
@@ -2026,11 +2031,12 @@ namespace DWIS.MicroState.Model
         [OptionalFact(2, "cs_open_determinist#01", Nouns.Enum.DrillingDataPoint)]
         [OptionalFact(2, "cs_open_determinist#01", Verbs.Enum.HasDynamicValue, "cs_open_determinist")]
         [OptionalFact(2, "cs_open_determinist#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_circulationSub")]
-        public BernoulliRDFDrillingProperty CirculationSubOpen { get; set; } = new BernoulliRDFDrillingProperty();
+        public BernoulliDrillingProperty CirculationSubOpen { get; set; } = new BernoulliDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
-        [SemanticBernoulliVariable("pf_open_probabilist", "pf_open_determinist", 0.25)]
+        [SemanticBernoulliVariable("pf_open_probabilist")]
+        [SemanticDeterministicBernoulliVariable("pf_open_determinist")]
         [SemanticExclusiveOr(1, 2)]
         [SemanticFact("portedFloat", Nouns.Enum.PortedPlungerValvesFa)]
         [SemanticFact("logical_portedFloat", Nouns.Enum.MechanicalLogicalElement)]
@@ -2048,11 +2054,12 @@ namespace DWIS.MicroState.Model
         [OptionalFact(2, "pf_open_determinist#01", Nouns.Enum.DrillingDataPoint)]
         [OptionalFact(2, "pf_open_determinist#01", Verbs.Enum.HasDynamicValue, "pf_open_determinist")]
         [OptionalFact(2, "pf_open_determinist#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_portedFloat")]
-        public BernoulliRDFDrillingProperty PortedFloatOpen { get; set; } = new BernoulliRDFDrillingProperty();
+        public BernoulliDrillingProperty PortedFloatOpen { get; set; } = new BernoulliDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
-        [SemanticBernoulliVariable("ws_open_probabilist", "ws_open_determinist", 0.25)]
+        [SemanticBernoulliVariable("ws_open_probabilist")]
+        [SemanticDeterministicBernoulliVariable("ws_open_determinist")]
         [SemanticExclusiveOr(1, 2)]
         [SemanticFact("whipstock", Nouns.Enum.Whipstock)]
         [SemanticFact("logical_whipstock", Nouns.Enum.MechanicalLogicalElement)]
@@ -2070,11 +2077,12 @@ namespace DWIS.MicroState.Model
         [OptionalFact(2, "ws_open_determinist#01", Nouns.Enum.DrillingDataPoint)]
         [OptionalFact(2, "ws_open_determinist#01", Verbs.Enum.HasDynamicValue, "ws_open_determinist")]
         [OptionalFact(2, "ws_open_determinist#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_whipstock")]
-        public BernoulliRDFDrillingProperty WhipstockAttached { get; set; } = new BernoulliRDFDrillingProperty();
+        public BernoulliDrillingProperty WhipstockAttached { get; set; } = new BernoulliDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
-        [SemanticBernoulliVariable("pl_open_probabilist", "pl_open_determinist", 0.25)]
+        [SemanticBernoulliVariable("pl_open_probabilist")]
+        [SemanticDeterministicBernoulliVariable("pl_open_determinist")]
         [SemanticExclusiveOr(1, 2)]
         [SemanticFact("plug", Nouns.Enum.Plugs)]
         [SemanticFact("logical_plug", Nouns.Enum.MechanicalLogicalElement)]
@@ -2092,11 +2100,12 @@ namespace DWIS.MicroState.Model
         [OptionalFact(2, "pl_open_determinist#01", Nouns.Enum.DrillingDataPoint)]
         [OptionalFact(2, "pl_open_determinist#01", Verbs.Enum.HasDynamicValue, "pl_open_determinist")]
         [OptionalFact(2, "pl_open_determinist#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_plug")]
-        public BernoulliRDFDrillingProperty PlugAttached { get; set; } = new BernoulliRDFDrillingProperty();
+        public BernoulliDrillingProperty PlugAttached { get; set; } = new BernoulliDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
-        [SemanticBernoulliVariable("li_open_probabilist", "li_open_determinist", 0.25)]
+        [SemanticBernoulliVariable("li_open_probabilist")]
+        [SemanticDeterministicBernoulliVariable("li_open_determinist")]
         [SemanticExclusiveOr(1, 2)]
         [SemanticFact("liner", Nouns.Enum.Liner)]
         [SemanticFact("logical_liner", Nouns.Enum.MechanicalLogicalElement)]
@@ -2114,7 +2123,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(2, "li_open_determinist#01", Nouns.Enum.DrillingDataPoint)]
         [OptionalFact(2, "li_open_determinist#01", Verbs.Enum.HasDynamicValue, "li_open_determinist")]
         [OptionalFact(2, "li_open_determinist#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_liner")]
-        public BernoulliRDFDrillingProperty LinerAttached { get; set; } = new BernoulliRDFDrillingProperty();
+        public BernoulliDrillingProperty LinerAttached { get; set; } = new BernoulliDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -2167,7 +2176,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "Q_booster_prop#01")]
         [OptionalFact(3, "Q_booster#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "Q_booster#01")]
-        public GaussianRDFDrillingProperty FlowBoosterPump { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty FlowBoosterPump { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -2220,7 +2229,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "sigma_Q_booster_prop#01")]
         [OptionalFact(3, "sigma_Q_booster#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "sigma_Q_booster#01")]
-        public GaussianRDFDrillingProperty StandardDeviationFlowBoosterPump { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty StandardDeviationFlowBoosterPump { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -2273,7 +2282,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "Q_MPDBackPressurePump_prop#01")]
         [OptionalFact(3, "Q_MPDBackPressurePump#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "Q_MPDBackPressurePump#01")]
-        public GaussianRDFDrillingProperty FlowBackPressurePump { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty FlowBackPressurePump { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -2326,7 +2335,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "sigma_Q_MPDBackPressurePump_prop#01")]
         [OptionalFact(3, "sigma_Q_MPDBackPressurePump#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "sigma_Q_MPDBackPressurePump#01")]
-        public GaussianRDFDrillingProperty StandardDeviationFlowBackPressurePump { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty StandardDeviationFlowBackPressurePump { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -2373,7 +2382,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "Opening_MPDChoke_prop#01")]
         [OptionalFact(3, "Opening_MPDChoke#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "Opening_MPDChoke#01")]
-        public GaussianRDFDrillingProperty OpeningMPDChoke { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty OpeningMPDChoke { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -2422,11 +2431,12 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "dp_RCD_prop#01")]
         [OptionalFact(3, "dp_RCD#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "dp_RCD#01")]
-        public GaussianRDFDrillingProperty DifferentialPressureRCD { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty DifferentialPressureRCD { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
-        [SemanticBernoulliVariable("is_open_probabilist", "is_open_determinist", 0.25)]
+        [SemanticBernoulliVariable("is_open_probabilist")]
+        [SemanticDeterministicBernoulliVariable("is_open_determinist")]
         [SemanticExclusiveOr(1, 2)]
         [SemanticFact("isolationSeal", Nouns.Enum.IsolationSeal)]
         [SemanticFact("logical_isolationSeal", Nouns.Enum.MechanicalLogicalElement)]
@@ -2444,7 +2454,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(2, "is_open_determinist#01", Nouns.Enum.DrillingDataPoint)]
         [OptionalFact(2, "is_open_determinist#01", Verbs.Enum.HasDynamicValue, "is_open_determinist")]
         [OptionalFact(2, "is_open_determinist#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_isolationSeal")] 
-        public BernoulliRDFDrillingProperty IsolationSealActivated { get; set; } = new BernoulliRDFDrillingProperty();
+        public BernoulliDrillingProperty IsolationSealActivated { get; set; } = new BernoulliDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -2493,11 +2503,12 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "dp_IsolationSeal_prop#01")]
         [OptionalFact(3, "dp_IsolationSeal#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "dp_IsolationSeal#01")]
-        public GaussianRDFDrillingProperty DifferentialPressureIsolationSeal { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty DifferentialPressureIsolationSeal { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
-        [SemanticBernoulliVariable("ba_open_probabilist", "ba_open_determinist", 0.25)]
+        [SemanticBernoulliVariable("ba_open_probabilist")]
+        [SemanticDeterministicBernoulliVariable("ba_open_determinist")]
         [SemanticExclusiveOr(1, 2)]
         [SemanticFact("bearingAssembly", Nouns.Enum.BottomholeAssembly)] // should MPD bearing assembly
         [SemanticFact("logical_bearingAssembly", Nouns.Enum.MechanicalLogicalElement)]
@@ -2515,11 +2526,12 @@ namespace DWIS.MicroState.Model
         [OptionalFact(2, "ba_open_determinist#01", Nouns.Enum.DrillingDataPoint)]
         [OptionalFact(2, "ba_open_determinist#01", Verbs.Enum.HasDynamicValue, "ba_open_determinist")]
         [OptionalFact(2, "ba_open_determinist#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_bearingAssembly")] 
-        public BernoulliRDFDrillingProperty BearingAssemblyLatched { get; set; } = new BernoulliRDFDrillingProperty();
+        public BernoulliDrillingProperty BearingAssemblyLatched { get; set; } = new BernoulliDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
-        [SemanticBernoulliVariable("smpd_open_probabilist", "smpd_open_determinist", 0.25)]
+        [SemanticBernoulliVariable("smpd_open_probabilist")]
+        [SemanticDeterministicBernoulliVariable("smpd_open_determinist")]
         [SemanticExclusiveOr(1, 2)]
         [SemanticFact("MPDScreen", Nouns.Enum.Screens)] // should be MPD Screen
         [SemanticFact("logical_MPDScreen", Nouns.Enum.MechanicalLogicalElement)]
@@ -2537,11 +2549,12 @@ namespace DWIS.MicroState.Model
         [OptionalFact(2, "smpd_open_determinist#01", Nouns.Enum.DrillingDataPoint)]
         [OptionalFact(2, "smpd_open_determinist#01", Verbs.Enum.HasDynamicValue, "smpd_open_determinist")]
         [OptionalFact(2, "smpd_open_determinist#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_MPDScreen")]
-        public BernoulliRDFDrillingProperty ScreenMPDChokePlugged { get; set; } = new BernoulliRDFDrillingProperty();
+        public BernoulliDrillingProperty ScreenMPDChokePlugged { get; set; } = new BernoulliDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
-        [SemanticBernoulliVariable("mf_established_probabilist", "mf_established_determinist", 0.25)]
+        [SemanticBernoulliVariable("mf_established_probabilist")]
+        [SemanticDeterministicBernoulliVariable("mf_established_determinist")]
         [SemanticExclusiveOr(1, 2)]
         [SemanticFact("MPDMainFlowPath", Nouns.Enum.MPDMainFlowPath)]
         [SemanticFact("logical_MPDMainFlowPath", Nouns.Enum.MechanicalLogicalElement)]
@@ -2559,11 +2572,12 @@ namespace DWIS.MicroState.Model
         [OptionalFact(2, "mf_established_determinist#01", Nouns.Enum.DrillingDataPoint)]
         [OptionalFact(2, "mf_established_determinist#01", Verbs.Enum.HasDynamicValue, "mf_established_determinist")]
         [OptionalFact(2, "mf_established_determinist#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_MPDMainFlowPath")]
-        public BernoulliRDFDrillingProperty MainFlowPathMPDEstablished { get; set; } = new BernoulliRDFDrillingProperty();
+        public BernoulliDrillingProperty MainFlowPathMPDEstablished { get; set; } = new BernoulliDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
-        [SemanticBernoulliVariable("af_established_probabilist", "af_established_determinist", 0.25)]
+        [SemanticBernoulliVariable("af_established_probabilist")]
+        [SemanticDeterministicBernoulliVariable("af_established_determinist")]
         [SemanticExclusiveOr(1, 2)]
         [SemanticFact("MPDAlternateFlowPath", Nouns.Enum.MPDAlternateFlowPath)]
         [SemanticFact("logical_MPDAlternateFlowPath", Nouns.Enum.MechanicalLogicalElement)]
@@ -2581,7 +2595,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(2, "af_established_determinist#01", Nouns.Enum.DrillingDataPoint)]
         [OptionalFact(2, "af_established_determinist#01", Verbs.Enum.HasDynamicValue, "af_established_determinist")]
         [OptionalFact(2, "af_established_determinist#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_MPDAlternateFlowPath")]
-        public BernoulliRDFDrillingProperty AlternateFlowPathMPDEstablished { get; set; } = new BernoulliRDFDrillingProperty();
+        public BernoulliDrillingProperty AlternateFlowPathMPDEstablished { get; set; } = new BernoulliDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -2627,7 +2641,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "Q_fillPump_prop#01")]
         [OptionalFact(3, "Q_fillPump#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "Q_fillPump#01")]
-        public GaussianRDFDrillingProperty FlowFillPumpDGD { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty FlowFillPumpDGD { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -2673,7 +2687,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "Q_liftPump_prop#01")]
         [OptionalFact(3, "Q_liftPump#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "Q_liftPump#01")]
-        public GaussianRDFDrillingProperty FlowLiftPumpDGD { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty FlowLiftPumpDGD { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -2719,7 +2733,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "sigma_Q_fillPump_prop#01")]
         [OptionalFact(3, "sigma_Q_fillPump#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "sigma_Q_fillPump#01")]
-        public GaussianRDFDrillingProperty StandardDeviationFlowFillPumpDGD { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty StandardDeviationFlowFillPumpDGD { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -2765,7 +2779,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "sigma_Q_liftPump_prop#01")]
         [OptionalFact(3, "sigma_Q_liftPump#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "sigma_Q_liftPump#01")]
-        public GaussianRDFDrillingProperty StandardDeviationFlowLiftPumpDGD { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty StandardDeviationFlowLiftPumpDGD { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -2816,7 +2830,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "UCS_bh_prop#01")]
         [OptionalFact(3, "UCS_bh#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "UCS_bh#01")]
-        public GaussianRDFDrillingProperty UCS { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty UCS { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -2867,7 +2881,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "UCSSlope_bh_prop#01")]
         [OptionalFact(3, "UCSSlope_bh#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "UCSSlope_bh#01")]
-        public GaussianRDFDrillingProperty UCSSlope { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty UCSSlope { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -2914,7 +2928,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "MinTensionTwistOff_tos_prop#01")]
         [OptionalFact(3, "MinTensionTwistOff_tos#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "MinTensionTwistOff_tos#01")]
-        public GaussianRDFDrillingProperty MinimumTensionForTwistOffDetection { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty MinimumTensionForTwistOffDetection { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -2959,7 +2973,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "h_TJ1_prop#01")]
         [OptionalFact(3, "h_TJ1#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "h_TJ1#01")]
-        public GaussianRDFDrillingProperty ToolJoint1Height { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty ToolJoint1Height { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -3004,7 +3018,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "h_TJ2_prop#01")]
         [OptionalFact(3, "h_TJ2#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "h_TJ2#01")]
-        public GaussianRDFDrillingProperty ToolJoint2Height { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty ToolJoint2Height { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -3049,7 +3063,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "h_TJ3_prop#01")]
         [OptionalFact(3, "h_TJ3#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "h_TJ3#01")]
-        public GaussianRDFDrillingProperty ToolJoint3Height { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty ToolJoint3Height { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -3094,14 +3108,11 @@ namespace DWIS.MicroState.Model
         [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "h_TJ4_prop#01")]
         [OptionalFact(3, "h_TJ4#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
         [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "h_TJ4#01")]
-        public GaussianRDFDrillingProperty ToolJoint4Height { get; set; } = new GaussianRDFDrillingProperty();
+        public GaussianDrillingProperty ToolJoint4Height { get; set; } = new GaussianDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
-        [SemanticGaussianVariable("h_MinDrillHeight", "sigma_h_MinDrillHeight")]
-        [SemanticSensorVariable("h_MinDrillHeight", "h_MinDrillHeight_prec", "h_MinDrillHeight_acc")]
-        [SemanticFullScaleVariable("h_MinDrillHeight", "h_MinDrillHeight_fs", "h_MinDrillHeight_prop")]
-        [SemanticExclusiveOr(0, 1, 2, 3)]
+        [SemanticDiracVariable("h_MinDrillHeight")]
         [SemanticFact("h_MinDrillHeight", Nouns.Enum.DynamicDrillingSignal)]
         [SemanticFact("h_MinDrillHeight#01", Nouns.Enum.PhysicalData)]
         [SemanticFact("h_MinDrillHeight#01", Verbs.Enum.HasDynamicValue, "h_MinDrillHeight")]
@@ -3110,43 +3121,11 @@ namespace DWIS.MicroState.Model
         [SemanticFact("h_MinDrillHeight#01", Verbs.Enum.IsPhysicallyLocatedAt, "MinDrillHeight#01")]
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("h_MinDrillHeight#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
-        [OptionalFact(1, "sigma_h_MinDrillHeight", Nouns.Enum.DrillingSignal)]
-        [OptionalFact(1, "sigma_h_MinDrillHeight#01", Nouns.Enum.DrillingDataPoint)]
-        [OptionalFact(1, "sigma_h_MinDrillHeight#01", Verbs.Enum.HasValue, "sigma_h_MinDrillHeight")]
-        [OptionalFact(1, "GaussianUncertainty#01", Nouns.Enum.GaussianUncertainty)]
-        [OptionalFact(1, "h_MinDrillHeight#01", Verbs.Enum.HasUncertainty, "GaussianUncertainty#01")]
-        [OptionalFact(1, "GaussianUncertainty#01", Verbs.Enum.HasUncertaintyStandardDeviation, "sigma_h_MinDrillHeight#01")]
-        [OptionalFact(1, 11, "GaussianUncertainty#01", Verbs.Enum.HasUncertaintyMean, "h_MinDrillHeight#01")]
-        [OptionalFact(2, "h_MinDrillHeight_prec", Nouns.Enum.DrillingSignal)]
-        [OptionalFact(2, "h_MinDrillHeight_prec#01", Nouns.Enum.DrillingDataPoint)]
-        [OptionalFact(2, "h_MinDrillHeight_prec#01", Verbs.Enum.HasValue, "h_MinDrillHeight_prec")]
-        [OptionalFact(2, "h_MinDrillHeight_acc", Nouns.Enum.DrillingSignal)]
-        [OptionalFact(2, "h_MinDrillHeight_acc#01", Nouns.Enum.DrillingDataPoint)]
-        [OptionalFact(2, "h_MinDrillHeight_acc#01", Verbs.Enum.HasValue, "h_MinDrillHeight_acc")]
-        [OptionalFact(2, "SensorUncertainty#01", Nouns.Enum.SensorUncertainty)]
-        [OptionalFact(2, "SensorUncertainty#01", Verbs.Enum.HasUncertaintyPrecision, "h_MinDrillHeight_prec#01")]
-        [OptionalFact(2, "SensorUncertainty#01", Verbs.Enum.HasUncertaintyAccuracy, "h_MinDrillHeight_acc#01")]
-        [OptionalFact(2, "h_MinDrillHeight#01", Verbs.Enum.HasUncertainty, "SensorUncertainty#01")]
-        [OptionalFact(2, 21, "SensorUncertainty#01", Verbs.Enum.HasUncertaintyMean, "h_MinDrillHeight#01")]
-        [OptionalFact(3, "h_MinDrillHeight_fs", Nouns.Enum.DrillingSignal)]
-        [OptionalFact(3, "h_MinDrillHeight_fs#01", Nouns.Enum.DrillingDataPoint)]
-        [OptionalFact(3, "h_MinDrillHeight_fs#01", Verbs.Enum.HasValue, "h_MinDrillHeight_fs#01")]
-        [OptionalFact(3, "h_MinDrillHeight_prop", Nouns.Enum.DrillingSignal)]
-        [OptionalFact(3, "h_MinDrillHeight_prop#01", Nouns.Enum.DrillingDataPoint)]
-        [OptionalFact(3, "h_MinDrillHeight_prop#01", Verbs.Enum.HasValue, "h_MinDrillHeight_prop#01")]
-        [OptionalFact(3, "FullScaleUncertainty#01", Nouns.Enum.FullScaleUncertainty)]
-        [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasFullScale, "h_MinDrillHeight_fs#01")]
-        [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "h_MinDrillHeight_prop#01")]
-        [OptionalFact(3, "h_MinDrillHeight#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
-        [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "h_MinDrillHeight#01")]
-        public GaussianRDFDrillingProperty MinDrillHeight { get; set; } = new GaussianRDFDrillingProperty();
+        public ScalarDrillingProperty MinDrillHeight { get; set; } = new ScalarDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
-        [SemanticGaussianVariable("h_StickUpHeight", "sigma_h_StickUpHeight")]
-        [SemanticSensorVariable("h_StickUpHeight", "h_StickUpHeight_prec", "h_StickUpHeight_acc")]
-        [SemanticFullScaleVariable("h_StickUpHeight", "h_StickUpHeight_fs", "h_StickUpHeight_prop")]
-        [SemanticExclusiveOr(0, 1, 2, 3)]
+        [SemanticDiracVariable("h_StickUpHeight")]
         [SemanticFact("h_StickUpHeight", Nouns.Enum.DynamicDrillingSignal)]
         [SemanticFact("h_StickUpHeight#01", Nouns.Enum.PhysicalData)]
         [SemanticFact("h_StickUpHeight#01", Verbs.Enum.HasDynamicValue, "h_StickUpHeight")]
@@ -3155,40 +3134,12 @@ namespace DWIS.MicroState.Model
         [SemanticFact("h_StickUpHeight#01", Verbs.Enum.IsPhysicallyLocatedAt, "StickUpHeight#01")]
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("h_StickUpHeight#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
-        [OptionalFact(1, "sigma_h_StickUpHeight", Nouns.Enum.DrillingSignal)]
-        [OptionalFact(1, "sigma_h_StickUpHeight#01", Nouns.Enum.DrillingDataPoint)]
-        [OptionalFact(1, "sigma_h_StickUpHeight#01", Verbs.Enum.HasValue, "sigma_h_StickUpHeight")]
-        [OptionalFact(1, "GaussianUncertainty#01", Nouns.Enum.GaussianUncertainty)]
-        [OptionalFact(1, "h_StickUpHeight#01", Verbs.Enum.HasUncertainty, "GaussianUncertainty#01")]
-        [OptionalFact(1, "GaussianUncertainty#01", Verbs.Enum.HasUncertaintyStandardDeviation, "sigma_h_StickUpHeight#01")]
-        [OptionalFact(1, 11, "GaussianUncertainty#01", Verbs.Enum.HasUncertaintyMean, "h_StickUpHeight#01")]
-        [OptionalFact(2, "h_StickUpHeight_prec", Nouns.Enum.DrillingSignal)]
-        [OptionalFact(2, "h_StickUpHeight_prec#01", Nouns.Enum.DrillingDataPoint)]
-        [OptionalFact(2, "h_StickUpHeight_prec#01", Verbs.Enum.HasValue, "h_StickUpHeight_prec")]
-        [OptionalFact(2, "h_StickUpHeight_acc", Nouns.Enum.DrillingSignal)]
-        [OptionalFact(2, "h_StickUpHeight_acc#01", Nouns.Enum.DrillingDataPoint)]
-        [OptionalFact(2, "h_StickUpHeight_acc#01", Verbs.Enum.HasValue, "h_StickUpHeight_acc")]
-        [OptionalFact(2, "SensorUncertainty#01", Nouns.Enum.SensorUncertainty)]
-        [OptionalFact(2, "SensorUncertainty#01", Verbs.Enum.HasUncertaintyPrecision, "h_StickUpHeight_prec#01")]
-        [OptionalFact(2, "SensorUncertainty#01", Verbs.Enum.HasUncertaintyAccuracy, "h_StickUpHeight_acc#01")]
-        [OptionalFact(2, "h_StickUpHeight#01", Verbs.Enum.HasUncertainty, "SensorUncertainty#01")]
-        [OptionalFact(2, 21, "SensorUncertainty#01", Verbs.Enum.HasUncertaintyMean, "h_StickUpHeight#01")]
-        [OptionalFact(3, "h_StickUpHeight_fs", Nouns.Enum.DrillingSignal)]
-        [OptionalFact(3, "h_StickUpHeight_fs#01", Nouns.Enum.DrillingDataPoint)]
-        [OptionalFact(3, "h_StickUpHeight_fs#01", Verbs.Enum.HasValue, "h_StickUpHeight_fs#01")]
-        [OptionalFact(3, "h_StickUpHeight_prop", Nouns.Enum.DrillingSignal)]
-        [OptionalFact(3, "h_StickUpHeight_prop#01", Nouns.Enum.DrillingDataPoint)]
-        [OptionalFact(3, "h_StickUpHeight_prop#01", Verbs.Enum.HasValue, "h_StickUpHeight_prop#01")]
-        [OptionalFact(3, "FullScaleUncertainty#01", Nouns.Enum.FullScaleUncertainty)]
-        [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasFullScale, "h_StickUpHeight_fs#01")]
-        [OptionalFact(3, "FullScaleUncertainty#01", Verbs.Enum.HasProportionError, "h_StickUpHeight_prop#01")]
-        [OptionalFact(3, "h_StickUpHeight#01", Verbs.Enum.HasUncertainty, "FullScaleUncertainty#01")]
-        [OptionalFact(3, 31, "FullScaleUncertainty#01", Verbs.Enum.HasUncertaintyMean, "h_StickUpHeight#01")]
-        public GaussianRDFDrillingProperty StickUpHeight { get; set; } = new GaussianRDFDrillingProperty();
+        public ScalarDrillingProperty StickUpHeight { get; set; } = new ScalarDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
-        [SemanticBernoulliVariable("hc_open_probabilist", "hc_open_determinist", 0)]
+        [SemanticBernoulliVariable("hc_open_probabilist")]
+        [SemanticDeterministicBernoulliVariable("hc_open_determinist")]
         [SemanticExclusiveOr(1, 2)]
         [SemanticFact("heaveCompensation", Nouns.Enum.HeaveCompensationSystem)]
         [SemanticFact("logical_heaveCompensation", Nouns.Enum.MechanicalLogicalElement)]
@@ -3206,11 +3157,12 @@ namespace DWIS.MicroState.Model
         [OptionalFact(2, "hc_open_determinist#01", Nouns.Enum.DrillingDataPoint)]
         [OptionalFact(2, "hc_open_determinist#01", Verbs.Enum.HasDynamicValue, "hc_open_determinist")]
         [OptionalFact(2, "hc_open_determinist#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_heaveCompensation")]
-        public BernoulliRDFDrillingProperty HeaveCompensationInactive { get; set; } = new BernoulliRDFDrillingProperty();
+        public BernoulliDrillingProperty HeaveCompensationInactive { get; set; } = new BernoulliDrillingProperty();
 
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
-        [SemanticBernoulliVariable("hc_open_probabilist", "hc_open_determinist", 0)]
+        [SemanticBernoulliVariable("hc_open_probabilist")]
+        [SemanticDeterministicBernoulliVariable("hc_open_determinist")]
         [SemanticExclusiveOr(1, 2)]
         [SemanticFact("heaveCompensation", Nouns.Enum.HeaveCompensationSystem)]
         [SemanticFact("logical_heaveCompensation", Nouns.Enum.MechanicalLogicalElement)]
@@ -3228,7 +3180,7 @@ namespace DWIS.MicroState.Model
         [OptionalFact(2, "hc_open_determinist#01", Nouns.Enum.DrillingDataPoint)]
         [OptionalFact(2, "hc_open_determinist#01", Verbs.Enum.HasDynamicValue, "hc_open_determinist")]
         [OptionalFact(2, "hc_open_determinist#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_heaveCompensation")]
-        public BernoulliRDFDrillingProperty HeaveCompensationActive { get; set; } = new BernoulliRDFDrillingProperty();
+        public BernoulliDrillingProperty HeaveCompensationActive { get; set; } = new BernoulliDrillingProperty();
 
 
         public SignalGroup() : base()
@@ -3252,6 +3204,72 @@ namespace DWIS.MicroState.Model
                         destinationProperty.SetValue(this, value);
                     }
                 }
+            }
+        }
+
+        public void CopyTo(SignalGroup destination)
+        {
+            if (destination != null)
+            {
+                PropertyInfo[] sourceProperties = this.GetType().GetProperties();
+                Type destinationType = destination.GetType();
+
+                foreach (PropertyInfo property in sourceProperties)
+                {
+                    PropertyInfo? destinationProperty = destinationType.GetProperty(property.Name);
+                    if (destinationProperty != null && destinationProperty.CanWrite)
+                    {
+                        object? value = property.GetValue(this);
+                        destinationProperty.SetValue(destination, value);
+                    }
+                }
+            }
+        }
+
+        public bool RegisterToDDHub(IOPCUADWISClient? DWISClient, Dictionary<string, List<AcquiredSignals>>? placeHolders)
+        {
+            if (DWISClient != null && placeHolders != null)
+            {
+                Type type = GetType();
+                Assembly assembly = type.Assembly;
+                PropertyInfo[] properties = type.GetProperties();
+
+                bool ok = true;
+                foreach (PropertyInfo property in properties)
+                {
+                    if (property != null && property.PropertyType == typeof(DrillingProperty))
+                    {
+                        string propName = property.Name;
+                        if (!string.IsNullOrEmpty(propName))
+                        {
+                            Dictionary<string, QuerySpecification>? queries = GeneratorSparQLManifestFile.GetSparQLQueries(assembly, type.FullName, propName);
+                            if (queries != null && queries.Count > 0)
+                            {
+                                List<AcquiredSignals> values = new List<AcquiredSignals>();
+                                foreach (var kvp in queries)
+                                {
+                                    if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Value.SparQL))
+                                    {
+                                        var result = DWISClient.GetQueryResult(kvp.Value.SparQL);
+                                        if (result != null && result.Results != null && result.Results.Count > 0)
+                                        {
+                                            values.Add(AcquiredSignals.CreateWithSubscription(new string[] { kvp.Value.SparQL }, new string[] { kvp.Key }, 0, DWISClient));
+                                        }
+                                    }
+                                }
+                                if (values.Count > 0)
+                                {
+                                    placeHolders.Add(propName, values);
+                                }
+                            }
+                        }
+                    }
+                }
+                return ok;
+            }
+            else
+            {
+                return false;
             }
         }
     }
