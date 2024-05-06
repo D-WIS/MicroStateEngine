@@ -250,7 +250,7 @@ namespace DWIS.MicroState.IntepretationEngine
             string hostName = System.Net.Dns.GetHostName();
             if (!string.IsNullOrEmpty(hostName))
             {
-                var ip = System.Net.Dns.GetHostByName(hostName);
+                var ip = System.Net.Dns.GetHostEntry(hostName);
                 if (ip != null && ip.AddressList != null && ip.AddressList.Length > 0)
                 {
                     _logger.LogInformation("My IP Address: " + ip.AddressList[0].ToString());
@@ -1206,6 +1206,34 @@ namespace DWIS.MicroState.IntepretationEngine
                         }
                     }
                 }
+                if (signals.WhirlRateDrillString?.Mean != null && thresholds.WhirlRateDrillStringThreshold?.ScalarValue != null)
+                {
+                    uint code;
+                    if (Numeric.EQ(signals.WhirlRateDrillString.Mean, 0, thresholds.WhirlRateDrillStringThreshold.ScalarValue.Value))
+                    {
+                        code = 1;
+                    }
+                    else if (Numeric.GT(signals.WhirlRateDrillString.Mean, 0, thresholds.WhirlRateDrillStringThreshold.ScalarValue.Value))
+                    {
+                        code = 2;
+                    }
+                    else
+                    {
+                        code = 3;
+                    }
+                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.WhirlInDrillString, code);
+                    if (probMicroStates.WhirlInDrillString != null && probMicroStates.WhirlInDrillString.Probabilities != null && probMicroStates.WhirlInDrillString.Probabilities.Length == 3)
+                    {
+                        double? prob2 = signals.WhirlRateDrillString.ProbabilityGT(thresholds.WhirlRateDrillStringThreshold.ScalarValue.Value);
+                        double? prob3 = signals.WhirlRateDrillString.ProbabilityLT(-thresholds.WhirlRateDrillStringThreshold.ScalarValue.Value);
+                        if (prob2 != null && prob3 != null)
+                        {
+                            probMicroStates.WhirlInDrillString.Probabilities[0] = 1.0 - prob2.Value - prob3.Value;
+                            probMicroStates.WhirlInDrillString.Probabilities[1] = prob2.Value;
+                            probMicroStates.WhirlInDrillString.Probabilities[2] = prob3.Value;
+                        }
+                    }
+                }
                 if (signals.DifferentialPressureFloatValve?.Mean != null && thresholds.MinimumPressureFloatValve?.ScalarValue != null)
                 {
                     uint code;
@@ -1764,6 +1792,193 @@ namespace DWIS.MicroState.IntepretationEngine
                         probMicroStates.HeaveCompensation.Probabilities[0] = signals.HeaveCompensationInactive.Probability.Value * (1 - signals.HeaveCompensationActive.Probability.Value);
                         probMicroStates.HeaveCompensation.Probabilities[1] = signals.HeaveCompensationActive.Probability.Value * (1 - signals.HeaveCompensationInactive.Probability.Value);
                         probMicroStates.HeaveCompensation.Probabilities[2] = (1 - signals.HeaveCompensationActive.Probability.Value) * (1 - signals.HeaveCompensationInactive.Probability.Value);
+                    }
+                }
+                if (signals.PowerHFTO != null &&
+                    signals.PowerHFTO.Mean != null &&
+                    thresholds.PowerHFTOThreshold != null &&
+                    thresholds.PowerHFTOThreshold.ScalarValue != null)
+                {
+                    uint code;
+                    if (Numeric.GT(System.Math.Abs(signals.PowerHFTO.Mean.Value), thresholds.PowerHFTOThreshold.ScalarValue.Value))
+                    {
+                        code = 1;
+                    }
+                    else
+                    {
+                        code = 2;
+                    }
+                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.HFTO, code);
+                    if (probMicroStates.HFTO != null)
+                    {
+                        probMicroStates.HFTO.Probability = signals.PowerHFTO.ProbabilityLT(thresholds.PowerHFTOThreshold.ScalarValue.Value);
+                    }
+                }
+                if (signals.PeakToPeakAxialOscillations != null &&
+                    signals.PeakToPeakAxialOscillations.Mean != null &&
+                    thresholds.PeakToPeakAxialOscillationsThreshold != null &&
+                    thresholds.PeakToPeakAxialOscillationsThreshold.ScalarValue != null &&
+                    signals.AxialStickDuration != null &&
+                    signals.AxialStickDuration.Mean != null &&
+                    thresholds.AxialStickDurationThreshold != null &&
+                    thresholds.AxialStickDurationThreshold.ScalarValue != null)
+                {
+                    uint code;
+                    if (Numeric.LE(System.Math.Abs(signals.PeakToPeakAxialOscillations.Mean.Value), thresholds.PeakToPeakAxialOscillationsThreshold.ScalarValue.Value) &&
+                        Numeric.LE(System.Math.Abs(signals.AxialStickDuration.Mean.Value), thresholds.AxialStickDurationThreshold.ScalarValue.Value))
+                    {
+                        code = 1;
+                    }
+                    else if (Numeric.GT(System.Math.Abs(signals.PeakToPeakAxialOscillations.Mean.Value), thresholds.PeakToPeakAxialOscillationsThreshold.ScalarValue.Value) &&
+                             Numeric.LE(System.Math.Abs(signals.AxialStickDuration.Mean.Value), thresholds.AxialStickDurationThreshold.ScalarValue.Value))
+                    {
+                        code = 2;
+                    }
+                    else
+                    {
+                        code = 3;
+                    }
+                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.AxialOscillations, code);
+                    if (probMicroStates.AxialOscillations != null && probMicroStates.AxialOscillations.Probabilities != null && probMicroStates.AxialOscillations.Probabilities.Length >= 3)
+                    {
+                        double? prob1 = signals.PeakToPeakAxialOscillations.ProbabilityLT(thresholds.PeakToPeakAxialOscillationsThreshold.ScalarValue.Value);
+                        double? prob2 = signals.AxialStickDuration.ProbabilityLT(thresholds.AxialStickDurationThreshold.ScalarValue.Value);
+                        if (prob1 != null && prob2 != null)
+                        {
+                            double prob3 = prob1.Value * prob2.Value;
+                            double prob4 = (1.0-prob1.Value) * prob2.Value;
+                            probMicroStates.AxialOscillations.Probabilities[0] = prob3;
+                            probMicroStates.AxialOscillations.Probabilities[1] = prob4;
+                            probMicroStates.AxialOscillations.Probabilities[2] = 1.0 - probMicroStates.AxialOscillations.Probabilities[0];
+                        }
+                    }
+                }
+                if (signals.PeakToPeakTorsionalOscillations != null &&
+                    signals.PeakToPeakTorsionalOscillations.Mean != null &&
+                    thresholds.PeakToPeakTorsionalOscillationsThreshold != null &&
+                    thresholds.PeakToPeakTorsionalOscillationsThreshold.ScalarValue != null &&
+                    signals.TorsionalStickDuration != null &&
+                    signals.TorsionalStickDuration.Mean != null &&
+                    thresholds.TorsionalStickDurationThreshold != null &&
+                    thresholds.TorsionalStickDurationThreshold.ScalarValue != null)
+                {
+                    uint code;
+                    if (Numeric.LE(System.Math.Abs(signals.PeakToPeakTorsionalOscillations.Mean.Value), thresholds.PeakToPeakTorsionalOscillationsThreshold.ScalarValue.Value) &&
+                        Numeric.LE(System.Math.Abs(signals.TorsionalStickDuration.Mean.Value), thresholds.TorsionalStickDurationThreshold.ScalarValue.Value))
+                    {
+                        code = 1;
+                    }
+                    else if (Numeric.GT(System.Math.Abs(signals.PeakToPeakTorsionalOscillations.Mean.Value), thresholds.PeakToPeakTorsionalOscillationsThreshold.ScalarValue.Value) &&
+                             Numeric.LE(System.Math.Abs(signals.TorsionalStickDuration.Mean.Value), thresholds.TorsionalStickDurationThreshold.ScalarValue.Value))
+                    {
+                        code = 2;
+                    }
+                    else
+                    {
+                        code = 3;
+                    }
+                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.TorsionalOscillations, code);
+                    if (probMicroStates.TorsionalOscillations != null && probMicroStates.TorsionalOscillations.Probabilities != null && probMicroStates.TorsionalOscillations.Probabilities.Length >= 3)
+                    {
+                        double? prob1 = signals.PeakToPeakTorsionalOscillations.ProbabilityLT(thresholds.PeakToPeakTorsionalOscillationsThreshold.ScalarValue.Value);
+                        double? prob2 = signals.TorsionalStickDuration.ProbabilityLT(thresholds.TorsionalStickDurationThreshold.ScalarValue.Value);
+                        if (prob1 != null && prob2 != null)
+                        {
+                            double prob3 = prob1.Value * prob2.Value;
+                            double prob4 = (1.0 - prob1.Value) * prob2.Value;
+                            probMicroStates.TorsionalOscillations.Probabilities[0] = prob3;
+                            probMicroStates.TorsionalOscillations.Probabilities[1] = prob4;
+                            probMicroStates.TorsionalOscillations.Probabilities[2] = 1.0 - probMicroStates.TorsionalOscillations.Probabilities[0];
+                        }
+                    }
+                }
+                if (signals.LateralShockRateBHA != null &&
+                    signals.LateralShockRateBHA.Mean != null &&
+                    thresholds.LateralShockRateBHAThreshold != null &&
+                    thresholds.LateralShockRateBHAThreshold.ScalarValue != null)
+                {
+                    uint code;
+                    if (Numeric.LE(signals.LateralShockRateBHA.Mean.Value, thresholds.LateralShockRateBHAThreshold.ScalarValue.Value))
+                    {
+                        code = 1;
+                    }
+                    else
+                    {
+                        code = 2;
+                    }
+                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.LateralShocksInBHA, code);
+                    if (probMicroStates.LateralShocksInBHA != null)
+                    {
+                        probMicroStates.LateralShocksInBHA.Probability = signals.LateralShockRateBHA.ProbabilityGT(thresholds.LateralShockRateBHAThreshold.ScalarValue);
+                    }
+                }
+                if (signals.LateralShockRateDrillString != null &&
+                    signals.LateralShockRateDrillString.Mean != null &&
+                    thresholds.LateralShockRateDrillStringThreshold != null &&
+                    thresholds.LateralShockRateDrillStringThreshold.ScalarValue != null)
+                {
+                    uint code;
+                    if (Numeric.LE(signals.LateralShockRateDrillString.Mean.Value, thresholds.LateralShockRateDrillStringThreshold.ScalarValue.Value))
+                    {
+                        code = 1;
+                    }
+                    else
+                    {
+                        code = 2;
+                    }
+                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.LateralShocksInDrillString, code);
+                    if (probMicroStates.LateralShocksInDrillString != null)
+                    {
+                        probMicroStates.LateralShocksInDrillString.Probability = signals.LateralShockRateDrillString.ProbabilityGT(thresholds.LateralShockRateDrillStringThreshold.ScalarValue);
+                    }
+                }
+                if (signals.CurvilinearAbscissaBottomOfString != null &&
+                    signals.CurvilinearAbscissaBottomOfString.Mean != null &&
+                    signals.CurvilinearAbscissaBottomOfHole != null &&
+                    signals.CurvilinearAbscissaBottomOfHole.Mean != null &&
+                    signals.CurvilinearAbscissaHoleOpener != null &&
+                    signals.CurvilinearAbscissaHoleOpener.Mean != null &&
+                    signals.CurvilinearAbscissaTopOfRatHole != null &&
+                    signals.CurvilinearAbscissaTopOfRatHole.Mean != null &&
+                    signals.ToolJoint1Height != null &&
+                    signals.ToolJoint1Height.Mean != null &&
+                    signals.MinDrillHeight != null &&
+                    signals.MinDrillHeight.ScalarValue != null) 
+                {
+                    uint code;
+                    if (Numeric.GT(Math.Abs(signals.CurvilinearAbscissaBottomOfString.Mean.Value- signals.CurvilinearAbscissaBottomOfHole.Mean.Value), signals.ToolJoint1Height.Mean.Value - signals.MinDrillHeight.ScalarValue.Value) &&
+                        Numeric.GT(Math.Abs(signals.CurvilinearAbscissaHoleOpener.Mean.Value - signals.CurvilinearAbscissaTopOfRatHole.Mean.Value), signals.ToolJoint1Height.Mean.Value - signals.MinDrillHeight.ScalarValue.Value))
+                    {
+                        code = 1;
+                    }
+                    else
+                    {
+                        code = 2;
+                    }
+                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.LastStandToBottomHole, code);
+                    if (probMicroStates.LastStandToBottomHole != null &&
+                        signals.CurvilinearAbscissaBottomOfString.StandardDeviation != null &&
+                        signals.CurvilinearAbscissaBottomOfHole.StandardDeviation != null &&
+                        signals.CurvilinearAbscissaHoleOpener.StandardDeviation != null &&
+                        signals.CurvilinearAbscissaTopOfRatHole.StandardDeviation != null &&
+                        signals.ToolJoint1Height.StandardDeviation != null)
+                    {
+                        double mean1 = signals.CurvilinearAbscissaBottomOfString.Mean.Value - signals.CurvilinearAbscissaBottomOfHole.Mean.Value;
+                        double stdDev1 = 
+                            Math.Sqrt(signals.CurvilinearAbscissaBottomOfString.StandardDeviation.Value * signals.CurvilinearAbscissaBottomOfString.StandardDeviation.Value +
+                                      signals.CurvilinearAbscissaBottomOfHole.StandardDeviation.Value * signals.CurvilinearAbscissaBottomOfHole.StandardDeviation.Value);
+                        double mean2 = signals.ToolJoint1Height.Mean.Value - signals.MinDrillHeight.ScalarValue.Value;
+                        double stdDev2 = signals.ToolJoint1Height.StandardDeviation.Value;
+                        double mean3 = signals.CurvilinearAbscissaHoleOpener.Mean.Value - signals.CurvilinearAbscissaTopOfRatHole.Mean.Value;
+                        double stdDev3 = 
+                            Math.Sqrt(signals.CurvilinearAbscissaHoleOpener.StandardDeviation.Value * signals.CurvilinearAbscissaHoleOpener.StandardDeviation.Value +
+                                      signals.CurvilinearAbscissaTopOfRatHole.StandardDeviation.Value * signals.CurvilinearAbscissaTopOfRatHole.StandardDeviation.Value);
+                        GaussianDrillingProperty dumm1 = new GaussianDrillingProperty() { Mean = mean1, StandardDeviation = stdDev1 };
+                        GaussianDrillingProperty dumm2 = new GaussianDrillingProperty() { Mean = mean2, StandardDeviation = stdDev2 };
+                        GaussianDrillingProperty dumm3 = new GaussianDrillingProperty() { Mean = mean3, StandardDeviation = stdDev3 };
+                        double? prob1 = dumm1.ProbabilityGT(dumm2);
+                        double? prob2 = dumm3.ProbabilityGT(dumm2);
+                        probMicroStates.LastStandToBottomHole.Probability = 1.0 - prob1 * prob2;
                     }
                 }
             }
