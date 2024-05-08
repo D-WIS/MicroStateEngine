@@ -1,10 +1,19 @@
 using DWIS.MicroState.IntepretationEngine;
 
-IHost host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices(services =>
+namespace DWIS.MicroState.IntepretationEngine
+{
+    public class Program
     {
-        services.AddHostedService<Worker>();
-    })
-    .Build();
+        public static void Main(string[] args)
+        {
+            IHost host = Host.CreateDefaultBuilder(args)
+                             .ConfigureServices(services =>
+                                        {
+                                            services.AddHostedService<Worker>();
+                                        })
+                             .Build();
 
-host.Run();
+            host.Run();
+        }
+    }
+}
