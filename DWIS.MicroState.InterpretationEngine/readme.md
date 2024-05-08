@@ -14,3 +14,8 @@ All the individual probabilistic microstates are published back on the DDHub tog
 
 ## Semantic Description of a Deterministic Microstate
 
+## Example Semantic Description of a Probabilisity Microstate
+
+## Example Semantic Query for Variables used in Microstate Logical Statements
+
+## Example Logical Statements for microstates
