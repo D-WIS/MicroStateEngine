@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>dotnet-DWIS.MicroState.IntepretationEngine-8e91b615-f8ae-4dcb-9891-5093fcb40e33</UserSecretsId>
+    <UserSecretsId>dotnet-DWIS.MicroState.InterpretationEngine-8e91b615-f8ae-4dcb-9891-5093fcb40e33</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 

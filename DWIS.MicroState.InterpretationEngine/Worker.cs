@@ -10,7 +10,7 @@ using DWIS.Vocabulary.Schemas;
 using System.Reflection;
 using OSDC.DotnetLibraries.Drilling.DrillingProperties;
 
-namespace DWIS.MicroState.IntepretationEngine
+namespace DWIS.MicroState.InterpretationEngine
 {
     public class Worker : BackgroundService
     {

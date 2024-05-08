@@ -1,6 +1,6 @@
-using DWIS.MicroState.IntepretationEngine;
+using DWIS.MicroState.InterpretationEngine;
 
-namespace DWIS.MicroState.IntepretationEngine
+namespace DWIS.MicroState.InterpretationEngine
 {
     public class Program
     {

@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.MQTTTopics"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.MQTTSignalReader", "DWIS.MicroState.MQTTSignalReader\DWIS.MicroState.MQTTSignalReader.csproj", "{135C8B3C-69E1-4AA4-A706-6F6E7FA3B18F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.IntepretationEngine", "DWIS.MicroState.IntepretationEngine\DWIS.MicroState.IntepretationEngine.csproj", "{3C193114-0671-48CE-BE35-F10DD62C1272}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.InterpretationEngine", "DWIS.MicroState.InterpretationEngine\DWIS.MicroState.InterpretationEngine.csproj", "{3C193114-0671-48CE-BE35-F10DD62C1272}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.SignalGenerator", "DWIS.MicroState.SignalGenerator\DWIS.MicroState.SignalGenerator.csproj", "{4BE6CC18-63BA-4760-B369-6DCCA8F15072}"
 EndProject

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DWIS.MicroState.IntepretationEngine
+namespace DWIS.MicroState.InterpretationEngine
 {
     public class Configuration
     {
