@@ -16,7 +16,7 @@ jobs:
       uses: actions/checkout@v2
       
     - name: Build Service Docker image
-      run: docker build --file "${{ github.workspace }}/DWIS.MicroState/DWIS.MicroState.IntepretationEngine/Dockerfile" --tag digiwells/dwismicrostateintepretationengine:stable .
+      run: docker build --file "${{ github.workspace }}/DWIS.MicroState.IntepretationEngine/Dockerfile" --tag digiwells/dwismicrostateintepretationengine:stable .
 
     - name: Login to DockerHub
       run: docker login -u="${{ secrets.DOCKERHUB_USERNAME }}" -p="${{ secrets.DOCKERHUB_PASSWORD }}"
