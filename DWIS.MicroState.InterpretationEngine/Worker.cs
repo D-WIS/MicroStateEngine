@@ -1,12 +1,8 @@
-using MQTTnet;
-using MQTTnet.Client;
 using Newtonsoft.Json;
 using DWIS.MicroState.Model;
 using OSDC.DotnetLibraries.General.Common;
 using DWIS.Client.ReferenceImplementation;
 using DWIS.API.DTO;
-using DWIS.SPARQL.Utils;
-using DWIS.Vocabulary.Schemas;
 using System.Reflection;
 using OSDC.DotnetLibraries.Drilling.DrillingProperties;
 

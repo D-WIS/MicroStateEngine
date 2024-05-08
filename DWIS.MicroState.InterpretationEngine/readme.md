@@ -19,3 +19,7 @@ All the individual probabilistic microstates are published back on the DDHub tog
 ## Example Semantic Query for Variables used in Microstate Logical Statements
 
 ## Example Logical Statements for microstates
+
+## Dependences
+This service depends on:
+- OSDC.DotnetLibraries.Drilling.DrillingProperties
