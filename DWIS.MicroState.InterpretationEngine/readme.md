@@ -11,3 +11,6 @@ The search for the input signals in the logical statements is performed using sp
 The logical statements also use threshold values. These threshold values are collected from the DDHub using sparql queries. 
 The deterministic microstate is published back on the DDHub together with its semantic description.
 All the individual probabilistic microstates are published back on the DDHub together with their semantic description.
+
+## Semantic Description of a Deterministic Microstate
+
