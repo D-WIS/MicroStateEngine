@@ -1,1 +1,1 @@
-{"MQTTServerName":"localhost","MQTTServerPort":707}
+{"LoopDuration":"00:00:01","OPCUAURL":"opc.tcp://localhost:48030"}

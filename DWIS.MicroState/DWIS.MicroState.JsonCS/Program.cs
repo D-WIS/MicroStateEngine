@@ -5,7 +5,7 @@ await Generate(args);
 
 static async Task Generate(string[] args)
 {
-    string solutionRootDir = ".\\";
+    string solutionRootDir = "." + Path.DirectorySeparatorChar;
     bool found = false;
     do
     {
@@ -16,11 +16,11 @@ static async Task Generate(string[] args)
         }
         else
         {
-            solutionRootDir += "..\\";
+            solutionRootDir += ".." + Path.DirectorySeparatorChar;
         }
     } while (!found);
-    string jsonSchemaRootDir = solutionRootDir + "DWIS.MicroState.JsonSchema\\";
-    string sourceCodeDir = solutionRootDir + "DWIS.MicroState.ModelShared\\";
+    string jsonSchemaRootDir = solutionRootDir + "DWIS.MicroState.JsonSchema" + Path.DirectorySeparatorChar;
+    string sourceCodeDir = solutionRootDir + "DWIS.MicroState.ModelShared" + Path.DirectorySeparatorChar;
     if (args != null && args.Length >= 1 && Directory.Exists(args[0]))
     {
         sourceCodeDir = args[0];
@@ -30,13 +30,13 @@ static async Task Generate(string[] args)
     {
         codeNamespace = args[1];
     }
-    JsonSchema pipeModelSchema = await JsonSchema.FromFileAsync(jsonSchemaRootDir + "MicroStates.json");
+    JsonSchema microStatesModelSchema = await JsonSchema.FromFileAsync(jsonSchemaRootDir + "MicroStates.json");
     CSharpGeneratorSettings settings = new CSharpGeneratorSettings();
     settings.Namespace = codeNamespace;
-    var pipeModelGenerator = new CSharpGenerator(pipeModelSchema, settings);
-    var pipeModelFile = pipeModelGenerator.GenerateFile();
+    var microStatesModelGenerator = new CSharpGenerator(microStatesModelSchema, settings);
+    var microStatesModelFile = microStatesModelGenerator.GenerateFile();
     using (StreamWriter writer = new StreamWriter(sourceCodeDir + "MicroStatesFromJson.cs"))
     {
-        writer.WriteLine(pipeModelFile);
+        writer.WriteLine(microStatesModelFile);
     }
 }

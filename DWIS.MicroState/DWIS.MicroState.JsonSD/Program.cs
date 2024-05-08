@@ -1,11 +1,14 @@
 ﻿using NJsonSchema;
+using System.Reflection;
 using DWIS.MicroState.Model;
+using OSDC.DotnetLibraries.Drilling.DrillingProperties;
+using System.Text.Json;
 
 GenerateJsonSchemas();
 
 static void GenerateJsonSchemas()
 {
-    string rootDir = ".\\";
+    string rootDir = "." + Path.DirectorySeparatorChar;
     bool found = false;
     do
     {
@@ -16,14 +19,28 @@ static void GenerateJsonSchemas()
         }
         else
         {
-            rootDir += "..\\";
+            rootDir += ".." + Path.DirectorySeparatorChar;
         }
     } while (!found);
-    rootDir += "DWIS.MicroState.JsonSchema\\";
-    var RigOSCapabilitiesSchema = JsonSchema.FromType < Tuple < MicroStates, Thresholds, SignalGroup, MicroStates.MicroStateIndex>>();
-    var WellPathSchemaSchemaJson = RigOSCapabilitiesSchema.ToJson();
+    rootDir += "DWIS.MicroState.JsonSchema" + Path.DirectorySeparatorChar;
+    var microStatesSchema = JsonSchema.FromType <MicroStates>();
+    var schemaJson = microStatesSchema.ToJson();
     using (StreamWriter writer = new StreamWriter(rootDir + "MicroStates.json"))
     {
-        writer.WriteLine(WellPathSchemaSchemaJson);
+        writer.WriteLine(schemaJson);
+    }
+    MicroStates microStates = new MicroStates();
+    Assembly assy = microStates.GetType().Assembly;
+    var dict = MetaDataDrillingProperty.GetDrillingPropertyMetaData(assy);
+    if (dict != null)
+    {
+        var metaDataJson = JsonSerializer.Serialize(dict.ToArray());
+        if (!string.IsNullOrEmpty(metaDataJson))
+        {
+            using (StreamWriter writer = new StreamWriter(rootDir + "MetaDataMicroStates.json"))
+            {
+                writer.WriteLine(metaDataJson);
+            }
+        }
     }
 }

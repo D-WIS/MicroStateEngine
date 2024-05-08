@@ -14,8 +14,6 @@ namespace DWIS.MicroState.IntepretationEngine
 {
     public class Worker : BackgroundService
     {
-        private static readonly string microStatesThresholdsQueryName_ = "DWIS:MicroStates:ThresholdsQuery";
-        private static readonly string microStatesInputSignalsQueryName_ = "DWIS:MicroStates:InputSignalsQuery";
         private Configuration Configuration { get; set; } = new Configuration();
         private readonly ILogger<Worker> _logger;
         private IOPCUADWISClient? DWISClient_ = null;
@@ -44,7 +42,7 @@ namespace DWIS.MicroState.IntepretationEngine
             Initialize();
         }
 
-        private async Task ConnectToDDHub()
+        private void ConnectToDDHub()
         {
             try
             {
@@ -58,7 +56,10 @@ namespace DWIS.MicroState.IntepretationEngine
             }
             catch (Exception e)
             {
-
+                if (_logger != null)
+                {
+                    _logger.LogError(e.ToString());
+                }
             }
         }
 
@@ -184,7 +185,7 @@ namespace DWIS.MicroState.IntepretationEngine
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await ConnectToDDHub();
+            ConnectToDDHub();
             DefineMicroStateSemantic();
             AcquireMicroStatesThresholds();
             AcquireSignalInputs();
@@ -192,7 +193,7 @@ namespace DWIS.MicroState.IntepretationEngine
             {
                 DateTime d1 = DateTime.UtcNow;
                 RefreshThresholds();
-                await RefreshSignals();
+                RefreshSignals();
                 DateTime d2 = DateTime.UtcNow;
                 TimeSpan elapsed = d2 - d1;
                 TimeSpan loopDuration = TimeSpan.FromSeconds(1.0);
@@ -240,25 +241,39 @@ namespace DWIS.MicroState.IntepretationEngine
                         }
                         catch (Exception e)
                         {
-
+                            if (_logger != null)
+                            {
+                                _logger.LogError(e.ToString());
+                            }
                         }
                     }
                 }
+                else
+                {
+                    string defaultConfigJson = JsonConvert.SerializeObject(Configuration);
+                    using (StreamWriter writer = new StreamWriter(configName))
+                    {
+                        writer.WriteLine(defaultConfigJson);
+                    }
+                }
             }
-            _logger.LogInformation("Configuration Loop Duration: " + Configuration.LoopDuration.ToString());
-            _logger.LogInformation("Configuration OPCUAURAL: " + Configuration.OPCUAURL);
+            if (_logger != null)
+            {
+                _logger.LogInformation("Configuration Loop Duration: " + Configuration.LoopDuration.ToString());
+                _logger.LogInformation("Configuration OPCUAURAL: " + Configuration.OPCUAURL);
+            }
             string hostName = System.Net.Dns.GetHostName();
             if (!string.IsNullOrEmpty(hostName))
             {
                 var ip = System.Net.Dns.GetHostEntry(hostName);
-                if (ip != null && ip.AddressList != null && ip.AddressList.Length > 0)
+                if (ip != null && ip.AddressList != null && ip.AddressList.Length > 0 && _logger != null)
                 {
                     _logger.LogInformation("My IP Address: " + ip.AddressList[0].ToString());
                 }
             }
         }
  
-        private async Task RefreshSignals()
+        private void RefreshSignals()
         {
             MicroStates microStates = new();
             SignalGroup? signals = null;
