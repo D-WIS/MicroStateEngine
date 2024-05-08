@@ -5,7 +5,6 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["nuget.config", "."]
 COPY ["DWIS.MicroState.Model/DWIS.MicroState.Model.csproj", "DWIS.MicroState.Model/"]
 COPY ["DWIS.MicroState.IntepretationEngine/DWIS.MicroState.IntepretationEngine.csproj", "DWIS.MicroState.IntepretationEngine/"]
 RUN dotnet restore "DWIS.MicroState.IntepretationEngine/DWIS.MicroState.IntepretationEngine.csproj"
