@@ -1,0 +1,26 @@
+name: Build and Push Docker Interpreter image
+
+on:
+  workflow_dispatch:
+  #push:
+    #branches: [ "main" ]
+
+jobs:
+
+  build:
+  
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+      
+    - name: Build Service Docker image
+      run: docker build --file "${{ github.workspace }}/DWIS.MicroState/DWIS.MicroState.IntepretationEngine/Dockerfile" --tag digiwells/dwismicrostateintepretationengine:stable .
+
+    - name: Login to DockerHub
+      run: docker login -u="${{ secrets.DOCKERHUB_USERNAME }}" -p="${{ secrets.DOCKERHUB_PASSWORD }}"
+        
+    - name: Push images to DockerHub
+      run: |
+        docker push digiwells/dwismicrostateintepretationengine:stable
