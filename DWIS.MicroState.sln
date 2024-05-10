@@ -23,6 +23,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.Interpretat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.SignalGenerator", "DWIS.MicroState.SignalGenerator\DWIS.MicroState.SignalGenerator.csproj", "{4BE6CC18-63BA-4760-B369-6DCCA8F15072}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{884B63D3-357C-482C-BCA7-C3B83C6E4B1E}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.Semantic.DeterministicState", "DWIS.MicroState.Semantic.DeterministicState\DWIS.MicroState.Semantic.DeterministicState.csproj", "{560C1C6F-C7E6-4649-A9A3-8FDB72A5CAD3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.Semantic.ProbabilisticState", "DWIS.MicroState.Semantic.ProbabilisticState\DWIS.MicroState.Semantic.ProbabilisticState.csproj", "{6E008B98-8962-47A4-8F76-D69A942DA131}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DWIS.MicroState.Semantic.RealtimeSignal", "DWIS.MicroState.Semantic.RealtimeSignal\DWIS.MicroState.Semantic.RealtimeSignal.csproj", "{332C8D88-DAB5-4E94-B58D-665D9470ECD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DWIS.MicroState.Semantic.Threshold", "DWIS.MicroState.Semantic.Threshold\DWIS.MicroState.Semantic.Threshold.csproj", "{B06EF70A-EE53-4982-BB6C-C8A2DD9210AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +82,22 @@ Global
 		{4BE6CC18-63BA-4760-B369-6DCCA8F15072}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BE6CC18-63BA-4760-B369-6DCCA8F15072}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BE6CC18-63BA-4760-B369-6DCCA8F15072}.Release|Any CPU.Build.0 = Release|Any CPU
+		{560C1C6F-C7E6-4649-A9A3-8FDB72A5CAD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{560C1C6F-C7E6-4649-A9A3-8FDB72A5CAD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{560C1C6F-C7E6-4649-A9A3-8FDB72A5CAD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{560C1C6F-C7E6-4649-A9A3-8FDB72A5CAD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E008B98-8962-47A4-8F76-D69A942DA131}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E008B98-8962-47A4-8F76-D69A942DA131}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E008B98-8962-47A4-8F76-D69A942DA131}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E008B98-8962-47A4-8F76-D69A942DA131}.Release|Any CPU.Build.0 = Release|Any CPU
+		{332C8D88-DAB5-4E94-B58D-665D9470ECD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{332C8D88-DAB5-4E94-B58D-665D9470ECD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{332C8D88-DAB5-4E94-B58D-665D9470ECD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{332C8D88-DAB5-4E94-B58D-665D9470ECD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B06EF70A-EE53-4982-BB6C-C8A2DD9210AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B06EF70A-EE53-4982-BB6C-C8A2DD9210AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B06EF70A-EE53-4982-BB6C-C8A2DD9210AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B06EF70A-EE53-4982-BB6C-C8A2DD9210AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

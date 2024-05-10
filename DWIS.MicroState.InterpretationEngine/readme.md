@@ -16,14 +16,4 @@ The logical statements also use threshold values. These threshold values are col
 The deterministic microstate is published back on the DDHub together with its semantic description.
 All the individual probabilistic microstates are published back on the DDHub together with their semantic description.
 
-## Semantic Description of a Deterministic Microstate
 
-## Example Semantic Description of a Probabilisity Microstate
-
-## Example Semantic Query for Variables used in Microstate Logical Statements
-
-## Example Logical Statements for microstates
-
-## Dependences
-This service depends on:
-- OSDC.DotnetLibraries.Drilling.DrillingProperties
