@@ -23,6 +23,14 @@ namespace DWIS.MicroState.Semantic.DeterministicState
                 }
             }
         }
+        static void GenerateMermaidForMD(StreamWriter writer, string name, string? mermaid)
+        {
+            if (writer != null && !string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(mermaid))
+            {
+                writer.WriteLine("# Semantic Graph for `" + name + "`");
+                writer.WriteLine(mermaid);
+            }
+        }
         static void Main()
         {
             Assembly? assembly = Assembly.GetAssembly(typeof(SignalGroup));
@@ -38,6 +46,20 @@ namespace DWIS.MicroState.Semantic.DeterministicState
                     {
                         var queries1 = GeneratorSparQLManifestFile.GetSparQLQueries(assembly, typeof(SignalGroup).FullName, "AxialVelocityTopOfString");
                         GenerateSparQLForMD(writer, "AxialVelocityTopOfString", queries1);
+                    }
+                    tempFile = Path.Combine(dir.FullName, "SemanticGraphsUCS.md");
+                    using (StreamWriter writer = new StreamWriter(tempFile))
+                    {
+                        var manifestFile1 = GeneratorSparQLManifestFile.GetManifestFile(assembly, typeof(SignalGroup).FullName, "UCS", "UCS", "DWIS", "DWIS:");
+                        if (manifestFile1 != null)
+                        {
+                            GenerateMermaidForMD(writer, "UCS", GeneratorSparQLManifestFile.GetMermaid(manifestFile1));
+                        }
+                        var manifestFile2 = GeneratorSparQLManifestFile.GetManifestFile(assembly, typeof(SignalGroup).FullName, "UCSSlope", "UCSSlope", "DWIS", "DWIS:");
+                        if (manifestFile2 != null)
+                        {
+                            GenerateMermaidForMD(writer, "UCSSlope", GeneratorSparQLManifestFile.GetMermaid(manifestFile2));
+                        }
                     }
                 }
             }

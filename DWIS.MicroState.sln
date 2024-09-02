@@ -32,9 +32,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.Semantic.De
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.Semantic.ProbabilisticState", "DWIS.MicroState.Semantic.ProbabilisticState\DWIS.MicroState.Semantic.ProbabilisticState.csproj", "{6E008B98-8962-47A4-8F76-D69A942DA131}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DWIS.MicroState.Semantic.RealtimeSignal", "DWIS.MicroState.Semantic.RealtimeSignal\DWIS.MicroState.Semantic.RealtimeSignal.csproj", "{332C8D88-DAB5-4E94-B58D-665D9470ECD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.Semantic.RealtimeSignal", "DWIS.MicroState.Semantic.RealtimeSignal\DWIS.MicroState.Semantic.RealtimeSignal.csproj", "{332C8D88-DAB5-4E94-B58D-665D9470ECD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DWIS.MicroState.Semantic.Threshold", "DWIS.MicroState.Semantic.Threshold\DWIS.MicroState.Semantic.Threshold.csproj", "{B06EF70A-EE53-4982-BB6C-C8A2DD9210AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.Semantic.Threshold", "DWIS.MicroState.Semantic.Threshold\DWIS.MicroState.Semantic.Threshold.csproj", "{B06EF70A-EE53-4982-BB6C-C8A2DD9210AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

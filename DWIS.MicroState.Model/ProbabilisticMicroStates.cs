@@ -1158,21 +1158,69 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_BHA", Verbs.Enum.IsAMechanicalRepresentationFor, "BHA")]
         [SemanticFact("LateralShocksInBHA#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_BHA")]
         public BernoulliDrillingProperty LateralShocksInBHA { get; set; } = new BernoulliDrillingProperty();
-        //    LateralShokcsInDrillString // 76
+        //    LateralShocksInDrillString // 76
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
-        [SemanticBernoulliVariable("LateralShokcsInDrillString")]
-        [SemanticFact("LateralShokcsInDrillString", Nouns.Enum.DynamicDrillingSignal)]
-        [SemanticFact("LateralShokcsInDrillString#01", Nouns.Enum.ComputedData)]
-        [SemanticFact("LateralShokcsInDrillString#01", Nouns.Enum.BooleanDataType)]
-        [SemanticFact("LateralShokcsInDrillString#01", Verbs.Enum.HasDynamicValue, "LateralShokcsInDrillString")]
+        [SemanticBernoulliVariable("LateralShocksInDrillString")]
+        [SemanticFact("LateralShocksInDrillString", Nouns.Enum.DynamicDrillingSignal)]
+        [SemanticFact("LateralShocksInDrillString#01", Nouns.Enum.ComputedData)]
+        [SemanticFact("LateralShocksInDrillString#01", Nouns.Enum.BooleanDataType)]
+        [SemanticFact("LateralShocksInDrillString#01", Verbs.Enum.HasDynamicValue, "LateralShocksInDrillString")]
         [SemanticFact("Shock", Nouns.Enum.Shock)]
         [SemanticFact("LateralShocksInBHA#01", Verbs.Enum.IsRelatedToDrillingIncident, "Shock")]
         [SemanticFact("DS", Nouns.Enum.DrillString)]
         [SemanticFact("logical_DS", Nouns.Enum.MechanicalLogicalElement)]
         [SemanticFact("logical_DS", Verbs.Enum.IsAMechanicalRepresentationFor, "DS")]
-        [SemanticFact("LateralShokcsInDrillString#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_DS")]
+        [SemanticFact("LateralShocksInDrillString#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_DS")]
         public BernoulliDrillingProperty LateralShocksInDrillString { get; set; } = new BernoulliDrillingProperty();
+        //      StringRotationImpeded // 77
+        [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
+        [Mandatory(CommonProperty.MandatoryType.General)]
+        [SemanticBernoulliVariable("StringRotationImpeded")]
+        [SemanticFact("StringRotationImpeded", Nouns.Enum.DynamicDrillingSignal)]
+        [SemanticFact("StringRotationImpeded#01", Nouns.Enum.ComputedData)]
+        [SemanticFact("StringRotationImpeded#01", Nouns.Enum.BooleanDataType)]
+        [SemanticFact("StringRotationImpeded#01", Verbs.Enum.HasDynamicValue, "StringRotationImpeded")]
+        [SemanticFact("OverTorque", Nouns.Enum.OverTorque)]
+        [SemanticFact("StringRotationImpeded#01", Verbs.Enum.IsRelatedToDrillingIncident, "OverTorque")]
+        [SemanticFact("DS", Nouns.Enum.DrillString)]
+        [SemanticFact("logical_DS", Nouns.Enum.MechanicalLogicalElement)]
+        [SemanticFact("logical_DS", Verbs.Enum.IsAMechanicalRepresentationFor, "DS")]
+        [SemanticFact("StringRotationImpeded#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_DS")]
+        public BernoulliDrillingProperty StringRotationImpeded { get; set; } = new BernoulliDrillingProperty();
+
+        //      AnnulusFlowImpeded // 78
+        [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
+        [Mandatory(CommonProperty.MandatoryType.General)]
+        [SemanticBernoulliVariable("AnnulusFlowImpeded")]
+        [SemanticFact("AnnulusFlowImpeded", Nouns.Enum.DynamicDrillingSignal)]
+        [SemanticFact("AnnulusFlowImpeded#01", Nouns.Enum.ComputedData)]
+        [SemanticFact("AnnulusFlowImpeded#01", Nouns.Enum.BooleanDataType)]
+        [SemanticFact("AnnulusFlowImpeded#01", Verbs.Enum.HasDynamicValue, "AnnulusFlowImpeded")]
+        [SemanticFact("Plugged", Nouns.Enum.Plugged)]
+        [SemanticFact("AnnulusFlowImpeded#01", Verbs.Enum.IsRelatedToDrillingIncident, "Plugged")]
+        [SemanticFact("DrillPipesAnnular", Nouns.Enum.DrillPipesAnnular)]
+        [SemanticFact("logical_DrillPipesAnnular", Nouns.Enum.HydraulicLogicalElement)]
+        [SemanticFact("logical_DrillPipesAnnular", Verbs.Enum.IsAHydraulicRepresentationFor, "DrillPipesAnnular")]
+        [SemanticFact("AnnulusFlowImpeded#01", Verbs.Enum.IsHydraulicallyLocatedAt, "logical_DrillPipesAnnular")]
+        public BernoulliDrillingProperty AnnulusFlowImpeded { get; set; } = new BernoulliDrillingProperty();
+
+        //      StringFlowImpeded // 79
+        [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
+        [Mandatory(CommonProperty.MandatoryType.General)]
+        [SemanticBernoulliVariable("StringFlowImpeded")]
+        [SemanticFact("StringFlowImpeded", Nouns.Enum.DynamicDrillingSignal)]
+        [SemanticFact("StringFlowImpeded#01", Nouns.Enum.ComputedData)]
+        [SemanticFact("StringFlowImpeded#01", Nouns.Enum.BooleanDataType)]
+        [SemanticFact("StringFlowImpeded#01", Verbs.Enum.HasDynamicValue, "StringFlowImpeded")]
+        [SemanticFact("Plugged", Nouns.Enum.Plugged)]
+        [SemanticFact("StringFlowImpeded#01", Verbs.Enum.IsRelatedToDrillingIncident, "Plugged")]
+        [SemanticFact("DS", Nouns.Enum.DrillString)]
+        [SemanticFact("logical_DS", Nouns.Enum.HydraulicLogicalElement)]
+        [SemanticFact("logical_DS", Verbs.Enum.IsAHydraulicRepresentationFor, "DS")]
+        [SemanticFact("StringFlowImpeded#01", Verbs.Enum.IsHydraulicallyLocatedAt, "logical_DS")]
+        public BernoulliDrillingProperty StringFlowImpeded { get; set; } = new BernoulliDrillingProperty();
+
         /// <summary>
         /// 
         /// </summary>

@@ -128,7 +128,10 @@ namespace DWIS.MicroState.Model
             AxialOscillations, // 73
             TorsionalOscillations, // 74
             LateralShocksInBHA, // 75
-            LateralShocksInDrillString // 76
+            LateralShocksInDrillString, // 76
+            StringRotationImpeded, // 77
+            AnnulusFlowImpeded, // 78
+            StringFlowImpeded // 79
         }
 
         public void CopyTo(ref MicroStates dest)

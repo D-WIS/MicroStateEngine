@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OSDC.DotnetLibraries.Drilling.DrillingProperties" Version="10.1.4" />
+    <PackageReference Include="OSDC.DotnetLibraries.Drilling.DrillingProperties" Version="10.1.5" />
   </ItemGroup>
 
 </Project>
