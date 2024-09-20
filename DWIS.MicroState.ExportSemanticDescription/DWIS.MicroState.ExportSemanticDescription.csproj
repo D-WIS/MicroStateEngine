@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\OSDC\DotNetLibraries\OSDC.DotnetLibraries.General\OSDC.DotnetLibraries.Drilling.DrillingProperties\OSDC.DotnetLibraries.Drilling.DrillingProperties.csproj" />
     <ProjectReference Include="..\DWIS.MicroState.Model\DWIS.MicroState.Model.csproj" />
   </ItemGroup>
 

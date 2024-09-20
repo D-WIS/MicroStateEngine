@@ -153,6 +153,7 @@ namespace DWIS.MicroState.Viewer
             List<Button> buttons = FindButtons(this);
             if (buttons != null)
             {
+                /*
                 foreach (var choice in Enum.GetValues(typeof(MicroStateIndex)))
                 {
                     string? choiceName = Enum.GetName(typeof(MicroStateIndex), choice);
@@ -208,6 +209,7 @@ namespace DWIS.MicroState.Viewer
                         }
                     }
                 }
+                */
             }
         }
 
