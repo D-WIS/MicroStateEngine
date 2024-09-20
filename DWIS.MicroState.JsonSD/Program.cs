@@ -23,7 +23,7 @@ static void GenerateJsonSchemas()
         }
     } while (!found);
     rootDir += "DWIS.MicroState.JsonSchema" + Path.DirectorySeparatorChar;
-    var microStatesSchema = JsonSchema.FromType <Tuple<MicroStates, ProbabilisticMicroStates>>();
+    var microStatesSchema = JsonSchema.FromType <Tuple<MicroStates, ProbabilisticMicroStates, MicroStateIndex>>();
     var schemaJson = microStatesSchema.ToJson();
     using (StreamWriter writer = new StreamWriter(rootDir + "MicroStates.json"))
     {
