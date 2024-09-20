@@ -3877,7 +3877,7 @@ namespace DWIS.MicroState.Model
             }
         }
 
-        public bool RegisterToDDHub(IOPCUADWISClient? DWISClient, Dictionary<string, List<AcquiredSignals>>? placeHolders)
+        public bool RegisterToBlackboard(IOPCUADWISClient? DWISClient, Dictionary<string, List<AcquiredSignals>>? placeHolders)
         {
             if (DWISClient != null && placeHolders != null)
             {
@@ -3888,7 +3888,7 @@ namespace DWIS.MicroState.Model
                 bool ok = true;
                 foreach (PropertyInfo property in properties)
                 {
-                    if (property != null && property.PropertyType == typeof(DrillingProperty))
+                    if (property != null && property.PropertyType.IsSubclassOf(typeof(DrillingProperty)))
                     {
                         string propName = property.Name;
                         if (!string.IsNullOrEmpty(propName))

@@ -5,13 +5,15 @@ using DWIS.Client.ReferenceImplementation;
 using DWIS.API.DTO;
 using System.Reflection;
 using OSDC.DotnetLibraries.Drilling.DrillingProperties;
+using DWIS.Client.ReferenceImplementation.OPCFoundation;
 
 namespace DWIS.MicroState.InterpretationEngine
 {
     public class Worker : BackgroundService
     {
         private Configuration Configuration { get; set; } = new Configuration();
-        private readonly ILogger<Worker> _logger;
+        private readonly ILogger<Worker>? _logger;
+        private ILogger<DWISClientOPCF>? _loggerDWISClient;
         private IOPCUADWISClient? DWISClient_ = null;
 
         private MicroStates currentDeterministicMicroStates_ = new MicroStates();
@@ -32,13 +34,14 @@ namespace DWIS.MicroState.InterpretationEngine
         /// 
         /// </summary>
         /// <param name="logger"></param>
-        public Worker(ILogger<Worker> logger)
+        public Worker(ILogger<Worker>? logger, ILogger<DWISClientOPCF>? loggerDWISClient)
         {
             _logger = logger;
+            _loggerDWISClient = loggerDWISClient;
             Initialize();
         }
 
-        private void ConnectToDDHub()
+        private void ConnectToBlackboard()
         {
             try
             {
@@ -47,7 +50,8 @@ namespace DWIS.MicroState.InterpretationEngine
                     DefaultDWISClientConfiguration defaultDWISClientConfiguration = new DefaultDWISClientConfiguration();
                     defaultDWISClientConfiguration.UseWebAPI = false;
                     defaultDWISClientConfiguration.ServerAddress = Configuration.OPCUAURL; // "opc.tcp://localhost:48030";
-                    DWISClient_ = null; // new DWISClient(defaultDWISClientConfiguration, new UAApplicationConfiguration(), null, null, new DWIS.OPCUA.UALicenseManager.LicenseManager());
+                    DWISClient_ = new DWISClientOPCF(defaultDWISClientConfiguration, _loggerDWISClient); 
+                    // new DWISClient(defaultDWISClientConfiguration, new UAApplicationConfiguration(), null, null, new DWIS.OPCUA.UALicenseManager.LicenseManager());
                 }
             }
             catch (Exception e)
@@ -65,16 +69,16 @@ namespace DWIS.MicroState.InterpretationEngine
             {
                 if (currentProbabilisticMicroStates_ != null)
                 {
-                    currentProbabilisticMicroStates_.RegisterToDDHub(DWISClient_, probabilisticMicroStatePlaceHolders_ ?? new Dictionary<string, QueryResult>());
+                    currentProbabilisticMicroStates_.RegisterToBlackboard(DWISClient_, probabilisticMicroStatePlaceHolders_ ?? new Dictionary<string, QueryResult>());
                 }
-                currentDeterministicMicroStates_.RegisterToDDHub(DWISClient_, deterministicMicroStatePlaceHolder_ ?? new QueryResult());
+                currentDeterministicMicroStates_.RegisterToBlackboard(DWISClient_, deterministicMicroStatePlaceHolder_ ?? new QueryResult());
             }
         }
         private void AcquireMicroStatesThresholds()
         {
             if (DWISClient_ != null && DWISClient_.Connected)
             {
-                microStateThresholds_.RegisterToDDHub(DWISClient_, microStateThresholdsPlaceHolders_);
+                microStateThresholds_.RegisterToBlackboard(DWISClient_, microStateThresholdsPlaceHolders_);
             }
         }
 
@@ -82,7 +86,7 @@ namespace DWIS.MicroState.InterpretationEngine
         {
             if (DWISClient_ != null && DWISClient_.Connected)
             {
-                microStateSignalInputs_.RegisterToDDHub(DWISClient_, microStateSignalPlaceHolders_);
+                microStateSignalInputs_.RegisterToBlackboard(DWISClient_, microStateSignalPlaceHolders_);
             }
         }
         private void RefreshThresholds()
@@ -181,7 +185,7 @@ namespace DWIS.MicroState.InterpretationEngine
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            ConnectToDDHub();
+            ConnectToBlackboard();
             DefineMicroStateSemantic();
             AcquireMicroStatesThresholds();
             AcquireSignalInputs();
@@ -216,7 +220,7 @@ namespace DWIS.MicroState.InterpretationEngine
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Impossible to create home directory for local storage");
+                    _logger?.LogError(ex, "Impossible to create home directory for local storage");
                 }
             }
             if (Directory.Exists(homeDirectory))
@@ -1993,7 +1997,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     }
                 }
             }
-            _logger.LogInformation("processed data");
+            _logger?.LogInformation("processed data");
             bool changed = false;
             lock (lock_)
             {
@@ -2013,11 +2017,11 @@ namespace DWIS.MicroState.InterpretationEngine
             }
             if (changed)
             {
-                _logger.LogInformation("deterministic microstate has changed");
+                _logger?.LogInformation("deterministic microstate has changed");
                 microStates.TimeStampUTC = DateTime.UtcNow;
                 if (DWISClient_ != null && deterministicMicroStatePlaceHolder_ != null)
                 {
-                    currentDeterministicMicroStates_.SendToDDHub(DWISClient_, deterministicMicroStatePlaceHolder_);
+                    currentDeterministicMicroStates_.SendToBlackboard(DWISClient_, deterministicMicroStatePlaceHolder_);
                 }
             }
             changed = false;
@@ -2031,11 +2035,11 @@ namespace DWIS.MicroState.InterpretationEngine
             }
             if (changed)
             {
-                _logger.LogInformation("probabilistic microstate has changed");
+                _logger?.LogInformation("probabilistic microstate has changed");
                 probMicroStates.TimeStampUTC = DateTime.UtcNow;
                 if (DWISClient_ != null)
                 {
-                    probMicroStates.SendToDDHub(DWISClient_, probabilisticMicroStatePlaceHolders_);
+                    probMicroStates.SendToBlackboard(DWISClient_, probabilisticMicroStatePlaceHolders_);
                 }
             }
         }

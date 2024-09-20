@@ -144,7 +144,7 @@ namespace DWIS.MicroState.Model
             dest.Part5 = Part5;
         }
 
-        public bool RegisterToDDHub(IOPCUADWISClient? DWISClient, QueryResult? placeHolder)
+        public bool RegisterToBlackboard(IOPCUADWISClient? DWISClient, QueryResult? placeHolder)
         {
             bool ok = false;
             if (DWISClient != null && placeHolder != null)
@@ -210,7 +210,7 @@ namespace DWIS.MicroState.Model
             return ok;
         }
 
-        public bool SendToDDHub(IOPCUADWISClient? DWISClient, QueryResult? placeHolder)
+        public bool SendToBlackboard(IOPCUADWISClient? DWISClient, QueryResult? placeHolder)
         {
             if (DWISClient != null && placeHolder != null)
             {

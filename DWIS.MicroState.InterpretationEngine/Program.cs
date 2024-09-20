@@ -1,4 +1,6 @@
+using DWIS.Client.ReferenceImplementation.OPCFoundation;
 using DWIS.MicroState.InterpretationEngine;
+
 
 namespace DWIS.MicroState.InterpretationEngine
 {
@@ -10,6 +12,7 @@ namespace DWIS.MicroState.InterpretationEngine
                              .ConfigureServices(services =>
                                         {
                                             services.AddHostedService<Worker>();
+                                            services.AddLogging(loggingBuilder => loggingBuilder.AddConsole().SetMinimumLevel(LogLevel.Debug));
                                         })
                              .Build();
 

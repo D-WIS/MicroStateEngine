@@ -4,6 +4,8 @@ using DWIS.API.DTO;
 using DWIS.Client.ReferenceImplementation;
 using System.ComponentModel.Design;
 using DWIS.Vocabulary.Schemas;
+using static System.Net.WebRequestMethods;
+using System.Text;
 
 namespace DWIS.MicroState.Model
 {
@@ -519,8 +521,8 @@ namespace DWIS.MicroState.Model
         [SemanticFact("FormationCollapse#01", Verbs.Enum.HasDynamicValue, "FormationCollapse")]
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("FormationCollapse#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
-        [SemanticFact("FormationCollapse", Nouns.Enum.FormationCollapseLocation)]
-        [SemanticFact("FormationCollapse#01", Verbs.Enum.IsPhysicallyLocatedAt, "FormationCollapse")]
+        [SemanticFact("FormationCollapseLocation", Nouns.Enum.FormationCollapseLocation)]
+        [SemanticFact("FormationCollapse#01", Verbs.Enum.IsPhysicallyLocatedAt, "FormationCollapseLocation")]
         public BernoulliDrillingProperty FormationCollapse { get; set; } = new BernoulliDrillingProperty();
         //    CavingsAtAnnulusOutlet, // 35
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -549,8 +551,8 @@ namespace DWIS.MicroState.Model
         [SemanticFact("PipeWashout#01", Verbs.Enum.HasDynamicValue, "PipeWashout")]
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("PipeWashout#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
-        [SemanticFact("PipeWashout", Nouns.Enum.PipeWashoutLocation)]
-        [SemanticFact("PipeWashout#01", Verbs.Enum.IsPhysicallyLocatedAt, "PipeWashout")]
+        [SemanticFact("PipeWashoutLocation", Nouns.Enum.PipeWashoutLocation)]
+        [SemanticFact("PipeWashout#01", Verbs.Enum.IsPhysicallyLocatedAt, "PipeWashoutLocation")]
         public BernoulliDrillingProperty PipeWashout { get; set; } = new BernoulliDrillingProperty();
         //    WhirlBottomOfString, // 37
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -609,9 +611,9 @@ namespace DWIS.MicroState.Model
         [SemanticFact("UnderReamer#01", Nouns.Enum.ComputedData)]
         [SemanticFact("UnderReamer#01", Nouns.Enum.BooleanDataType)]
         [SemanticFact("UnderReamer#01", Verbs.Enum.HasDynamicValue, "UnderReamer")]
-        [SemanticFact("underReamer", Nouns.Enum.Underreamers)]
+        [SemanticFact("UR", Nouns.Enum.Underreamers)]
         [SemanticFact("logical_underReamer", Nouns.Enum.MechanicalLogicalElement)]
-        [SemanticFact("logical_underReamer", Verbs.Enum.IsAMechanicalRepresentationFor, "underReamer")]
+        [SemanticFact("logical_underReamer", Verbs.Enum.IsAMechanicalRepresentationFor, "UR")]
         [SemanticFact("UnderReamer#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_underReamer")]
         public BernoulliDrillingProperty UnderReamer { get; set; } = new BernoulliDrillingProperty();
         //    CirculationSub, // 41
@@ -622,9 +624,9 @@ namespace DWIS.MicroState.Model
         [SemanticFact("CirculationSub#01", Nouns.Enum.ComputedData)]
         [SemanticFact("CirculationSub#01", Nouns.Enum.BooleanDataType)]
         [SemanticFact("CirculationSub#01", Verbs.Enum.HasDynamicValue, "CirculationSub")]
-        [SemanticFact("circulationSub", Nouns.Enum.CirculationSub)]
+        [SemanticFact("CS", Nouns.Enum.CirculationSub)]
         [SemanticFact("logical_circulationSub", Nouns.Enum.MechanicalLogicalElement)]
-        [SemanticFact("logical_circulationSub", Verbs.Enum.IsAMechanicalRepresentationFor, "circulationSub")]
+        [SemanticFact("logical_circulationSub", Verbs.Enum.IsAMechanicalRepresentationFor, "CS")]
         [SemanticFact("CirculationSub#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_circulationSub")]
         public BernoulliDrillingProperty CirculationSub { get; set; } = new BernoulliDrillingProperty();
         //    PortedFloat, // 42
@@ -635,9 +637,9 @@ namespace DWIS.MicroState.Model
         [SemanticFact("PortedFloat#01", Nouns.Enum.ComputedData)]
         [SemanticFact("PortedFloat#01", Nouns.Enum.BooleanDataType)]
         [SemanticFact("PortedFloat#01", Verbs.Enum.HasDynamicValue, "PortedFloat")]
-        [SemanticFact("portedFloat", Nouns.Enum.PortedPlungerValvesFa)]
+        [SemanticFact("PF", Nouns.Enum.PortedPlungerValvesFa)]
         [SemanticFact("logical_portedFloat", Nouns.Enum.MechanicalLogicalElement)]
-        [SemanticFact("logical_portedFloat", Verbs.Enum.IsAMechanicalRepresentationFor, "portedFloat")]
+        [SemanticFact("logical_portedFloat", Verbs.Enum.IsAMechanicalRepresentationFor, "PF")]
         [SemanticFact("PortedFloat#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_portedFloat")]
         public BernoulliDrillingProperty PortedFloat { get; set; } = new BernoulliDrillingProperty();
         //    Whipstock, // 43
@@ -648,9 +650,9 @@ namespace DWIS.MicroState.Model
         [SemanticFact("Whipstock#01", Nouns.Enum.ComputedData)]
         [SemanticFact("Whipstock#01", Nouns.Enum.BooleanDataType)]
         [SemanticFact("Whipstock#01", Verbs.Enum.HasDynamicValue, "Whipstock")]
-        [SemanticFact("whipstock", Nouns.Enum.Whipstock)]
+        [SemanticFact("whipstockElement", Nouns.Enum.Whipstock)]
         [SemanticFact("logical_whipstock", Nouns.Enum.MechanicalLogicalElement)]
-        [SemanticFact("logical_whipstock", Verbs.Enum.IsAMechanicalRepresentationFor, "whipstock")]
+        [SemanticFact("logical_whipstock", Verbs.Enum.IsAMechanicalRepresentationFor, "whipstockElement")]
         [SemanticFact("Whipstock#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_whipstock")]
         public BernoulliDrillingProperty Whipstock { get; set; } = new BernoulliDrillingProperty();
         //    Plug, // 44
@@ -661,9 +663,9 @@ namespace DWIS.MicroState.Model
         [SemanticFact("Plug#01", Nouns.Enum.ComputedData)]
         [SemanticFact("Plug#01", Nouns.Enum.BooleanDataType)]
         [SemanticFact("Plug#01", Verbs.Enum.HasDynamicValue, "Plug")]
-        [SemanticFact("plug", Nouns.Enum.Plugs)]
+        [SemanticFact("plugElement", Nouns.Enum.Plugs)]
         [SemanticFact("logical_plug", Nouns.Enum.MechanicalLogicalElement)]
-        [SemanticFact("logical_plug", Verbs.Enum.IsAMechanicalRepresentationFor, "plug")]
+        [SemanticFact("logical_plug", Verbs.Enum.IsAMechanicalRepresentationFor, "plugElement")]
         [SemanticFact("Plug#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_plug")]
         public BernoulliDrillingProperty Plug { get; set; } = new BernoulliDrillingProperty();
         //    Liner, // 45
@@ -674,9 +676,9 @@ namespace DWIS.MicroState.Model
         [SemanticFact("Liner#01", Nouns.Enum.ComputedData)]
         [SemanticFact("Liner#01", Nouns.Enum.BooleanDataType)]
         [SemanticFact("Liner#01", Verbs.Enum.HasDynamicValue, "Liner")]
-        [SemanticFact("liner", Nouns.Enum.Liner)]
+        [SemanticFact("linerElement", Nouns.Enum.Liner)]
         [SemanticFact("logical_liner", Nouns.Enum.MechanicalLogicalElement)]
-        [SemanticFact("logical_liner", Verbs.Enum.IsAMechanicalRepresentationFor, "liner")]
+        [SemanticFact("logical_liner", Verbs.Enum.IsAMechanicalRepresentationFor, "linerElement")]
         [SemanticFact("AttachedState", Nouns.Enum.MechanicallyConnectedState, "Value", "true")]
         [SemanticFact("logical_liner", Verbs.Enum.HasMechanicalState, "AttachedState")]
         [SemanticFact("Liner#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_liner")]
@@ -805,9 +807,9 @@ namespace DWIS.MicroState.Model
         [SemanticFact("IsolationSeal#01", Nouns.Enum.ComputedData)]
         [SemanticFact("IsolationSeal#01", Nouns.Enum.BooleanDataType)]
         [SemanticFact("IsolationSeal#01", Verbs.Enum.HasDynamicValue, "IsolationSeal")]
-        [SemanticFact("isolationSeal", Nouns.Enum.IsolationSeal)]
+        [SemanticFact("isolationSealElement", Nouns.Enum.IsolationSeal)]
         [SemanticFact("logical_isolationSeal", Nouns.Enum.MechanicalLogicalElement)]
-        [SemanticFact("logical_isolationSeal", Verbs.Enum.IsAMechanicalRepresentationFor, "isolationSeal")]
+        [SemanticFact("logical_isolationSeal", Verbs.Enum.IsAMechanicalRepresentationFor, "isolationSealElement")]
         [SemanticFact("IsolationSeal#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_isolationSeal")]
         public BernoulliDrillingProperty IsolationSeal { get; set; } = new BernoulliDrillingProperty();
         //    IsolationSealPressureBalance, // 53
@@ -1052,9 +1054,9 @@ namespace DWIS.MicroState.Model
         [SemanticFact("HeaveCompensation#01", Nouns.Enum.ComputedData)]
         [SemanticFact("HeaveCompensation#01", Nouns.Enum.EnumerationDataType)]
         [SemanticFact("HeaveCompensation#01", Verbs.Enum.HasDynamicValue, "HeaveCompensation")]
-        [SemanticFact("heaveCompensation", Nouns.Enum.HeaveCompensationSystem)]
+        [SemanticFact("heaveCompensationSystem", Nouns.Enum.HeaveCompensationSystem)]
         [SemanticFact("logical_heaveCompensation", Nouns.Enum.MechanicalLogicalElement)]
-        [SemanticFact("logical_heaveCompensation", Verbs.Enum.IsAMechanicalRepresentationFor, "heaveCompensation")]
+        [SemanticFact("logical_heaveCompensation", Verbs.Enum.IsAMechanicalRepresentationFor, "heaveCompensationSystem")]
         [SemanticFact("HeaveCompensation#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_heaveCompensation")]
         public CategoricalDrillingProperty HeaveCompensation { get; set; } = new CategoricalDrillingProperty(3);
         //    LastStandToBottomHole, // 70
@@ -1239,7 +1241,7 @@ namespace DWIS.MicroState.Model
                 PropertyInfo[] properties = type.GetProperties();
                 foreach (PropertyInfo property in properties)
                 {
-                    if (property != null && property.PropertyType == typeof(DrillingProperty))
+                    if (property != null && property.PropertyType.IsSubclassOf(typeof(DrillingProperty)))
                     {
                         object? val1 = property.GetValue(this);
                         object? val2 = property.GetValue(other);
@@ -1268,7 +1270,7 @@ namespace DWIS.MicroState.Model
                 PropertyInfo[] properties = type.GetProperties();
                 foreach (PropertyInfo property in properties)
                 {
-                    if (property != null && property.PropertyType == typeof(DrillingProperty))
+                    if (property != null && property.PropertyType.IsSubclassOf(typeof(DrillingProperty)))
                     {
                         object? val1 = property.GetValue(this);
                         object? val2 = property.GetValue(dest);
@@ -1281,7 +1283,7 @@ namespace DWIS.MicroState.Model
             }
         }
 
-        public bool RegisterToDDHub(IOPCUADWISClient? DWISClient, Dictionary<string, QueryResult>? placeHolders)
+        public bool RegisterToBlackboard(IOPCUADWISClient? DWISClient, Dictionary<string, QueryResult>? placeHolders)
         {
             if (DWISClient != null && placeHolders != null)
             {
@@ -1292,7 +1294,7 @@ namespace DWIS.MicroState.Model
                 bool ok = true;
                 foreach (PropertyInfo property in properties)
                 {
-                    if (property != null && property.PropertyType == typeof(DiscreteDrillingProperty))
+                    if (property != null && property.PropertyType.IsSubclassOf(typeof(DiscreteDrillingProperty)))
                     {
                         string propName = property.Name;
                         if (!string.IsNullOrEmpty(propName))
@@ -1307,7 +1309,25 @@ namespace DWIS.MicroState.Model
                                 {
                                     if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Value.SparQL))
                                     {
-                                        var result = DWISClient.GetQueryResult(kvp.Value.SparQL);
+                                        StringBuilder stringBuilder = new StringBuilder();
+                                        stringBuilder.AppendLine(@"PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>");
+                                        stringBuilder.AppendLine(@"PREFIX ddhub:<http://ddhub.no/>");
+                                        stringBuilder.AppendLine(@"PREFIX quantity:<http://ddhub.no/UnitAndQuantity>");
+                                        stringBuilder.AppendLine(@"SELECT ?AxialVelocityTopOfString");
+                                        stringBuilder.AppendLine(@"WHERE {");
+                                        stringBuilder.AppendLine(@"	?AxialVelocityTopOfString_01 rdf:type ddhub:ComputedData .");
+                                        stringBuilder.AppendLine(@"	?AxialVelocityTopOfString_01 rdf:type ddhub:EnumerationDataType .");
+                                        stringBuilder.AppendLine(@"	?AxialVelocityTopOfString_01 ddhub:HasDynamicValue ?AxialVelocityTopOfString .");
+                                        stringBuilder.AppendLine(@"	?tos_01 rdf:type ddhub:TopOfStringReferenceLocation .");
+                                        stringBuilder.AppendLine(@"	?AxialVelocityTopOfString_01 ddhub:IsPhysicallyLocatedAt ?tos_01 .");
+                                        stringBuilder.AppendLine(@"	?MovingAverage rdf:type ddhub:MovingAverage .");
+                                        stringBuilder.AppendLine(@"	?AxialVelocityTopOfString_01 ddhub:IsTransformationOutput ?MovingAverage . ");
+                                        stringBuilder.AppendLine(@"}");
+                                        stringBuilder.AppendLine(@"");
+                                        stringBuilder.AppendLine(@"");
+                                        //string sparql = stringBuilder.ToString();
+                                        string sparql = kvp.Value.SparQL;
+                                        var result = DWISClient.GetQueryResult(sparql);
                                         if (result != null && result.Results != null && result.Results.Count > 0)
                                         {
                                             res = result;
@@ -1326,7 +1346,40 @@ namespace DWIS.MicroState.Model
                                         {
                                             if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Value.SparQL))
                                             {
-                                                var result = DWISClient.GetQueryResult(kvp.Value.SparQL);
+                                                StringBuilder stringBuilder = new StringBuilder();
+                                                stringBuilder.AppendLine(@"PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>");
+                                                stringBuilder.AppendLine(@"PREFIX ddhub:<http://ddhub.no/>");
+                                                stringBuilder.AppendLine(@"PREFIX quantity:<http://ddhub.no/UnitAndQuantity>");
+                                                stringBuilder.AppendLine(@"SELECT ?ZeroCuttingsFlowAnnulusOutletThreshold ?factOptionSet");
+                                                stringBuilder.AppendLine(@"WHERE {");
+                                                stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 rdf:type ddhub:Limit .");
+                                                stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 ddhub:HasValue ?ZeroCuttingsFlowAnnulusOutletThreshold .");
+                                                stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 ddhub:IsOfMeasurableQuantity quantity:VolumetricFlowrateDrilling .");
+                                                stringBuilder.AppendLine(@"	?AnnulusTerminator_01 rdf:type ddhub:WellControlSystem .");
+                                                stringBuilder.AppendLine(@"	?Logical_AnnulusTerminator_01 rdf:type ddhub:HydraulicLogicalElement .");
+                                                stringBuilder.AppendLine(@"	?Logical_AnnulusTerminator_01 ddhub:IsAHydraulicRepresentationFor ?AnnulusTerminator_01 .");
+                                                stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 ddhub:IsHydraulicallyLocatedAt ?Logical_AnnulusTerminator_01 .");
+                                                stringBuilder.AppendLine(@"	?LiquidComponent_01 rdf:type ddhub:LiquidComponent .");
+                                                stringBuilder.AppendLine(@"	?CuttingsComponent_01 rdf:type ddhub:CuttingsComponent .");
+                                                stringBuilder.AppendLine(@"	?GasComponent_01 rdf:type ddhub:GasComponent .");
+                                                stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 ddhub:ConcernsAFluidComponent ?CuttingsComponent_01 .");
+                                                stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 ddhub:ConcernsAFluidComponent ?LiquidComponent_01 .");
+                                                stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 ddhub:ConcernsAFluidComponent ?GasComponent_01 .");
+                                                stringBuilder.AppendLine(@"	?bh_01 rdf:type ddhub:HoleBottomLocation .");
+                                                stringBuilder.AppendLine(@"	?MovingAverage rdf:type ddhub:MovingAverage .");
+                                                stringBuilder.AppendLine(@"	?signal_01 rdf:type ddhub:DrillingDataPoint .");
+                                                stringBuilder.AppendLine(@"	?signal_01 ddhub:IsTransformationOutput ?MovingAverage .");
+                                                stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 ddhub:IsToBeComparedWith ?signal_01 .");
+                                                stringBuilder.AppendLine(@" BIND ('1' AS ?factOptionSet) ");
+                                                stringBuilder.AppendLine(@"  FILTER NOT EXISTS {");
+                                                stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 ddhub:ConcernsAFluidComponent ?LiquidComponent_01 .");
+                                                stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 ddhub:ConcernsAFluidComponent ?GasComponent_01 .");
+                                                stringBuilder.AppendLine(@" }");
+                                                stringBuilder.AppendLine(@"}");
+                                                stringBuilder.AppendLine(@"");
+                                                string sparql = stringBuilder.ToString(); // sparql = kvp.Value.SparQL
+                                                //string sparql = kvp.Value.SparQL;
+                                                var result = DWISClient.GetQueryResult(sparql);
                                                 if (result != null && result.Results != null && result.Results.Count > 0)
                                                 {
                                                     res = result;
@@ -1361,7 +1414,7 @@ namespace DWIS.MicroState.Model
             }
         }
 
-        public bool SendToDDHub(IOPCUADWISClient? DWISClient, Dictionary<string, QueryResult>? placeHolders)
+        public bool SendToBlackboard(IOPCUADWISClient? DWISClient, Dictionary<string, QueryResult>? placeHolders)
         {
             bool ok = false;
             if (DWISClient != null && placeHolders != null)
@@ -1372,7 +1425,7 @@ namespace DWIS.MicroState.Model
                 foreach (PropertyInfo property in properties)
                 {
                     bool ok1 = false;
-                    if (property != null && property.PropertyType == typeof(DiscreteDrillingProperty))
+                    if (property != null && property.PropertyType.IsSubclassOf(typeof(DiscreteDrillingProperty)))
                     {
                         string propName = property.Name;
                         if (!string.IsNullOrEmpty(propName) && placeHolders.ContainsKey(propName))

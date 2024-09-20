@@ -1,32 +1,548 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "MicroStates",
+  "title": "TupleOfMicroStatesAndProbabilisticMicroStates",
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "TimeStampUTC": {
-      "type": "string",
-      "format": "date-time"
+    "Item1": {
+      "$ref": "#/definitions/MicroStates"
     },
-    "Part1": {
-      "type": "integer",
-      "format": "int32"
+    "Item2": {
+      "$ref": "#/definitions/ProbabilisticMicroStates"
+    }
+  },
+  "definitions": {
+    "MicroStates": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "TimeStampUTC": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Part1": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Part2": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Part3": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Part4": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Part5": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
     },
-    "Part2": {
-      "type": "integer",
-      "format": "int32"
+    "ProbabilisticMicroStates": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "TimeStampUTC": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "AxialVelocityTopOfString": {
+          "$ref": "#/definitions/CategoricalDrillingProperty"
+        },
+        "StableAxialVelocityTopOfString": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "RotationalVelocityTopOfString": {
+          "$ref": "#/definitions/CategoricalDrillingProperty"
+        },
+        "StableRotationalVelocityTopOfString": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "FlowAtTopOfString": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "StableFlowAtTopOfString": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "SlipState": {
+          "$ref": "#/definitions/CategoricalDrillingProperty"
+        },
+        "StableTensionTopOfString": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "PressureTopOfString": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "StablePressureTopOfString": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "TorqueTopOfString": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "StableTorqueTopOfString": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "FlowAtAnnulusOutlet": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "StableFlowAtAnnulusOutlet": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "CuttingsReturnAtAnnulusOutlet": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "OnBottomBottomOfString": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "StableBottomOfStringRockForce": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "OnBottomHoleOpener": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "RotationalVelocityBottomOfString": {
+          "$ref": "#/definitions/CategoricalDrillingProperty"
+        },
+        "StableRotationalVelocityBottomOfString": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "Drilling": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "HoleOpening": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "AxialVelocityBottomOfString": {
+          "$ref": "#/definitions/CategoricalDrillingProperty"
+        },
+        "StableAxialVelocityBottomOfString": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "FlowBottomOfString": {
+          "$ref": "#/definitions/CategoricalDrillingProperty"
+        },
+        "StableFlowBottomOfString": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "FlowHoleOpener": {
+          "$ref": "#/definitions/CategoricalDrillingProperty"
+        },
+        "StableFlowHoleOpener": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "LedgeKeySeat": {
+          "$ref": "#/definitions/CategoricalDrillingProperty"
+        },
+        "CuttingsBed": {
+          "$ref": "#/definitions/CategoricalDrillingProperty"
+        },
+        "DifferentialSticking": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "TwistOffBackOff": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "WellIntegrity": {
+          "$ref": "#/definitions/CategoricalDrillingProperty"
+        },
+        "FormationFluidAtAnnulusOutlet": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "FormationCollapse": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "CavingsAtAnnulusOutlet": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "PipeWashout": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "WhirlBottomOfString": {
+          "$ref": "#/definitions/CategoricalDrillingProperty"
+        },
+        "WhirlHoleOpener": {
+          "$ref": "#/definitions/CategoricalDrillingProperty"
+        },
+        "FloatSub": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "UnderReamer": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "CirculationSub": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "PortedFloat": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "Whipstock": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "Plug": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "Liner": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "BoosterPumping": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "StableBoosterPumping": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "BackPressurePumping": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "StableBackPressurePumping": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "MPDChokeOpening": {
+          "$ref": "#/definitions/CategoricalDrillingProperty"
+        },
+        "RCDSealing": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "IsolationSeal": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "IsolationSealPressureBalance": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "BearingAssemblyLatched": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "ScreenMPDChokePlugged": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "MainFlowPathStable": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "AlternateFlowPathStable": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "FillPumpDGD": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "LiftPumpDGD": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "StableFillPumpDGD": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "StableLiftPumpDGD": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "FormationChange": {
+          "$ref": "#/definitions/CategoricalDrillingProperty"
+        },
+        "InsideHardStringer": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "ToolJoint1AtLowestDrillHeight": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "ToolJoint1AtStickUpHeight": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "ToolJoint2AtStickUpHeight": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "ToolJoint3AtStickUpHeight": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "ToolJoint4AtStickUpHeight": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "HeaveCompensation": {
+          "$ref": "#/definitions/CategoricalDrillingProperty"
+        },
+        "LastStandToBottomHole": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "WhirlInDrillString": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "HFTO": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "AxialOscillations": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "TorsionalOscillations": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "LateralShocksInBHA": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "LateralShocksInDrillString": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "StringRotationImpeded": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "AnnulusFlowImpeded": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "StringFlowImpeded": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        }
+      }
     },
-    "Part3": {
-      "type": "integer",
-      "format": "int32"
+    "CategoricalDrillingProperty": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/MultinomialDrillingProperty"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "NumberOfStates": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "Value": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/definitions/DiscreteDistribution"
+                }
+              ]
+            },
+            "CategoricalValue": {
+              "$ref": "#/definitions/CategoricalDistribution"
+            },
+            "Probabilities": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "number",
+                "format": "double"
+              }
+            },
+            "StateValue": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          }
+        }
+      ]
     },
-    "Part4": {
-      "type": "integer",
-      "format": "int32"
+    "DiscreteDistribution": {
+      "type": "object",
+      "additionalProperties": false
     },
-    "Part5": {
-      "type": "integer",
-      "format": "int32"
+    "CategoricalDistribution": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/MultinomialDistribution"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false
+        }
+      ]
+    },
+    "MultinomialDistribution": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DiscreteDistribution"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "NumberTrials": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "NumberOfStates": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "Probabilities": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "number",
+                "format": "double"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "MultinomialDrillingProperty": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DiscreteDrillingProperty"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "Value": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/definitions/DiscreteDistribution"
+                }
+              ]
+            },
+            "MultinomialValue": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/definitions/MultinomialDistribution"
+                }
+              ]
+            },
+            "NumberOfStates": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "Probabilities": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "number",
+                "format": "double"
+              }
+            },
+            "StateValue": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "DiscreteDrillingProperty": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DrillingProperty"
+        },
+        {
+          "type": "object",
+          "x-abstract": true,
+          "additionalProperties": false,
+          "properties": {
+            "Value": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/definitions/DiscreteDistribution"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "DrillingProperty": {
+      "type": "object",
+      "x-abstract": true,
+      "additionalProperties": false
+    },
+    "BernoulliDrillingProperty": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/MultinomialDrillingProperty"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "Value": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/definitions/DiscreteDistribution"
+                }
+              ]
+            },
+            "BernoulliValue": {
+              "$ref": "#/definitions/BernoulliDistribution"
+            },
+            "Probability": {
+              "type": [
+                "null",
+                "number"
+              ],
+              "format": "double"
+            },
+            "BooleanValue": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "BernoulliDistribution": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BinomialDistribution"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false
+        }
+      ]
+    },
+    "BinomialDistribution": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/MultinomialDistribution"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "Probability": {
+              "type": [
+                "null",
+                "number"
+              ],
+              "format": "double"
+            }
+          }
+        }
+      ]
     }
   }
 }

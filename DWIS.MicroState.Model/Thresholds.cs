@@ -4,6 +4,7 @@ using OSDC.DotnetLibraries.Drilling.DrillingProperties;
 using OSDC.UnitConversion.Conversion;
 using OSDC.UnitConversion.Conversion.DrillingEngineering;
 using System.Reflection;
+using System.Text;
 
 namespace DWIS.MicroState.Model
 {
@@ -1263,7 +1264,7 @@ namespace DWIS.MicroState.Model
             }
         }
 
-        public bool RegisterToDDHub(IOPCUADWISClient? DWISClient, Dictionary<string, List<AcquiredSignals>>? placeHolders)
+        public bool RegisterToBlackboard(IOPCUADWISClient? DWISClient, Dictionary<string, List<AcquiredSignals>>? placeHolders)
         {
             if (DWISClient != null && placeHolders != null)
             {
@@ -1274,7 +1275,7 @@ namespace DWIS.MicroState.Model
                 bool ok = true;
                 foreach (PropertyInfo property in properties)
                 {
-                    if (property != null && property.PropertyType == typeof(DrillingProperty))
+                    if (property != null && property.PropertyType.IsSubclassOf(typeof(DrillingProperty)))
                     {
                         string propName = property.Name;
                         if (!string.IsNullOrEmpty(propName))
@@ -1287,10 +1288,49 @@ namespace DWIS.MicroState.Model
                                 {
                                     if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Value.SparQL))
                                     {
-                                        var result = DWISClient.GetQueryResult(kvp.Value.SparQL);
-                                        if (result != null && result.Results != null && result.Results.Count > 0)
+                                        try
                                         {
-                                            values.Add(AcquiredSignals.CreateWithSubscription(new string[] { kvp.Value.SparQL }, new string[] { kvp.Key }, 0, DWISClient));
+                                            StringBuilder stringBuilder = new StringBuilder();
+                                            stringBuilder.AppendLine(@"PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>");
+                                            stringBuilder.AppendLine(@"PREFIX ddhub:<http://ddhub.no/>");
+                                            stringBuilder.AppendLine(@"PREFIX quantity:<http://ddhub.no/UnitAndQuantity>");
+                                            stringBuilder.AppendLine(@"SELECT ?ZeroCuttingsFlowAnnulusOutletThreshold, ?factOptionSet");
+                                            stringBuilder.AppendLine(@"WHERE {");
+                                            stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 rdf:type ddhub:Limit .");
+                                            stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 ddhub:HasValue ?ZeroCuttingsFlowAnnulusOutletThreshold .");
+                                            stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 ddhub:IsOfMeasurableQuantity quantity:VolumetricFlowrateDrilling .");
+                                            stringBuilder.AppendLine(@"	?AnnulusTerminator_01 rdf:type ddhub:WellControlSystem .");
+                                            stringBuilder.AppendLine(@"	?Logical_AnnulusTerminator_01 rdf:type ddhub:HydraulicLogicalElement .");
+                                            stringBuilder.AppendLine(@"	?Logical_AnnulusTerminator_01 ddhub:IsAHydraulicRepresentationFor ?AnnulusTerminator_01 .");
+                                            stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 ddhub:IsHydraulicallyLocatedAt ?Logical_AnnulusTerminator_01 .");
+                                            stringBuilder.AppendLine(@"	?LiquidComponent_01 rdf:type ddhub:LiquidComponent .");
+                                            stringBuilder.AppendLine(@"	?CuttingsComponent_01 rdf:type ddhub:CuttingsComponent .");
+                                            stringBuilder.AppendLine(@"	?GasComponent_01 rdf:type ddhub:GasComponent .");
+                                            stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 ddhub:ConcernsAFluidComponent ?CuttingsComponent_01 .");
+                                            stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 ddhub:ConcernsAFluidComponent ?LiquidComponent_01 .");
+                                            stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 ddhub:ConcernsAFluidComponent ?GasComponent_01 .");
+                                            stringBuilder.AppendLine(@"	?bh_01 rdf:type ddhub:HoleBottomLocation .");
+                                            stringBuilder.AppendLine(@"	?MovingAverage rdf:type ddhub:MovingAverage .");
+                                            stringBuilder.AppendLine(@"	?signal_01 rdf:type ddhub:DrillingDataPoint .");
+                                            stringBuilder.AppendLine(@"	?signal_01 ddhub:IsTransformationOutput ?MovingAverage .");
+                                            stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 ddhub:IsToBeComparedWith ?signal_01 .");
+                                            stringBuilder.AppendLine(@"  FILTER NOT EXISTS {");
+                                            stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 ddhub:ConcernsAFluidComponent ?LiquidComponent_01 .");
+                                            stringBuilder.AppendLine(@"	?ZeroCuttingsFlowAnnulusOutletThreshold_01 ddhub:ConcernsAFluidComponent ?GasComponent_01 .");
+                                            stringBuilder.AppendLine(@" }");
+                                            stringBuilder.AppendLine(@"  BIND (""1"" as ?factOptionSet)");
+                                            stringBuilder.AppendLine(@"}");
+                                            stringBuilder.AppendLine(@"");
+                                            string sparql = stringBuilder.ToString(); // sparql = kvp.Value.SparQL
+                                            var result = DWISClient.GetQueryResult(sparql);
+                                            if (result != null && result.Results != null && result.Results.Count > 0)
+                                            {
+                                                values.Add(AcquiredSignals.CreateWithSubscription(new string[] { kvp.Value.SparQL }, new string[] { kvp.Key }, 0, DWISClient));
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            
                                         }
                                     }
                                 }

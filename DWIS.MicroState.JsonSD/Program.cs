@@ -13,7 +13,7 @@ static void GenerateJsonSchemas()
     do
     {
         DirectoryInfo? info = Directory.GetParent(rootDir);
-        if (info != null && "DWIS.MicroState".Equals(info.Name))
+        if (info != null && "MicroStateEngine".Equals(info.Name))
         {
             found = true;
         }
@@ -23,7 +23,7 @@ static void GenerateJsonSchemas()
         }
     } while (!found);
     rootDir += "DWIS.MicroState.JsonSchema" + Path.DirectorySeparatorChar;
-    var microStatesSchema = JsonSchema.FromType <MicroStates>();
+    var microStatesSchema = JsonSchema.FromType <Tuple<MicroStates, ProbabilisticMicroStates>>();
     var schemaJson = microStatesSchema.ToJson();
     using (StreamWriter writer = new StreamWriter(rootDir + "MicroStates.json"))
     {
