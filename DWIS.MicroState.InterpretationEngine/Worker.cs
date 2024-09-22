@@ -397,7 +397,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 3;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.AxialVelocityTopOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.AxialVelocityTopOfString, code);
                     if (probMicroStates.AxialVelocityTopOfString != null && probMicroStates.AxialVelocityTopOfString.Probabilities != null && probMicroStates.AxialVelocityTopOfString.Probabilities.Length == 3)
                     {
                         double? prob2 = signals.AxialVelocityTopOfString.ProbabilityGT(thresholds.ZeroAxialVelocityTopOfStringThreshold.ScalarValue.Value);
@@ -422,7 +422,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableAxialVelocityTopOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.StableAxialVelocityTopOfString, code);
                     if (probMicroStates.StableAxialVelocityTopOfString != null)
                     {
                         probMicroStates.StableAxialVelocityTopOfString.Probability = signals.StandardDeviationAxialVelocityTopOfString.ProbabilityLT(thresholds.StableAxialVelocityTopOfStringThreshold.ScalarValue.Value);
@@ -444,7 +444,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 3;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.RotationalVelocityTopOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.RotationalVelocityTopOfString, code);
                     if (probMicroStates.RotationalVelocityTopOfString != null && probMicroStates.RotationalVelocityTopOfString.Probabilities != null && probMicroStates.RotationalVelocityTopOfString.Probabilities.Length == 3)
                     {
                         double? prob2 = signals.RotationalVelocityTopOfString.ProbabilityGT(thresholds.ZeroRotationalVelocityTopOfStringThreshold.ScalarValue.Value); ;
@@ -469,7 +469,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableRotationalVelocityTopOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.StableRotationalVelocityTopOfString, code);
                     if (probMicroStates.StableRotationalVelocityTopOfString != null)
                     {
                         probMicroStates.StableRotationalVelocityTopOfString.Probability = signals.StandardDeviationRotationalVelocityTopOfString.ProbabilityLT(thresholds.StableRotationalVelocityTopOfStringThreshold.ScalarValue.Value);
@@ -487,7 +487,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.FlowAtTopOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.FlowAtTopOfString, code);
                     if (probMicroStates.FlowAtTopOfString != null)
                     {
                         probMicroStates.FlowAtTopOfString.Probability = signals.FlowTopOfString.ProbabilityGT(thresholds.ZeroFlowTopOfStringThreshold.ScalarValue.Value);
@@ -505,7 +505,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableFlowAtTopOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.StableFlowAtTopOfString, code);
                     if (probMicroStates.StableFlowAtTopOfString != null)
                     {
                         probMicroStates.StableFlowAtTopOfString.Probability = signals.StandardDeviationFlowTopOfString.ProbabilityLT(thresholds.StableFlowTopOfStringThreshold.ScalarValue.Value);
@@ -532,7 +532,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 3;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.SlipState, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.SlipState, code);
                     if (probMicroStates.SlipState != null && probMicroStates.SlipState.Probabilities != null && probMicroStates.SlipState.Probabilities.Length == 3)
                     {
                         GaussianDrillingProperty low = new GaussianDrillingProperty() { Mean = signals.ForceBottomTopDrive.Mean - thresholds.ZeroTensionTopOfStringThreshold.ScalarValue.Value, StandardDeviation = signals.ForceBottomTopDrive.StandardDeviation };
@@ -574,7 +574,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableTensionTopOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.StableTensionTopOfString, code);
                     if (probMicroStates.StableTensionTopOfString != null)
                     {
                         probMicroStates.StableTensionTopOfString.Probability = signals.StandardDeviationTensionTopOfString.ProbabilityLT(thresholds.StableTensionTopOfStringThreshold.ScalarValue.Value);
@@ -592,7 +592,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.PressureTopOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.PressureTopOfString, code);
                     if (probMicroStates.PressureTopOfString != null)
                     {
                         probMicroStates.PressureTopOfString.Probability = signals.PressureTopOfString.ProbabilityGT(Constants.EarthStandardAtmosphericPressure + thresholds.ZeroPressureTopOfStringThreshold.ScalarValue.Value);
@@ -610,7 +610,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StablePressureTopOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.StablePressureTopOfString, code);
                     if (probMicroStates.StablePressureTopOfString != null)
                     {
                         probMicroStates.StablePressureTopOfString.Probability = signals.StandardDeviationPressureTopOfString.ProbabilityLT(thresholds.StablePressureTopOfStringThreshold.ScalarValue.Value);
@@ -628,7 +628,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.TorqueTopOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.TorqueTopOfString, code);
                     if (probMicroStates.TorqueTopOfString != null)
                     {
                         probMicroStates.TorqueTopOfString.Probability = signals.TorqueTopOfString.ProbabilityGT(thresholds.ZeroTorqueTopOfStringThreshold.ScalarValue.Value);
@@ -646,7 +646,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableTorqueTopOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.StableTorqueTopOfString, code);
                     if (probMicroStates.StableTorqueTopOfString != null)
                     {
                         probMicroStates.StableTorqueTopOfString.Probability = signals.StandardDeviationTorqueTopOfString.ProbabilityLT(thresholds.StableTorqueTopOfStringThreshold.ScalarValue.Value);
@@ -664,7 +664,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.FlowAtAnnulusOutlet, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.FlowAtAnnulusOutlet, code);
                     if (probMicroStates.FlowAtAnnulusOutlet != null)
                     {
                         probMicroStates.FlowAtAnnulusOutlet.Probability = signals.FlowAnnulusOutlet.ProbabilityGT(thresholds.ZeroFlowAnnulusOutletThreshold.ScalarValue.Value);
@@ -682,7 +682,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableFlowAtAnnulusOutlet, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.StableFlowAtAnnulusOutlet, code);
                     if (probMicroStates.StableFlowAtAnnulusOutlet != null)
                     {
                         probMicroStates.StableFlowAtAnnulusOutlet.Probability = signals.StandardDeviationFlowAnnulusOutlet.ProbabilityLT(thresholds.StableFlowAnnulusOutletThreshold.ScalarValue.Value);
@@ -700,7 +700,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.CuttingsReturnAtAnnulusOutlet, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.CuttingsReturnAtAnnulusOutlet, code);
                     if (probMicroStates.CuttingsReturnAtAnnulusOutlet != null)
                     {
                         probMicroStates.CuttingsReturnAtAnnulusOutlet.Probability = signals.FlowCuttingsAnnulusOutlet.ProbabilityGT(thresholds.ZeroCuttingsFlowAnnulusOutletThreshold.ScalarValue.Value);
@@ -718,7 +718,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.OnBottomBottomOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.OnBottomBottomOfString, code);
                     if (probMicroStates.OnBottomBottomOfString != null)
                     {
                         probMicroStates.OnBottomBottomOfString.Probability = signals.ForceBottomOfStringOnRock.ProbabilityGT(thresholds.ZeroBottomOfStringRockForceThreshold.ScalarValue.Value);
@@ -736,7 +736,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableBottomOfStringRockForce, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.StableBottomOfStringRockForce, code);
                     if (probMicroStates.StableBottomOfStringRockForce != null)
                     {
                         probMicroStates.StableBottomOfStringRockForce.Probability = signals.StandardDeviationForceBottomOfStringOnRock.ProbabilityLT(thresholds.StableBottomOfStringRockForceThreshold.ScalarValue.Value);
@@ -754,7 +754,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.OnBottomHoleOpener, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.OnBottomHoleOpener, code);
                     if (probMicroStates.OnBottomHoleOpener != null)
                     {
                         probMicroStates.OnBottomHoleOpener.Probability = signals.ForceHoleOpenerOnRock.ProbabilityGT(thresholds.ZeroHoleOpenerOnRockForceThreshold.ScalarValue.Value);
@@ -776,7 +776,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 3;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.RotationalVelocityBottomOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.RotationalVelocityBottomOfString, code);
                     if (probMicroStates.RotationalVelocityBottomOfString != null && probMicroStates.RotationalVelocityBottomOfString.Probabilities != null && probMicroStates.RotationalVelocityBottomOfString.Probabilities.Length == 3)
                     {
                         double? prob2 = signals.RotationaVelocityBottomOfString.ProbabilityGT(thresholds.ZeroRotationalVelocityBottomOfStringThreshold.ScalarValue.Value);
@@ -801,7 +801,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableRotationalVelocityBottomOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.StableRotationalVelocityBottomOfString, code);
                     if (probMicroStates.StableRotationalVelocityBottomOfString != null)
                     {
                         probMicroStates.StableRotationalVelocityBottomOfString.Probability = signals.StandardDeviationRotationalVelocityBottomOfString.ProbabilityLT(thresholds.StableRotationalVelocityBottomOfStringThreshold.ScalarValue.Value);
@@ -819,7 +819,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.Drilling, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.Drilling, code);
                     if (probMicroStates.Drilling != null)
                     {
                         probMicroStates.Drilling.Probability = signals.FlowCuttingsBottomHole.ProbabilityGT(thresholds.ZeroCuttingsFlowBottomHoleThreshold.ScalarValue.Value);
@@ -836,7 +836,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.HoleOpening, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.HoleOpening, code);
                     if (probMicroStates.HoleOpening != null)
                     {
                         probMicroStates.HoleOpening.Probability = signals.FlowCuttingsTopOfRateHole.ProbabilityGT(thresholds.ZeroCuttingsFlowTopOfRatHoleThreshold.ScalarValue.Value);
@@ -857,7 +857,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 3;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.AxialVelocityBottomOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.AxialVelocityBottomOfString, code);
                     if (probMicroStates.AxialVelocityBottomOfString != null && probMicroStates.AxialVelocityBottomOfString.Probabilities != null && probMicroStates.AxialVelocityBottomOfString.Probabilities.Length == 3)
                     {
                         double? prob2 = signals.AxialVelocityBottomOfString.ProbabilityGT(thresholds.ZeroAxialVelocityBottomOfStringThreshold.ScalarValue.Value);
@@ -881,7 +881,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableAxialVelocityBottomOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.StableAxialVelocityBottomOfString, code);
                     if (probMicroStates.StableAxialVelocityBottomOfString != null)
                     {
                         probMicroStates.StableAxialVelocityBottomOfString.Probability = signals.StandardDeviationAxialVelocityBottomOfString.ProbabilityLT(thresholds.StableAxialVelocityBottomOfStringThreshold.ScalarValue);
@@ -902,7 +902,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 3;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.FlowBottomOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.FlowBottomOfString, code);
                     if (probMicroStates.FlowBottomOfString != null && probMicroStates.FlowBottomOfString.Probabilities != null && probMicroStates.FlowBottomOfString.Probabilities.Length == 3)
                     {
                         double? prob2 = signals.FlowBottomOfString.ProbabilityGT(thresholds.ZeroFlowBottomOfStringThreshold.ScalarValue.Value);
@@ -927,7 +927,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableFlowBottomOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.StableFlowBottomOfString, code);
                     if (probMicroStates.StableFlowBottomOfString != null)
                     {
                         probMicroStates.StableFlowBottomOfString.Probability = signals.StableFlowBottomOfString.ProbabilityLT(thresholds.StableFlowBottomOfStringThreshold.ScalarValue);
@@ -948,7 +948,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 3;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.FlowHoleOpener, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.FlowHoleOpener, code);
                     if (probMicroStates.FlowHoleOpener != null && probMicroStates.FlowHoleOpener.Probabilities != null && probMicroStates.FlowHoleOpener.Probabilities.Length == 3)
                     {
                         double? prob2 = signals.FlowHoleOpener.ProbabilityGT(thresholds.ZeroFlowHoleOpenerThreshold.ScalarValue.Value);
@@ -972,7 +972,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableFlowHoleOpener, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.StableFlowHoleOpener, code);
                     if (probMicroStates.StableFlowHoleOpener != null)
                     {
                         probMicroStates.StableFlowHoleOpener.Probability = signals.StableFlowHoleOpener.ProbabilityLT(thresholds.StableFlowHoleOpenerThreshold.ScalarValue);
@@ -993,7 +993,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 3;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.LedgeKeySeat, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.LedgeKeySeat, code);
                     if (probMicroStates.LedgeKeySeat != null && probMicroStates.LedgeKeySeat.Probabilities != null && probMicroStates.LedgeKeySeat.Probabilities.Length == 3)
                     {
                         double? prob2 = signals.ForceOnLedge.ProbabilityGT(thresholds.ForceOnLedgeThreshold.ScalarValue.Value);
@@ -1021,7 +1021,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 3;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.CuttingsBed, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.CuttingsBed, code);
                     if (probMicroStates.CuttingsBed != null && probMicroStates.CuttingsBed.Probabilities != null && probMicroStates.CuttingsBed.Probabilities.Length == 3)
                     {
                         double? prob2 = signals.ForceOnCuttingsBed.ProbabilityGT(thresholds.ForceOnCuttingsBedThreshold.ScalarValue.Value);
@@ -1045,7 +1045,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.DifferentialSticking, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.DifferentialSticking, code);
                     if (probMicroStates.DifferentialSticking != null)
                     {
                         probMicroStates.DifferentialSticking.Probability = signals.ForceDifferentialSticking.ProbabilityGT(thresholds.ForceDifferentialStickingThreshold.ScalarValue.Value);
@@ -1062,7 +1062,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.TwistOffBackOff, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.TwistOffBackOff, code);
                     if (probMicroStates.TwistOffBackOff != null)
                     {
                         probMicroStates.TwistOffBackOff.Probability = signals.TensionTopOfString.ProbabilityLT(signals.MinimumTensionForTwistOffDetection);
@@ -1083,7 +1083,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 3;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.WellIntegrity, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.WellIntegrity, code);
                     if (probMicroStates.WellIntegrity != null && probMicroStates.WellIntegrity.Probabilities != null && probMicroStates.WellIntegrity.Probabilities.Length == 3)
                     {
                         double? prob2 = signals.FlowFluidFromOrToFormation.ProbabilityGT(thresholds.FluidFlowFormationThreshold.ScalarValue.Value);
@@ -1108,7 +1108,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.FormationFluidAtAnnulusOutlet, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.FormationFluidAtAnnulusOutlet, code);
                     if (probMicroStates.FormationFluidAtAnnulusOutlet != null)
                     {
                         probMicroStates.FormationFluidAtAnnulusOutlet.Probability = signals.FlowFormationFluidAnnulusOutlet.ProbabilityGT(thresholds.FluidFlowFormationThreshold.ScalarValue.Value);
@@ -1125,7 +1125,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.FormationCollapse, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.FormationCollapse, code);
                     if (probMicroStates.FormationCollapse != null)
                     {
                         probMicroStates.FormationCollapse.Probability = signals.FlowCavingsFromFormation.ProbabilityGT(thresholds.FlowCavingsFromFormationThreshold.ScalarValue.Value);
@@ -1142,7 +1142,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.CavingsAtAnnulusOutlet, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.CavingsAtAnnulusOutlet, code);
                     if (probMicroStates.CavingsAtAnnulusOutlet != null)
                     {
                         probMicroStates.CavingsAtAnnulusOutlet.Probability = signals.FlowCavingsAnnulusOutlet.ProbabilityGT(thresholds.FlowCavingsFromFormationThreshold.ScalarValue.Value);
@@ -1159,7 +1159,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.PipeWashout, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.PipeWashout, code);
                     if (probMicroStates.PipeWashout != null)
                     {
                         probMicroStates.PipeWashout.Probability = signals.FlowPipeToAnnulus.ProbabilityGT(thresholds.FlowPipeToAnnulusThreshold.ScalarValue.Value);
@@ -1180,7 +1180,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 3;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.WhirlBottomOfString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.WhirlBottomOfString, code);
                     if (probMicroStates.WhirlBottomOfString != null && probMicroStates.WhirlBottomOfString.Probabilities != null && probMicroStates.WhirlBottomOfString.Probabilities.Length == 3)
                     {
                         double? prob2 = signals.WhirlRateBottomOfString.ProbabilityGT(thresholds.WhirlRateBottomOfStringThreshold.ScalarValue.Value);
@@ -1208,7 +1208,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 3;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.WhirlHoleOpener, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.WhirlHoleOpener, code);
                     if (probMicroStates.WhirlHoleOpener != null && probMicroStates.WhirlHoleOpener.Probabilities != null && probMicroStates.WhirlHoleOpener.Probabilities.Length == 3)
                     {
                         double? prob2 = signals.WhirlRateHoleOpener.ProbabilityGT(thresholds.WhirlRateHoleOpenerThreshold.ScalarValue.Value);
@@ -1236,7 +1236,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 3;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.WhirlInDrillString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.WhirlInDrillString, code);
                     if (probMicroStates.WhirlInDrillString != null && probMicroStates.WhirlInDrillString.Probabilities != null && probMicroStates.WhirlInDrillString.Probabilities.Length == 3)
                     {
                         double? prob2 = signals.WhirlRateDrillString.ProbabilityGT(thresholds.WhirlRateDrillStringThreshold.ScalarValue.Value);
@@ -1260,7 +1260,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.FloatSub, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.FloatSub, code);
                     if (probMicroStates.FloatSub != null)
                     {
                         probMicroStates.FloatSub.Probability = signals.DifferentialPressureFloatValve.ProbabilityGT(thresholds.MinimumPressureFloatValve.ScalarValue.Value);
@@ -1277,7 +1277,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.UnderReamer, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.UnderReamer, code);
                     if (probMicroStates.UnderReamer != null)
                     {
                         probMicroStates.UnderReamer.Probability = signals.UnderReamerOpen.Probability;
@@ -1294,7 +1294,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.CirculationSub, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.CirculationSub, code);
                     if (probMicroStates.CirculationSub != null)
                     {
                         probMicroStates.CirculationSub.Probability = signals.CirculationSubOpen.Probability;
@@ -1311,7 +1311,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.PortedFloat, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.PortedFloat, code);
                     if (probMicroStates.PortedFloat != null)
                     {
                         probMicroStates.PortedFloat.Probability = signals.PortedFloatOpen.Probability;
@@ -1328,7 +1328,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.Whipstock, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.Whipstock, code);
                     if (probMicroStates.Whipstock != null)
                     {
                         probMicroStates.Whipstock.Probability = signals.WhipstockAttached.Probability;
@@ -1345,7 +1345,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.Plug, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.Plug, code);
                     if (probMicroStates.Plug != null)
                     {
                         probMicroStates.Plug.Probability = signals.PlugAttached.Probability;
@@ -1362,7 +1362,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.Liner, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.Liner, code);
                     if (probMicroStates.Liner != null)
                     {
                         probMicroStates.Liner.Probability = signals.LinerAttached.Probability;
@@ -1379,7 +1379,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.BoosterPumping, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.BoosterPumping, code);
                     if (probMicroStates.BoosterPumping != null)
                     {
                         probMicroStates.BoosterPumping.Probability = signals.FlowBoosterPump.ProbabilityGT(thresholds.ZeroFlowBoosterPumpThreshold.ScalarValue.Value);
@@ -1396,7 +1396,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableBoosterPumping, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.StableBoosterPumping, code);
                     if (probMicroStates.StableBoosterPumping != null)
                     {
                         probMicroStates.StableBoosterPumping.Probability = signals.StandardDeviationFlowBoosterPump.ProbabilityLT(thresholds.StableFlowBoosterPumpThreshold.ScalarValue.Value);
@@ -1413,7 +1413,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.BackPressurePumping, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.BackPressurePumping, code);
                     if (probMicroStates.BackPressurePumping != null)
                     {
                         probMicroStates.BackPressurePumping.Probability = signals.FlowBackPressurePump.ProbabilityGT(thresholds.ZeroFlowBackPressurePumpThreshold.ScalarValue.Value);
@@ -1430,7 +1430,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableBackPressurePumping, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.StableBackPressurePumping, code);
                     if (probMicroStates.StableBackPressurePumping != null)
                     {
                         probMicroStates.StableBackPressurePumping.Probability = signals.StandardDeviationFlowBackPressurePump.ProbabilityLT(thresholds.StableFlowBackPressurePumpThreshold.ScalarValue);
@@ -1451,7 +1451,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 3;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.MPDChokeOpening, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.MPDChokeOpening, code);
                     if (probMicroStates.MPDChokeOpening != null && probMicroStates.MPDChokeOpening.Probabilities != null && probMicroStates.MPDChokeOpening.Probabilities.Length == 3)
                     {
                         double? prob1 = signals.OpeningMPDChoke.ProbabilityLT(0 + 1e-4);
@@ -1475,7 +1475,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.RCDSealing, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.RCDSealing, code);
                     if (probMicroStates.RCDSealing != null)
                     {
                         probMicroStates.RCDSealing.Probability = signals.DifferentialPressureRCD.ProbabilityGT(thresholds.MinimumDifferentialPressureRCDSealingThreshold.ScalarValue.Value);
@@ -1492,7 +1492,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.IsolationSeal, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.IsolationSeal, code);
                     if (probMicroStates.IsolationSeal != null)
                     {
                         probMicroStates.IsolationSeal.Probability = signals.IsolationSealActivated.Probability;
@@ -1509,7 +1509,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.IsolationSealPressureBalance, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.IsolationSealPressureBalance, code);
                     if (probMicroStates.IsolationSealPressureBalance != null)
                     {
                         probMicroStates.IsolationSealPressureBalance.Probability = signals.DifferentialPressureIsolationSeal.ProbabilityGT(thresholds.MinimumDifferentialPressureSealBalanceThreshold.ScalarValue.Value);
@@ -1526,7 +1526,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.BearingAssemblyLatched, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.BearingAssemblyLatched, code);
                     if (probMicroStates.BearingAssemblyLatched != null)
                     {
                         probMicroStates.BearingAssemblyLatched.Probability = signals.BearingAssemblyLatched.Probability;
@@ -1543,7 +1543,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.ScreenMPDChokePlugged, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.ScreenMPDChokePlugged, code);
                     if (probMicroStates.ScreenMPDChokePlugged != null)
                     {
                         probMicroStates.ScreenMPDChokePlugged.Probability = 1.0 - signals.ScreenMPDChokePlugged.Probability;
@@ -1560,7 +1560,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.MainFlowPathStable, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.MainFlowPathStable, code);
                     if (probMicroStates.MainFlowPathStable != null)
                     {
                         probMicroStates.MainFlowPathStable.Probability = signals.MainFlowPathMPDEstablished.Probability;
@@ -1577,7 +1577,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.AlternateFlowPathStable, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.AlternateFlowPathStable, code);
                     if (probMicroStates.AlternateFlowPathStable != null)
                     {
                         probMicroStates.AlternateFlowPathStable.Probability = signals.AlternateFlowPathMPDEstablished.Probability;
@@ -1594,7 +1594,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.FillPumpDGD, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.FillPumpDGD, code);
                     if (probMicroStates.FillPumpDGD != null)
                     {
                         probMicroStates.FillPumpDGD.Probability = signals.FlowFillPumpDGD.ProbabilityGT(thresholds.ZeroFlowFillPumpDGDThreshold.ScalarValue.Value);
@@ -1611,7 +1611,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableFillPumpDGD, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.StableFillPumpDGD, code);
                     if (probMicroStates.StableFillPumpDGD != null)
                     {
                         probMicroStates.StableFillPumpDGD.Probability = signals.StandardDeviationFlowFillPumpDGD.ProbabilityLT(thresholds.StableFlowFillPumpDGDThreshold.ScalarValue.Value);
@@ -1628,7 +1628,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.LiftPumpDGD, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.LiftPumpDGD, code);
                     if (probMicroStates.LiftPumpDGD != null)
                     {
                         probMicroStates.LiftPumpDGD.Probability = signals.FlowLiftPumpDGD.ProbabilityGT(thresholds.ZeroFlowLiftPumpDGDThreshold.ScalarValue.Value);
@@ -1645,7 +1645,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.StableLiftPumpDGD, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.StableLiftPumpDGD, code);
                     if (probMicroStates.StableLiftPumpDGD != null)
                     {
                         probMicroStates.StableLiftPumpDGD.Probability = signals.StandardDeviationFlowLiftPumpDGD.ProbabilityLT(thresholds.StableFlowLiftPumpDGDThreshold.ScalarValue);
@@ -1662,7 +1662,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.InsideHardStringer, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.InsideHardStringer, code);
                     if (probMicroStates.InsideHardStringer != null)
                     {
                         probMicroStates.InsideHardStringer.Probability = signals.UCS.ProbabilityGT(thresholds.HardStringerThreshold.ScalarValue.Value);
@@ -1684,7 +1684,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 3;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.FormationChange, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.FormationChange, code);
                     if (probMicroStates.FormationChange != null && probMicroStates.FormationChange.Probabilities != null && probMicroStates.FormationChange.Probabilities.Length == 3)
                     {
                         double? prob2 = signals.UCSSlope.ProbabilityGT(thresholds.ChangeOfFormationUCSSlopeThreshold.ScalarValue.Value);
@@ -1708,7 +1708,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.ToolJoint1AtLowestDrillHeight, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.ToolJoint1AtLowestDrillHeight, code);
                     if (probMicroStates.ToolJoint1AtLowestDrillHeight != null)
                     {
                         probMicroStates.ToolJoint1AtLowestDrillHeight.Probability = signals.ToolJoint1Height.ProbabilityLT(signals.MinDrillHeight.ScalarValue.Value + thresholds.AtDrillHeightThreshold.ScalarValue.Value);
@@ -1725,7 +1725,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.ToolJoint1AtStickUpHeight, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.ToolJoint1AtStickUpHeight, code);
                     if (probMicroStates.ToolJoint1AtStickUpHeight != null)
                     {
                         probMicroStates.ToolJoint1AtStickUpHeight.Probability = signals.ToolJoint1Height.ProbabilityLT(signals.StickUpHeight.ScalarValue.Value + thresholds.AtStickUpHeightThreshold.ScalarValue.Value);
@@ -1742,7 +1742,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.ToolJoint2AtStickUpHeight, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.ToolJoint2AtStickUpHeight, code);
                     if (probMicroStates.ToolJoint2AtStickUpHeight != null)
                     {
                         probMicroStates.ToolJoint2AtStickUpHeight.Probability = signals.ToolJoint2Height.ProbabilityLT(signals.StickUpHeight.ScalarValue.Value + thresholds.AtStickUpHeightThreshold.ScalarValue.Value);
@@ -1759,7 +1759,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.ToolJoint3AtStickUpHeight, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.ToolJoint3AtStickUpHeight, code);
                     if (probMicroStates.ToolJoint3AtStickUpHeight != null)
                     {
                         probMicroStates.ToolJoint3AtStickUpHeight.Probability = signals.ToolJoint3Height.ProbabilityLT(signals.StickUpHeight.ScalarValue.Value + thresholds.AtStickUpHeightThreshold.ScalarValue.Value);
@@ -1776,7 +1776,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.ToolJoint4AtStickUpHeight, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.ToolJoint4AtStickUpHeight, code);
                     if (probMicroStates.ToolJoint4AtStickUpHeight != null)
                     {
                         probMicroStates.ToolJoint4AtStickUpHeight.Probability = signals.ToolJoint4Height.ProbabilityLT(signals.StickUpHeight.ScalarValue.Value + thresholds.AtStickUpHeightThreshold.ScalarValue.Value);
@@ -1800,7 +1800,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 3;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.HeaveCompensation, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.HeaveCompensation, code);
                     if (probMicroStates.HeaveCompensation != null && probMicroStates.HeaveCompensation.Probabilities != null && probMicroStates.HeaveCompensation.Probabilities.Length == 3 &&
                         signals.HeaveCompensationInactive.Probability != null && signals.HeaveCompensationActive.Probability != null)
                     {
@@ -1823,7 +1823,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.HFTO, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.HFTO, code);
                     if (probMicroStates.HFTO != null)
                     {
                         probMicroStates.HFTO.Probability = signals.PowerHFTO.ProbabilityLT(thresholds.PowerHFTOThreshold.ScalarValue.Value);
@@ -1853,7 +1853,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 3;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.AxialOscillations, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.AxialOscillations, code);
                     if (probMicroStates.AxialOscillations != null && probMicroStates.AxialOscillations.Probabilities != null && probMicroStates.AxialOscillations.Probabilities.Length >= 3)
                     {
                         double? prob1 = signals.PeakToPeakAxialOscillations.ProbabilityLT(thresholds.PeakToPeakAxialOscillationsThreshold.ScalarValue.Value);
@@ -1892,7 +1892,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 3;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.TorsionalOscillations, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.TorsionalOscillations, code);
                     if (probMicroStates.TorsionalOscillations != null && probMicroStates.TorsionalOscillations.Probabilities != null && probMicroStates.TorsionalOscillations.Probabilities.Length >= 3)
                     {
                         double? prob1 = signals.PeakToPeakTorsionalOscillations.ProbabilityLT(thresholds.PeakToPeakTorsionalOscillationsThreshold.ScalarValue.Value);
@@ -1921,7 +1921,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.LateralShocksInBHA, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.LateralShocksInBHA, code);
                     if (probMicroStates.LateralShocksInBHA != null)
                     {
                         probMicroStates.LateralShocksInBHA.Probability = signals.LateralShockRateBHA.ProbabilityGT(thresholds.LateralShockRateBHAThreshold.ScalarValue);
@@ -1941,7 +1941,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.LateralShocksInDrillString, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.LateralShocksInDrillString, code);
                     if (probMicroStates.LateralShocksInDrillString != null)
                     {
                         probMicroStates.LateralShocksInDrillString.Probability = signals.LateralShockRateDrillString.ProbabilityGT(thresholds.LateralShockRateDrillStringThreshold.ScalarValue);
@@ -1970,7 +1970,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     {
                         code = 2;
                     }
-                    UpdateMicroState(ref microStates, MicroStates.MicroStateIndex.LastStandToBottomHole, code);
+                    UpdateMicroState(ref microStates, MicroStateIndex.LastStandToBottomHole, code);
                     if (probMicroStates.LastStandToBottomHole != null &&
                         signals.CurvilinearAbscissaBottomOfString.StandardDeviation != null &&
                         signals.CurvilinearAbscissaBottomOfHole.StandardDeviation != null &&
@@ -2044,7 +2044,7 @@ namespace DWIS.MicroState.InterpretationEngine
             }
         }
 
-        private void UpdateMicroState(ref MicroStates microState, MicroStates.MicroStateIndex index, uint code)
+        private void UpdateMicroState(ref MicroStates microState, MicroStateIndex index, uint code)
         {
             // which part
             int part = (int)index / 16;

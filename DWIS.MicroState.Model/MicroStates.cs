@@ -192,7 +192,8 @@ namespace DWIS.MicroState.Model
                                 }
                                 if (res != null)
                                 {
-                                    placeHolder = res;
+                                    placeHolder.VariablesHeader.AddRange(res.VariablesHeader);
+                                    placeHolder.Results.AddRange(res.Results);
                                     ok = true;
                                 }
                             }
