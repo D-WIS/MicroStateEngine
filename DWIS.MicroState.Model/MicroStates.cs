@@ -13,164 +13,244 @@ namespace DWIS.MicroState.Model
     public enum MicroStateIndex
     {
         [Label("Axial Velocity Top of String")]
+        [GroupName("Top Side Boundaries")]
         AxialVelocityTopOfString = 0,
         [Label("Stable Axial Velocity Top of String")]
+        [GroupName("Top Side Boundaries")]
         StableAxialVelocityTopOfString, // 1
         [Label("Rotational Velocity Top of String")]
+        [GroupName("Top Side Boundaries")]
         RotationalVelocityTopOfString, // 2
         [Label("Stable Rotational Velocity Top of String")]
+        [GroupName("Top Side Boundaries")]
         StableRotationalVelocityTopOfString, // 3
         [Label("Flow at Top of String")]
+        [GroupName("Top Side Boundaries")]
         FlowAtTopOfString, // 4
         [Label("Stable Flow at Top of String")]
+        [GroupName("Top Side Boundaries")]
         StableFlowAtTopOfString, // 5
         [Label("Slip State")]
+        [GroupName("Top Side Boundaries")]
         SlipState, // 6
         [Label("Stable Tension Top of String")]
+        [GroupName("Top Side Boundaries")]
         StableTensionTopOfString, // 7
         [Label("Pressure Top of String")]
+        [GroupName("Top Side Boundaries")]
         PressureTopOfString, // 8
         [Label("Stable Pressure Top of String")]
+        [GroupName("Top Side Boundaries")]
         StablePressureTopOfString, // 9
         [Label("Torque Top of String")]
+        [GroupName("Top Side Boundaries")]
         TorqueTopOfString, // 10
         [Label("Stable Torque Top of String")]
+        [GroupName("Top Side Boundaries")]
         StableTorqueTopOfString, // 11
         [Label("Flow at Annulus Outlet")]
+        [GroupName("Top Side Boundaries")]
         FlowAtAnnulusOutlet, // 12
         [Label("Stable Flow at Annulus Outlet")]
+        [GroupName("Top Side Boundaries")]
         StableFlowAtAnnulusOutlet, // 13
         [Label("Cuttings Return at Annulus Outlet")]
+        [GroupName("Top Side Boundaries")]
         CuttingsReturnAtAnnulusOutlet, // 14
         [Label("On Bottom Bottom of String")]
+        [GroupName("Downhole Boundaries")]
         OnBottomBottomOfString, // 15
         [Label("Stable Bottom of String Rock Force")]
+        [GroupName("Downhole Boundaries")]
         StableBottomOfStringRockForce, // 16
         [Label("On Bottom Hole Opener")]
+        [GroupName("Downhole Boundaries")]
         OnBottomHoleOpener, // 17
         [Label("Rotational Velocity Bottom of String")]
+        [GroupName("Downhole Boundaries")]
         RotationalVelocityBottomOfString, // 18
         [Label("Stable Rotational Velocity Bottom of String")]
+        [GroupName("Downhole Boundaries")]
         StableRotationalVelocityBottomOfString, // 19
         [Label("Drilling")]
+        [GroupName("Downhole Boundaries")]
         Drilling, // 20
         [Label("Hole Opening")]
+        [GroupName("Downhole Boundaries")]
         HoleOpening, // 21
         [Label("Axial Velocity Bottom of String")]
+        [GroupName("Downhole Boundaries")]
         AxialVelocityBottomOfString, //22
         [Label("Stable Axial Velocity Bottom of String")]
+        [GroupName("Downhole Boundaries")]
         StableAxialVelocityBottomOfString, // 23
         [Label("Flow Bottom of String")]
+        [GroupName("Downhole Boundaries")]
         FlowBottomOfString, // 24
         [Label("Stable Flow Bottom of String")]
+        [GroupName("Downhole Boundaries")]
         StableFlowBottomOfString, // 25
         [Label("Flow Hole Opener")]
+        [GroupName("Downhole Boundaries")]
         FlowHoleOpener, // 26
         [Label("Stable Flow Hole Opener")]
+        [GroupName("Downhole Boundaries")]
         StableFlowHoleOpener, // 27
         [Label("Ledge Key Seat")]
+        [GroupName("Abnormal Downhole Boundaries")]
         LedgeKeySeat, // 28
         [Label("Cuttings Bed")]
+        [GroupName("Abnormal Downhole Boundaries")]
         CuttingsBed, // 29
         [Label("Differential Sticking")]
+        [GroupName("Abnormal Downhole Boundaries")]
         DifferentialSticking, // 30
         [Label("Twist-off Back-off")]
+        [GroupName("Abnormal Downhole Boundaries")]
         TwistOffBackOff, // 31
         [Label("Well Integrity")]
+        [GroupName("Abnormal Downhole Boundaries")]
         WellIntegrity, // 32
         [Label("Formation Fluid at Annulus Outlet")]
+        [GroupName("Abnormal Downhole Boundaries")]
         FormationFluidAtAnnulusOutlet, // 33
         [Label("Formation Collapse")]
+        [GroupName("Abnormal Downhole Boundaries")]
         FormationCollapse, // 34
         [Label("Cavings at Annulus Outlet")]
+        [GroupName("Abnormal Downhole Boundaries")]
         CavingsAtAnnulusOutlet, // 35
         [Label("Pipe Washout")]
+        [GroupName("Abnormal Downhole Boundaries")]
         PipeWashout, // 36
         [Label("Whirl Bottom of String")]
+        [GroupName("Abnormal Downhole Boundaries")]
         WhirlBottomOfString, // 37
         [Label("Whirl Hole Opener")]
+        [GroupName("Abnormal Downhole Boundaries")]
         WhirlHoleOpener, // 38
         [Label("Float-sub")]
+        [GroupName("Downhole Element Change Boundaries")]
         FloatSub, // 39
         [Label("Under-reamer")]
+        [GroupName("Downhole Element Change Boundaries")]
         UnderReamer, // 40
         [Label("Circulation-sub")]
+        [GroupName("Downhole Element Change Boundaries")]
         CirculationSub, // 41
         [Label("Ported-float")]
+        [GroupName("Downhole Element Change Boundaries")]
         PortedFloat, // 42
         [Label("Whipstock")]
+        [GroupName("Downhole Element Change Boundaries")]
         Whipstock, // 43
         [Label("Plug")]
+        [GroupName("Downhole Element Change Boundaries")]
         Plug, // 44
         [Label("Liner")]
+        [GroupName("Downhole Element Change Boundaries")]
         Liner, // 45
         [Label("Booster Pumping")]
+        [GroupName("Floating Rig Boundaries")]
         BoosterPumping, // 46
         [Label("Stable Booster Pumping")]
+        [GroupName("Floating Rig Boundaries")]
         StableBoosterPumping, // 47
         [Label("Back Pressure Pumping")]
+        [GroupName("Back-pressure MPD Boundaries")]
         BackPressurePumping, // 48
         [Label("Stable Back-pressure Pumping")]
+        [GroupName("Back-pressure MPD Boundaries")]
         StableBackPressurePumping, // 49
         [Label("MPD Choke Opening")]
+        [GroupName("Back-pressure MPD Boundaries")]
         MPDChokeOpening, // 50
         [Label("RCD Sealing")]
+        [GroupName("Back-pressure MPD Boundaries")]
         RCDSealing, // 51
         [Label("Isolation Seal")]
+        [GroupName("Back-pressure MPD Boundaries")]
         IsolationSeal, // 52
         [Label("Isolation Seal Pressure Balance")]
+        [GroupName("Back-pressure MPD Boundaries")]
         IsolationSealPressureBalance, // 53
         [Label("Bearing Assembly Latched")]
+        [GroupName("Back-pressure MPD Boundaries")]
         BearingAssemblyLatched, // 54
         [Label("Screen MPD Choke Plugged")]
+        [GroupName("Back-pressure MPD Boundaries")]
         ScreenMPDChokePlugged, // 55
         [Label("Main Flow Path Stable")]
+        [GroupName("Back-pressure MPD Boundaries")]
         MainFlowPathStable, // 56
         [Label("Alternate Flow Path Stable")]
+        [GroupName("Back-pressure MPD Boundaries")]
         AlternateFlowPathStable, // 57
         [Label("Fill Pump DGD")]
+        [GroupName("Dual-gradient Drilling Boundaries")]
         FillPumpDGD, // 58
         [Label("Lift Pump DGD")]
+        [GroupName("Dual-gradient Drilling Boundaries")]
         LiftPumpDGD, // 59
         [Label("Stable Fill Pump DGD")]
+        [GroupName("Dual-gradient Drilling Boundaries")]
         StableFillPumpDGD, // 60
         [Label("Stable Lift Pump DGD")]
+        [GroupName("Dual-gradient Drilling Boundaries")]
         StableLiftPumpDGD, // 61
         [Label("Formation Change")]
+        [GroupName("Downhole Boundaries")]
         FormationChange, // 62
         [Label("Inside Hard Stringer")]
+        [GroupName("Downhole Boundaries")]
         InsideHardStringer, // 63
         [Label("Tool-joint #1 at Lowest Drill Height")]
+        [GroupName("Top Side Boundaries")]
         ToolJoint1AtLowestDrillHeight, // 64
         [Label("Tool-joint #1 at Stick-up Height")]
+        [GroupName("Top Side Boundaries")]
         ToolJoint1AtStickUpHeight, // 65
         [Label("Tool-joint #2 at Stick-up Height")]
+        [GroupName("Top Side Boundaries")]
         ToolJoint2AtStickUpHeight, // 66
         [Label("Tool-joint #3 at Stick-up Height")]
+        [GroupName("Top Side Boundaries")]
         ToolJoint3AtStickUpHeight, // 67
         [Label("Tool-joint #4 at Stick-up Height")]
+        [GroupName("Top Side Boundaries")]
         ToolJoint4AtStickUpHeight, // 68
         [Label("Heave Compensation")]
+        [GroupName("Floating Rig Boundaries")]
         HeaveCompensation, // 69
         [Label("Last Stand to Bottom Hole")]
+        [GroupName("Downhole Boundaries")]
         LastStandToBottomHole, // 70
         [Label("Whirl in Drill-string")]
+        [GroupName("Abnormal Downhole Boundaries")]
         WhirlInDrillString, // 71
         [Label("HFTO")]
+        [GroupName("Abnormal Downhole Boundaries")]
         HFTO, // 72
         [Label("Axial Oscillations")]
+        [GroupName("Abnormal Downhole Boundaries")]
         AxialOscillations, // 73
         [Label("Torsional Oscillations")]
+        [GroupName("Abnormal Downhole Boundaries")]
         TorsionalOscillations, // 74
         [Label("Lateral Shocks in BHA")]
+        [GroupName("Abnormal Downhole Boundaries")]
         LateralShocksInBHA, // 75
         [Label("Lateral Shocks in Drill-string")]
+        [GroupName("Abnormal Downhole Boundaries")]
         LateralShocksInDrillString, // 76
         [Label("String Rotation Impeded")]
+        [GroupName("Abnormal Downhole Boundaries")]
         StringRotationImpeded, // 77
         [Label("Annulus Flow Impeded")]
+        [GroupName("Abnormal Downhole Boundaries")]
         AnnulusFlowImpeded, // 78
         [Label("String Flow Impeded")]
+        [GroupName("Abnormal Downhole Boundaries")]
         StringFlowImpeded // 79
     }
     [AccessToVariable(CommonProperty.VariableAccessType.Assignable)]

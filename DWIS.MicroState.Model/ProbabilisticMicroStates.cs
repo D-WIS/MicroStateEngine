@@ -32,6 +32,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("AxialVelocityTopOfString#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [Label("Axial Velocity Top Oo String")]
+        [GroupName("Top Side Boundaries")]
         public CategoricalDrillingProperty AxialVelocityTopOfString { get; set; } = new CategoricalDrillingProperty(3);
         //    StableAxialVelocityTopOfString, // 1
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -46,6 +47,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingStandardDeviation", Nouns.Enum.MovingStandardDeviation)]
         [SemanticFact("StableAxialVelocityTopOfString#01", Verbs.Enum.IsTransformationOutput, "MovingStandardDeviation")]
         [Label("Stable Axial Velocity Top of String")]
+        [GroupName("Top Side Boundaries")]
         public BernoulliDrillingProperty StableAxialVelocityTopOfString { get; set; } = new BernoulliDrillingProperty();
         //    RotationalVelocityTopOfString, // 2
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -60,6 +62,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("RotationalVelocityTopOfString#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [Label("Rotational Velocity Top of String")]
+        [GroupName("Top Side Boundaries")]
         public CategoricalDrillingProperty RotationalVelocityTopOfString { get; set; } = new CategoricalDrillingProperty(3);
         //    StableRotationalVelocityTopOfString, // 3
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -74,6 +77,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingStandardDeviation", Nouns.Enum.MovingStandardDeviation)]
         [SemanticFact("StableRotationalVelocityTopOfString#01", Verbs.Enum.IsTransformationOutput, "MovingStandardDeviation")]
         [Label("Stable Rotational Velocity Top of String")]
+        [GroupName("Top Side Boundaries")]
         public BernoulliDrillingProperty StableRotationalVelocityTopOfString { get; set; } = new BernoulliDrillingProperty();
         //    FlowAtTopOfString, // 4
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -88,6 +92,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("FlowAtTopOfString#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [Label("Flow at Top of String")]
+        [GroupName("Top Side Boundaries")]
         public BernoulliDrillingProperty FlowAtTopOfString { get; set; } = new BernoulliDrillingProperty();
         //    StableFlowAtTopOfString, // 5
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -102,6 +107,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingStandardDeviation", Nouns.Enum.MovingStandardDeviation)]
         [SemanticFact("StableFlowAtTopOfString#01", Verbs.Enum.IsTransformationOutput, "MovingStandardDeviation")]
         [Label("Stable Flow at Top of String")]
+        [GroupName("Top Side Boundaries")]
         public BernoulliDrillingProperty StableFlowAtTopOfString { get; set; } = new BernoulliDrillingProperty();
         //    SlipState, // 6
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -116,6 +122,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("SlipsLogical", Verbs.Enum.IsAMechanicalRepresentationFor, "Slips")]
         [SemanticFact("SlipState#01", Verbs.Enum.IsMechanicallyLocatedAt, "SlipsLogical")]
         [Label("Slip State")]
+        [GroupName("Top Side Boundaries")]
         public CategoricalDrillingProperty SlipState { get; set; } = new CategoricalDrillingProperty(3);
         //    StableTensionTopOfString, // 7
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -130,6 +137,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("StableTensionTopOfString#01", Verbs.Enum.IsTransformationOutput, "MovingStandardDeviation")]
         [Label("Stable Tension Top of String")]
+        [GroupName("Top Side Boundaries")]
         public BernoulliDrillingProperty StableTensionTopOfString { get; set; } = new BernoulliDrillingProperty();
         //    PressureTopOfString, // 8
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -146,6 +154,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("PressureTopOfString#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [Label("Pressure Top of String")]
+        [GroupName("Top Side Boundaries")]
         public BernoulliDrillingProperty PressureTopOfString { get; set; } = new BernoulliDrillingProperty();
         //    StablePressureTopOfString, // 9
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -162,6 +171,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingStandardDeviation", Nouns.Enum.MovingStandardDeviation)]
         [SemanticFact("StablePressureTopOfString#01", Verbs.Enum.IsTransformationOutput, "MovingStandardDeviation")]
         [Label("Stable Pressure Top of String")]
+        [GroupName("Top Side Boundaries")]
         public BernoulliDrillingProperty StablePressureTopOfString { get; set; } = new BernoulliDrillingProperty();
         //    TorqueTopOfString, // 10
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -176,6 +186,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("TorqueTopOfString#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [Label("Torque Top of String")]
+        [GroupName("Top Side Boundaries")]
         public BernoulliDrillingProperty TorqueTopOfString { get; set; } = new BernoulliDrillingProperty();
         //    StableTorqueTopOfString, // 11
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -190,6 +201,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingStandardDeviation", Nouns.Enum.MovingStandardDeviation)]
         [SemanticFact("StableTorqueTopOfString#01", Verbs.Enum.IsTransformationOutput, "MovingStandardDeviation")]
         [Label("Stable Torque Top of String")]
+        [GroupName("Top Side Boundaries")]
         public BernoulliDrillingProperty StableTorqueTopOfString { get; set; } = new BernoulliDrillingProperty();
         //    FlowAtAnnulusOutlet, // 12
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -212,6 +224,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("FlowAtAnnulusOutlet#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [Label("Flow at Annulus Outlet")]
+        [GroupName("Top Side Boundaries")]
         public BernoulliDrillingProperty FlowAtAnnulusOutlet { get; set; } = new BernoulliDrillingProperty();
         //    StableFlowAtAnnulusOutlet, // 13
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -234,6 +247,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("StableFlowAtAnnulusOutlet#01", Verbs.Enum.ConcernsAFluidComponent, "SolidComponent#01")]
         [SemanticFact("StableFlowAtAnnulusOutlet#01", Verbs.Enum.ConcernsAFluidComponent, "GasComponent#01")]
         [Label("Stable Flow at Annulus Outlet")]
+        [GroupName("Top Side Boundaries")]
         public BernoulliDrillingProperty StableFlowAtAnnulusOutlet { get; set; } = new BernoulliDrillingProperty();
         //    CuttingsReturnAtAnnulusOutlet, // 14
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -252,6 +266,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("CuttingsComponent#01", Nouns.Enum.CuttingsComponent)]
         [SemanticFact("CuttingsReturnAtAnnulusOutlet#01", Verbs.Enum.ConcernsAFluidComponent, "CuttingsComponent#01")]
         [Label("Cuttings Return at Annulus Outlet")]
+        [GroupName("Top Side Boundaries")]
         public BernoulliDrillingProperty CuttingsReturnAtAnnulusOutlet { get; set; } = new BernoulliDrillingProperty();
         //    OnBottomBottomOfString, // 15
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -268,6 +283,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("hbl#01", Nouns.Enum.HoleBottomLocation)]
         [SemanticFact("OnBottomBottomOfString#01", Verbs.Enum.IsPhysicallyLocatedAt, "hbl#01")]
         [Label("Bottom of String On Bottom")]
+        [GroupName("Downhole Boundaries")]
         public BernoulliDrillingProperty OnBottomBottomOfString { get; set; } = new BernoulliDrillingProperty();
         //    StableBottomOfStringRockForce, // 16
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -284,6 +300,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("hbl#01", Nouns.Enum.HoleBottomLocation)]
         [SemanticFact("StableBottomOfStringRockForce#01", Verbs.Enum.IsPhysicallyLocatedAt, "hbl#01")]
         [Label("Stable Bottom of String Rock Force")]
+        [GroupName("Downhole Boundaries")]
         public BernoulliDrillingProperty StableBottomOfStringRockForce { get; set; } = new BernoulliDrillingProperty();
         //    OnBottomHoleOpener, // 17
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -302,6 +319,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("trh#01", Nouns.Enum.TopOfRatHoleLocation)]
         [SemanticFact("StableBottomOfStringRockForce#01", Verbs.Enum.IsPhysicallyLocatedAt, "trh#01")]
         [Label("On Bottom Hole Opener")]
+        [GroupName("Downhole Boundaries")]
         public BernoulliDrillingProperty OnBottomHoleOpener { get; set; } = new BernoulliDrillingProperty();
         //    RotationalVelocityBottomOfString, // 18
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -318,6 +336,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("bos#01", Nouns.Enum.BottomOfStringReferenceLocation)]
         [SemanticFact("RotationalVelocityBottomOfString#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
         [Label("Rotational Velocity Bottom of String")]
+        [GroupName("Downhole Boundaries")]
         public CategoricalDrillingProperty RotationalVelocityBottomOfString { get; set; } = new CategoricalDrillingProperty(3);
         //    StableRotationalVelocityBottomOfString, // 19
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -334,6 +353,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("bos#01", Nouns.Enum.BottomOfStringReferenceLocation)]
         [SemanticFact("StableRotationalVelocityBottomOfString#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
         [Label("Stable Rotational Velocity Bottom of String")]
+        [GroupName("Downhole Boundaries")]
         public BernoulliDrillingProperty StableRotationalVelocityBottomOfString { get; set; } = new BernoulliDrillingProperty();
         //    Drilling, // 20
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -350,6 +370,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("bhl#01", Nouns.Enum.HoleBottomLocation)]
         [SemanticFact("Drilling#01", Verbs.Enum.IsPhysicallyLocatedAt, "bhl#01")]
         [Label("Drilling")]
+        [GroupName("Downhole Boundaries")]
         public BernoulliDrillingProperty Drilling { get; set; } = new BernoulliDrillingProperty();
         //    HoleOpening, // 21
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -366,6 +387,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("trh#01", Nouns.Enum.TopOfRatHoleLocation)]
         [SemanticFact("HoleOpening#01", Verbs.Enum.IsPhysicallyLocatedAt, "trh#01")]
         [Label("Hole Opening")]
+        [GroupName("Downhole Boundaries")]
         public BernoulliDrillingProperty HoleOpening { get; set; } = new BernoulliDrillingProperty();
         //    AxialVelocityBottomOfString, //22
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -380,6 +402,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("bos#01", Nouns.Enum.BottomOfStringReferenceLocation)]
         [SemanticFact("AxialVelocityBottomOfString#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
         [Label("Axial Velocity Bottom of String")]
+        [GroupName("Downhole Boundaries")]
         public CategoricalDrillingProperty AxialVelocityBottomOfString { get; set; } = new CategoricalDrillingProperty(3);
         //    StableAxialVelocityBottomOfString, // 23
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -394,6 +417,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("bos#01", Nouns.Enum.BottomOfStringReferenceLocation)]
         [SemanticFact("StableAxialVelocityBottomOfString#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
         [Label("Stable Axial Velocity Bottom of String")]
+        [GroupName("Downhole Boundaries")]
         public BernoulliDrillingProperty StableAxialVelocityBottomOfString { get; set; } = new BernoulliDrillingProperty();
         //    FlowBottomOfString, // 24
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -408,6 +432,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("bos#01", Nouns.Enum.BottomOfStringReferenceLocation)]
         [SemanticFact("FlowBottomOfString#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
         [Label("Flow Bottom of String")]
+        [GroupName("Downhole Boundaries")]
         public CategoricalDrillingProperty FlowBottomOfString { get; set; } = new CategoricalDrillingProperty(3);
         //    StableFlowBottomOfString, // 25
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -422,6 +447,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("bos#01", Nouns.Enum.BottomOfStringReferenceLocation)]
         [SemanticFact("StableFlowBottomOfString#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
         [Label("Stable Flow Bottom of String")]
+        [GroupName("Downhole Boundaries")]
         public BernoulliDrillingProperty StableFlowBottomOfString { get; set; } = new BernoulliDrillingProperty();
         //    FlowHoleOpener, // 26
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -438,6 +464,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_urho#01", Verbs.Enum.IsAMechanicalRepresentationFor, "urho#01")]
         [SemanticFact("FlowHoleOpener#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_urho#01")]
         [Label("Flow Hole Opener")]
+        [GroupName("Downhole Boundaries")]
         public CategoricalDrillingProperty FlowHoleOpener { get; set; } = new CategoricalDrillingProperty(3);
         //    StableFlowHoleOpener, // 27
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -454,6 +481,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_urho#01", Verbs.Enum.IsAMechanicalRepresentationFor, "urho#01")]
         [SemanticFact("StableFlowHoleOpener#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_urho#01")]
         [Label("Stable Flow Hole Opener")]
+        [GroupName("Downhole Boundaries")]
         public BernoulliDrillingProperty StableFlowHoleOpener { get; set; } = new BernoulliDrillingProperty();
         //    LedgeKeySeat, // 28
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -468,6 +496,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("ledge#01", Nouns.Enum.LedgeLocation)]
         [SemanticFact("LedgeKeySeat#01", Verbs.Enum.IsPhysicallyLocatedAt, "ledge#01")]
         [Label("Ledge Key Seat")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public CategoricalDrillingProperty LedgeKeySeat { get; set; } = new CategoricalDrillingProperty(3);
         //    CuttingsBed, // 29
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -482,6 +511,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("bed#01", Nouns.Enum.CuttingsBedLocation)]
         [SemanticFact("CuttingsBed#01", Verbs.Enum.IsPhysicallyLocatedAt, "bed#01")]
         [Label("Cuttings Bed")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public CategoricalDrillingProperty CuttingsBed { get; set; } = new CategoricalDrillingProperty(3);
         //    DifferentialSticking, // 30
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -496,6 +526,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("DifferentialSticking#01", Nouns.Enum.DifferentialStickingLocation)]
         [SemanticFact("DifferentialSticking#01", Verbs.Enum.IsPhysicallyLocatedAt, "DifferentialSticking#01")]
         [Label("Differential Sticking")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public BernoulliDrillingProperty DifferentialSticking { get; set; } = new BernoulliDrillingProperty();
         //    TwistOffBackOff, // 31
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -510,6 +541,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("TwistOffBackOff#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [Label("Twist-off Back-off")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public BernoulliDrillingProperty TwistOffBackOff { get; set; } = new BernoulliDrillingProperty();
         //    WellIntegrity, // 32
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -524,6 +556,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("FormationFluidFlow#01", Nouns.Enum.FormationFluidTransferLocation)]
         [SemanticFact("WellIntegrity#01", Verbs.Enum.IsPhysicallyLocatedAt, "FormationFluidFlow#01")]
         [Label("Well Integrity")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public CategoricalDrillingProperty WellIntegrity { get; set; } = new CategoricalDrillingProperty(3);
         //    FormationFluidAtAnnulusOutlet, // 33
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -544,6 +577,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("Q_FormationFluid_out#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [Label("Formation Fluid at Annulus Outlet")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public BernoulliDrillingProperty FormationFluidAtAnnulusOutlet { get; set; } = new BernoulliDrillingProperty();
         //    FormationCollapse, // 34
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -558,6 +592,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("FormationCollapseLocation", Nouns.Enum.FormationCollapseLocation)]
         [SemanticFact("FormationCollapse#01", Verbs.Enum.IsPhysicallyLocatedAt, "FormationCollapseLocation")]
         [Label("Formation Collapse")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public BernoulliDrillingProperty FormationCollapse { get; set; } = new BernoulliDrillingProperty();
         //    CavingsAtAnnulusOutlet, // 35
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -576,6 +611,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("CavingsAtAnnulusOutlet#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [Label("Cavings at Annulus Outlet")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public BernoulliDrillingProperty CavingsAtAnnulusOutlet { get; set; } = new BernoulliDrillingProperty();
         //    PipeWashout, // 36
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -590,6 +626,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("PipeWashoutLocation", Nouns.Enum.PipeWashoutLocation)]
         [SemanticFact("PipeWashout#01", Verbs.Enum.IsPhysicallyLocatedAt, "PipeWashoutLocation")]
         [Label("Pipe Washout")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public BernoulliDrillingProperty PipeWashout { get; set; } = new BernoulliDrillingProperty();
         //    WhirlBottomOfString, // 37
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -606,6 +643,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("bos#01", Nouns.Enum.BottomOfStringReferenceLocation)]
         [SemanticFact("WhirlBottomOfString#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
         [Label("Whirl Bottom of String")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public CategoricalDrillingProperty WhirlBottomOfString { get; set; } = new CategoricalDrillingProperty(3);
         //    WhirlHoleOpener, // 38
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -624,6 +662,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_urho#01", Verbs.Enum.IsAMechanicalRepresentationFor, "urho#01")]
         [SemanticFact("LateralMotion#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_urho#01")]
         [Label("Whirl Hole Opener")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public CategoricalDrillingProperty WhirlHoleOpener { get; set; } = new CategoricalDrillingProperty(3);
         //    FloatSub, // 39
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -642,6 +681,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("DifferentialPressure", Nouns.Enum.RelativePressureReference)]
         [SemanticFact("FloatSub#01", Verbs.Enum.HasPressureReferenceType, "DifferentialPressure")]
         [Label("Float-sub")]
+        [GroupName("Downhole Element Change Boundaries")]
         public BernoulliDrillingProperty FloatSub { get; set; } = new BernoulliDrillingProperty();
         //    UnderReamer, // 40
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -656,6 +696,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_underReamer", Verbs.Enum.IsAMechanicalRepresentationFor, "UR")]
         [SemanticFact("UnderReamer#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_underReamer")]
         [Label("Under-reamer")]
+        [GroupName("Downhole Element Change Boundaries")]
         public BernoulliDrillingProperty UnderReamer { get; set; } = new BernoulliDrillingProperty();
         //    CirculationSub, // 41
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -670,6 +711,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_circulationSub", Verbs.Enum.IsAMechanicalRepresentationFor, "CS")]
         [SemanticFact("CirculationSub#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_circulationSub")]
         [Label("Circulation-sub")]
+        [GroupName("Downhole Element Change Boundaries")]
         public BernoulliDrillingProperty CirculationSub { get; set; } = new BernoulliDrillingProperty();
         //    PortedFloat, // 42
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -684,6 +726,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_portedFloat", Verbs.Enum.IsAMechanicalRepresentationFor, "PF")]
         [SemanticFact("PortedFloat#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_portedFloat")]
         [Label("Ported-float")]
+        [GroupName("Downhole Element Change Boundaries")]
         public BernoulliDrillingProperty PortedFloat { get; set; } = new BernoulliDrillingProperty();
         //    Whipstock, // 43
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -698,6 +741,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_whipstock", Verbs.Enum.IsAMechanicalRepresentationFor, "whipstockElement")]
         [SemanticFact("Whipstock#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_whipstock")]
         [Label("Whipstock")]
+        [GroupName("Downhole Element Change Boundaries")]
         public BernoulliDrillingProperty Whipstock { get; set; } = new BernoulliDrillingProperty();
         //    Plug, // 44
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -712,6 +756,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_plug", Verbs.Enum.IsAMechanicalRepresentationFor, "plugElement")]
         [SemanticFact("Plug#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_plug")]
         [Label("Plug")]
+        [GroupName("Downhole Element Change Boundaries")]
         public BernoulliDrillingProperty Plug { get; set; } = new BernoulliDrillingProperty();
         //    Liner, // 45
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -728,6 +773,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_liner", Verbs.Enum.HasMechanicalState, "AttachedState")]
         [SemanticFact("Liner#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_liner")]
         [Label("Liner")]
+        [GroupName("Downhole Element Change Boundaries")]
         public BernoulliDrillingProperty Liner { get; set; } = new BernoulliDrillingProperty();
         //    BoosterPumping, // 46
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -750,6 +796,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("BoosterPumping#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [Label("Booster Pumping")]
+        [GroupName("Floating Rig Boundaries")]
         public BernoulliDrillingProperty BoosterPumping { get; set; } = new BernoulliDrillingProperty();
         //    StableBoosterPumping, // 47
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -772,6 +819,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("StableBoosterPumping#01", Verbs.Enum.ConcernsAFluidComponent, "SolidComponent#01")]
         [SemanticFact("StableBoosterPumping#01", Verbs.Enum.ConcernsAFluidComponent, "GasComponent#01")]
         [Label("Stable Booster Pumping")]
+        [GroupName("Floating Rig Boundaries")]
         public BernoulliDrillingProperty StableBoosterPumping { get; set; } = new BernoulliDrillingProperty();
         //    BackPressurePumping, // 48
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -793,6 +841,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("BackPressurePumping#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [Label("Back Pressure Pumping")]
+        [GroupName("Back-pressure MPD Boundaries")]
         public BernoulliDrillingProperty BackPressurePumping { get; set; } = new BernoulliDrillingProperty();
         //    StableBackPressurePumping, // 49
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -815,6 +864,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("StableBackPressurePumping#01", Verbs.Enum.ConcernsAFluidComponent, "SolidComponent#01")]
         [SemanticFact("StableBackPressurePumping#01", Verbs.Enum.ConcernsAFluidComponent, "GasComponent#01")]
         [Label("Stable Back Pressure Pumping")]
+        [GroupName("Back-pressure MPD Boundaries")]
         public BernoulliDrillingProperty StableBackPressurePumping { get; set; } = new BernoulliDrillingProperty();
         //    MPDChokeOpening, // 50
         [SemanticCategoricalVariable("", 3)]
@@ -832,6 +882,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("MPDChokeOpening#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [Label("MPD Choke Opening")]
+        [GroupName("Back-pressure MPD Boundaries")]
         public CategoricalDrillingProperty MPDChokeOpening { get; set; } = new CategoricalDrillingProperty(3);
         //    RCDSealing, // 51
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -850,6 +901,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("DifferentialPressure", Nouns.Enum.RelativePressureReference)]
         [SemanticFact("RCDSealing#01", Verbs.Enum.HasPressureReferenceType, "DifferentialPressure")]
         [Label("RCD Sealing")]
+        [GroupName("Back-pressure MPD Boundaries")]
         public BernoulliDrillingProperty RCDSealing { get; set; } = new BernoulliDrillingProperty();
         //    IsolationSeal, // 52
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -864,6 +916,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_isolationSeal", Verbs.Enum.IsAMechanicalRepresentationFor, "isolationSealElement")]
         [SemanticFact("IsolationSeal#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_isolationSeal")]
         [Label("Isolation Seal")]
+        [GroupName("Back-pressure MPD Boundaries")]
         public BernoulliDrillingProperty IsolationSeal { get; set; } = new BernoulliDrillingProperty();
         //    IsolationSealPressureBalance, // 53
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -882,6 +935,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("DifferentialPressure", Nouns.Enum.RelativePressureReference)]
         [SemanticFact("IsolationSealPressureBalance#01", Verbs.Enum.HasPressureReferenceType, "DifferentialPressure")]
         [Label("Isolation Seal Pressure Balance")]
+        [GroupName("Back-pressure MPD Boundaries")]
         public BernoulliDrillingProperty IsolationSealPressureBalance { get; set; } = new BernoulliDrillingProperty();
         //    BearingAssemblyLatched, // 54
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -898,6 +952,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_bearingAssembly", Verbs.Enum.HasMechanicalState, "AttachedState")]
         [SemanticFact("BearingAssemblyLatched#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_bearingAssembly")]
         [Label("Bearing Assembly Latched")]
+        [GroupName("Back-pressure MPD Boundaries")]
         public BernoulliDrillingProperty BearingAssemblyLatched { get; set; } = new BernoulliDrillingProperty();
         //    ScreenMPDChokePlugged, // 55
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -914,6 +969,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_MPDScreen", Verbs.Enum.IsRelatedToDrillingIncident, "Plugged")]
         [SemanticFact("ScreenMPDChokePlugged#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_MPDScreen")]
         [Label("Screen MPD Choke Plugged")]
+        [GroupName("Back-pressure MPD Boundaries")]
         public BernoulliDrillingProperty ScreenMPDChokePlugged { get; set; } = new BernoulliDrillingProperty();
         //    MainFlowPathStable, // 56
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -928,6 +984,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_MPDMainFlowPath", Verbs.Enum.IsAMechanicalRepresentationFor, "MPDMainFlowPath")]
         [SemanticFact("MainFlowPathStable#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_MPDMainFlowPath")]
         [Label("Main Flow Path Stable")]
+        [GroupName("Back-pressure MPD Boundaries")]
         public BernoulliDrillingProperty MainFlowPathStable { get; set; } = new BernoulliDrillingProperty();
         //    AlternateFlowPathStable, // 57
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -942,6 +999,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_MPDAlternateFlowPath", Verbs.Enum.IsAMechanicalRepresentationFor, "MPDAlternateFlowPath")]
         [SemanticFact("AlternateFlowPathStable#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_MPDAlternateFlowPath")]
         [Label("Alternate Flow Path Stable")]
+        [GroupName("Back-pressure MPD Boundaries")]
         public BernoulliDrillingProperty AlternateFlowPathStable { get; set; } = new BernoulliDrillingProperty();
         //    FillPumpDGD, // 58
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -957,6 +1015,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("FillPumpDGD#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [Label("Fill Pump DGD")]
+        [GroupName("Dual-gradient Drilling Boundaries")]
         public BernoulliDrillingProperty FillPumpDGD { get; set; } = new BernoulliDrillingProperty();
         //    LiftPumpDGD, // 59
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -972,6 +1031,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("LiftPumpDGD#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [Label("Lift Pump DGD")]
+        [GroupName("Dual-gradient Drilling Boundaries")]
         public BernoulliDrillingProperty LiftPumpDGD { get; set; } = new BernoulliDrillingProperty();
         //    StableFillPumpDGD, // 60
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -987,6 +1047,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingStandardDeviation", Nouns.Enum.MovingStandardDeviation)]
         [SemanticFact("StableFillPumpDGD#01", Verbs.Enum.IsTransformationOutput, "MovingStandardDeviation")]
         [Label("Stable Fill Pump DGD")]
+        [GroupName("Dual-gradient Drilling Boundaries")]
         public BernoulliDrillingProperty StableFillPumpDGD { get; set; } = new BernoulliDrillingProperty();
         //    StableLiftPumpDGD, // 61
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -1002,6 +1063,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MovingStandardDeviation", Nouns.Enum.MovingStandardDeviation)]
         [SemanticFact("StableLiftPumpDGD#01", Verbs.Enum.IsTransformationOutput, "MovingStandardDeviation")]
         [Label("Stable Lift Pump DGD")]
+        [GroupName("Dual-gradient Drilling Boundaries")]
         public BernoulliDrillingProperty StableLiftPumpDGD { get; set; } = new BernoulliDrillingProperty();
         //    FormationChange, // 62
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -1018,6 +1080,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("bh#01", Nouns.Enum.HoleBottomLocation)]
         [SemanticFact("FormationChange#01", Verbs.Enum.IsPhysicallyLocatedAt, "bh#01")]
         [Label("Formation Change")]
+        [GroupName("Downhole Boundaries")]
         public CategoricalDrillingProperty FormationChange { get; set; } = new CategoricalDrillingProperty(3);
         //    InsideHardStringer, // 63
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -1034,6 +1097,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("bh#01", Nouns.Enum.HoleBottomLocation)]
         [SemanticFact("InsideHardStringer#01", Verbs.Enum.IsPhysicallyLocatedAt, "bh#01")]
         [Label("Inside Hard Stringer")]
+        [GroupName("Downhole Boundaries")]
         public BernoulliDrillingProperty InsideHardStringer { get; set; } = new BernoulliDrillingProperty();
         //    ToolJoint1AtLowestDrillHeight, // 64
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -1050,6 +1114,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MinDrillHeight", Nouns.Enum.MinDrillHeightVerticalLocation)]
         [SemanticFact("ToolJoint1AtLowestDrillHeight", Verbs.Enum.IsPhysicallyLocatedAt, "MinDrillHeight")]
         [Label("Tool-joint #1 at Lowest Drill Height")]
+        [GroupName("Top Side Boundaries")]
         public BernoulliDrillingProperty ToolJoint1AtLowestDrillHeight { get; set; } = new BernoulliDrillingProperty();
         //    ToolJoint1AtStickUpHeight, // 65
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -1066,6 +1131,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("StickUpHeight", Nouns.Enum.StickUpHeightVerticalLocation)]
         [SemanticFact("ToolJoint1AtLowestDrillHeight", Verbs.Enum.IsPhysicallyLocatedAt, "StickUpHeight")]
         [Label("Tool-joint #1 at Stick-up Height")]
+        [GroupName("Top Side Boundaries")]
         public BernoulliDrillingProperty ToolJoint1AtStickUpHeight { get; set; } = new BernoulliDrillingProperty();
         //    ToolJoint2AtStickUpHeight, // 66
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -1082,6 +1148,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("StickUpHeight", Nouns.Enum.StickUpHeightVerticalLocation)]
         [SemanticFact("ToolJoint2AtLowestDrillHeight", Verbs.Enum.IsPhysicallyLocatedAt, "StickUpHeight")]
         [Label("Tool-joint #2 at Stick-up Height")]
+        [GroupName("Top Side Boundaries")]
         public BernoulliDrillingProperty ToolJoint2AtStickUpHeight { get; set; } = new BernoulliDrillingProperty();
 
         //    ToolJoint3AtStickUpHeight, // 67
@@ -1099,6 +1166,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("StickUpHeight", Nouns.Enum.StickUpHeightVerticalLocation)]
         [SemanticFact("ToolJoint3AtLowestDrillHeight", Verbs.Enum.IsPhysicallyLocatedAt, "StickUpHeight")]
         [Label("Tool-joint #3 at Stick-up Height")]
+        [GroupName("Top Side Boundaries")]
         public BernoulliDrillingProperty ToolJoint3AtStickUpHeight { get; set; } = new BernoulliDrillingProperty();
         //    ToolJoint4AtStickUpHeight, // 68
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -1115,6 +1183,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("StickUpHeight", Nouns.Enum.StickUpHeightVerticalLocation)]
         [SemanticFact("ToolJoint4AtLowestDrillHeight", Verbs.Enum.IsPhysicallyLocatedAt, "StickUpHeight")]
         [Label("Tool-joint #4 at Stick-up Height")]
+        [GroupName("Top Side Boundaries")]
         public BernoulliDrillingProperty ToolJoint4AtStickUpHeight { get; set; } = new BernoulliDrillingProperty();
         //    HeaveCompensation, // 69
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -1129,6 +1198,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_heaveCompensation", Verbs.Enum.IsAMechanicalRepresentationFor, "heaveCompensationSystem")]
         [SemanticFact("HeaveCompensation#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_heaveCompensation")]
         [Label("Heave Compensation")]
+        [GroupName("Floating Rig Boundaries")]
         public CategoricalDrillingProperty HeaveCompensation { get; set; } = new CategoricalDrillingProperty(3);
 
         //    LastStandToBottomHole, // 70
@@ -1152,6 +1222,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("ldh", Nouns.Enum.MinDrillHeightVerticalLocation)]
         [SemanticFact("LastStandToBottomHole#01", Verbs.Enum.IsPhysicallyLocatedAt, "ldh")]
         [Label("Last Stand to Bottom Hole")]
+        [GroupName("Downhole Boundaries")]
         public BernoulliDrillingProperty LastStandToBottomHole { get; set; } = new BernoulliDrillingProperty();
         //    WhirlInDrillString, // 71
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -1170,6 +1241,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_DS", Verbs.Enum.IsAMechanicalRepresentationFor, "DS")]
         [SemanticFact("WhirlInDrillString#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_DS")]
         [Label("Whirl in Drill-string")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public BernoulliDrillingProperty WhirlInDrillString { get; set; } = new BernoulliDrillingProperty();
         //    HFTO, // 72
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -1188,6 +1260,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_BHA", Verbs.Enum.IsAMechanicalRepresentationFor, "BHA")]
         [SemanticFact("HFTO#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_BHA")]
         [Label("HFTO")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public BernoulliDrillingProperty HFTO { get; set; } = new BernoulliDrillingProperty();
         //    AxialOscillations, // 73
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -1204,6 +1277,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("bos", Nouns.Enum.BottomOfStringReferenceLocation)]
         [SemanticFact("AxialOscillations#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos")]
         [Label("Axial Oscillations")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public BernoulliDrillingProperty AxialOscillations { get; set; } = new BernoulliDrillingProperty();
         //    TorsionalOscillations, // 74
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -1220,6 +1294,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("bos", Nouns.Enum.BottomOfStringReferenceLocation)]
         [SemanticFact("AxialOscillations#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos")]
         [Label("Torsional Oscillations")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public BernoulliDrillingProperty TorsionalOscillations { get; set; } = new BernoulliDrillingProperty();
         //    LateralShocksInBHA, // 75
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -1236,6 +1311,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_BHA", Verbs.Enum.IsAMechanicalRepresentationFor, "BHA")]
         [SemanticFact("LateralShocksInBHA#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_BHA")]
         [Label("Lateral Shocks in BHA")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public BernoulliDrillingProperty LateralShocksInBHA { get; set; } = new BernoulliDrillingProperty();
         //    LateralShocksInDrillString // 76
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -1252,6 +1328,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_DS", Verbs.Enum.IsAMechanicalRepresentationFor, "DS")]
         [SemanticFact("LateralShocksInDrillString#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_DS")]
         [Label("Lateral Shocks in Drill-string")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public BernoulliDrillingProperty LateralShocksInDrillString { get; set; } = new BernoulliDrillingProperty();
         //      StringRotationImpeded // 77
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -1268,6 +1345,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_DS", Verbs.Enum.IsAMechanicalRepresentationFor, "DS")]
         [SemanticFact("StringRotationImpeded#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_DS")]
         [Label("String Rotation Impeded")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public BernoulliDrillingProperty StringRotationImpeded { get; set; } = new BernoulliDrillingProperty();
 
         //      AnnulusFlowImpeded // 78
@@ -1285,6 +1363,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_DrillPipesAnnular", Verbs.Enum.IsAHydraulicRepresentationFor, "DrillPipesAnnular")]
         [SemanticFact("AnnulusFlowImpeded#01", Verbs.Enum.IsHydraulicallyLocatedAt, "logical_DrillPipesAnnular")]
         [Label("Annulus Flow Impeded")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public BernoulliDrillingProperty AnnulusFlowImpeded { get; set; } = new BernoulliDrillingProperty();
 
         //      StringFlowImpeded // 79
@@ -1302,6 +1381,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("logical_DS", Verbs.Enum.IsAHydraulicRepresentationFor, "DS")]
         [SemanticFact("StringFlowImpeded#01", Verbs.Enum.IsHydraulicallyLocatedAt, "logical_DS")]
         [Label("String Flow Impeded")]
+        [GroupName("Abnormal Downhole Boundaries")]
         public BernoulliDrillingProperty StringFlowImpeded { get; set; } = new BernoulliDrillingProperty();
 
         /// <summary>
