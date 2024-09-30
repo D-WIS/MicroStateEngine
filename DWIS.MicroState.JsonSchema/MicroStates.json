@@ -54,13 +54,13 @@
           "format": "date-time"
         },
         "AxialVelocityTopOfString": {
-          "$ref": "#/definitions/CategoricalDrillingProperty"
+          "$ref": "#/definitions/TernaryDrillingProperty"
         },
         "StableAxialVelocityTopOfString": {
           "$ref": "#/definitions/BernoulliDrillingProperty"
         },
         "RotationalVelocityTopOfString": {
-          "$ref": "#/definitions/CategoricalDrillingProperty"
+          "$ref": "#/definitions/TernaryDrillingProperty"
         },
         "StableRotationalVelocityTopOfString": {
           "$ref": "#/definitions/BernoulliDrillingProperty"
@@ -72,7 +72,7 @@
           "$ref": "#/definitions/BernoulliDrillingProperty"
         },
         "SlipState": {
-          "$ref": "#/definitions/CategoricalDrillingProperty"
+          "$ref": "#/definitions/TernaryDrillingProperty"
         },
         "StableTensionTopOfString": {
           "$ref": "#/definitions/BernoulliDrillingProperty"
@@ -108,7 +108,7 @@
           "$ref": "#/definitions/BernoulliDrillingProperty"
         },
         "RotationalVelocityBottomOfString": {
-          "$ref": "#/definitions/CategoricalDrillingProperty"
+          "$ref": "#/definitions/TernaryDrillingProperty"
         },
         "StableRotationalVelocityBottomOfString": {
           "$ref": "#/definitions/BernoulliDrillingProperty"
@@ -120,28 +120,28 @@
           "$ref": "#/definitions/BernoulliDrillingProperty"
         },
         "AxialVelocityBottomOfString": {
-          "$ref": "#/definitions/CategoricalDrillingProperty"
+          "$ref": "#/definitions/TernaryDrillingProperty"
         },
         "StableAxialVelocityBottomOfString": {
           "$ref": "#/definitions/BernoulliDrillingProperty"
         },
         "FlowBottomOfString": {
-          "$ref": "#/definitions/CategoricalDrillingProperty"
+          "$ref": "#/definitions/TernaryDrillingProperty"
         },
         "StableFlowBottomOfString": {
           "$ref": "#/definitions/BernoulliDrillingProperty"
         },
         "FlowHoleOpener": {
-          "$ref": "#/definitions/CategoricalDrillingProperty"
+          "$ref": "#/definitions/TernaryDrillingProperty"
         },
         "StableFlowHoleOpener": {
           "$ref": "#/definitions/BernoulliDrillingProperty"
         },
         "LedgeKeySeat": {
-          "$ref": "#/definitions/CategoricalDrillingProperty"
+          "$ref": "#/definitions/TernaryDrillingProperty"
         },
         "CuttingsBed": {
-          "$ref": "#/definitions/CategoricalDrillingProperty"
+          "$ref": "#/definitions/TernaryDrillingProperty"
         },
         "DifferentialSticking": {
           "$ref": "#/definitions/BernoulliDrillingProperty"
@@ -150,7 +150,7 @@
           "$ref": "#/definitions/BernoulliDrillingProperty"
         },
         "WellIntegrity": {
-          "$ref": "#/definitions/CategoricalDrillingProperty"
+          "$ref": "#/definitions/TernaryDrillingProperty"
         },
         "FormationFluidAtAnnulusOutlet": {
           "$ref": "#/definitions/BernoulliDrillingProperty"
@@ -165,10 +165,10 @@
           "$ref": "#/definitions/BernoulliDrillingProperty"
         },
         "WhirlBottomOfString": {
-          "$ref": "#/definitions/CategoricalDrillingProperty"
+          "$ref": "#/definitions/TernaryDrillingProperty"
         },
         "WhirlHoleOpener": {
-          "$ref": "#/definitions/CategoricalDrillingProperty"
+          "$ref": "#/definitions/TernaryDrillingProperty"
         },
         "FloatSub": {
           "$ref": "#/definitions/BernoulliDrillingProperty"
@@ -204,7 +204,7 @@
           "$ref": "#/definitions/BernoulliDrillingProperty"
         },
         "MPDChokeOpening": {
-          "$ref": "#/definitions/CategoricalDrillingProperty"
+          "$ref": "#/definitions/TernaryDrillingProperty"
         },
         "RCDSealing": {
           "$ref": "#/definitions/BernoulliDrillingProperty"
@@ -240,7 +240,7 @@
           "$ref": "#/definitions/BernoulliDrillingProperty"
         },
         "FormationChange": {
-          "$ref": "#/definitions/CategoricalDrillingProperty"
+          "$ref": "#/definitions/TernaryDrillingProperty"
         },
         "InsideHardStringer": {
           "$ref": "#/definitions/BernoulliDrillingProperty"
@@ -261,7 +261,7 @@
           "$ref": "#/definitions/BernoulliDrillingProperty"
         },
         "HeaveCompensation": {
-          "$ref": "#/definitions/CategoricalDrillingProperty"
+          "$ref": "#/definitions/TernaryDrillingProperty"
         },
         "LastStandToBottomHole": {
           "$ref": "#/definitions/BernoulliDrillingProperty"
@@ -295,7 +295,7 @@
         }
       }
     },
-    "CategoricalDrillingProperty": {
+    "TernaryDrillingProperty": {
       "allOf": [
         {
           "$ref": "#/definitions/MultinomialDrillingProperty"
@@ -304,12 +304,6 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "NumberOfStates": {
-              "type": [
-                "integer",
-                "null"
-              ]
-            },
             "Value": {
               "oneOf": [
                 {
@@ -320,10 +314,24 @@
                 }
               ]
             },
-            "CategoricalValue": {
-              "$ref": "#/definitions/CategoricalDistribution"
+            "TernaryValue": {
+              "$ref": "#/definitions/TernaryDistribution"
             },
-            "Probabilities": {
+            "Probability1": {
+              "type": [
+                "null",
+                "number"
+              ],
+              "format": "double"
+            },
+            "Probability2": {
+              "type": [
+                "null",
+                "number"
+              ],
+              "format": "double"
+            },
+            "Probability": {
               "type": [
                 "array",
                 "null"
@@ -347,14 +355,30 @@
       "type": "object",
       "additionalProperties": false
     },
-    "CategoricalDistribution": {
+    "TernaryDistribution": {
       "allOf": [
         {
           "$ref": "#/definitions/MultinomialDistribution"
         },
         {
           "type": "object",
-          "additionalProperties": false
+          "additionalProperties": false,
+          "properties": {
+            "Probability1": {
+              "type": [
+                "null",
+                "number"
+              ],
+              "format": "double"
+            },
+            "Probability2": {
+              "type": [
+                "null",
+                "number"
+              ],
+              "format": "double"
+            }
+          }
         }
       ]
     },

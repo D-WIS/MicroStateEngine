@@ -40,13 +40,13 @@ namespace DWIS.MicroState.ModelShared
         public System.DateTimeOffset TimeStampUTC { get; set; }
 
         [Newtonsoft.Json.JsonProperty("AxialVelocityTopOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public CategoricalDrillingProperty AxialVelocityTopOfString { get; set; }
+        public TernaryDrillingProperty AxialVelocityTopOfString { get; set; }
 
         [Newtonsoft.Json.JsonProperty("StableAxialVelocityTopOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public BernoulliDrillingProperty StableAxialVelocityTopOfString { get; set; }
 
         [Newtonsoft.Json.JsonProperty("RotationalVelocityTopOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public CategoricalDrillingProperty RotationalVelocityTopOfString { get; set; }
+        public TernaryDrillingProperty RotationalVelocityTopOfString { get; set; }
 
         [Newtonsoft.Json.JsonProperty("StableRotationalVelocityTopOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public BernoulliDrillingProperty StableRotationalVelocityTopOfString { get; set; }
@@ -58,7 +58,7 @@ namespace DWIS.MicroState.ModelShared
         public BernoulliDrillingProperty StableFlowAtTopOfString { get; set; }
 
         [Newtonsoft.Json.JsonProperty("SlipState", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public CategoricalDrillingProperty SlipState { get; set; }
+        public TernaryDrillingProperty SlipState { get; set; }
 
         [Newtonsoft.Json.JsonProperty("StableTensionTopOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public BernoulliDrillingProperty StableTensionTopOfString { get; set; }
@@ -94,7 +94,7 @@ namespace DWIS.MicroState.ModelShared
         public BernoulliDrillingProperty OnBottomHoleOpener { get; set; }
 
         [Newtonsoft.Json.JsonProperty("RotationalVelocityBottomOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public CategoricalDrillingProperty RotationalVelocityBottomOfString { get; set; }
+        public TernaryDrillingProperty RotationalVelocityBottomOfString { get; set; }
 
         [Newtonsoft.Json.JsonProperty("StableRotationalVelocityBottomOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public BernoulliDrillingProperty StableRotationalVelocityBottomOfString { get; set; }
@@ -106,28 +106,28 @@ namespace DWIS.MicroState.ModelShared
         public BernoulliDrillingProperty HoleOpening { get; set; }
 
         [Newtonsoft.Json.JsonProperty("AxialVelocityBottomOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public CategoricalDrillingProperty AxialVelocityBottomOfString { get; set; }
+        public TernaryDrillingProperty AxialVelocityBottomOfString { get; set; }
 
         [Newtonsoft.Json.JsonProperty("StableAxialVelocityBottomOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public BernoulliDrillingProperty StableAxialVelocityBottomOfString { get; set; }
 
         [Newtonsoft.Json.JsonProperty("FlowBottomOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public CategoricalDrillingProperty FlowBottomOfString { get; set; }
+        public TernaryDrillingProperty FlowBottomOfString { get; set; }
 
         [Newtonsoft.Json.JsonProperty("StableFlowBottomOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public BernoulliDrillingProperty StableFlowBottomOfString { get; set; }
 
         [Newtonsoft.Json.JsonProperty("FlowHoleOpener", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public CategoricalDrillingProperty FlowHoleOpener { get; set; }
+        public TernaryDrillingProperty FlowHoleOpener { get; set; }
 
         [Newtonsoft.Json.JsonProperty("StableFlowHoleOpener", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public BernoulliDrillingProperty StableFlowHoleOpener { get; set; }
 
         [Newtonsoft.Json.JsonProperty("LedgeKeySeat", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public CategoricalDrillingProperty LedgeKeySeat { get; set; }
+        public TernaryDrillingProperty LedgeKeySeat { get; set; }
 
         [Newtonsoft.Json.JsonProperty("CuttingsBed", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public CategoricalDrillingProperty CuttingsBed { get; set; }
+        public TernaryDrillingProperty CuttingsBed { get; set; }
 
         [Newtonsoft.Json.JsonProperty("DifferentialSticking", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public BernoulliDrillingProperty DifferentialSticking { get; set; }
@@ -136,7 +136,7 @@ namespace DWIS.MicroState.ModelShared
         public BernoulliDrillingProperty TwistOffBackOff { get; set; }
 
         [Newtonsoft.Json.JsonProperty("WellIntegrity", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public CategoricalDrillingProperty WellIntegrity { get; set; }
+        public TernaryDrillingProperty WellIntegrity { get; set; }
 
         [Newtonsoft.Json.JsonProperty("FormationFluidAtAnnulusOutlet", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public BernoulliDrillingProperty FormationFluidAtAnnulusOutlet { get; set; }
@@ -151,10 +151,10 @@ namespace DWIS.MicroState.ModelShared
         public BernoulliDrillingProperty PipeWashout { get; set; }
 
         [Newtonsoft.Json.JsonProperty("WhirlBottomOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public CategoricalDrillingProperty WhirlBottomOfString { get; set; }
+        public TernaryDrillingProperty WhirlBottomOfString { get; set; }
 
         [Newtonsoft.Json.JsonProperty("WhirlHoleOpener", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public CategoricalDrillingProperty WhirlHoleOpener { get; set; }
+        public TernaryDrillingProperty WhirlHoleOpener { get; set; }
 
         [Newtonsoft.Json.JsonProperty("FloatSub", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public BernoulliDrillingProperty FloatSub { get; set; }
@@ -190,7 +190,7 @@ namespace DWIS.MicroState.ModelShared
         public BernoulliDrillingProperty StableBackPressurePumping { get; set; }
 
         [Newtonsoft.Json.JsonProperty("MPDChokeOpening", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public CategoricalDrillingProperty MPDChokeOpening { get; set; }
+        public TernaryDrillingProperty MPDChokeOpening { get; set; }
 
         [Newtonsoft.Json.JsonProperty("RCDSealing", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public BernoulliDrillingProperty RCDSealing { get; set; }
@@ -226,7 +226,7 @@ namespace DWIS.MicroState.ModelShared
         public BernoulliDrillingProperty StableLiftPumpDGD { get; set; }
 
         [Newtonsoft.Json.JsonProperty("FormationChange", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public CategoricalDrillingProperty FormationChange { get; set; }
+        public TernaryDrillingProperty FormationChange { get; set; }
 
         [Newtonsoft.Json.JsonProperty("InsideHardStringer", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public BernoulliDrillingProperty InsideHardStringer { get; set; }
@@ -247,7 +247,7 @@ namespace DWIS.MicroState.ModelShared
         public BernoulliDrillingProperty ToolJoint4AtStickUpHeight { get; set; }
 
         [Newtonsoft.Json.JsonProperty("HeaveCompensation", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public CategoricalDrillingProperty HeaveCompensation { get; set; }
+        public TernaryDrillingProperty HeaveCompensation { get; set; }
 
         [Newtonsoft.Json.JsonProperty("LastStandToBottomHole", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public BernoulliDrillingProperty LastStandToBottomHole { get; set; }
@@ -283,19 +283,22 @@ namespace DWIS.MicroState.ModelShared
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.9.0.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class CategoricalDrillingProperty : MultinomialDrillingProperty
+    public partial class TernaryDrillingProperty : MultinomialDrillingProperty
     {
-        [Newtonsoft.Json.JsonProperty("NumberOfStates", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? NumberOfStates { get; set; }
-
         [Newtonsoft.Json.JsonProperty("Value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public DiscreteDistribution Value { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("CategoricalValue", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public CategoricalDistribution CategoricalValue { get; set; }
+        [Newtonsoft.Json.JsonProperty("TernaryValue", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public TernaryDistribution TernaryValue { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Probabilities", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<double> Probabilities { get; set; }
+        [Newtonsoft.Json.JsonProperty("Probability1", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double? Probability1 { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Probability2", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double? Probability2 { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Probability", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<double> Probability { get; set; }
 
         [Newtonsoft.Json.JsonProperty("StateValue", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int? StateValue { get; set; }
@@ -310,8 +313,14 @@ namespace DWIS.MicroState.ModelShared
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.9.0.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class CategoricalDistribution : MultinomialDistribution
+    public partial class TernaryDistribution : MultinomialDistribution
     {
+        [Newtonsoft.Json.JsonProperty("Probability1", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double? Probability1 { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Probability2", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double? Probability2 { get; set; }
+
 
     }
 
