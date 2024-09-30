@@ -254,15 +254,16 @@ namespace DWIS.MicroState.Model
         StringFlowImpeded // 79
     }
     [AccessToVariable(CommonProperty.VariableAccessType.Assignable)]
-    [SemanticTypeVariable("ComputedData")]
-    [SemanticFact("ComputedData", Nouns.Enum.DynamicDrillingSignal)]
-    [SemanticFact("ComputedData#01", Nouns.Enum.ComputedData)]
-    [SemanticFact("ComputedData#01", Verbs.Enum.HasDynamicValue, "ComputedData")]
-    [SemanticFact("ProcessState", Nouns.Enum.ProcessState)]
-    [SemanticFact("ProcessState", Nouns.Enum.DeterministicModel)]
-    [SemanticFact("ComputedData#01", Verbs.Enum.IsGeneratedBy, "ProcessState")]
-    [SemanticFact("DrillingProcessStateInterpreter", Nouns.Enum.DWISDrillingProcessStateInterpreter)]
-    [SemanticFact("ProcessState", Verbs.Enum.IsProvidedBy, "DrillingProcessStateInterpreter")]
+    [SemanticTypeVariable("DeterministicState")]
+    [SemanticFact("DeterministicState", Nouns.Enum.DynamicDrillingSignal)]
+    [SemanticFact("DeterministicState#01", Nouns.Enum.ComputedData)]
+    [SemanticFact("DeterministicState#01", Nouns.Enum.StringDataType)]
+    [SemanticFact("DeterministicState#01", Verbs.Enum.HasDynamicValue, "DeterministicState")]
+    [SemanticFact("DeterministicProcessState", Nouns.Enum.ProcessState)]
+    [SemanticFact("DeterministicProcessState", Nouns.Enum.DeterministicModel)]
+    [SemanticFact("DeterministicState#01", Verbs.Enum.IsGeneratedBy, "DeterministicProcessState")]
+    [SemanticFact("ProcessStateInterpreter#01", Nouns.Enum.DWISDrillingProcessStateInterpreter)]
+    [SemanticFact("DeterministicProcessState", Verbs.Enum.IsProvidedBy, "ProcessStateInterpreter#01")]
     public struct MicroStates
     {
         private static string prefix_ = "DWIS:MicroState:DeterministicMicroStates:";
@@ -293,6 +294,23 @@ namespace DWIS.MicroState.Model
         /// </summary>
         public int Part5 { get; set; }
 
+        public bool Equals(MicroStates? other, bool useTimeStamp = true)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            else
+            {
+                return 
+                    (!useTimeStamp || this.TimeStampUTC.Equals(other.Value.TimeStampUTC)) &&
+                    this.Part1 == other.Value.Part1 &&
+                    this.Part2 == other.Value.Part2 &&
+                    this.Part3 == other.Value.Part3 &&
+                    this.Part4 == other.Value.Part4 &&
+                    this.Part5 == other.Value.Part5;
+            }
+        }
         public void CopyTo(ref MicroStates dest)
         {
             dest.TimeStampUTC = TimeStampUTC;
@@ -303,10 +321,10 @@ namespace DWIS.MicroState.Model
             dest.Part5 = Part5;
         }
 
-        public bool RegisterToBlackboard(IOPCUADWISClient? DWISClient, QueryResult? placeHolder)
+        public bool RegisterToBlackboard(IOPCUADWISClient? DWISClient, ref QueryResult? placeHolder)
         {
             bool ok = false;
-            if (DWISClient != null && placeHolder != null)
+            if (DWISClient != null)
             {
                 Type type = GetType();
                 Assembly assembly = type.Assembly;
@@ -352,8 +370,7 @@ namespace DWIS.MicroState.Model
                                 }
                                 if (res != null)
                                 {
-                                    placeHolder.VariablesHeader.AddRange(res.VariablesHeader);
-                                    placeHolder.Results.AddRange(res.Results);
+                                    placeHolder = res;
                                     ok = true;
                                 }
                             }
@@ -402,6 +419,69 @@ namespace DWIS.MicroState.Model
             {
                 return false;
             }
+        }
+
+        public void UpdateMicroState(MicroStateIndex index, uint code)
+        {
+            // which part
+            int part = (int)index / 16;
+            int pos = 2 * ((int)index % 16);
+            code = code << pos;
+            uint mask = 3;
+            mask = mask << pos;
+            mask = ~mask;
+            switch (part)
+            {
+                case 0:
+                    Part1 = (int)((uint)Part1 & mask);
+                    Part1 = (int)((uint)Part1 | code);
+                    break;
+                case 1:
+                    Part2 = (int)((uint)Part2 & mask);
+                    Part2 = (int)((uint)Part2 | code);
+                    break;
+                case 2:
+                    Part3 = (int)((uint)Part3 & mask);
+                    Part3 = (int)((uint)Part3 | code);
+                    break;
+                case 3:
+                    Part4 = (int)((uint)Part4 & mask);
+                    Part4 = (int)((uint)Part4 | code);
+                    break;
+                default:
+                    Part5 = (int)((uint)Part5 & mask);
+                    Part5 = (int)((uint)Part5 | code);
+                    break;
+            }
+        }
+
+        public byte GetValue(MicroStateIndex index)
+        {
+            uint val = 0;
+            // which part
+            int part = (int)index / 16;
+            int pos = 2 * ((int)index % 16);
+            switch (part)
+            {
+                case 0:
+                    val = (uint)Part1;
+                    break;
+                case 1:
+                    val = (uint)Part2;
+                    break;
+                case 2:
+                    val = (uint)Part3;
+                    break;
+                case 3:
+                    val = (uint)Part4;
+                    break;
+                default:
+                    val = (uint)Part5;
+                    break;
+            }
+            val = val >> pos;
+            val &= 0x00000003;
+            return (byte)val;
         }
     }
 }

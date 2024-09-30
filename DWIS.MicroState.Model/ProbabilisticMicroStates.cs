@@ -6,9 +6,21 @@ using System.ComponentModel.Design;
 using DWIS.Vocabulary.Schemas;
 using static System.Net.WebRequestMethods;
 using System.Text;
+using System.Text.Json;
 
 namespace DWIS.MicroState.Model
 {
+    [AccessToVariable(CommonProperty.VariableAccessType.Assignable)]
+    [SemanticTypeVariable("ProbabilisticState")]
+    [SemanticFact("ProbabilisticState", Nouns.Enum.DynamicDrillingSignal)]
+    [SemanticFact("ProbabilisticState#01", Nouns.Enum.ComputedData)]
+    [SemanticFact("ProbabilisticState#01", Nouns.Enum.StringDataType)]
+    [SemanticFact("ProbabilisticState#01", Verbs.Enum.HasDynamicValue, "ProbabilisticState")]
+    [SemanticFact("ProbabiliticProcessState", Nouns.Enum.ProcessState)]
+    [SemanticFact("ProbabiliticProcessState", Nouns.Enum.StochasticModel)]
+    [SemanticFact("ProbabilisticState#01", Verbs.Enum.IsGeneratedBy, "ProbabiliticProcessState")]
+    [SemanticFact("ProcessStateInterpreter#01", Nouns.Enum.DWISDrillingProcessStateInterpreter)]
+    [SemanticFact("ProbabiliticProcessState", Verbs.Enum.IsProvidedBy, "ProcessStateInterpreter#01")]
     public class ProbabilisticMicroStates
     {
         private static string prefix_ = "DWIS:MicroState:ProbabilisticMicroStates:";
@@ -31,9 +43,9 @@ namespace DWIS.MicroState.Model
         [SemanticFact("AxialVelocityTopOfString#01", Verbs.Enum.IsPhysicallyLocatedAt, "tos#01")]
         [SemanticFact("MovingAverage", Nouns.Enum.MovingAverage)]
         [SemanticFact("AxialVelocityTopOfString#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
-        [Label("Axial Velocity Top Oo String")]
+        [Label("Axial Velocity Top of String")]
         [GroupName("Top Side Boundaries")]
-        public CategoricalDrillingProperty AxialVelocityTopOfString { get; set; } = new CategoricalDrillingProperty(3);
+        public TernaryDrillingProperty AxialVelocityTopOfString { get; set; } = new TernaryDrillingProperty();
         //    StableAxialVelocityTopOfString, // 1
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -63,7 +75,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("RotationalVelocityTopOfString#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [Label("Rotational Velocity Top of String")]
         [GroupName("Top Side Boundaries")]
-        public CategoricalDrillingProperty RotationalVelocityTopOfString { get; set; } = new CategoricalDrillingProperty(3);
+        public TernaryDrillingProperty RotationalVelocityTopOfString { get; set; } = new TernaryDrillingProperty();
         //    StableRotationalVelocityTopOfString, // 3
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -123,7 +135,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("SlipState#01", Verbs.Enum.IsMechanicallyLocatedAt, "SlipsLogical")]
         [Label("Slip State")]
         [GroupName("Top Side Boundaries")]
-        public CategoricalDrillingProperty SlipState { get; set; } = new CategoricalDrillingProperty(3);
+        public TernaryDrillingProperty SlipState { get; set; } = new TernaryDrillingProperty();
         //    StableTensionTopOfString, // 7
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -337,7 +349,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("RotationalVelocityBottomOfString#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
         [Label("Rotational Velocity Bottom of String")]
         [GroupName("Downhole Boundaries")]
-        public CategoricalDrillingProperty RotationalVelocityBottomOfString { get; set; } = new CategoricalDrillingProperty(3);
+        public TernaryDrillingProperty RotationalVelocityBottomOfString { get; set; } = new TernaryDrillingProperty();
         //    StableRotationalVelocityBottomOfString, // 19
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -403,7 +415,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("AxialVelocityBottomOfString#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
         [Label("Axial Velocity Bottom of String")]
         [GroupName("Downhole Boundaries")]
-        public CategoricalDrillingProperty AxialVelocityBottomOfString { get; set; } = new CategoricalDrillingProperty(3);
+        public TernaryDrillingProperty AxialVelocityBottomOfString { get; set; } = new TernaryDrillingProperty();
         //    StableAxialVelocityBottomOfString, // 23
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -433,7 +445,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("FlowBottomOfString#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
         [Label("Flow Bottom of String")]
         [GroupName("Downhole Boundaries")]
-        public CategoricalDrillingProperty FlowBottomOfString { get; set; } = new CategoricalDrillingProperty(3);
+        public TernaryDrillingProperty FlowBottomOfString { get; set; } = new TernaryDrillingProperty();
         //    StableFlowBottomOfString, // 25
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -465,7 +477,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("FlowHoleOpener#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_urho#01")]
         [Label("Flow Hole Opener")]
         [GroupName("Downhole Boundaries")]
-        public CategoricalDrillingProperty FlowHoleOpener { get; set; } = new CategoricalDrillingProperty(3);
+        public TernaryDrillingProperty FlowHoleOpener { get; set; } = new TernaryDrillingProperty();
         //    StableFlowHoleOpener, // 27
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -497,7 +509,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("LedgeKeySeat#01", Verbs.Enum.IsPhysicallyLocatedAt, "ledge#01")]
         [Label("Ledge Key Seat")]
         [GroupName("Abnormal Downhole Boundaries")]
-        public CategoricalDrillingProperty LedgeKeySeat { get; set; } = new CategoricalDrillingProperty(3);
+        public TernaryDrillingProperty LedgeKeySeat { get; set; } = new TernaryDrillingProperty();
         //    CuttingsBed, // 29
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -512,7 +524,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("CuttingsBed#01", Verbs.Enum.IsPhysicallyLocatedAt, "bed#01")]
         [Label("Cuttings Bed")]
         [GroupName("Abnormal Downhole Boundaries")]
-        public CategoricalDrillingProperty CuttingsBed { get; set; } = new CategoricalDrillingProperty(3);
+        public TernaryDrillingProperty CuttingsBed { get; set; } = new TernaryDrillingProperty();
         //    DifferentialSticking, // 30
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -557,7 +569,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("WellIntegrity#01", Verbs.Enum.IsPhysicallyLocatedAt, "FormationFluidFlow#01")]
         [Label("Well Integrity")]
         [GroupName("Abnormal Downhole Boundaries")]
-        public CategoricalDrillingProperty WellIntegrity { get; set; } = new CategoricalDrillingProperty(3);
+        public TernaryDrillingProperty WellIntegrity { get; set; } = new TernaryDrillingProperty();
         //    FormationFluidAtAnnulusOutlet, // 33
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -644,7 +656,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("WhirlBottomOfString#01", Verbs.Enum.IsPhysicallyLocatedAt, "bos#01")]
         [Label("Whirl Bottom of String")]
         [GroupName("Abnormal Downhole Boundaries")]
-        public CategoricalDrillingProperty WhirlBottomOfString { get; set; } = new CategoricalDrillingProperty(3);
+        public TernaryDrillingProperty WhirlBottomOfString { get; set; } = new TernaryDrillingProperty();
         //    WhirlHoleOpener, // 38
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -663,7 +675,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("LateralMotion#01", Verbs.Enum.IsMechanicallyLocatedAt, "logical_urho#01")]
         [Label("Whirl Hole Opener")]
         [GroupName("Abnormal Downhole Boundaries")]
-        public CategoricalDrillingProperty WhirlHoleOpener { get; set; } = new CategoricalDrillingProperty(3);
+        public TernaryDrillingProperty WhirlHoleOpener { get; set; } = new TernaryDrillingProperty();
         //    FloatSub, // 39
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -883,7 +895,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("MPDChokeOpening#01", Verbs.Enum.IsTransformationOutput, "MovingAverage")]
         [Label("MPD Choke Opening")]
         [GroupName("Back-pressure MPD Boundaries")]
-        public CategoricalDrillingProperty MPDChokeOpening { get; set; } = new CategoricalDrillingProperty(3);
+        public TernaryDrillingProperty MPDChokeOpening { get; set; } = new TernaryDrillingProperty();
         //    RCDSealing, // 51
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1081,7 +1093,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("FormationChange#01", Verbs.Enum.IsPhysicallyLocatedAt, "bh#01")]
         [Label("Formation Change")]
         [GroupName("Downhole Boundaries")]
-        public CategoricalDrillingProperty FormationChange { get; set; } = new CategoricalDrillingProperty(3);
+        public TernaryDrillingProperty FormationChange { get; set; } = new TernaryDrillingProperty();
         //    InsideHardStringer, // 63
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
@@ -1199,7 +1211,7 @@ namespace DWIS.MicroState.Model
         [SemanticFact("HeaveCompensation#01", Verbs.Enum.IsPhysicallyLocatedAt, "logical_heaveCompensation")]
         [Label("Heave Compensation")]
         [GroupName("Floating Rig Boundaries")]
-        public CategoricalDrillingProperty HeaveCompensation { get; set; } = new CategoricalDrillingProperty(3);
+        public TernaryDrillingProperty HeaveCompensation { get; set; } = new TernaryDrillingProperty();
 
         //    LastStandToBottomHole, // 70
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
@@ -1443,6 +1455,71 @@ namespace DWIS.MicroState.Model
                 }
             }
         }
+        public bool RegisterToBlackboard(IOPCUADWISClient? DWISClient, ref QueryResult? placeHolder)
+        {
+            bool ok = false;
+            if (DWISClient != null)
+            {
+                Type type = GetType();
+                Assembly assembly = type.Assembly;
+
+                string? manifestName = type.FullName;
+                if (!string.IsNullOrEmpty(manifestName))
+                {
+                    ManifestFile? manifestFile = GeneratorSparQLManifestFile.GetManifestFile(assembly, type.FullName, manifestName, companyName_, prefix_);
+                    Dictionary<string, QuerySpecification>? queries = GeneratorSparQLManifestFile.GetSparQLQueries(assembly, type.FullName);
+                    if (queries != null && queries.Count > 0 && manifestFile != null)
+                    {
+                        QueryResult? res = null;
+                        foreach (var kvp in queries)
+                        {
+                            if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Value.SparQL))
+                            {
+                                var result = DWISClient.GetQueryResult(kvp.Value.SparQL);
+                                if (result != null && result.Results != null && result.Results.Count > 0)
+                                {
+                                    res = result;
+                                    break;
+                                }
+                            }
+                        }
+                        // if we couldn't find any answer then the manifest must be injected
+                        if (res == null)
+                        {
+                            var r = DWISClient.Inject(manifestFile);
+                            if (r != null && r.Success)
+                            {
+                                res = null;
+                                foreach (var kvp in queries)
+                                {
+                                    if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Value.SparQL))
+                                    {
+                                        var result = DWISClient.GetQueryResult(kvp.Value.SparQL);
+                                        if (result != null && result.Results != null && result.Results.Count > 0)
+                                        {
+                                            res = result;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (res != null)
+                                {
+                                    placeHolder = res;
+                                    ok = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // a manifest has already been injected.
+                            placeHolder = res;
+                            ok = true;
+                        }
+                    }
+                }
+            }
+            return ok;
+        }
 
         public bool RegisterToBlackboard(IOPCUADWISClient? DWISClient, Dictionary<string, QueryResult>? placeHolders)
         {
@@ -1563,6 +1640,39 @@ namespace DWIS.MicroState.Model
                                     // a manifest has already been injected.
                                     placeHolders.Add(propName, res);
                                 }
+                            }
+                        }
+                    }
+                }
+                return ok;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool SendToBlackboard(IOPCUADWISClient? DWISClient, QueryResult? placeHolder)
+        {
+            if (DWISClient != null && placeHolder != null)
+            {
+                bool ok = false;
+                if (placeHolder != null && placeHolder.Count > 0 && placeHolder[0].Count > 0)
+                {
+                    string json = JsonSerializer.Serialize(this);
+                    if (!string.IsNullOrEmpty(json))
+                    {
+                        {
+                            NodeIdentifier id = placeHolder[0][0];
+                            if (id != null && !string.IsNullOrEmpty(id.ID) && !string.IsNullOrEmpty(id.NameSpace))
+                            {
+                                // OPC-UA code to set the value at the node id = ID
+                                (string nameSpace, string id, object value, DateTime sourceTimestamp)[] outputs = new (string nameSpace, string id, object value, DateTime sourceTimestamp)[1];
+                                outputs[0].nameSpace = id.NameSpace;
+                                outputs[0].id = id.ID;
+                                outputs[0].value = json;
+                                outputs[0].sourceTimestamp = DateTime.UtcNow;
+                                DWISClient.UpdateAnyVariables(outputs);
+                                ok = true;
                             }
                         }
                     }
