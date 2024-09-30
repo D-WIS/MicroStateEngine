@@ -15,8 +15,4 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="OSDC.DotnetLibraries.General.Common" Version="1.0.7" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\DWIS.MicroState.MQTT\DWIS.MicroState.MQTTTopics.csproj" />
-  </ItemGroup>
 </Project>

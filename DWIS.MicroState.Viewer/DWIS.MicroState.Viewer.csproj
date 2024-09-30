@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DWIS.MicroState.ModelShared\DWIS.MicroState.ModelShared.csproj" />
-    <ProjectReference Include="..\DWIS.MicroState.MQTT\DWIS.MicroState.MQTTTopics.csproj" />
   </ItemGroup>
 
 </Project>
