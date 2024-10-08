@@ -8,6 +8,14 @@ using System.Text;
 
 namespace DWIS.MicroState.Model
 {
+    [AccessToVariable(CommonProperty.VariableAccessType.Assignable)]
+    [SemanticTypeVariable("MicroStateThresholds")]
+    [SemanticFact("MicroStateThresholds", Nouns.Enum.DynamicDrillingSignal)]
+    [SemanticFact("MicroStateThresholds#01", Nouns.Enum.ConfigurationData)]
+    [SemanticFact("MicroStateThresholds#01", Verbs.Enum.HasDynamicValue, "MicroStateThresholds")]
+    [SemanticFact("MicroStateInterpreter", Nouns.Enum.DWISDrillingProcessStateInterpreter)]
+    [SemanticFact("MicroStateThresholds#01", Verbs.Enum.IsProvidedTo, "MicroStateInterpreter")]
+    [SemanticFact("MicroStateThresholds#01", Verbs.Enum.IsLimitFor, "MicroStateInterpreter")]
     public class Thresholds
     {
         /// <summary>

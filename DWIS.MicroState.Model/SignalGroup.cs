@@ -9,6 +9,15 @@ using System.Reflection;
 
 namespace DWIS.MicroState.Model
 {
+    [AccessToVariable(CommonProperty.VariableAccessType.Assignable)]
+    [SemanticTypeVariable("DigitalTwinSignalsForMicroStates")]
+    [SemanticFact("DigitalTwinSignalsForMicroStates", Nouns.Enum.DynamicDrillingSignal)]
+    [SemanticFact("DigitalTwinSignalsForMicroStates#01", Nouns.Enum.DigitalTwinAdvice)]
+    [SemanticFact("DigitalTwinSignalsForMicroStates#01", Verbs.Enum.HasDynamicValue, "DigitalTwinSignalsForMicroStates")]
+    [SemanticFact("DigitalTwin", Nouns.Enum.Simulator)]
+    [SemanticFact("DigitalTwinSignalsForMicroStates#01", Verbs.Enum.IsRecommendedBy, "DigitalTwin")]
+    [SemanticFact("MicroStateInterpreter", Nouns.Enum.DWISDrillingProcessStateInterpreter)]
+    [SemanticFact("DigitalTwinSignalsForMicroStates#01", Verbs.Enum.IsProvidedTo, "MicroStateInterpreter")]
     public class SignalGroup
     {
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]

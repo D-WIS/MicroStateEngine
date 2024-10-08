@@ -257,13 +257,13 @@ namespace DWIS.MicroState.Model
     [SemanticTypeVariable("DeterministicState")]
     [SemanticFact("DeterministicState", Nouns.Enum.DynamicDrillingSignal)]
     [SemanticFact("DeterministicState#01", Nouns.Enum.ComputedData)]
-    [SemanticFact("DeterministicState#01", Nouns.Enum.StringDataType)]
+    [SemanticFact("DeterministicState#01", Nouns.Enum.JSonDataType)]
     [SemanticFact("DeterministicState#01", Verbs.Enum.HasDynamicValue, "DeterministicState")]
     [SemanticFact("DeterministicProcessState", Nouns.Enum.ProcessState)]
     [SemanticFact("DeterministicProcessState", Nouns.Enum.DeterministicModel)]
     [SemanticFact("DeterministicState#01", Verbs.Enum.IsGeneratedBy, "DeterministicProcessState")]
     [SemanticFact("ProcessStateInterpreter#01", Nouns.Enum.DWISDrillingProcessStateInterpreter)]
-    [SemanticFact("DeterministicProcessState", Verbs.Enum.IsProvidedBy, "ProcessStateInterpreter#01")]
+    [SemanticFact("DeterministicState#01", Verbs.Enum.IsProvidedBy, "ProcessStateInterpreter#01")]
     public struct MicroStates
     {
         private static string prefix_ = "DWIS:MicroState:DeterministicMicroStates:";

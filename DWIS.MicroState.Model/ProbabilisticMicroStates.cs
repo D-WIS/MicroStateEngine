@@ -14,13 +14,13 @@ namespace DWIS.MicroState.Model
     [SemanticTypeVariable("ProbabilisticState")]
     [SemanticFact("ProbabilisticState", Nouns.Enum.DynamicDrillingSignal)]
     [SemanticFact("ProbabilisticState#01", Nouns.Enum.ComputedData)]
-    [SemanticFact("ProbabilisticState#01", Nouns.Enum.StringDataType)]
+    [SemanticFact("ProbabilisticState#01", Nouns.Enum.JSonDataType)]
     [SemanticFact("ProbabilisticState#01", Verbs.Enum.HasDynamicValue, "ProbabilisticState")]
     [SemanticFact("ProbabiliticProcessState", Nouns.Enum.ProcessState)]
     [SemanticFact("ProbabiliticProcessState", Nouns.Enum.StochasticModel)]
     [SemanticFact("ProbabilisticState#01", Verbs.Enum.IsGeneratedBy, "ProbabiliticProcessState")]
     [SemanticFact("ProcessStateInterpreter#01", Nouns.Enum.DWISDrillingProcessStateInterpreter)]
-    [SemanticFact("ProbabiliticProcessState", Verbs.Enum.IsProvidedBy, "ProcessStateInterpreter#01")]
+    [SemanticFact("ProbabilisticState#01", Verbs.Enum.IsProvidedBy, "ProcessStateInterpreter#01")]
     public class ProbabilisticMicroStates
     {
         private static string prefix_ = "DWIS:MicroState:ProbabilisticMicroStates:";
