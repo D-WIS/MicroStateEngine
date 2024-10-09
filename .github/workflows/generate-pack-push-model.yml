@@ -61,13 +61,15 @@ jobs:
 
       - name: Run GitVersion
         id: gitversion
-        run: dotnet-gitversion /output json /showvariable FullSemVer
+        run: |
+          dotnet-gitversion /output json /showvariable FullSemVer
+          echo "${{ steps.gitversion.outputs.FullSemVer }}"
 
       - name: Update version in DWIS.MicroState.Model
-        run: sed -i "s/<Version>.*<\/Version>/<Version>${{ steps.gitversion.outputs.FullSemVer }}<\/Version>/" DWIS.MicroState.Model/DWIS.MicroState.Model.csproj
+        run: sed -i "s/<Version>*<\/Version>/<Version>${{ steps.gitversion.outputs.FullSemVer }}<\/Version>/" DWIS.MicroState.Model/DWIS.MicroState.Model.csproj
 
       - name: Update version in DWIS.MicroState.ModelShared
-        run: sed -i "s/<Version>.*<\/Version>/<Version>${{ steps.gitversion.outputs.FullSemVer }}<\/Version>/" DWIS.MicroState.ModelShared/DWIS.MicroState.ModelShared.csproj
+        run: sed -i "s/<Version>*<\/Version>/<Version>${{ steps.gitversion.outputs.FullSemVer }}<\/Version>/" DWIS.MicroState.ModelShared/DWIS.MicroState.ModelShared.csproj
 
       - name: Commit version changes
         run: |
