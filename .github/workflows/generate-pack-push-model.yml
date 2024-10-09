@@ -37,6 +37,8 @@ jobs:
           git add DWIS.MicroState.JsonSchema/*
           git commit -m "Update JsonSchema files"
           git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true  # This allows the job to continue even if there are no changes
 
       # Step 3: Run DWIS.MicroState.JsonCS project
@@ -49,6 +51,8 @@ jobs:
           git add DWIS.MicroState.ModelShared/MicroStatesFromJson.cs
           git commit -m "Update MicroStatesFromJson.cs"
           git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true  # This allows the job to continue even if there are no changes
       
       # Step 5: change the nuget versions
@@ -71,6 +75,8 @@ jobs:
           git add DWIS.MicroState.ModelShared/*.csproj
           git commit -m "Bump version to ${{ steps.gitversion.outputs.FullSemVer }}"
           git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true
 
       # Step 6: Build and package DWIS.MicroState.Model and DWIS.MicroState.ModelShared
