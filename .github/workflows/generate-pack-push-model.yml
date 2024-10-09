@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           persist-credentials: true
-          fetch-depth: 0
+          fetch-depth: 0 # use the whole commit history
 
       - name: Set up .NET
         uses: actions/setup-dotnet@v3
@@ -65,8 +65,8 @@ jobs:
           dotnet-gitversion /output json /showvariable FullSemVer
           echo "${{ steps.gitversion.outputs.FullSemVer }}"
           echo "sed -i 's|<Version>*<\/Version>|<Version>${{ steps.gitversion.outputs.FullSemVer }}<\/Version>|' DWIS.MicroState.Model/DWIS.MicroState.Model.csproj"
-          sed -i "s|<Version>*</Version>|<Version>${{ steps.gitversion.outputs.FullSemVer }}</Version>|" DWIS.MicroState.Model/DWIS.MicroState.Model.csproj
-          sed -i "s|<Version>*<\/Version>|<Version>${{ steps.gitversion.outputs.FullSemVer }}<\/Version>|" DWIS.MicroState.ModelShared/DWIS.MicroState.ModelShared.csproj
+          sed -i 's|<Version>*<\/Version>|<Version>${{ steps.gitversion.outputs.FullSemVer }}<\/Version>|' DWIS.MicroState.Model/DWIS.MicroState.Model.csproj
+          sed -i 's|<Version>*<\/Version>|<Version>${{ steps.gitversion.outputs.FullSemVer }}<\/Version>|' DWIS.MicroState.ModelShared/DWIS.MicroState.ModelShared.csproj
           git add DWIS.MicroState.Model/*.csproj
           git add DWIS.MicroState.ModelShared/*.csproj
           git commit -m "Bump version to ${{ steps.gitversion.outputs.FullSemVer }}"
