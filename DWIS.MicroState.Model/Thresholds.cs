@@ -1,10 +1,12 @@
-﻿using DWIS.Client.ReferenceImplementation;
+﻿using DWIS.API.DTO;
+using DWIS.Client.ReferenceImplementation;
 using DWIS.Vocabulary.Schemas;
 using OSDC.DotnetLibraries.Drilling.DrillingProperties;
 using OSDC.UnitConversion.Conversion;
 using OSDC.UnitConversion.Conversion.DrillingEngineering;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 
 namespace DWIS.MicroState.Model
 {
@@ -18,6 +20,9 @@ namespace DWIS.MicroState.Model
     [SemanticFact("MicroStateThresholds#01", Verbs.Enum.IsLimitFor, "MicroStateInterpreter")]
     public class Thresholds
     {
+        private static string prefix_ = "DWIS:MicroState:Thresholds:";
+        private static string companyName_ = "DWIS";
+
         /// <summary>
         /// the timestamp in UTC when the thresholds have been updated
         /// </summary>
@@ -1346,6 +1351,106 @@ namespace DWIS.MicroState.Model
                                 {
                                     placeHolders.Add(propName, values);
                                 }
+                            }
+                        }
+                    }
+                }
+                return ok;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool RegisterToBlackboard(IOPCUADWISClient? DWISClient, ref QueryResult? placeHolder)
+        {
+            bool ok = false;
+            if (DWISClient != null)
+            {
+                Type type = GetType();
+                Assembly assembly = type.Assembly;
+
+                string? manifestName = type.FullName;
+                if (!string.IsNullOrEmpty(manifestName))
+                {
+                    ManifestFile? manifestFile = GeneratorSparQLManifestFile.GetManifestFile(assembly, type.FullName, manifestName, companyName_, prefix_);
+                    Dictionary<string, QuerySpecification>? queries = GeneratorSparQLManifestFile.GetSparQLQueries(assembly, type.FullName);
+                    if (queries != null && queries.Count > 0 && manifestFile != null)
+                    {
+                        QueryResult? res = null;
+                        foreach (var kvp in queries)
+                        {
+                            if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Value.SparQL))
+                            {
+                                var result = DWISClient.GetQueryResult(kvp.Value.SparQL);
+                                if (result != null && result.Results != null && result.Results.Count > 0)
+                                {
+                                    res = result;
+                                    break;
+                                }
+                            }
+                        }
+                        // if we couldn't find any answer then the manifest must be injected
+                        if (res == null)
+                        {
+                            var r = DWISClient.Inject(manifestFile);
+                            if (r != null && r.Success)
+                            {
+                                res = null;
+                                foreach (var kvp in queries)
+                                {
+                                    if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Value.SparQL))
+                                    {
+                                        var result = DWISClient.GetQueryResult(kvp.Value.SparQL);
+                                        if (result != null && result.Results != null && result.Results.Count > 0)
+                                        {
+                                            res = result;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (res != null)
+                                {
+                                    placeHolder = res;
+                                    ok = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // a manifest has already been injected.
+                            placeHolder = res;
+                            ok = true;
+                        }
+                    }
+                }
+            }
+            return ok;
+        }
+
+        public bool SendToBlackboard(IOPCUADWISClient? DWISClient, QueryResult? placeHolder)
+        {
+            if (DWISClient != null && placeHolder != null)
+            {
+                bool ok = false;
+                if (placeHolder != null && placeHolder.Count > 0 && placeHolder[0].Count > 0)
+                {
+                    string json = JsonSerializer.Serialize(this);
+                    if (!string.IsNullOrEmpty(json))
+                    {
+                        {
+                            NodeIdentifier id = placeHolder[0][0];
+                            if (id != null && !string.IsNullOrEmpty(id.ID) && !string.IsNullOrEmpty(id.NameSpace))
+                            {
+                                // OPC-UA code to set the value at the node id = ID
+                                (string nameSpace, string id, object value, DateTime sourceTimestamp)[] outputs = new (string nameSpace, string id, object value, DateTime sourceTimestamp)[1];
+                                outputs[0].nameSpace = id.NameSpace;
+                                outputs[0].id = id.ID;
+                                outputs[0].value = json;
+                                outputs[0].sourceTimestamp = DateTime.UtcNow;
+                                DWISClient.UpdateAnyVariables(outputs);
+                                ok = true;
                             }
                         }
                     }

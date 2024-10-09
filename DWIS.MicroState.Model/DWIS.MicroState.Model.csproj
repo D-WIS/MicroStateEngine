@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OSDC.DotnetLibraries.Drilling.DrillingProperties" Version="10.1.13" />
+    <PackageReference Include="OSDC.DotnetLibraries.Drilling.DrillingProperties" Version="10.1.14" />
   </ItemGroup>
 
   <ItemGroup>
