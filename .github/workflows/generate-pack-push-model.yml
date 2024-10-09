@@ -62,8 +62,8 @@ jobs:
       - name: Run GitVersion
         id: gitversion
         run: |
-          echo ::set-env name=version::$(dotnet-gitversion /output json /showvariable FullSemVer)
-          echo "${{ env.version }}"
+          echo "MY_ENV_VAR=myValue" >> $GITHUB_ENV
+          echo "The value of MY_ENV_VAR is $MY_ENV_VAR"
           echo "s|<Version>*</Version>|<Version>${{ env.version }}</Version>|"
           sed -i "s|<Version>*</Version>|<Version>${{ steps.gitversion.outputs.FullSemVer }}</Version>|" DWIS.MicroState.Model/DWIS.MicroState.Model.csproj
           sed -i "s|<Version>*</Version>|<Version>${{ steps.gitversion.outputs.FullSemVer }}</Version>|" DWIS.MicroState.ModelShared/DWIS.MicroState.ModelShared.csproj
