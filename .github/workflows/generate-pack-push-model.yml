@@ -62,11 +62,12 @@ jobs:
       - name: Run GitVersion
         id: gitversion
         run: |
-          echo "MY_ENV_VAR=myValue" >> $GITHUB_ENV
-          echo "The value of MY_ENV_VAR is $MY_ENV_VAR"
-          echo "s|<Version>*</Version>|<Version>${{ env.version }}</Version>|"
-          sed -i "s|<Version>*</Version>|<Version>${{ steps.gitversion.outputs.FullSemVer }}</Version>|" DWIS.MicroState.Model/DWIS.MicroState.Model.csproj
-          sed -i "s|<Version>*</Version>|<Version>${{ steps.gitversion.outputs.FullSemVer }}</Version>|" DWIS.MicroState.ModelShared/DWIS.MicroState.ModelShared.csproj
+          echo "FullSemVer=myValue" >> "$GITHUB_OUTPUT"
+          echo "The value of FullSemVer is $FullSemVer"
+          echo "The value of FullSemVer is ${{ steps.gitversion.outputs.FullSemVer }}"
+          echo "s|<Version>*</Version>|<Version>${{ steps.gitversion.outputs.FullSemVer }}</Version>|"
+          #sed -i "s|<Version>*</Version>|<Version>${{ steps.gitversion.outputs.FullSemVer }}</Version>|" DWIS.MicroState.Model/DWIS.MicroState.Model.csproj
+          #sed -i "s|<Version>*</Version>|<Version>${{ steps.gitversion.outputs.FullSemVer }}</Version>|" DWIS.MicroState.ModelShared/DWIS.MicroState.ModelShared.csproj
           git add DWIS.MicroState.Model/*.csproj
           git add DWIS.MicroState.ModelShared/*.csproj
           git commit -m "Bump version to ${{ steps.gitversion.outputs.FullSemVer }}"
