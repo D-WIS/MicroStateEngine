@@ -73,11 +73,15 @@ jobs:
           echo "The value of FullSemVer is ${{ steps.gitversion.outputs.FullSemVer }}"
           echo "The value of AlphaFullSemVer is ${{ steps.addAlphaInVersion.outputs.AlphaFullSemVer }}"
 
-      - name: set version
-        id: setVersion
+      - name: set version model
+        id: setVersionModel
         run: |        
-          sed -i "s|<Version>*</Version>|<Version>${{ steps.addAlphaInVersion.outputs.AlphaFullSemVer }}</Version>|" DWIS.MicroState.Model/DWIS.MicroState.Model.csproj
-          sed -i "s|<Version>*</Version>|<Version>${{ steps.addAlphaInVersion.outputs.AlphaFullSemVer }}</Version>|" DWIS.MicroState.ModelShared/DWIS.MicroState.ModelShared.csproj
+          sed -i "s|<Version>.*</Version>|<Version>${{ steps.addAlphaInVersion.outputs.AlphaFullSemVer }}</Version>|" DWIS.MicroState.Model/DWIS.MicroState.Model.csproj
+
+      - name: set version model shared
+        id: setVersionModelShared
+        run: |        
+          sed -i "s|<Version>.*</Version>|<Version>${{ steps.addAlphaInVersion.outputs.AlphaFullSemVer }}</Version>|" DWIS.MicroState.ModelShared/DWIS.MicroState.ModelShared.csproj
 
       - name: commit and push
         id: commitPushWithNewVersion
