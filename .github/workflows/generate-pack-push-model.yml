@@ -64,6 +64,7 @@ jobs:
         run: |
           dotnet-gitversion /output json /showvariable FullSemVer
           echo "${{ steps.gitversion.outputs.FullSemVer }}"
+          echo "sed -i 's/<Version>*<\/Version>/<Version>${{ steps.gitversion.outputs.FullSemVer }}<\/Version>/' DWIS.MicroState.Model/DWIS.MicroState.Model.csproj"
           sed -i "s/<Version>*<\/Version>/<Version>${{ steps.gitversion.outputs.FullSemVer }}<\/Version>/" DWIS.MicroState.Model/DWIS.MicroState.Model.csproj
           sed -i "s/<Version>*<\/Version>/<Version>${{ steps.gitversion.outputs.FullSemVer }}<\/Version>/" DWIS.MicroState.ModelShared/DWIS.MicroState.ModelShared.csproj
           git add DWIS.MicroState.Model/*.csproj
