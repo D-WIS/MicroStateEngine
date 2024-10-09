@@ -13,7 +13,7 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version></Version>
+    <Version>2.0.1-26</Version>
   </PropertyGroup>
 
   <ItemGroup>
