@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          persist-credentials: false
+          persist-credentials: true
           fetch-depth: 0
 
       - name: Set up .NET
@@ -32,7 +32,6 @@ jobs:
       # Step 2: Commit and push changes from DWIS.MicroState.JsonSchema folder
       - name: Commit changes to DWIS.MicroState.JsonSchema
         run: |
-          echo "$GITHUB_TOKEN"
           git config --global user.name "EricCayeux"
           git config --global user.email "eric.cayeux@norceresearch.no"
           git add DWIS.MicroState.JsonSchema/*
