@@ -62,7 +62,7 @@ jobs:
       - name: Run GitVersion
         id: gitversion
         run: |
-          echo "FullSemVer=myValue" >> "$GITHUB_OUTPUT"
+          echo "FullSemVer=$(dotnet-gitversion /output json /showvariable FullSemVer)" >> "$GITHUB_OUTPUT"
       
       - name: echo version variable
         id: echoVersionVariable
@@ -71,7 +71,6 @@ jobs:
       - name: set version
         id: setVersion
         run: |        
-          echo "s|<Version>*</Version>|<Version>${{ steps.gitversion.outputs.FullSemVer }}</Version>|"
           #sed -i "s|<Version>*</Version>|<Version>${{ steps.gitversion.outputs.FullSemVer }}</Version>|" DWIS.MicroState.Model/DWIS.MicroState.Model.csproj
           #sed -i "s|<Version>*</Version>|<Version>${{ steps.gitversion.outputs.FullSemVer }}</Version>|" DWIS.MicroState.ModelShared/DWIS.MicroState.ModelShared.csproj
 
