@@ -65,7 +65,7 @@ jobs:
       
       - name: add alpha in version
         id: addAlphaInVersion
-        run: echo "AlphaFullSemVer=$(echo {{ steps.gitversion.outputs.FullSemVer }} | $sed -i 's/-/-alpha./' )" >> "$GITHUB_OUTPUT"
+        run: echo "AlphaFullSemVer=$(echo {{ steps.gitversion.outputs.FullSemVer }} | sed -i 's/-/-alpha./' )" >> "$GITHUB_OUTPUT"
 
       - name: echo version variable
         id: echoVersionVariable
