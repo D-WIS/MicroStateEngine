@@ -2,8 +2,8 @@ name: Generate - Pack - Push Model
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - 'DWIS.MicroState.Model/**'
   workflow_dispatch:
 
 jobs:
