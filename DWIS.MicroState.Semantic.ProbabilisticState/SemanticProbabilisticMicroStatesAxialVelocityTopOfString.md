@@ -1,4 +1,4 @@
-# Semantic Graph for `MicroStates`
+# Semantic Graph for property `AxialVelocityTopOfString` of class `ProbabilisticMicroStates`
 ```mermaid
 flowchart TD
 	 classDef typeClass fill:#f96;
