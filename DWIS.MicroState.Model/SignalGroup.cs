@@ -23,6 +23,11 @@ namespace DWIS.MicroState.Model
         private static string prefix_ = "DWIS:MicroState:SignalGroup:";
         private static string companyName_ = "DWIS";
 
+        /// <summary>
+        /// the timestamp in UTC when the thresholds have been updated
+        /// </summary>
+        public DateTime TimeStampUTC { get; set; }
+
         [AccessToVariable(CommonProperty.VariableAccessType.Readable)]
         [Mandatory(CommonProperty.MandatoryType.General)]
         [SemanticGaussianVariable("v_tos", "sigma_v_tos")]

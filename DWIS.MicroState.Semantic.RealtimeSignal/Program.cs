@@ -41,7 +41,18 @@ namespace DWIS.MicroState.Semantic.DeterministicState
                 dir = dir?.Parent?.Parent?.Parent;
                 if (dir != null)
                 {
-                    string tempFile = Path.Combine(dir.FullName, "SemanticQueriesAxialVelocityTopOfString.md");
+                    string tempFile = Path.Combine(dir.FullName, "SemanticSignals.md");
+                    using (StreamWriter writer = new StreamWriter(tempFile))
+                    {
+                        var manifestFile = GeneratorSparQLManifestFile.GetManifestFile(assembly, typeof(SignalGroup).FullName, "SignalGroup", "DWIS", "DWIS:");
+                        if (manifestFile != null)
+                        {
+                            GenerateMermaidForMD(writer, "SignalGroup", GeneratorSparQLManifestFile.GetMermaid(manifestFile));
+                        }
+                        var queries1 = GeneratorSparQLManifestFile.GetSparQLQueries(assembly, typeof(SignalGroup).FullName);
+                        GenerateSparQLForMD(writer, "SignalGroup", queries1);
+                    }
+                    tempFile = Path.Combine(dir.FullName, "SemanticQueriesAxialVelocityTopOfString.md");
                     using (StreamWriter writer = new StreamWriter(tempFile))
                     {
                         var queries1 = GeneratorSparQLManifestFile.GetSparQLQueries(assembly, typeof(SignalGroup).FullName, "AxialVelocityTopOfString");
