@@ -130,4 +130,5 @@ jobs:
           git add DWIS.MicroState.Semantic.Threshold/*.md
           git commit -m "auto-generated semantic description files"
           git push origin main
+        continue-on-error: true  # This allows the job to continue even if there are no changes
 
