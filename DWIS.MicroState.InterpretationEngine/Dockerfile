@@ -3,8 +3,12 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 
+RUN mkdir -p /app/config
+RUN chmod -R 755 /app/config
+
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
+COPY ["DWIS.MicroState.InterpretationEngine/config/Quickstarts.ReferenceClient.Config.xml", "/app/config/"]
 COPY ["DWIS.MicroState.Model/DWIS.MicroState.Model.csproj", "DWIS.MicroState.Model/"]
 COPY ["DWIS.MicroState.InterpretationEngine/DWIS.MicroState.InterpretationEngine.csproj", "DWIS.MicroState.InterpretationEngine/"]
 RUN dotnet restore "DWIS.MicroState.InterpretationEngine/DWIS.MicroState.InterpretationEngine.csproj"
