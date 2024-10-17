@@ -11,14 +11,14 @@ the `DWIS Microstates Interpretation Engine`.
 ## Getting started
 The `docker run` command for windows is:
 ```
-docker run --name microstatesengine -v C:\Volumes\DWISMicroStateSignalGenerator:/home digiwells/dwismicrostateinterpretationengine
+docker run --name microstatesengine -v C:\Volumes\DWISMicroStateSignalGenerator:/home digiwells/dwismicrostateinterpretationengine:stable
 ```
 where `C:\Volumes\DWISMicroStateSignalGenerator` is any folder where you would like to access the config.json file that is used to configure
 the application.
 
 and the `docker run` command for linux is:
 ```
-docker run --name microstatesengine -v /home/Volumes/DWISMicroStateSignalGenerator:/home digiwells/dwismicrostateinterpretationengine
+docker run --name microstatesengine -v /home/Volumes/DWISMicroStateSignalGenerator:/home digiwells/dwismicrostateinterpretationengine:stable
 ```
 where `/home/Volumes/DWISMicroStateSignalGenerator` is any directory where you would like to access the config.json file that is used to
 configure the application.
