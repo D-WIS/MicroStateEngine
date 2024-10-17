@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "TupleOfMicroStatesAndProbabilisticMicroStatesAndMicroStateIndex",
+  "title": "TupleOfMicroStatesAndProbabilisticMicroStatesAndMicroStateIndexAndSignalGroupAndThresholdsAndCalibrations",
   "type": "object",
   "additionalProperties": false,
   "properties": {
@@ -12,6 +12,15 @@
     },
     "Item3": {
       "$ref": "#/definitions/MicroStateIndex"
+    },
+    "Item4": {
+      "$ref": "#/definitions/SignalGroup"
+    },
+    "Item5": {
+      "$ref": "#/definitions/Thresholds"
+    },
+    "Item6": {
+      "$ref": "#/definitions/Calibrations"
     }
   },
   "definitions": {
@@ -738,6 +747,671 @@
         78,
         79
       ]
+    },
+    "SignalGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "TimeStampUTC": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "AxialVelocityTopOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "StandardDeviationAxialVelocityTopOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "RotationalVelocityTopOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "StandardDeviationRotationalVelocityTopOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "FlowTopOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "StandardDeviationFlowTopOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "TensionTopOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "ForceBottomTopDrive": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "ForceElevator": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "StandardDeviationTensionTopOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "PressureTopOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "StandardDeviationPressureTopOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "TorqueTopOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "StandardDeviationTorqueTopOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "FlowAnnulusOutlet": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "StandardDeviationFlowAnnulusOutlet": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "FlowCuttingsAnnulusOutlet": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "ForceBottomOfStringOnRock": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "StandardDeviationForceBottomOfStringOnRock": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "ForceHoleOpenerOnRock": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "RotationaVelocityBottomOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "StandardDeviationRotationalVelocityBottomOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "FlowCuttingsBottomHole": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "FlowCuttingsTopOfRateHole": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "AxialVelocityBottomOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "StandardDeviationAxialVelocityBottomOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "CurvilinearAbscissaBottomOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "CurvilinearAbscissaHoleOpener": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "CurvilinearAbscissaBottomOfHole": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "CurvilinearAbscissaTopOfRatHole": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "FlowBottomOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "StableFlowBottomOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "FlowHoleOpener": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "StableFlowHoleOpener": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "ForceOnLedge": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "ForceOnCuttingsBed": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "ForceDifferentialSticking": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "FlowFluidFromOrToFormation": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "FlowFormationFluidAnnulusOutlet": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "FlowCavingsFromFormation": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "FlowCavingsAnnulusOutlet": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "FlowPipeToAnnulus": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "WhirlRateBottomOfString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "WhirlRateHoleOpener": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "WhirlRateDrillString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "DifferentialPressureFloatValve": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "UnderReamerOpen": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "CirculationSubOpen": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "PortedFloatOpen": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "WhipstockAttached": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "PlugAttached": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "LinerAttached": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "FlowBoosterPump": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "StandardDeviationFlowBoosterPump": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "FlowBackPressurePump": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "StandardDeviationFlowBackPressurePump": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "OpeningMPDChoke": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "DifferentialPressureRCD": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "IsolationSealActivated": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "DifferentialPressureIsolationSeal": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "BearingAssemblyLatched": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "ScreenMPDChokePlugged": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "MainFlowPathMPDEstablished": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "AlternateFlowPathMPDEstablished": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "FlowFillPumpDGD": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "FlowLiftPumpDGD": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "StandardDeviationFlowFillPumpDGD": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "StandardDeviationFlowLiftPumpDGD": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "UCS": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "UCSSlope": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "MinimumTensionForTwistOffDetection": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "ToolJoint1Height": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "ToolJoint2Height": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "ToolJoint3Height": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "ToolJoint4Height": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "MinDrillHeight": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "StickUpHeight": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "HeaveCompensationInactive": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "HeaveCompensationActive": {
+          "$ref": "#/definitions/BernoulliDrillingProperty"
+        },
+        "PowerHFTO": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "LateralShockRateBHA": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "LateralShockRateDrillString": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "PeakToPeakAxialOscillations": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "PeakToPeakTorsionalOscillations": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "AxialStickDuration": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "TorsionalStickDuration": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "MaximumTorqueGradient": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "MaximumAnnularPressureGradient": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        },
+        "MaximumStringPressureGradient": {
+          "$ref": "#/definitions/GaussianDrillingProperty"
+        }
+      }
+    },
+    "GaussianDrillingProperty": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ContinuousDrillingProperty"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "Value": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/definitions/ContinuousDistribution"
+                }
+              ]
+            },
+            "GaussianValue": {
+              "$ref": "#/definitions/GaussianDistribution"
+            },
+            "Mean": {
+              "type": [
+                "null",
+                "number"
+              ],
+              "format": "double"
+            },
+            "StandardDeviation": {
+              "type": [
+                "null",
+                "number"
+              ],
+              "format": "double"
+            }
+          }
+        }
+      ]
+    },
+    "ContinuousDistribution": {
+      "type": "object",
+      "x-abstract": true,
+      "additionalProperties": false,
+      "properties": {
+        "MinValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "MaxValue": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "GaussianDistribution": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ContinuousDistribution"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "Mean": {
+              "type": [
+                "null",
+                "number"
+              ],
+              "format": "double"
+            },
+            "StandardDeviation": {
+              "type": [
+                "null",
+                "number"
+              ],
+              "format": "double"
+            }
+          }
+        }
+      ]
+    },
+    "ContinuousDrillingProperty": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DrillingProperty"
+        },
+        {
+          "type": "object",
+          "x-abstract": true,
+          "additionalProperties": false,
+          "properties": {
+            "Value": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/definitions/ContinuousDistribution"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "ScalarDrillingProperty": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ContinuousDrillingProperty"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "Value": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/definitions/ContinuousDistribution"
+                }
+              ]
+            },
+            "DiracDistributionValue": {
+              "$ref": "#/definitions/DiracDistribution"
+            },
+            "ScalarValue": {
+              "type": [
+                "null",
+                "number"
+              ],
+              "format": "double"
+            }
+          }
+        }
+      ]
+    },
+    "DiracDistribution": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ContinuousDistribution"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "Value": {
+              "type": [
+                "null",
+                "number"
+              ],
+              "format": "double"
+            }
+          }
+        }
+      ]
+    },
+    "Thresholds": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "TimeStampUTC": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ZeroAxialVelocityTopOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "StableAxialVelocityTopOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroRotationalVelocityTopOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "StableRotationalVelocityTopOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroFlowTopOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "StableFlowTopOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroTensionTopOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "StableTensionTopOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroPressureTopOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "StablePressureTopOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroTorqueTopOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "StableTorqueTopOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroFlowAnnulusOutletThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "StableFlowAnnulusOutletThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroBottomOfStringRockForceThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "StableBottomOfStringRockForceThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroRotationalVelocityBottomOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "StableRotationalVelocityBottomOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroAxialVelocityBottomOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "StableAxialVelocityBottomOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroFlowBottomOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "StableFlowBottomOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroFlowHoleOpenerThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "StableFlowHoleOpenerThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroHoleOpenerOnRockForceThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "MinimumPressureFloatValve": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroFlowBoosterPumpThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "StableFlowBoosterPumpThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroFlowBackPressurePumpThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "StableFlowBackPressurePumpThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "MinimumDifferentialPressureRCDSealingThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "MinimumDifferentialPressureSealBalanceThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroFlowFillPumpDGDThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "StableFlowFillPumpDGDThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroFlowLiftPumpDGDThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "StableFlowLiftPumpDGDThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroCuttingsFlowAnnulusOutletThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroCuttingsFlowBottomHoleThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ZeroCuttingsFlowTopOfRatHoleThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "HardStringerThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ChangeOfFormationUCSSlopeThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ForceOnLedgeThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ForceOnCuttingsBedThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "ForceDifferentialStickingThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "FluidFlowFormationThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "FlowCavingsFromFormationThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "WhirlRateBottomOfStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "WhirlRateHoleOpenerThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "WhirlRateDrillStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "PowerHFTOThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "LateralShockRateBHAThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "LateralShockRateDrillStringThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "PeakToPeakAxialOscillationsThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "PeakToPeakTorsionalOscillationsThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "AxialStickDurationThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "TorsionalStickDurationThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "FlowPipeToAnnulusThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "AtDrillHeightThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "AtStickUpHeightThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "TorqueGradientThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "AnnulusPressureGradientThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        },
+        "StringPressureGradientThreshold": {
+          "$ref": "#/definitions/ScalarDrillingProperty"
+        }
+      }
+    },
+    "Calibrations": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Values": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/CalibrationParameters"
+            }
+          }
+        }
+      }
+    },
+    "CalibrationParameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Bias": {
+          "type": "number",
+          "format": "double"
+        },
+        "Scaling": {
+          "type": "number",
+          "format": "double"
+        },
+        "Delay": {
+          "type": "number",
+          "format": "double"
+        }
+      }
     }
   }
 }

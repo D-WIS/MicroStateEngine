@@ -355,5 +355,10 @@ This service depends on:
 - OSDC.DotnetLibraries.Drilling.DrillingProperties
 
 ## References
-Cayeux, Eric, Macpherson, John, Pirovolou, Dimitrios, Laing, Moray, and Fred Florence. "A General Framework to Describe Drilling Process States." 
+There are two references for the `DWIS Microstates Interpretation Engine`:
+- Cayeux, Eric, Macpherson, John, Pirovolou, Dimitrios, Laing, Moray, and Fred Florence. "A General Framework to Describe Drilling Process States." 
 Paper presented at the SPE/IADC International Drilling Conference and Exhibition, Stavanger, Norway, March 2023. doi: https://doi.org/10.2118/212537-MS
+- Cayeux, E., Macpherson, J., Pirovolou, D., Laing, M., and F. Florence. "A General Framework to Describe Drilling Process States." SPE J. (2024;): doi: https://doi.org/10.2118/212537-PA
+
+## Contributors
+The code of the `DWIS Microstates Interpretation Engine` is developed and maintained by Eric Cayeux (NORCE Norwegian Research Center).

@@ -18,6 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.github\workflows\docker-build-push-interpreter.yml = .github\workflows\docker-build-push-interpreter.yml
 		generate-pack-push-model.yml = generate-pack-push-model.yml
 		README.md = README.md
+		.dockerhub\ReadmeDockerhub.md = .dockerhub\ReadmeDockerhub.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.Semantic.DeterministicState", "DWIS.MicroState.Semantic.DeterministicState\DWIS.MicroState.Semantic.DeterministicState.csproj", "{560C1C6F-C7E6-4649-A9A3-8FDB72A5CAD3}"
@@ -35,6 +36,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.SignalsGenerator.Test", "DWIS.MicroState.SignalGenerator.Test\DWIS.MicroState.SignalsGenerator.Test.csproj", "{C9DEC2BD-3492-48FF-B75F-F10F468CCEBA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.ThresholdsGenerator.Test", "DWIS.MicroState.ThresholdsGenerator.Test\DWIS.MicroState.ThresholdsGenerator.Test.csproj", "{BC5763FF-578A-4B4E-ACD2-56EBB61DEE85}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.UnitTests", "DWIS.MicroState.UnitTests\DWIS.MicroState.UnitTests.csproj", "{30380A68-09C1-4CBB-80F6-61AB2A1E60E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,6 +97,10 @@ Global
 		{BC5763FF-578A-4B4E-ACD2-56EBB61DEE85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC5763FF-578A-4B4E-ACD2-56EBB61DEE85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC5763FF-578A-4B4E-ACD2-56EBB61DEE85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30380A68-09C1-4CBB-80F6-61AB2A1E60E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30380A68-09C1-4CBB-80F6-61AB2A1E60E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30380A68-09C1-4CBB-80F6-61AB2A1E60E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30380A68-09C1-4CBB-80F6-61AB2A1E60E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

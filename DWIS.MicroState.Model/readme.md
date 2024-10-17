@@ -1,11 +1,12 @@
 This package is developed as part of the Society of Petroleum (SPE) Drilling and Wells Interoperability Standards (D-WIS), a sub-committee of the Drilling System Automation Technical Section.
 This package contains the data model used by the D-WIS microstate interpretation engine.
 
-There are 4 classes:
+There are 5 classes:
 - `MicroStates`
 - `ProbabilisticMicroStates`
 - `SignalGroup`
 - `Thresholds`
+- `Calibrations`
 
 # Microstates
 The class `MicroStates` is used to represent the deterministic version of the interpreted drilling process microstates. It has a TimeStampUTC property and 5 32 bit integers to store the encoded values of the microstates.
@@ -516,3 +517,9 @@ There are three methods that are defined in the class `SignalGroup` to interact 
 is the case, it only returns a `QueryResult` place holder. The method `SendToBlackboard` is used for updating the value on the `Blackboard`. The `QueryResult` place holder
 must be passed as an argument of the function. There is also another `RegisterToBlackboard` method that allows to register all the individual signals defined in the `SignalGroup`
 class. This method can be used by a digital twin that generates individal signals instead of a group of signals.
+
+# Calibrations
+The class `Calibrations` defines a dictionary of `CalibrationParameters`. A `CalibrationParameters` is a class that define the `Scaling`, `Bias` and `Delay` that 
+are necessary to minimize the differences of a series of measurements compared to other series of measurements produced by other digital twins. The dictionary has 
+two levels. The first level concerns the properties of the `SignalGroup` classes. Then for each `DrillingProperty` in the `SignalGroup` that has a series of
+data providers, there is a dictionary of `CalibrationParameters` for each of the sources. A data source is characterized by an object of the type `DWISNodeID`.

@@ -655,7 +655,577 @@ namespace DWIS.MicroState.ModelShared
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.9.0.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class TupleOfMicroStatesAndProbabilisticMicroStatesAndMicroStateIndex
+    public partial class SignalGroup
+    {
+        [Newtonsoft.Json.JsonProperty("TimeStampUTC", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTimeOffset TimeStampUTC { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("AxialVelocityTopOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty AxialVelocityTopOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StandardDeviationAxialVelocityTopOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty StandardDeviationAxialVelocityTopOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("RotationalVelocityTopOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty RotationalVelocityTopOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StandardDeviationRotationalVelocityTopOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty StandardDeviationRotationalVelocityTopOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowTopOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty FlowTopOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StandardDeviationFlowTopOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty StandardDeviationFlowTopOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("TensionTopOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty TensionTopOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ForceBottomTopDrive", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty ForceBottomTopDrive { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ForceElevator", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty ForceElevator { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StandardDeviationTensionTopOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty StandardDeviationTensionTopOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("PressureTopOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty PressureTopOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StandardDeviationPressureTopOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty StandardDeviationPressureTopOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("TorqueTopOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty TorqueTopOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StandardDeviationTorqueTopOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty StandardDeviationTorqueTopOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowAnnulusOutlet", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty FlowAnnulusOutlet { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StandardDeviationFlowAnnulusOutlet", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty StandardDeviationFlowAnnulusOutlet { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowCuttingsAnnulusOutlet", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty FlowCuttingsAnnulusOutlet { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ForceBottomOfStringOnRock", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty ForceBottomOfStringOnRock { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StandardDeviationForceBottomOfStringOnRock", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty StandardDeviationForceBottomOfStringOnRock { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ForceHoleOpenerOnRock", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty ForceHoleOpenerOnRock { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("RotationaVelocityBottomOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty RotationaVelocityBottomOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StandardDeviationRotationalVelocityBottomOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty StandardDeviationRotationalVelocityBottomOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowCuttingsBottomHole", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty FlowCuttingsBottomHole { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowCuttingsTopOfRateHole", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty FlowCuttingsTopOfRateHole { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("AxialVelocityBottomOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty AxialVelocityBottomOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StandardDeviationAxialVelocityBottomOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty StandardDeviationAxialVelocityBottomOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("CurvilinearAbscissaBottomOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty CurvilinearAbscissaBottomOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("CurvilinearAbscissaHoleOpener", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty CurvilinearAbscissaHoleOpener { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("CurvilinearAbscissaBottomOfHole", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty CurvilinearAbscissaBottomOfHole { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("CurvilinearAbscissaTopOfRatHole", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty CurvilinearAbscissaTopOfRatHole { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowBottomOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty FlowBottomOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StableFlowBottomOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty StableFlowBottomOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowHoleOpener", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty FlowHoleOpener { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StableFlowHoleOpener", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty StableFlowHoleOpener { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ForceOnLedge", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty ForceOnLedge { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ForceOnCuttingsBed", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty ForceOnCuttingsBed { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ForceDifferentialSticking", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty ForceDifferentialSticking { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowFluidFromOrToFormation", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty FlowFluidFromOrToFormation { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowFormationFluidAnnulusOutlet", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty FlowFormationFluidAnnulusOutlet { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowCavingsFromFormation", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty FlowCavingsFromFormation { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowCavingsAnnulusOutlet", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty FlowCavingsAnnulusOutlet { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowPipeToAnnulus", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty FlowPipeToAnnulus { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("WhirlRateBottomOfString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty WhirlRateBottomOfString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("WhirlRateHoleOpener", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty WhirlRateHoleOpener { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("WhirlRateDrillString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty WhirlRateDrillString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("DifferentialPressureFloatValve", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty DifferentialPressureFloatValve { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("UnderReamerOpen", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public BernoulliDrillingProperty UnderReamerOpen { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("CirculationSubOpen", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public BernoulliDrillingProperty CirculationSubOpen { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("PortedFloatOpen", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public BernoulliDrillingProperty PortedFloatOpen { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("WhipstockAttached", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public BernoulliDrillingProperty WhipstockAttached { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("PlugAttached", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public BernoulliDrillingProperty PlugAttached { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("LinerAttached", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public BernoulliDrillingProperty LinerAttached { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowBoosterPump", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty FlowBoosterPump { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StandardDeviationFlowBoosterPump", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty StandardDeviationFlowBoosterPump { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowBackPressurePump", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty FlowBackPressurePump { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StandardDeviationFlowBackPressurePump", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty StandardDeviationFlowBackPressurePump { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("OpeningMPDChoke", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty OpeningMPDChoke { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("DifferentialPressureRCD", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty DifferentialPressureRCD { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("IsolationSealActivated", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public BernoulliDrillingProperty IsolationSealActivated { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("DifferentialPressureIsolationSeal", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty DifferentialPressureIsolationSeal { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("BearingAssemblyLatched", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public BernoulliDrillingProperty BearingAssemblyLatched { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ScreenMPDChokePlugged", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public BernoulliDrillingProperty ScreenMPDChokePlugged { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("MainFlowPathMPDEstablished", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public BernoulliDrillingProperty MainFlowPathMPDEstablished { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("AlternateFlowPathMPDEstablished", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public BernoulliDrillingProperty AlternateFlowPathMPDEstablished { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowFillPumpDGD", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty FlowFillPumpDGD { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowLiftPumpDGD", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty FlowLiftPumpDGD { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StandardDeviationFlowFillPumpDGD", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty StandardDeviationFlowFillPumpDGD { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StandardDeviationFlowLiftPumpDGD", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty StandardDeviationFlowLiftPumpDGD { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("UCS", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty UCS { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("UCSSlope", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty UCSSlope { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("MinimumTensionForTwistOffDetection", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty MinimumTensionForTwistOffDetection { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ToolJoint1Height", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty ToolJoint1Height { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ToolJoint2Height", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty ToolJoint2Height { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ToolJoint3Height", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty ToolJoint3Height { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ToolJoint4Height", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty ToolJoint4Height { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("MinDrillHeight", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty MinDrillHeight { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StickUpHeight", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty StickUpHeight { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("HeaveCompensationInactive", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public BernoulliDrillingProperty HeaveCompensationInactive { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("HeaveCompensationActive", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public BernoulliDrillingProperty HeaveCompensationActive { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("PowerHFTO", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty PowerHFTO { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("LateralShockRateBHA", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty LateralShockRateBHA { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("LateralShockRateDrillString", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty LateralShockRateDrillString { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("PeakToPeakAxialOscillations", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty PeakToPeakAxialOscillations { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("PeakToPeakTorsionalOscillations", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty PeakToPeakTorsionalOscillations { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("AxialStickDuration", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty AxialStickDuration { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("TorsionalStickDuration", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty TorsionalStickDuration { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("MaximumTorqueGradient", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty MaximumTorqueGradient { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("MaximumAnnularPressureGradient", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty MaximumAnnularPressureGradient { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("MaximumStringPressureGradient", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDrillingProperty MaximumStringPressureGradient { get; set; }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.9.0.0 (Newtonsoft.Json v9.0.0.0)")]
+    public partial class GaussianDrillingProperty : ContinuousDrillingProperty
+    {
+        [Newtonsoft.Json.JsonProperty("Value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ContinuousDistribution Value { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("GaussianValue", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public GaussianDistribution GaussianValue { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Mean", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double? Mean { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StandardDeviation", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double? StandardDeviation { get; set; }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.9.0.0 (Newtonsoft.Json v9.0.0.0)")]
+    public abstract partial class ContinuousDistribution
+    {
+        [Newtonsoft.Json.JsonProperty("MinValue", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double MinValue { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("MaxValue", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double MaxValue { get; set; }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.9.0.0 (Newtonsoft.Json v9.0.0.0)")]
+    public partial class GaussianDistribution : ContinuousDistribution
+    {
+        [Newtonsoft.Json.JsonProperty("Mean", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double? Mean { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StandardDeviation", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double? StandardDeviation { get; set; }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.9.0.0 (Newtonsoft.Json v9.0.0.0)")]
+    public abstract partial class ContinuousDrillingProperty : DrillingProperty
+    {
+        [Newtonsoft.Json.JsonProperty("Value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ContinuousDistribution Value { get; set; }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.9.0.0 (Newtonsoft.Json v9.0.0.0)")]
+    public partial class ScalarDrillingProperty : ContinuousDrillingProperty
+    {
+        [Newtonsoft.Json.JsonProperty("Value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ContinuousDistribution Value { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("DiracDistributionValue", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public DiracDistribution DiracDistributionValue { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ScalarValue", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double? ScalarValue { get; set; }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.9.0.0 (Newtonsoft.Json v9.0.0.0)")]
+    public partial class DiracDistribution : ContinuousDistribution
+    {
+        [Newtonsoft.Json.JsonProperty("Value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double? Value { get; set; }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.9.0.0 (Newtonsoft.Json v9.0.0.0)")]
+    public partial class Thresholds
+    {
+        [Newtonsoft.Json.JsonProperty("TimeStampUTC", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTimeOffset TimeStampUTC { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroAxialVelocityTopOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroAxialVelocityTopOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StableAxialVelocityTopOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty StableAxialVelocityTopOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroRotationalVelocityTopOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroRotationalVelocityTopOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StableRotationalVelocityTopOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty StableRotationalVelocityTopOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroFlowTopOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroFlowTopOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StableFlowTopOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty StableFlowTopOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroTensionTopOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroTensionTopOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StableTensionTopOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty StableTensionTopOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroPressureTopOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroPressureTopOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StablePressureTopOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty StablePressureTopOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroTorqueTopOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroTorqueTopOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StableTorqueTopOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty StableTorqueTopOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroFlowAnnulusOutletThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroFlowAnnulusOutletThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StableFlowAnnulusOutletThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty StableFlowAnnulusOutletThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroBottomOfStringRockForceThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroBottomOfStringRockForceThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StableBottomOfStringRockForceThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty StableBottomOfStringRockForceThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroRotationalVelocityBottomOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroRotationalVelocityBottomOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StableRotationalVelocityBottomOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty StableRotationalVelocityBottomOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroAxialVelocityBottomOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroAxialVelocityBottomOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StableAxialVelocityBottomOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty StableAxialVelocityBottomOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroFlowBottomOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroFlowBottomOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StableFlowBottomOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty StableFlowBottomOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroFlowHoleOpenerThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroFlowHoleOpenerThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StableFlowHoleOpenerThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty StableFlowHoleOpenerThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroHoleOpenerOnRockForceThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroHoleOpenerOnRockForceThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("MinimumPressureFloatValve", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty MinimumPressureFloatValve { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroFlowBoosterPumpThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroFlowBoosterPumpThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StableFlowBoosterPumpThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty StableFlowBoosterPumpThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroFlowBackPressurePumpThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroFlowBackPressurePumpThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StableFlowBackPressurePumpThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty StableFlowBackPressurePumpThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("MinimumDifferentialPressureRCDSealingThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty MinimumDifferentialPressureRCDSealingThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("MinimumDifferentialPressureSealBalanceThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty MinimumDifferentialPressureSealBalanceThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroFlowFillPumpDGDThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroFlowFillPumpDGDThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StableFlowFillPumpDGDThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty StableFlowFillPumpDGDThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroFlowLiftPumpDGDThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroFlowLiftPumpDGDThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StableFlowLiftPumpDGDThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty StableFlowLiftPumpDGDThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroCuttingsFlowAnnulusOutletThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroCuttingsFlowAnnulusOutletThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroCuttingsFlowBottomHoleThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroCuttingsFlowBottomHoleThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ZeroCuttingsFlowTopOfRatHoleThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ZeroCuttingsFlowTopOfRatHoleThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("HardStringerThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty HardStringerThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ChangeOfFormationUCSSlopeThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ChangeOfFormationUCSSlopeThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ForceOnLedgeThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ForceOnLedgeThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ForceOnCuttingsBedThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ForceOnCuttingsBedThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("ForceDifferentialStickingThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty ForceDifferentialStickingThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FluidFlowFormationThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty FluidFlowFormationThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowCavingsFromFormationThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty FlowCavingsFromFormationThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("WhirlRateBottomOfStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty WhirlRateBottomOfStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("WhirlRateHoleOpenerThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty WhirlRateHoleOpenerThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("WhirlRateDrillStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty WhirlRateDrillStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("PowerHFTOThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty PowerHFTOThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("LateralShockRateBHAThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty LateralShockRateBHAThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("LateralShockRateDrillStringThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty LateralShockRateDrillStringThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("PeakToPeakAxialOscillationsThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty PeakToPeakAxialOscillationsThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("PeakToPeakTorsionalOscillationsThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty PeakToPeakTorsionalOscillationsThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("AxialStickDurationThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty AxialStickDurationThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("TorsionalStickDurationThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty TorsionalStickDurationThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("FlowPipeToAnnulusThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty FlowPipeToAnnulusThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("AtDrillHeightThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty AtDrillHeightThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("AtStickUpHeightThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty AtStickUpHeightThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("TorqueGradientThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty TorqueGradientThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("AnnulusPressureGradientThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty AnnulusPressureGradientThreshold { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("StringPressureGradientThreshold", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ScalarDrillingProperty StringPressureGradientThreshold { get; set; }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.9.0.0 (Newtonsoft.Json v9.0.0.0)")]
+    public partial class Calibrations
+    {
+        [Newtonsoft.Json.JsonProperty("Values", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.IDictionary<string, System.Collections.Generic.IDictionary<string, CalibrationParameters>> Values { get; set; }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.9.0.0 (Newtonsoft.Json v9.0.0.0)")]
+    public partial class CalibrationParameters
+    {
+        [Newtonsoft.Json.JsonProperty("Bias", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double Bias { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Scaling", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double Scaling { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Delay", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double Delay { get; set; }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.9.0.0 (Newtonsoft.Json v9.0.0.0)")]
+    public partial class TupleOfMicroStatesAndProbabilisticMicroStatesAndMicroStateIndexAndSignalGroupAndThresholdsAndCalibrations
     {
         [Newtonsoft.Json.JsonProperty("Item1", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public MicroStates Item1 { get; set; }
@@ -665,6 +1235,15 @@ namespace DWIS.MicroState.ModelShared
 
         [Newtonsoft.Json.JsonProperty("Item3", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public MicroStateIndex Item3 { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Item4", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public SignalGroup Item4 { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Item5", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public Thresholds Item5 { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Item6", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public Calibrations Item6 { get; set; }
 
 
     }

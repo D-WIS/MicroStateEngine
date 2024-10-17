@@ -6,6 +6,8 @@ using DWIS.API.DTO;
 using System.Reflection;
 using OSDC.DotnetLibraries.Drilling.DrillingProperties;
 using DWIS.Client.ReferenceImplementation.OPCFoundation;
+using MathNet.Numerics;
+using System.ComponentModel;
 
 namespace DWIS.MicroState.InterpretationEngine
 {
@@ -20,13 +22,19 @@ namespace DWIS.MicroState.InterpretationEngine
         private QueryResult? deterministicMicroStatePlaceHolder_ = null;
 
         private ProbabilisticMicroStates currentProbabilisticMicroStates_ = new ProbabilisticMicroStates();
-        private QueryResult? probabilisticMicroStatePlaceHolders_ = null;
+        private QueryResult? probabilisticMicroStatePlaceHolder_ = null;
+
+        private Calibrations currentCalibrations_ = new Calibrations();
+        private QueryResult? calibrationsPlaceHolder_ = null;
+
+        private FusedSignalGroup fusedSignalGroup_ = new FusedSignalGroup();
+        private QueryResult? fusedSignalGroupPlaceHolder_ = null;
 
         private Thresholds microStateThresholds_ = new Thresholds();
-        private Dictionary<string, List<AcquiredSignals>> microStateThresholdsPlaceHolders_ = new Dictionary<string, List<AcquiredSignals>>();
+        private List<AcquiredSignals> microStateThresholdsPlaceHolders_ = new List<AcquiredSignals>();
 
-        private SignalGroup microStateSignalInputs_ = new SignalGroup();
-        private Dictionary<string, List<AcquiredSignals>> microStateSignalPlaceHolders_ = new Dictionary<string, List<AcquiredSignals>>();
+        private List<AcquiredSignals> microStateSignalPlaceHolders_ = new List<AcquiredSignals>();
+        private Dictionary<DWISNodeID, CircularBuffer<SignalGroup>> signalGroups_ = new Dictionary<DWISNodeID, CircularBuffer<SignalGroup>>();
 
         private object lock_ = new object();
 
@@ -49,9 +57,8 @@ namespace DWIS.MicroState.InterpretationEngine
                 {
                     DefaultDWISClientConfiguration defaultDWISClientConfiguration = new DefaultDWISClientConfiguration();
                     defaultDWISClientConfiguration.UseWebAPI = false;
-                    defaultDWISClientConfiguration.ServerAddress = Configuration.OPCUAURL; // "opc.tcp://localhost:48030";
+                    defaultDWISClientConfiguration.ServerAddress = Configuration.OPCUAURL; 
                     DWISClient_ = new DWISClientOPCF(defaultDWISClientConfiguration, _loggerDWISClient); 
-                    // new DWISClient(defaultDWISClientConfiguration, new UAApplicationConfiguration(), null, null, new DWIS.OPCUA.UALicenseManager.LicenseManager());
                 }
             }
             catch (Exception e)
@@ -63,22 +70,52 @@ namespace DWIS.MicroState.InterpretationEngine
             }
         }
 
-        private void DefineMicroStateSemantic()
+        private void DefineSemantic()
         {
             if (DWISClient_ != null && DWISClient_.Connected)
             {
                 if (currentProbabilisticMicroStates_ != null)
                 {
-                    currentProbabilisticMicroStates_.RegisterToBlackboard(DWISClient_, ref probabilisticMicroStatePlaceHolders_);
+                    currentProbabilisticMicroStates_.RegisterToBlackboard(DWISClient_, ref probabilisticMicroStatePlaceHolder_);
                 }
                 currentDeterministicMicroStates_.RegisterToBlackboard(DWISClient_, ref deterministicMicroStatePlaceHolder_);
+                if (currentCalibrations_ != null)
+                {
+                    currentCalibrations_.RegisterToBlackboard(DWISClient_, ref calibrationsPlaceHolder_);
+                }
+                if (fusedSignalGroup_ != null)
+                {
+                    fusedSignalGroup_.RegisterToBlackboard(DWISClient_, ref fusedSignalGroupPlaceHolder_);
+                }
             }
         }
         private void AcquireMicroStatesThresholds()
         {
             if (DWISClient_ != null && DWISClient_.Connected)
             {
-                microStateThresholds_.RegisterToBlackboard(DWISClient_, microStateThresholdsPlaceHolders_);
+                Type type = typeof(Thresholds);
+                Assembly assembly = type.Assembly;
+                var queries = GeneratorSparQLManifestFile.GetSparQLQueries(assembly, type.FullName);
+                if (queries != null && queries.Count > 0)
+                {
+                    if (microStateThresholdsPlaceHolders_ == null)
+                    {
+                        microStateThresholdsPlaceHolders_ = new List<AcquiredSignals>();
+                    }
+                    microStateThresholdsPlaceHolders_.Clear();
+                    foreach (var kvp in queries)
+                    {
+                        if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Value.SparQL))
+                        {
+                            string sparql = kvp.Value.SparQL;
+                            var result = DWISClient_.GetQueryResult(sparql);
+                            if (result != null && result.Results != null && result.Results.Count > 0)
+                            {
+                                microStateThresholdsPlaceHolders_.Add(AcquiredSignals.CreateWithSubscription(new string[] { kvp.Value.SparQL }, new string[] { kvp.Key }, 0, DWISClient_));
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -86,97 +123,76 @@ namespace DWIS.MicroState.InterpretationEngine
         {
             if (DWISClient_ != null && DWISClient_.Connected)
             {
-                microStateSignalInputs_.RegisterToBlackboard(DWISClient_, microStateSignalPlaceHolders_);
+                Type type = typeof(SignalGroup);
+                Assembly assembly = type.Assembly;
+                var queries = GeneratorSparQLManifestFile.GetSparQLQueries(assembly, type.FullName);
+                if (queries != null && queries.Count > 0)
+                {
+                    if (microStateSignalPlaceHolders_ == null)
+                    {
+                        microStateSignalPlaceHolders_ = new List<AcquiredSignals>();
+                    }
+                    microStateSignalPlaceHolders_.Clear();
+                    foreach (var kvp in queries)
+                    {
+                        if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Value.SparQL))
+                        {
+                            string sparql = kvp.Value.SparQL;
+                            var result = DWISClient_.GetQueryResult(sparql);
+                            if (result != null && result.Results != null && result.Results.Count > 0)
+                            {
+                                microStateSignalPlaceHolders_.Add(AcquiredSignals.CreateWithSubscription(new string[] { kvp.Value.SparQL }, new string[] { kvp.Key }, 0, DWISClient_));
+                            }
+                        }
+                    }
+                };
             }
         }
         private void RefreshThresholds()
         {
-            if (microStateThresholds_ != null && microStateThresholdsPlaceHolders_ != null)
+            bool exists = false;
+            lock (lock_)
             {
-                foreach (var kvp in microStateThresholdsPlaceHolders_)
+                exists = microStateThresholds_ != null;
+            }
+            if (exists && microStateThresholdsPlaceHolders_ != null)
+            {
+                if (microStateThresholdsPlaceHolders_ != null && microStateThresholdsPlaceHolders_.Count > 0)
                 {
-                    if (!string.IsNullOrEmpty(kvp.Key) && kvp.Value != null && kvp.Value.Count > 0)
+                    List<Thresholds> thresholds = new List<Thresholds>();
+                    foreach (var acquiredSignal in microStateThresholdsPlaceHolders_)
                     {
-                        Type type = microStateThresholdsPlaceHolders_.GetType();
-                        PropertyInfo? propertyInfo = type.GetProperty(kvp.Key);
-                        if (propertyInfo != null)
+                        if (acquiredSignal != null && acquiredSignal.Count > 0)
                         {
-                            object? obj = propertyInfo.GetValue(microStateThresholds_);
-                            if (obj is not null and DrillingProperty drillingProperty)
+                            foreach (var kvp in acquiredSignal)
                             {
-                                if (drillingProperty is GaussianDrillingProperty gaussianDrillingProperty)
+                                if (kvp.Value != null && kvp.Value.Count > 0 && kvp.Value[0] != null)
                                 {
-                                    double defaultStandardDeviation = 1e-6;
-                                    List<byte>? sensorOptions = null;
-                                    List<byte>? fullScaleOptions = null;
-                                    var optionalFacts = propertyInfo.GetCustomAttributes<OptionalFactAttribute>();
-                                    var semanticSensor = propertyInfo.GetCustomAttribute<SemanticSensorVariableAttribute>();
-                                    var semanticFullScale = propertyInfo.GetCustomAttribute<SemanticFullScaleVariableAttribute>();
-                                    var semanticGaussian = propertyInfo.GetCustomAttribute<SemanticGaussianVariableAttribute>();
-                                    if (semanticGaussian != null && semanticGaussian.DefaultStandardDeviation != null)
+                                    string? jsonString = kvp.Value[0].GetValue<string>();
+                                    if (!string.IsNullOrEmpty(jsonString))
                                     {
-                                        defaultStandardDeviation = semanticGaussian.DefaultStandardDeviation.Value;
-                                    }
-                                    if (optionalFacts != null && semanticSensor != null && !string.IsNullOrEmpty(semanticSensor.PrecisionVariable) && !string.IsNullOrEmpty(semanticSensor.AccuracyVariable))
-                                    {
-                                        List<byte> options = [];
-                                        foreach (var option in optionalFacts)
+                                        Thresholds? threshold = JsonConvert.DeserializeObject<Thresholds>(jsonString);
+                                        if (threshold != null)
                                         {
-                                            if (option != null && !string.IsNullOrEmpty(option.SubjectName) && option.SubjectName.Equals(semanticSensor.PrecisionVariable) && !options.Contains(option.GroupIndex))
-                                            {
-                                                options.Add(option.GroupIndex);
-                                            }
-                                            if (option != null && !string.IsNullOrEmpty(option.ObjectName) && option.ObjectName.Equals(semanticSensor.PrecisionVariable) && !options.Contains(option.GroupIndex))
-                                            {
-                                                options.Add(option.GroupIndex);
-                                            }
-                                            if (option != null && !string.IsNullOrEmpty(option.SubjectName) && option.SubjectName.Equals(semanticSensor.AccuracyVariable) && !options.Contains(option.GroupIndex))
-                                            {
-                                                options.Add(option.GroupIndex);
-                                            }
-                                            if (option != null && !string.IsNullOrEmpty(option.ObjectName) && option.ObjectName.Equals(semanticSensor.AccuracyVariable) && !options.Contains(option.GroupIndex))
-                                            {
-                                                options.Add(option.GroupIndex);
-                                            }
-                                        }
-                                        if (options.Count > 0)
-                                        {
-                                            sensorOptions = options;
+                                            thresholds.Add(threshold);
                                         }
                                     }
-                                    if (optionalFacts != null && semanticFullScale != null && !string.IsNullOrEmpty(semanticFullScale.FullScaleVariable) && !string.IsNullOrEmpty(semanticFullScale.ProportionErrorVariable))
-                                    {
-                                        List<byte> options = [];
-                                        foreach (var option in optionalFacts)
-                                        {
-                                            if (option != null && !string.IsNullOrEmpty(option.SubjectName) && option.SubjectName.Equals(semanticFullScale.FullScaleVariable) && !options.Contains(option.GroupIndex))
-                                            {
-                                                options.Add(option.GroupIndex);
-                                            }
-                                            if (option != null && !string.IsNullOrEmpty(option.ObjectName) && option.ObjectName.Equals(semanticFullScale.FullScaleVariable) && !options.Contains(option.GroupIndex))
-                                            {
-                                                options.Add(option.GroupIndex);
-                                            }
-                                            if (option != null && !string.IsNullOrEmpty(option.SubjectName) && option.SubjectName.Equals(semanticFullScale.ProportionErrorVariable) && !options.Contains(option.GroupIndex))
-                                            {
-                                                options.Add(option.GroupIndex);
-                                            }
-                                            if (option != null && !string.IsNullOrEmpty(option.ObjectName) && option.ObjectName.Equals(semanticFullScale.ProportionErrorVariable) && !options.Contains(option.GroupIndex))
-                                            {
-                                                options.Add(option.GroupIndex);
-                                            }
-                                        }
-                                        if (options.Count > 0)
-                                        {
-                                            fullScaleOptions = options;
-                                        }
-                                    }
-                                    gaussianDrillingProperty.FuseData(kvp.Value, defaultStandardDeviation, sensorOptions, fullScaleOptions);
                                 }
-                                else
+                            }
+                        }
+                    }
+                    if (thresholds.Count > 0)
+                    {
+                        // choose arbitrarily the first non null
+                        foreach (var threshold in thresholds)
+                        {
+                            if (threshold != null)
+                            {
+                                lock (lock_)
                                 {
-                                    drillingProperty.FuseData(kvp.Value);
+                                    thresholds[0].CopyTo(microStateThresholds_!);
                                 }
+                                break;
                             }
                         }
                     }
@@ -186,9 +202,9 @@ namespace DWIS.MicroState.InterpretationEngine
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             ConnectToBlackboard();
-            DefineMicroStateSemantic();
-            //AcquireMicroStatesThresholds();
-            //AcquireSignalInputs();
+            DefineSemantic();
+            AcquireMicroStatesThresholds();
+            AcquireSignalInputs();
             while (!stoppingToken.IsCancellationRequested)
             {
                 DateTime d1 = DateTime.UtcNow;
@@ -257,10 +273,21 @@ namespace DWIS.MicroState.InterpretationEngine
                     }
                 }
             }
+            FuseAndCalibrateSignals.MinTimeWindow = Configuration.CalibrationMinTimeWindow;
+            FuseAndCalibrateSignals.CalibrationTimeWindowFactor = Configuration.CalibrationTimeWindowFactor;
+            FuseAndCalibrateSignals.ConvergenceTolerance = Configuration.CalibrationConvergenceTolerance;
+            FuseAndCalibrateSignals.MaxNumberOfIterations = Configuration.CalibrationMaxNumberOfIterations;
             if (_logger != null)
             {
                 _logger.LogInformation("Configuration Loop Duration: " + Configuration.LoopDuration.ToString());
                 _logger.LogInformation("Configuration OPCUAURAL: " + Configuration.OPCUAURL);
+                _logger.LogInformation("Configuration DefaultProbability: " + Configuration.DefaultProbability);
+                _logger.LogInformation("Configuration DefaultStandardDeviation: " + Configuration.DefaultStandardDeviation);
+                _logger.LogInformation("Configuration CircularBufferSize: " + Configuration.CircularBufferSize);
+                _logger.LogInformation("Configuration CalibrationMinTimeWindow: " + Configuration.CalibrationMinTimeWindow.TotalSeconds);
+                _logger.LogInformation("Configuration CalibrationTimeWindowFactor: " + Configuration.CalibrationTimeWindowFactor);
+                _logger.LogInformation("Configuration CalibrationConvergenceTolerance: " + Configuration.CalibrationConvergenceTolerance);
+                _logger.LogInformation("Configuration CalibrationMaxNumberOfIterations: " + Configuration.CalibrationMaxNumberOfIterations);
             }
             string hostName = System.Net.Dns.GetHostName();
             if (!string.IsNullOrEmpty(hostName))
@@ -272,110 +299,245 @@ namespace DWIS.MicroState.InterpretationEngine
                 }
             }
         }
- 
+       
         private void RefreshSignals()
         {
             MicroStates microStates = new();
             SignalGroup? signals = null;
             Thresholds? thresholds = null;
-            if (microStateSignalInputs_ != null && microStateSignalPlaceHolders_ != null)
+            if (fusedSignalGroup_ != null && microStateSignalPlaceHolders_ != null)
             {
                 lock (lock_)
                 {
-                    signals = new SignalGroup(microStateSignalInputs_);
+                    signals = new SignalGroup(fusedSignalGroup_);
                     thresholds = new Thresholds(microStateThresholds_);
                 }
-                foreach (var kvp in microStateSignalPlaceHolders_)
+                if (signalGroups_ == null)
                 {
-                    if (!string.IsNullOrEmpty(kvp.Key) && kvp.Value != null && kvp.Value.Count > 0)
+                    signalGroups_ = new Dictionary<DWISNodeID, CircularBuffer<SignalGroup>>();
+                }
+                foreach (var acquiredSignals in microStateSignalPlaceHolders_)
+                {
+                    if (acquiredSignals != null && acquiredSignals.Count > 0)
                     {
-                        Type type = microStateSignalPlaceHolders_.GetType();
-                        PropertyInfo? propertyInfo = type.GetProperty(kvp.Key);
-                        if (propertyInfo != null)
+                        foreach (var kpv in acquiredSignals)
                         {
-                            object? obj = propertyInfo.GetValue(signals);
-                            if (obj is not null and DrillingProperty drillingProperty)
+                            if (kpv.Value != null && kpv.Value.Count > 0)
                             {
-                                if (drillingProperty is GaussianDrillingProperty gaussianDrillingProperty)
+                                foreach (AcquiredSignal signal in kpv.Value)
                                 {
-                                    double defaultStandardDeviation = 1e-6;
-                                    List<byte>? sensorOptions = null;
-                                    List<byte>? fullScaleOptions = null;
-                                    var optionalFacts = propertyInfo.GetCustomAttributes<OptionalFactAttribute>();
-                                    var semanticSensor = propertyInfo.GetCustomAttribute<SemanticSensorVariableAttribute>();
-                                    var semanticFullScale = propertyInfo.GetCustomAttribute<SemanticFullScaleVariableAttribute>();
-                                    var semanticGaussian = propertyInfo.GetCustomAttribute<SemanticGaussianVariableAttribute>();
-                                    if (semanticGaussian != null && semanticGaussian.DefaultStandardDeviation != null)
+                                    if (signal != null)
                                     {
-                                        defaultStandardDeviation = semanticGaussian.DefaultStandardDeviation.Value;
-                                    }
-                                    if (optionalFacts != null && semanticSensor != null && !string.IsNullOrEmpty(semanticSensor.PrecisionVariable) && !string.IsNullOrEmpty(semanticSensor.AccuracyVariable))
-                                    {
-                                        List<byte> options = [];
-                                        foreach (var option in optionalFacts)
+                                        SignalGroup? signalGroup = null;
+                                        string? jsonString = kpv.Value[0].GetValue<string>();
+                                        if (!string.IsNullOrEmpty(jsonString))
                                         {
-                                            if (option != null && !string.IsNullOrEmpty(option.SubjectName) && option.SubjectName.Equals(semanticSensor.PrecisionVariable) && !options.Contains(option.GroupIndex))
-                                            {
-                                                options.Add(option.GroupIndex);
-                                            }
-                                            if (option != null && !string.IsNullOrEmpty(option.ObjectName) && option.ObjectName.Equals(semanticSensor.PrecisionVariable) && !options.Contains(option.GroupIndex))
-                                            {
-                                                options.Add(option.GroupIndex);
-                                            }
-                                            if (option != null && !string.IsNullOrEmpty(option.SubjectName) && option.SubjectName.Equals(semanticSensor.AccuracyVariable) && !options.Contains(option.GroupIndex))
-                                            {
-                                                options.Add(option.GroupIndex);
-                                            }
-                                            if (option != null && !string.IsNullOrEmpty(option.ObjectName) && option.ObjectName.Equals(semanticSensor.AccuracyVariable) && !options.Contains(option.GroupIndex))
-                                            {
-                                                options.Add(option.GroupIndex);
-                                            }
+                                            signalGroup = JsonConvert.DeserializeObject<SignalGroup>(jsonString);
                                         }
-                                        if (options.Count > 0)
-                                        {
-                                            sensorOptions = options;
+                                        if (signalGroup != null) {
+                                            DWISNodeID nodeID = signal.AcquisitionCriteriaResultItem;                                           
+                                            if (signalGroups_.ContainsKey(nodeID))
+                                            {
+                                                if (signalGroups_[nodeID] == null)
+                                                {
+                                                    signalGroups_[nodeID] = new CircularBuffer<SignalGroup>(Configuration.CircularBufferSize);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                signalGroups_.Add(nodeID, new CircularBuffer<SignalGroup>(Configuration.CircularBufferSize));
+                                            }
+                                            signalGroups_[nodeID].Add(signalGroup);
                                         }
                                     }
-                                    if (optionalFacts != null && semanticFullScale != null && !string.IsNullOrEmpty(semanticFullScale.FullScaleVariable) && !string.IsNullOrEmpty(semanticFullScale.ProportionErrorVariable))
-                                    {
-                                        List<byte> options = [];
-                                        foreach (var option in optionalFacts)
-                                        {
-                                            if (option != null && !string.IsNullOrEmpty(option.SubjectName) && option.SubjectName.Equals(semanticFullScale.FullScaleVariable) && !options.Contains(option.GroupIndex))
-                                            {
-                                                options.Add(option.GroupIndex);
-                                            }
-                                            if (option != null && !string.IsNullOrEmpty(option.ObjectName) && option.ObjectName.Equals(semanticFullScale.FullScaleVariable) && !options.Contains(option.GroupIndex))
-                                            {
-                                                options.Add(option.GroupIndex);
-                                            }
-                                            if (option != null && !string.IsNullOrEmpty(option.SubjectName) && option.SubjectName.Equals(semanticFullScale.ProportionErrorVariable) && !options.Contains(option.GroupIndex))
-                                            {
-                                                options.Add(option.GroupIndex);
-                                            }
-                                            if (option != null && !string.IsNullOrEmpty(option.ObjectName) && option.ObjectName.Equals(semanticFullScale.ProportionErrorVariable) && !options.Contains(option.GroupIndex))
-                                            {
-                                                options.Add(option.GroupIndex);
-                                            }
-                                        }
-                                        if (options.Count > 0)
-                                        {
-                                            fullScaleOptions = options;
-                                        }
-                                    }
-                                    gaussianDrillingProperty.FuseData(kvp.Value, defaultStandardDeviation, sensorOptions, fullScaleOptions);
-                                }
-                                else
-                                {
-                                    drillingProperty.FuseData(kvp.Value);
                                 }
                             }
                         }
                     }
                 }
-                lock (lock_)
+                if (signalGroups_.Count > 0)
                 {
-                    signals.CopyTo(microStateSignalInputs_);
+                    if (signals == null)
+                    {
+                        signals = new SignalGroup();
+                    }
+                    Type type = typeof(SignalGroup);
+                    PropertyInfo[] propInfos = type.GetProperties();
+                    foreach (PropertyInfo propInfo in propInfos)
+                    {
+                        if (propInfo != null)
+                        {
+                            object? obj = propInfo.GetValue(signals);
+                            if (obj is not null and GaussianDrillingProperty drillingProperty)
+                            {
+                                double defaultStandardDeviation = Configuration.DefaultStandardDeviation;
+                                DefaultStandardDeviationAttribute? defaultStandardDeviationAttribute = propInfo.GetCustomAttribute<DefaultStandardDeviationAttribute>();
+                                if (defaultStandardDeviationAttribute != null)
+                                {
+                                    defaultStandardDeviation = defaultStandardDeviationAttribute.StandardDeviation;
+                                }
+                                Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, GaussianDrillingProperty>>> valuesToFuse = new Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, GaussianDrillingProperty>>>();
+                                foreach (var kvp in signalGroups_)
+                                {
+                                    if (kvp.Value != null)
+                                    {
+                                        foreach (SignalGroup signal in kvp.Value.GetItems())
+                                        {
+                                            if (signal != null)
+                                            {
+                                                object? obj2 = propInfo.GetValue(signal);
+                                                if (obj2 is not null and GaussianDrillingProperty drillingProperty2)
+                                                {
+                                                    if (valuesToFuse.ContainsKey(kvp.Key))
+                                                    {
+                                                        if (valuesToFuse[kvp.Key] == null)
+                                                        {
+                                                            valuesToFuse[kvp.Key] = new CircularBuffer<Tuple<DateTime, GaussianDrillingProperty>>(Configuration.CircularBufferSize);
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        valuesToFuse.Add(kvp.Key, new CircularBuffer<Tuple<DateTime, GaussianDrillingProperty>>(Configuration.CircularBufferSize));
+                                                    }
+                                                    valuesToFuse[kvp.Key].Add(new Tuple<DateTime, GaussianDrillingProperty>(signal.TimeStampUTC, drillingProperty2));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (valuesToFuse.Any() && currentCalibrations_.Values != null)
+                                {
+                                    if (!currentCalibrations_.Values.ContainsKey(propInfo))
+                                    {
+                                        currentCalibrations_.Values.Add(propInfo, new Dictionary<DWISNodeID, CalibrationParameters>());
+                                    }
+                                    DefaultStandardDeviationAttribute? defaultStdDeviationAttr = propInfo.GetCustomAttribute<DefaultStandardDeviationAttribute>();
+                                    if (defaultStdDeviationAttr != null && defaultStdDeviationAttr.StandardDeviation > 0)
+                                    {
+                                        defaultStandardDeviation = defaultStdDeviationAttr.StandardDeviation;
+                                    }
+                                    FuseAndCalibrateSignals.FuseAndCalibrateData(drillingProperty, valuesToFuse, currentCalibrations_.Values[propInfo], defaultStandardDeviation);
+                                }
+                            }
+                            else if (obj is not null and BernoulliDrillingProperty binaryDrillingProperty)
+                            {
+                                double defaultProbability = Configuration.DefaultProbability;
+                                DefaultProbabilityAttribute? defaultProbabilityAttribute = propInfo.GetCustomAttribute<DefaultProbabilityAttribute>();
+                                if (defaultProbabilityAttribute != null)
+                                {
+                                    defaultProbability = defaultProbabilityAttribute.Probability;
+                                }
+                                Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, BernoulliDrillingProperty>>> valuesToFuse = new Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, BernoulliDrillingProperty>>>();
+                                foreach (var kvp in signalGroups_)
+                                {
+                                    if (kvp.Value != null)
+                                    {
+                                        foreach (SignalGroup signal in kvp.Value.GetItems())
+                                        {
+                                            if (signal != null)
+                                            {
+                                                object? obj2 = propInfo.GetValue(signal);
+                                                if (obj2 is not null and BernoulliDrillingProperty drillingProperty2)
+                                                {
+                                                    if (valuesToFuse.ContainsKey(kvp.Key))
+                                                    {
+                                                        if (valuesToFuse[kvp.Key] == null)
+                                                        {
+                                                            valuesToFuse[kvp.Key] = new CircularBuffer<Tuple<DateTime, BernoulliDrillingProperty>>(Configuration.CircularBufferSize);
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        valuesToFuse.Add(kvp.Key, new CircularBuffer<Tuple<DateTime, BernoulliDrillingProperty>>(Configuration.CircularBufferSize));
+                                                    }
+                                                    valuesToFuse[kvp.Key].Add(new Tuple<DateTime, BernoulliDrillingProperty>(signal.TimeStampUTC, drillingProperty2));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (valuesToFuse.Any() && currentCalibrations_.Values != null)
+                                {
+                                    if (!currentCalibrations_.Values.ContainsKey(propInfo))
+                                    {
+                                        currentCalibrations_.Values.Add(propInfo, new Dictionary<DWISNodeID, CalibrationParameters>());
+                                    }
+                                    DefaultProbabilityAttribute? defaultProbabilityAttr = propInfo.GetCustomAttribute<DefaultProbabilityAttribute>();
+                                    if (defaultProbabilityAttr != null && defaultProbabilityAttr.Probability > 0)
+                                    {
+                                        defaultProbability = defaultProbabilityAttr.Probability;
+                                    }
+                                    FuseAndCalibrateSignals.FuseAndCalibrateData(binaryDrillingProperty, valuesToFuse, currentCalibrations_.Values[propInfo], defaultProbability);
+                                }
+                            }
+                            else if (obj is not null and ScalarDrillingProperty scalarDrillingProperty)
+                            {
+                                Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, ScalarDrillingProperty>>> valuesToFuse = new Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, ScalarDrillingProperty>>>();
+                                foreach (var kvp in signalGroups_)
+                                {
+                                    if (kvp.Value != null)
+                                    {
+                                        foreach (SignalGroup signal in kvp.Value.GetItems())
+                                        {
+                                            if (signal != null)
+                                            {
+                                                object? obj2 = propInfo.GetValue(signal);
+                                                if (obj2 is not null and ScalarDrillingProperty drillingProperty2)
+                                                {
+                                                    if (valuesToFuse.ContainsKey(kvp.Key))
+                                                    {
+                                                        if (valuesToFuse[kvp.Key] == null)
+                                                        {
+                                                            valuesToFuse[kvp.Key] = new CircularBuffer<Tuple<DateTime, ScalarDrillingProperty>>(Configuration.CircularBufferSize);
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        valuesToFuse.Add(kvp.Key, new CircularBuffer<Tuple<DateTime, ScalarDrillingProperty>>(Configuration.CircularBufferSize));
+                                                    }
+                                                    valuesToFuse[kvp.Key].Add(new Tuple<DateTime, ScalarDrillingProperty>(signal.TimeStampUTC, drillingProperty2));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (valuesToFuse.Any() && currentCalibrations_.Values != null)
+                                {
+                                    if (!currentCalibrations_.Values.ContainsKey(propInfo))
+                                    {
+                                        currentCalibrations_.Values.Add(propInfo, new Dictionary<DWISNodeID, CalibrationParameters>());
+                                    }
+                                    FuseAndCalibrateSignals.FuseAndCalibrateData(scalarDrillingProperty, valuesToFuse, currentCalibrations_.Values[propInfo]);
+                                }
+                            }
+                            else
+                            {
+                                // should never arrive here!
+                                if (_logger != null)
+                                {
+                                    _logger.LogError("DrillingPropertyType not managed by the sensor fusion and data sourc calibration algorithm!");
+                                }
+                            }
+                        }
+                    }
+                }
+                // put the fused data on the Blackboard
+                if (DWISClient_ != null && fusedSignalGroupPlaceHolder_ != null && signals != null)
+                {
+                    signals.SendToBlackboard(DWISClient_, fusedSignalGroupPlaceHolder_);
+                }
+                // put the calibrations on the Blackboard
+                if (DWISClient_ != null && calibrationsPlaceHolder_ != null && currentCalibrations_ != null)
+                {
+                    currentCalibrations_.SendToBlackboard(DWISClient_, calibrationsPlaceHolder_);
+                }
+
+                if (signals != null)
+                {
+                    lock (lock_)
+                    {
+                        signals.CopyTo(fusedSignalGroup_);
+                    }
                 }
             }
             ProbabilisticMicroStates probMicroStates = new ProbabilisticMicroStates();
@@ -594,7 +756,7 @@ namespace DWIS.MicroState.InterpretationEngine
                 {
                     atLeastOne = true;
                     uint code;
-                    if (Numeric.LE(signals.PressureTopOfString.Mean, Constants.EarthStandardAtmosphericPressure, thresholds.ZeroPressureTopOfStringThreshold.ScalarValue.Value))
+                    if (Numeric.LE(signals.PressureTopOfString.Mean, OSDC.DotnetLibraries.General.Common.Constants.EarthStandardAtmosphericPressure, thresholds.ZeroPressureTopOfStringThreshold.ScalarValue.Value))
                     {
                         code = 1;
                     }
@@ -605,7 +767,7 @@ namespace DWIS.MicroState.InterpretationEngine
                     microStates.UpdateMicroState(MicroStateIndex.PressureTopOfString, code);
                     if (probMicroStates.PressureTopOfString != null)
                     {
-                        probMicroStates.PressureTopOfString.Probability = signals.PressureTopOfString.ProbabilityGT(Constants.EarthStandardAtmosphericPressure + thresholds.ZeroPressureTopOfStringThreshold.ScalarValue.Value);
+                        probMicroStates.PressureTopOfString.Probability = signals.PressureTopOfString.ProbabilityGT(OSDC.DotnetLibraries.General.Common.Constants.EarthStandardAtmosphericPressure + thresholds.ZeroPressureTopOfStringThreshold.ScalarValue.Value);
                     }
                 }
                 if (signals.StandardDeviationPressureTopOfString?.Mean != null &&
@@ -2074,7 +2236,7 @@ namespace DWIS.MicroState.InterpretationEngine
                         probMicroStates.LastStandToBottomHole.Probability = 1.0 - prob1 * prob2;
                     }
                 }
-                if (!atLeastOne)
+                if (!atLeastOne && Configuration.GenerateRandomValues)
                 {
                     // generate some random values just to get some live data
                     Type type = typeof(ProbabilisticMicroStates);
@@ -2150,7 +2312,7 @@ namespace DWIS.MicroState.InterpretationEngine
                 probMicroStates.TimeStampUTC = DateTime.UtcNow;
                 if (DWISClient_ != null)
                 {
-                    probMicroStates.SendToBlackboard(DWISClient_, probabilisticMicroStatePlaceHolders_);
+                    probMicroStates.SendToBlackboard(DWISClient_, probabilisticMicroStatePlaceHolder_);
                 }
             }
         }
