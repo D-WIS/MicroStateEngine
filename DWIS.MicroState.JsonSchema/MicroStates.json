@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "TupleOfMicroStatesAndProbabilisticMicroStatesAndMicroStateIndexAndSignalGroupAndThresholdsAndCalibrations",
+  "title": "TupleOfMicroStatesAndProbabilisticMicroStatesAndMicroStateIndexAndFusedSignalGroupAndThresholdsAndCalibrations",
   "type": "object",
   "additionalProperties": false,
   "properties": {
@@ -14,7 +14,7 @@
       "$ref": "#/definitions/MicroStateIndex"
     },
     "Item4": {
-      "$ref": "#/definitions/SignalGroup"
+      "$ref": "#/definitions/FusedSignalGroup"
     },
     "Item5": {
       "$ref": "#/definitions/Thresholds"
@@ -748,6 +748,17 @@
         79
       ]
     },
+    "FusedSignalGroup": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/SignalGroup"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false
+        }
+      ]
+    },
     "SignalGroup": {
       "type": "object",
       "additionalProperties": false,
@@ -1408,8 +1419,8 @@
           "format": "double"
         },
         "Delay": {
-          "type": "number",
-          "format": "double"
+          "type": "string",
+          "format": "duration"
         }
       }
     }
