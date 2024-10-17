@@ -655,6 +655,12 @@ namespace DWIS.MicroState.ModelShared
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.9.0.0 (Newtonsoft.Json v9.0.0.0)")]
+    public partial class FusedSignalGroup : SignalGroup
+    {
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.9.0.0 (Newtonsoft.Json v9.0.0.0)")]
     public partial class SignalGroup
     {
         [Newtonsoft.Json.JsonProperty("TimeStampUTC", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -1219,13 +1225,13 @@ namespace DWIS.MicroState.ModelShared
         public double Scaling { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Delay", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public double Delay { get; set; }
+        public System.TimeSpan Delay { get; set; }
 
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.9.0.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class TupleOfMicroStatesAndProbabilisticMicroStatesAndMicroStateIndexAndSignalGroupAndThresholdsAndCalibrations
+    public partial class TupleOfMicroStatesAndProbabilisticMicroStatesAndMicroStateIndexAndFusedSignalGroupAndThresholdsAndCalibrations
     {
         [Newtonsoft.Json.JsonProperty("Item1", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public MicroStates Item1 { get; set; }
@@ -1237,7 +1243,7 @@ namespace DWIS.MicroState.ModelShared
         public MicroStateIndex Item3 { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Item4", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public SignalGroup Item4 { get; set; }
+        public FusedSignalGroup Item4 { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Item5", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public Thresholds Item5 { get; set; }
