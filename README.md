@@ -387,9 +387,9 @@ The data schemas of the information exchanged on the DWIS Blackboard can be foun
 https://github.com/D-WIS/MicroStateEngine/blob/main/DWIS.MicroState.JsonSchema/MicroStates.json.
 
 When working with .Net, two nugets are provided for convenience to access the exchanged data on the DWIS Blackboard. 
-The first one contains the whole model and is accessible here: https://www.nuget.org/packages/DWIS.MicroState.Model/2.0.1-build.53. 
+The first one contains the whole model and is accessible here: https://www.nuget.org/packages/DWIS.MicroState.Model. 
 The second one only defines the data structures without the behavior and is available here: 
-https://www.nuget.org/packages/DWIS.MicroState.ModelShared/2.0.1-build.53.
+https://www.nuget.org/packages/DWIS.MicroState.ModelShared.
 
 # Source Code
 The source code of the `DWIS Microstates Interpretation Engine` is written in C# and can be found here:
@@ -397,7 +397,9 @@ https://github.com/D-WIS/MicroStateEngine/tree/main.
 
 # Dependences
 This service depends on:
-- OSDC.DotnetLibraries.Drilling.DrillingProperties: the nuget is available here: https://www.nuget.org/packages/OSDC.DotnetLibraries.Drilling.DrillingProperties/10.2.2-build.7
+- OSDC.DotnetLibraries.Drilling.DrillingProperties: the nuget is available here: https://www.nuget.org/packages/OSDC.DotnetLibraries.Drilling.DrillingProperties
+- DWIS.Client.ReferenceImplementation: the nuget is available here: https://www.nuget.org/packages/DWIS.Client.ReferenceImplementation
+- DWIS.Client.ReferenceImplementation.OPCFoundation: the nuget is available here: https://www.nuget.org/packages/DWIS.Client.ReferenceImplementation.OPCFoundation
 
 # References
 There are two references for the `DWIS Microstates Interpretation Engine`:
