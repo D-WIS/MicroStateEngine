@@ -18,7 +18,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.github\workflows\docker-build-push-interpreter.yml = .github\workflows\docker-build-push-interpreter.yml
 		generate-pack-push-model.yml = generate-pack-push-model.yml
 		README.md = README.md
-		.dockerhub\ReadmeDockerhub.md = .dockerhub\ReadmeDockerhub.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DWIS.MicroState.Semantic.DeterministicState", "DWIS.MicroState.Semantic.DeterministicState\DWIS.MicroState.Semantic.DeterministicState.csproj", "{560C1C6F-C7E6-4649-A9A3-8FDB72A5CAD3}"

@@ -63,6 +63,17 @@ namespace DWIS.MicroState.Semantic.DeterministicState
                         var queries1 = GeneratorSparQLManifestFile.GetSparQLQueries(assembly, typeof(FusedSignalGroup).FullName);
                         GenerateSparQLForMD(writer, "FusedSignalGroup", queries1);
                     }
+                    tempFile = Path.Combine(dir.FullName, "SemanticCalibrations.md");
+                    using (StreamWriter writer = new StreamWriter(tempFile))
+                    {
+                        var manifestFile = GeneratorSparQLManifestFile.GetManifestFile(assembly, typeof(Calibrations).FullName, "Calibrations", "DWIS", "DWIS:");
+                        if (manifestFile != null)
+                        {
+                            GenerateMermaidForMD(writer, "Calibrations", GeneratorSparQLManifestFile.GetMermaid(manifestFile));
+                        }
+                        var queries1 = GeneratorSparQLManifestFile.GetSparQLQueries(assembly, typeof(Calibrations).FullName);
+                        GenerateSparQLForMD(writer, "Calibrations", queries1);
+                    }
                     tempFile = Path.Combine(dir.FullName, "SemanticQueriesAxialVelocityTopOfString.md");
                     using (StreamWriter writer = new StreamWriter(tempFile))
                     {

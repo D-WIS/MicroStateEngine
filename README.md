@@ -16,6 +16,64 @@ The logical statements also use threshold values. These threshold values are col
 The deterministic microstate is published back on the DDHub together with its semantic description.
 All the individual probabilistic microstates are published back on the DDHub together with their semantic description.
 
+## Prerequisites
+The `DWIS Microstates Interpretation Engine` makes use of the `DWIS Blackboard`. So you shall install the `DWIS Blackboard` before installing
+the `DWIS Microstates Interpretation Engine`.
+
+## Getting started
+The `docker run` command for windows is:
+```
+docker run --name microstatesengine -v C:\Volumes\DWISMicroStateSignalGenerator:/home digiwells/dwismicrostateinterpretationengine:stable
+```
+where `C:\Volumes\DWISMicroStateSignalGenerator` is any folder where you would like to access the config.json file that is used to configure
+the application.
+
+and the `docker run` command for linux is:
+```
+docker run --name microstatesengine -v /home/Volumes/DWISMicroStateSignalGenerator:/home digiwells/dwismicrostateinterpretationengine:stable
+```
+where `/home/Volumes/DWISMicroStateSignalGenerator` is any directory where you would like to access the config.json file that is used to
+configure the application.
+
+## Configuration
+A configuration file is available in the directory/folder that is connected to the internal `/home` directory. The name of the configuration
+file is `config.json` and is in Json format.
+
+The configuration file has the following properties:
+- `LoopDuration` (a TimeSpan, default 1s): this property defines the loop duration of the service, i.e., the time interval used to check if new signals are available.
+- `OPCUAURL` (a string, default "opc.tcp://localhost:48030"): this property defines the `URL` used to connect to the `DWIS Blackboard`
+- `DefaultProbability` (a double, default 0.1): this property defines the default probability for Bernoulli Drilling Properties for which the 
+probability has not been defined.
+- `DefaultStandardDeviation` (a double, default 0.1): this property defines the default standard deviation for Gaussian Drilling Properties
+for which the standard deviation has not been informed.
+- `CircularBufferSize` (an integer, default 300): this property defines the maximum number of elements in circular buffer that are used by
+the digital twin calibration algorithm.
+- `CalibrationMinTimeWindow` (a TimeSpan, default 120s): this property defines the minimum time window that is acceptable to start doing
+calibration of digital twin signals.
+- `CalibrationTimeWindowFactor` (a double, default 0.5): this property defines the proportion of data that is used in circular buffer to calibrate
+the signals from multiple digital twins.
+- `CalibrationConvergenceTolerance` (a double, default 1e-6): this property defines the tolerance of the `Levenberg-Marquardt` algorithm
+used to calibrate the signals from multiple digital twins.
+- `CalibrationMaxNumberOfIterations` (an integer, default 1000): this property defines the maximum number of iterations that are acceptable
+while running the `Levenberg-Marquardt` algorithm used to calibrate the signals from multiple digital twins.
+- `GenerateRandomValues` (a boolean, default false): this property is used to tell the `DWIS Microstates Interpretation Engine` to generate
+randome values.
+
+## Using the Microstates Interpretation Engine
+The `DWIS Microstates Interpretation Engine` searches for `SignalGroup` on the `DWIS Blackboard`. If any are found, then they are used
+to estimate the drilling process microstates. It also searches for `Thresholds` as they are used in the logical statements that define
+the drilling process state. If there are several `SignalGroup` available on the `DWIS Blackboard`, the signals are first calibrated by optimizing
+a scaling and a bias factors as well as a time delay such that they are all of the same order of magnitude. Then the signals are fused using
+the informed standard deviation provided by each of the digital twins for each of the signals. It is the calibrated and fused value that
+is used in the logical expressions that define the microstates.
+
+The `DWIS Microstates Interpretation Engine` outputs on the `DWIS Blackboard` the calibrated and fused `SignalGroup` that is used for the
+estimation of the microstates. It also publishes on the `DWIS Blackboard` a deterministic `MicroStates` and a probabilistic `MicroStates`.
+
+The Json schemas for the different objects manipulated by the `DWIS Microstates Interpretation Engine` can be found here:
+https://github.com/D-WIS/MicroStateEngine/blob/main/DWIS.MicroState.JsonSchema/MicroStates.json.
+
+
 ## Semantic Description of a Deterministic Microstate byte structure
 Individual deterministic microstate components can be stored on 2 bits as they can have either 2 or 3 values
 and an additional value (0) is reserved to define that the state component is unknown. It is therefore
@@ -29,16 +87,38 @@ flowchart TD
 	 classDef classClass fill:#9dd0ff;
 	 classDef opcClass fill:#ff9dd0;
 	 classDef quantityClass fill:#d0ff9d;
-	DWIS:ComputedData([DWIS:ComputedData]) --> opc:string([opc:string]):::opcClass
-	DWIS:ComputedData_01([DWIS:ComputedData_01]) --> ComputedData([ComputedData]):::typeClass
-	DWIS:ProcessState([DWIS:ProcessState]) --> ProcessState([ProcessState]):::typeClass
-	DWIS:DrillingProcessStateInterpreter([DWIS:DrillingProcessStateInterpreter]) --> DWISDrillingProcessStateInterpreter([DWISDrillingProcessStateInterpreter]):::typeClass
-	DWIS:ProcessState([DWIS:ProcessState]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/DeterministicModel([http://ddhub.no/DeterministicModel]):::classClass
-	DWIS:ComputedData_01([DWIS:ComputedData_01]) -- http://ddhub.no/HasDynamicValue --> DWIS:ComputedData([DWIS:ComputedData]):::classClass
-	DWIS:ComputedData_01([DWIS:ComputedData_01]) -- http://ddhub.no/IsGeneratedBy --> DWIS:ProcessState([DWIS:ProcessState]):::classClass
-	DWIS:ProcessState([DWIS:ProcessState]) -- http://ddhub.no/IsProvidedBy --> DWIS:DrillingProcessStateInterpreter([DWIS:DrillingProcessStateInterpreter]):::classClass
+	DWIS:DeterministicState([DWIS:DeterministicState]) --> opc:string([opc:string]):::opcClass
+	DWIS:DeterministicState_01([DWIS:DeterministicState_01]) --> ComputedData([ComputedData]):::typeClass
+	DWIS:DeterministicProcessState([DWIS:DeterministicProcessState]) --> ProcessState([ProcessState]):::typeClass
+	DWIS:ProcessStateInterpreter_01([DWIS:ProcessStateInterpreter_01]) --> DWISDrillingProcessStateInterpreter([DWISDrillingProcessStateInterpreter]):::typeClass
+	DWIS:DeterministicState_01([DWIS:DeterministicState_01]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/JSonDataType([http://ddhub.no/JSonDataType]):::classClass
+	DWIS:DeterministicProcessState([DWIS:DeterministicProcessState]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/DeterministicModel([http://ddhub.no/DeterministicModel]):::classClass
+	DWIS:DeterministicState_01([DWIS:DeterministicState_01]) -- http://ddhub.no/HasDynamicValue --> DWIS:DeterministicState([DWIS:DeterministicState]):::classClass
+	DWIS:DeterministicState_01([DWIS:DeterministicState_01]) -- http://ddhub.no/IsGeneratedBy --> DWIS:DeterministicProcessState([DWIS:DeterministicProcessState]):::classClass
+	DWIS:DeterministicState_01([DWIS:DeterministicState_01]) -- http://ddhub.no/IsProvidedBy --> DWIS:ProcessStateInterpreter_01([DWIS:ProcessStateInterpreter_01]):::classClass
 ```
-## Example Semantic Description of a Probabilistic Microstate
+
+The Sparql query used to retrieve the deterministic `MicroStates` is:
+```sparql
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ddhub:<http://ddhub.no/>
+PREFIX quantity:<http://ddhub.no/UnitAndQuantity>
+
+SELECT ?DeterministicState
+WHERE {
+	?DeterministicState_01 rdf:type ddhub:ComputedData .
+	?DeterministicState_01 rdf:type ddhub:JSonDataType .
+	?DeterministicState_01 ddhub:HasDynamicValue ?DeterministicState .
+	?DeterministicProcessState rdf:type ddhub:ProcessState .
+	?DeterministicProcessState rdf:type ddhub:DeterministicModel .
+	?DeterministicState_01 ddhub:IsGeneratedBy ?DeterministicProcessState .
+	?ProcessStateInterpreter_01 rdf:type ddhub:DWISDrillingProcessStateInterpreter .
+	?DeterministicState_01 ddhub:IsProvidedBy ?ProcessStateInterpreter_01 .
+}
+
+```
+
+## Semantic Description of a Probabilistic Microstate
 The individual probabilitic microstate have their own semantic description. At the moment, there are 
 76 microstates. In this README file only one example is given.
 
@@ -49,15 +129,37 @@ flowchart TD
 	 classDef classClass fill:#9dd0ff;
 	 classDef opcClass fill:#ff9dd0;
 	 classDef quantityClass fill:#d0ff9d;
-	DWIS:AxialVelocityTopOfString([DWIS:AxialVelocityTopOfString]) --> opc:array_of_3_double([opc:array_of_3_double]):::opcClass
-	DWIS:AxialVelocityTopOfString_01([DWIS:AxialVelocityTopOfString_01]) --> ComputedData([ComputedData]):::typeClass
-	DWIS:tos_01([DWIS:tos_01]) --> TopOfStringReferenceLocation([TopOfStringReferenceLocation]):::typeClass
-	DWIS:MovingAverage([DWIS:MovingAverage]) --> MovingAverage([MovingAverage]):::typeClass
-	DWIS:AxialVelocityTopOfString_01([DWIS:AxialVelocityTopOfString_01]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/EnumerationDataType([http://ddhub.no/EnumerationDataType]):::classClass
-	DWIS:AxialVelocityTopOfString_01([DWIS:AxialVelocityTopOfString_01]) -- http://ddhub.no/HasDynamicValue --> DWIS:AxialVelocityTopOfString([DWIS:AxialVelocityTopOfString]):::classClass
-	DWIS:AxialVelocityTopOfString_01([DWIS:AxialVelocityTopOfString_01]) -- http://ddhub.no/IsPhysicallyLocatedAt --> DWIS:tos_01([DWIS:tos_01]):::classClass
-	DWIS:AxialVelocityTopOfString_01([DWIS:AxialVelocityTopOfString_01]) -- http://ddhub.no/IsTransformationOutput --> DWIS:MovingAverage([DWIS:MovingAverage]):::classClass
+	DWIS:ProbabilisticState([DWIS:ProbabilisticState]) --> opc:string([opc:string]):::opcClass
+	DWIS:ProbabilisticState_01([DWIS:ProbabilisticState_01]) --> ComputedData([ComputedData]):::typeClass
+	DWIS:ProbabiliticProcessState([DWIS:ProbabiliticProcessState]) --> ProcessState([ProcessState]):::typeClass
+	DWIS:ProcessStateInterpreter_01([DWIS:ProcessStateInterpreter_01]) --> DWISDrillingProcessStateInterpreter([DWISDrillingProcessStateInterpreter]):::typeClass
+	DWIS:ProbabilisticState_01([DWIS:ProbabilisticState_01]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/JSonDataType([http://ddhub.no/JSonDataType]):::classClass
+	DWIS:ProbabiliticProcessState([DWIS:ProbabiliticProcessState]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/StochasticModel([http://ddhub.no/StochasticModel]):::classClass
+	DWIS:ProbabilisticState_01([DWIS:ProbabilisticState_01]) -- http://ddhub.no/HasDynamicValue --> DWIS:ProbabilisticState([DWIS:ProbabilisticState]):::classClass
+	DWIS:ProbabilisticState_01([DWIS:ProbabilisticState_01]) -- http://ddhub.no/IsGeneratedBy --> DWIS:ProbabiliticProcessState([DWIS:ProbabiliticProcessState]):::classClass
+	DWIS:ProbabilisticState_01([DWIS:ProbabilisticState_01]) -- http://ddhub.no/IsProvidedBy --> DWIS:ProcessStateInterpreter_01([DWIS:ProcessStateInterpreter_01]):::classClass
 ```
+
+The Spartql query used to retrieve the probabilistic `ProbabilisticMicroStates` is:
+```sparql
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ddhub:<http://ddhub.no/>
+PREFIX quantity:<http://ddhub.no/UnitAndQuantity>
+
+SELECT ?ProbabilisticState
+WHERE {
+	?ProbabilisticState_01 rdf:type ddhub:ComputedData .
+	?ProbabilisticState_01 rdf:type ddhub:JSonDataType .
+	?ProbabilisticState_01 ddhub:HasDynamicValue ?ProbabilisticState .
+	?ProbabiliticProcessState rdf:type ddhub:ProcessState .
+	?ProbabiliticProcessState rdf:type ddhub:StochasticModel .
+	?ProbabilisticState_01 ddhub:IsGeneratedBy ?ProbabiliticProcessState .
+	?ProcessStateInterpreter_01 rdf:type ddhub:DWISDrillingProcessStateInterpreter .
+	?ProbabilisticState_01 ddhub:IsProvidedBy ?ProcessStateInterpreter_01 .
+}
+
+```
+
 ## Example Logical Statements for microstates
 To calculate a deterministic or probabilistic microstate, a logical statement is used. For instance, the logical statement used to determine the state of the axial velocity of the
 top of string is:
@@ -71,294 +173,237 @@ So these logical statements make use of estimated realtime signals and possible 
 drilling process. The thresholds may be defined statically or may be calculated as a function of the current state of the drilling process. 
 
 For the purpose of probabilistic micro-state determination, the estimated real-time signals provided by the digital twins may be accompanied by uncertainty information.
-## Example Semantic Query for Signals used in Microstate Logical Statements
-The estimated real-time signals are retrieved from the DDHub using semantical queries. The semantic queries try to retrieve uncertainty information if available.
 
-An example set of semantic queries to retrieve the axial velocity of the top of string is shown below:
-### Query-DWIS.MicroState.Model.SignalGroup-AxialVelocityTopOfString-000
+## Semantic Description of SignalGroup
+The estimated real-time signals produced by a DigitalTwin are retrieved from the DDHub using a semantical query: 
+
 ```sparql
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX ddhub: <http://ddhub.no/>
-PREFIX quantity: <http://ddhub.no/UnitAndQuantity>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ddhub:<http://ddhub.no/>
+PREFIX quantity:<http://ddhub.no/UnitAndQuantity>
 
-SELECT ?v_tos
+SELECT ?DigitalTwinSignalsForMicroStates
 WHERE {
-	?v_tos rdf:type ddhub:DynamicDrillingSignal .
-	?v_tos#01 rdf:type ddhub:PhysicalData .
-	?v_tos#01 ddhub:HasDynamicValue ?v_tos .
-	?v_tos#01 ddhub:IsOfMeasurableQuantity quantity:BlockVelocity .
-	?tos#01 rdf:type ddhub:TopOfStringReferenceLocation .
-	?v_tos#01 ddhub:IsPhysicallyLocatedAt ?tos#01 .
-	?MovingAverage rdf:type ddhub:MovingAverage .
-	?v_tos#01 ddhub:IsTransformationOutput ?MovingAverage .
+	?DigitalTwinSignalsForMicroStates_01 rdf:type ddhub:DigitalTwinAdvice .
+	?DigitalTwinSignalsForMicroStates_01 ddhub:HasDynamicValue ?DigitalTwinSignalsForMicroStates .
+	?DigitalTwin rdf:type ddhub:Simulator .
+	?DigitalTwinSignalsForMicroStates_01 ddhub:IsRecommendedBy ?DigitalTwin .
+	?MicroStateInterpreter rdf:type ddhub:DWISDrillingProcessStateInterpreter .
+	?DigitalTwinSignalsForMicroStates_01 ddhub:IsProvidedTo ?MicroStateInterpreter .
 }
 
 ```
-### Query-DWIS.MicroState.Model.SignalGroup-AxialVelocityTopOfString-001
-```sparql
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX ddhub: <http://ddhub.no/>
-PREFIX quantity: <http://ddhub.no/UnitAndQuantity>
 
-SELECT ?v_tos, ?sigma_v_tos, ?factOptionSet
+The semantic graph of the SignalGroup is:
+```mermaid
+flowchart TD
+	 classDef typeClass fill:#f96;
+	 classDef classClass fill:#9dd0ff;
+	 classDef opcClass fill:#ff9dd0;
+	 classDef quantityClass fill:#d0ff9d;
+	DWIS:DigitalTwinSignalsForMicroStates([DWIS:DigitalTwinSignalsForMicroStates]) --> opc:string([opc:string]):::opcClass
+	DWIS:DigitalTwinSignalsForMicroStates_01([DWIS:DigitalTwinSignalsForMicroStates_01]) --> DigitalTwinAdvice([DigitalTwinAdvice]):::typeClass
+	DWIS:DigitalTwin([DWIS:DigitalTwin]) --> Simulator([Simulator]):::typeClass
+	DWIS:MicroStateInterpreter([DWIS:MicroStateInterpreter]) --> DWISDrillingProcessStateInterpreter([DWISDrillingProcessStateInterpreter]):::typeClass
+	DWIS:DigitalTwinSignalsForMicroStates_01([DWIS:DigitalTwinSignalsForMicroStates_01]) -- http://ddhub.no/HasDynamicValue --> DWIS:DigitalTwinSignalsForMicroStates([DWIS:DigitalTwinSignalsForMicroStates]):::classClass
+	DWIS:DigitalTwinSignalsForMicroStates_01([DWIS:DigitalTwinSignalsForMicroStates_01]) -- http://ddhub.no/IsRecommendedBy --> DWIS:DigitalTwin([DWIS:DigitalTwin]):::classClass
+	DWIS:DigitalTwinSignalsForMicroStates_01([DWIS:DigitalTwinSignalsForMicroStates_01]) -- http://ddhub.no/IsProvidedTo --> DWIS:MicroStateInterpreter([DWIS:MicroStateInterpreter]):::classClass
+```
+
+## Semantic of the DigitalTwin Calibrations
+When multiple DigitalTwins are available, the DWIS Drilling Process State Interpretation Engine attempts at calibrating the signals from
+the different sources. The calibration consist in finding a scaling and bias factors and a time delay for each digital twin and for each 
+signal such that the difference between them is minimized. The result of the calibration is stored in a `Calibrations` object. This object
+is published on the `Blackboard`. It can be retrieved with the following Sparql Query:
+
+```sparql
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ddhub:<http://ddhub.no/>
+PREFIX quantity:<http://ddhub.no/UnitAndQuantity>
+
+SELECT ?MicroStateCalibration
 WHERE {
-	?v_tos rdf:type ddhub:DynamicDrillingSignal .
-	?v_tos#01 rdf:type ddhub:PhysicalData .
-	?v_tos#01 ddhub:HasDynamicValue ?v_tos .
-	?v_tos#01 ddhub:IsOfMeasurableQuantity quantity:BlockVelocity .
-	?tos#01 rdf:type ddhub:TopOfStringReferenceLocation .
-	?v_tos#01 ddhub:IsPhysicallyLocatedAt ?tos#01 .
-	?MovingAverage rdf:type ddhub:MovingAverage .
-	?v_tos#01 ddhub:IsTransformationOutput ?MovingAverage .
-	?sigma_v_tos rdf:type ddhub:DrillingSignal .
-	?sigma_v_tos#01 rdf:type ddhub:DrillingDataPoint .
-	?sigma_v_tos#01 ddhub:HasValue ?sigma_v_tos .
-	?GaussianUncertainty#01 rdf:type ddhub:GaussianUncertainty .
-	?v_tos#01 ddhub:HasUncertainty ?GaussianUncertainty#01 .
-	?GaussianUncertainty#01 ddhub:HasUncertaintyStandardDeviation ?sigma_v_tos#01 .
-  BIND ("1" as ?factOptionSet)
+	?MicroStateCalibration_01 rdf:type ddhub:ComputedData .
+	?MicroStateCalibration_01 rdf:type ddhub:JSonDataType .
+	?MicroStateCalibration_01 ddhub:HasDynamicValue ?MicroStateCalibration .
+	?CalibrationInterpretor_01 rdf:type ddhub:Interpreter .
+	?CalibrationInterpretor_01 rdf:type ddhub:CalibrationModel .
+	?CalibrationInterpretor_01 rdf:type ddhub:WhiteBoxModel .
+	?CalibrationInterpretor_01 rdf:type ddhub:SpecializedModel .
+	?CalibrationInterpretor_01 rdf:type ddhub:AlgebraicModel .
+	?CalibrationInterpretor_01 rdf:type ddhub:InversionModel .
+	?CalibrationInterpretor_01 rdf:type ddhub:EmpiricalModel .
+	?CalibrationInterpretor_01 rdf:type ddhub:TransientModel .
+	?CalibrationInterpretor_01 rdf:type ddhub:DeterministicModel .
+	?MicroStateInterpreter_01 rdf:type ddhub:DWISDrillingProcessStateInterpreter .
+	?MicroStateCalibration_01 ddhub:IsComputedBy ?CalibrationInterpretor_01 .
+	?MicroStateCalibration_01 ddhub:IsProvidedBy ?MicroStateInterpreter_01 .
+	?DigitalTwinSignals_01 rdf:type ddhub:DigitalTwinAdvice .
+	?DigitalTwin rdf:type ddhub:Simulator .
+	?DigitalTwinSignals_01 ddhub:IsRecommendedBy ?DigitalTwin .
+	?DigitalTwinSignals_01 ddhub:IsProvidedTo ?MicroStateInterpreter_01 .
+	?DigitalTwinSignals_01 ddhub:IsComputationInput ?CalibrationInterpretor_01 .
 }
 
 ```
-### Query-DWIS.MicroState.Model.SignalGroup-AxialVelocityTopOfString-002
-```sparql
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX ddhub: <http://ddhub.no/>
-PREFIX quantity: <http://ddhub.no/UnitAndQuantity>
 
-SELECT ?v_tos, ?sigma_v_tos, ?factOptionSet
+The semantic graph for the `Calibrations` is:
+```mermaid
+flowchart TD
+	 classDef typeClass fill:#f96;
+	 classDef classClass fill:#9dd0ff;
+	 classDef opcClass fill:#ff9dd0;
+	 classDef quantityClass fill:#d0ff9d;
+	DWIS:MicroStateCalibration([DWIS:MicroStateCalibration]) --> opc:string([opc:string]):::opcClass
+	DWIS:MicroStateCalibration_01([DWIS:MicroStateCalibration_01]) --> ComputedData([ComputedData]):::typeClass
+	DWIS:CalibrationInterpretor_01([DWIS:CalibrationInterpretor_01]) --> Interpreter([Interpreter]):::typeClass
+	DWIS:MicroStateInterpreter_01([DWIS:MicroStateInterpreter_01]) --> DWISDrillingProcessStateInterpreter([DWISDrillingProcessStateInterpreter]):::typeClass
+	DWIS:DigitalTwinSignals_01([DWIS:DigitalTwinSignals_01]) --> DigitalTwinAdvice([DigitalTwinAdvice]):::typeClass
+	DWIS:DigitalTwin([DWIS:DigitalTwin]) --> Simulator([Simulator]):::typeClass
+	DWIS:MicroStateCalibration_01([DWIS:MicroStateCalibration_01]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/JSonDataType([http://ddhub.no/JSonDataType]):::classClass
+	DWIS:CalibrationInterpretor_01([DWIS:CalibrationInterpretor_01]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/CalibrationModel([http://ddhub.no/CalibrationModel]):::classClass
+	DWIS:CalibrationInterpretor_01([DWIS:CalibrationInterpretor_01]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/WhiteBoxModel([http://ddhub.no/WhiteBoxModel]):::classClass
+	DWIS:CalibrationInterpretor_01([DWIS:CalibrationInterpretor_01]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/SpecializedModel([http://ddhub.no/SpecializedModel]):::classClass
+	DWIS:CalibrationInterpretor_01([DWIS:CalibrationInterpretor_01]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/AlgebraicModel([http://ddhub.no/AlgebraicModel]):::classClass
+	DWIS:CalibrationInterpretor_01([DWIS:CalibrationInterpretor_01]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/InversionModel([http://ddhub.no/InversionModel]):::classClass
+	DWIS:CalibrationInterpretor_01([DWIS:CalibrationInterpretor_01]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/EmpiricalModel([http://ddhub.no/EmpiricalModel]):::classClass
+	DWIS:CalibrationInterpretor_01([DWIS:CalibrationInterpretor_01]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/TransientModel([http://ddhub.no/TransientModel]):::classClass
+	DWIS:CalibrationInterpretor_01([DWIS:CalibrationInterpretor_01]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/DeterministicModel([http://ddhub.no/DeterministicModel]):::classClass
+	DWIS:MicroStateCalibration_01([DWIS:MicroStateCalibration_01]) -- http://ddhub.no/HasDynamicValue --> DWIS:MicroStateCalibration([DWIS:MicroStateCalibration]):::classClass
+	DWIS:MicroStateCalibration_01([DWIS:MicroStateCalibration_01]) -- http://ddhub.no/IsComputedBy --> DWIS:CalibrationInterpretor_01([DWIS:CalibrationInterpretor_01]):::classClass
+	DWIS:MicroStateCalibration_01([DWIS:MicroStateCalibration_01]) -- http://ddhub.no/IsProvidedBy --> DWIS:MicroStateInterpreter_01([DWIS:MicroStateInterpreter_01]):::classClass
+	DWIS:DigitalTwinSignals_01([DWIS:DigitalTwinSignals_01]) -- http://ddhub.no/IsRecommendedBy --> DWIS:DigitalTwin([DWIS:DigitalTwin]):::classClass
+	DWIS:DigitalTwinSignals_01([DWIS:DigitalTwinSignals_01]) -- http://ddhub.no/IsProvidedTo --> DWIS:MicroStateInterpreter_01([DWIS:MicroStateInterpreter_01]):::classClass
+	DWIS:DigitalTwinSignals_01([DWIS:DigitalTwinSignals_01]) -- http://ddhub.no/IsComputationInput --> DWIS:CalibrationInterpretor_01([DWIS:CalibrationInterpretor_01]):::classClass
+```
+
+## Semantic Description of the Fused SignalGroup
+When multiple DigitalTwins provide information that can be used by the DWIS Microstate Interpretation Engine, then the signals are calibrated
+and fused. The resulting SignalGroup that contains the calibrated and fused signals can be retrieved using the following Sparql query:
+
+```sparql
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ddhub:<http://ddhub.no/>
+PREFIX quantity:<http://ddhub.no/UnitAndQuantity>
+
+SELECT ?FusedSignalsForMicroStates
 WHERE {
-	?v_tos rdf:type ddhub:DynamicDrillingSignal .
-	?v_tos#01 rdf:type ddhub:PhysicalData .
-	?v_tos#01 ddhub:HasDynamicValue ?v_tos .
-	?v_tos#01 ddhub:IsOfMeasurableQuantity quantity:BlockVelocity .
-	?tos#01 rdf:type ddhub:TopOfStringReferenceLocation .
-	?v_tos#01 ddhub:IsPhysicallyLocatedAt ?tos#01 .
-	?MovingAverage rdf:type ddhub:MovingAverage .
-	?v_tos#01 ddhub:IsTransformationOutput ?MovingAverage .
-	?sigma_v_tos rdf:type ddhub:DrillingSignal .
-	?sigma_v_tos#01 rdf:type ddhub:DrillingDataPoint .
-	?sigma_v_tos#01 ddhub:HasValue ?sigma_v_tos .
-	?GaussianUncertainty#01 rdf:type ddhub:GaussianUncertainty .
-	?v_tos#01 ddhub:HasUncertainty ?GaussianUncertainty#01 .
-	?GaussianUncertainty#01 ddhub:HasUncertaintyStandardDeviation ?sigma_v_tos#01 .
-	?GaussianUncertainty#01 ddhub:HasUncertaintyMean ?v_tos#01 .
-  BIND ("1,11" as ?factOptionSet)
+	?FusedSignalsForMicroStates_01 rdf:type ddhub:DigitalTwinAdvice .
+	?FusedSignalsForMicroStates_01 ddhub:HasDynamicValue ?FusedSignalsForMicroStates .
+	?MicroStateInterpreter rdf:type ddhub:DWISDrillingProcessStateInterpreter .
+	?FusedSignalsForMicroStates_01 ddhub:IsProvidedBy ?MicroStateInterpreter .
+	?SignalFusionInterpreter_01 rdf:type ddhub:Interpreter .
+	?SignalFusionInterpreter_01 rdf:type ddhub:DescriptiveModel .
+	?SignalFusionInterpreter_01 rdf:type ddhub:ForwardModel .
+	?SignalFusionInterpreter_01 rdf:type ddhub:WhiteBoxModel .
+	?SignalFusionInterpreter_01 rdf:type ddhub:SpecializedModel .
+	?SignalFusionInterpreter_01 rdf:type ddhub:EmpiricalModel .
+	?SignalFusionInterpreter_01 rdf:type ddhub:StochasticModel .
+	?FusedSignalsForMicroStates_01 ddhub:IsComputedBy ?SignalFusionInterpreter_01 .
+	?DigitalTwinSignals_01 rdf:type ddhub:DigitalTwinAdvice .
+	?DigitalTwin rdf:type ddhub:Simulator .
+	?DigitalTwinSignals_01 ddhub:IsRecommendedBy ?DigitalTwin .
+	?DigitalTwinSignals_01 ddhub:IsProvidedTo ?MicroStateInterpreter_01 .
+	?DigitalTwinSignals_01 ddhub:IsComputationInput ?SignalFusionInterpreter_01 .
+	?DigitalTwinSignalsForMicroStates_01 rdf:type ddhub:DigitalTwinAdvice .
+	?DigitalTwinSignalsForMicroStates_01 ddhub:HasDynamicValue ?DigitalTwinSignalsForMicroStates .
+	?DigitalTwin rdf:type ddhub:Simulator .
+	?DigitalTwinSignalsForMicroStates_01 ddhub:IsRecommendedBy ?DigitalTwin .
+	?MicroStateInterpreter rdf:type ddhub:DWISDrillingProcessStateInterpreter .
+	?DigitalTwinSignalsForMicroStates_01 ddhub:IsProvidedTo ?MicroStateInterpreter .
 }
 
 ```
-### Query-DWIS.MicroState.Model.SignalGroup-AxialVelocityTopOfString-003
-```sparql
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX ddhub: <http://ddhub.no/>
-PREFIX quantity: <http://ddhub.no/UnitAndQuantity>
 
-SELECT ?v_tos, ?v_tos_prec, ?v_tos_acc, ?factOptionSet
+The semantic graph of the Fused Signal Group is:
+```mermaid
+flowchart TD
+	 classDef typeClass fill:#f96;
+	 classDef classClass fill:#9dd0ff;
+	 classDef opcClass fill:#ff9dd0;
+	 classDef quantityClass fill:#d0ff9d;
+	DWIS:FusedSignalsForMicroStates([DWIS:FusedSignalsForMicroStates]) --> opc:string([opc:string]):::opcClass
+	DWIS:FusedSignalsForMicroStates_01([DWIS:FusedSignalsForMicroStates_01]) --> DigitalTwinAdvice([DigitalTwinAdvice]):::typeClass
+	DWIS:MicroStateInterpreter([DWIS:MicroStateInterpreter]) --> DWISDrillingProcessStateInterpreter([DWISDrillingProcessStateInterpreter]):::typeClass
+	DWIS:SignalFusionInterpreter_01([DWIS:SignalFusionInterpreter_01]) --> Interpreter([Interpreter]):::typeClass
+	DWIS:DigitalTwinSignals_01([DWIS:DigitalTwinSignals_01]) --> DigitalTwinAdvice([DigitalTwinAdvice]):::typeClass
+	DWIS:DigitalTwin([DWIS:DigitalTwin]) --> Simulator([Simulator]):::typeClass
+	DWIS:DigitalTwinSignalsForMicroStates([DWIS:DigitalTwinSignalsForMicroStates]) --> DynamicDrillingSignal([DynamicDrillingSignal]):::typeClass
+	DWIS:DigitalTwinSignalsForMicroStates_01([DWIS:DigitalTwinSignalsForMicroStates_01]) --> DigitalTwinAdvice([DigitalTwinAdvice]):::typeClass
+	DWIS:MicroStateInterpreter([DWIS:MicroStateInterpreter]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/DWISDrillingProcessStateInterpreter([http://ddhub.no/DWISDrillingProcessStateInterpreter]):::classClass
+	DWIS:SignalFusionInterpreter_01([DWIS:SignalFusionInterpreter_01]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/DescriptiveModel([http://ddhub.no/DescriptiveModel]):::classClass
+	DWIS:SignalFusionInterpreter_01([DWIS:SignalFusionInterpreter_01]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/ForwardModel([http://ddhub.no/ForwardModel]):::classClass
+	DWIS:SignalFusionInterpreter_01([DWIS:SignalFusionInterpreter_01]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/WhiteBoxModel([http://ddhub.no/WhiteBoxModel]):::classClass
+	DWIS:SignalFusionInterpreter_01([DWIS:SignalFusionInterpreter_01]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/SpecializedModel([http://ddhub.no/SpecializedModel]):::classClass
+	DWIS:SignalFusionInterpreter_01([DWIS:SignalFusionInterpreter_01]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/EmpiricalModel([http://ddhub.no/EmpiricalModel]):::classClass
+	DWIS:SignalFusionInterpreter_01([DWIS:SignalFusionInterpreter_01]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/StochasticModel([http://ddhub.no/StochasticModel]):::classClass
+	DWIS:DigitalTwin([DWIS:DigitalTwin]) -- http://ddhub.no/BelongsToClass --> http://ddhub.no/Simulator([http://ddhub.no/Simulator]):::classClass
+	DWIS:FusedSignalsForMicroStates_01([DWIS:FusedSignalsForMicroStates_01]) -- http://ddhub.no/HasDynamicValue --> DWIS:FusedSignalsForMicroStates([DWIS:FusedSignalsForMicroStates]):::classClass
+	DWIS:FusedSignalsForMicroStates_01([DWIS:FusedSignalsForMicroStates_01]) -- http://ddhub.no/IsProvidedBy --> DWIS:MicroStateInterpreter([DWIS:MicroStateInterpreter]):::classClass
+	DWIS:FusedSignalsForMicroStates_01([DWIS:FusedSignalsForMicroStates_01]) -- http://ddhub.no/IsComputedBy --> DWIS:SignalFusionInterpreter_01([DWIS:SignalFusionInterpreter_01]):::classClass
+	DWIS:DigitalTwinSignals_01([DWIS:DigitalTwinSignals_01]) -- http://ddhub.no/IsRecommendedBy --> DWIS:DigitalTwin([DWIS:DigitalTwin]):::classClass
+	DWIS:DigitalTwinSignals_01([DWIS:DigitalTwinSignals_01]) -- http://ddhub.no/IsProvidedTo --> DWIS:MicroStateInterpreter_01([DWIS:MicroStateInterpreter_01]):::classClass
+	DWIS:DigitalTwinSignals_01([DWIS:DigitalTwinSignals_01]) -- http://ddhub.no/IsComputationInput --> DWIS:SignalFusionInterpreter_01([DWIS:SignalFusionInterpreter_01]):::classClass
+	DWIS:DigitalTwinSignalsForMicroStates_01([DWIS:DigitalTwinSignalsForMicroStates_01]) -- http://ddhub.no/HasDynamicValue --> DWIS:DigitalTwinSignalsForMicroStates([DWIS:DigitalTwinSignalsForMicroStates]):::classClass
+	DWIS:DigitalTwinSignalsForMicroStates_01([DWIS:DigitalTwinSignalsForMicroStates_01]) -- http://ddhub.no/IsRecommendedBy --> DWIS:DigitalTwin([DWIS:DigitalTwin]):::classClass
+	DWIS:DigitalTwinSignalsForMicroStates_01([DWIS:DigitalTwinSignalsForMicroStates_01]) -- http://ddhub.no/IsProvidedTo --> DWIS:MicroStateInterpreter([DWIS:MicroStateInterpreter]):::classClass
+```
+
+## Semantic Description for Thresholds used in Microstate Logical Statements
+Similarly, the threshold values are retrieved using a `SparQL` query: 
+```sparql
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ddhub:<http://ddhub.no/>
+PREFIX quantity:<http://ddhub.no/UnitAndQuantity>
+
+SELECT ?MicroStateThresholds
 WHERE {
-	?v_tos rdf:type ddhub:DynamicDrillingSignal .
-	?v_tos#01 rdf:type ddhub:PhysicalData .
-	?v_tos#01 ddhub:HasDynamicValue ?v_tos .
-	?v_tos#01 ddhub:IsOfMeasurableQuantity quantity:BlockVelocity .
-	?tos#01 rdf:type ddhub:TopOfStringReferenceLocation .
-	?v_tos#01 ddhub:IsPhysicallyLocatedAt ?tos#01 .
-	?MovingAverage rdf:type ddhub:MovingAverage .
-	?v_tos#01 ddhub:IsTransformationOutput ?MovingAverage .
-	?v_tos_prec rdf:type ddhub:DrillingSignal .
-	?v_tos_prec#01 rdf:type ddhub:DrillingDataPoint .
-	?v_tos_prec#01 ddhub:HasValue ?v_tos_prec .
-	?v_tos_acc rdf:type ddhub:DrillingSignal .
-	?v_tos_acc#01 rdf:type ddhub:DrillingDataPoint .
-	?v_tos_acc#01 ddhub:HasValue ?v_tos_acc .
-	?SensorUncertainty#01 rdf:type ddhub:SensorUncertainty .
-	?SensorUncertainty#01 ddhub:HasUncertaintyPrecision ?v_tos_prec#01 .
-	?SensorUncertainty#01 ddhub:HasUncertaintyAccuracy ?v_tos_acc#01 .
-	?v_tos#01 ddhub:HasUncertainty ?SensorUncertainty#01 .
-  BIND ("2" as ?factOptionSet)
+	?MicroStateThresholds_01 rdf:type ddhub:ConfigurationData .
+	?MicroStateThresholds_01 ddhub:HasDynamicValue ?MicroStateThresholds .
+	?MicroStateInterpreter rdf:type ddhub:DWISDrillingProcessStateInterpreter .
+	?MicroStateThresholds_01 ddhub:IsProvidedTo ?MicroStateInterpreter .
+	?MicroStateThresholds_01 ddhub:IsLimitFor ?MicroStateInterpreter .
 }
 
 ```
-### Query-DWIS.MicroState.Model.SignalGroup-AxialVelocityTopOfString-004
-```sparql
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX ddhub: <http://ddhub.no/>
-PREFIX quantity: <http://ddhub.no/UnitAndQuantity>
 
-SELECT ?v_tos, ?v_tos_prec, ?v_tos_acc, ?factOptionSet
-WHERE {
-	?v_tos rdf:type ddhub:DynamicDrillingSignal .
-	?v_tos#01 rdf:type ddhub:PhysicalData .
-	?v_tos#01 ddhub:HasDynamicValue ?v_tos .
-	?v_tos#01 ddhub:IsOfMeasurableQuantity quantity:BlockVelocity .
-	?tos#01 rdf:type ddhub:TopOfStringReferenceLocation .
-	?v_tos#01 ddhub:IsPhysicallyLocatedAt ?tos#01 .
-	?MovingAverage rdf:type ddhub:MovingAverage .
-	?v_tos#01 ddhub:IsTransformationOutput ?MovingAverage .
-	?v_tos_prec rdf:type ddhub:DrillingSignal .
-	?v_tos_prec#01 rdf:type ddhub:DrillingDataPoint .
-	?v_tos_prec#01 ddhub:HasValue ?v_tos_prec .
-	?v_tos_acc rdf:type ddhub:DrillingSignal .
-	?v_tos_acc#01 rdf:type ddhub:DrillingDataPoint .
-	?v_tos_acc#01 ddhub:HasValue ?v_tos_acc .
-	?SensorUncertainty#01 rdf:type ddhub:SensorUncertainty .
-	?SensorUncertainty#01 ddhub:HasUncertaintyPrecision ?v_tos_prec#01 .
-	?SensorUncertainty#01 ddhub:HasUncertaintyAccuracy ?v_tos_acc#01 .
-	?v_tos#01 ddhub:HasUncertainty ?SensorUncertainty#01 .
-	?SensorUncertainty#01 ddhub:HasUncertaintyMean ?v_tos#01 .
-  BIND ("2,21" as ?factOptionSet)
-}
-
+The semantic graph of the Microstate Thresholds is:
+```mermaid
+flowchart TD
+	 classDef typeClass fill:#f96;
+	 classDef classClass fill:#9dd0ff;
+	 classDef opcClass fill:#ff9dd0;
+	 classDef quantityClass fill:#d0ff9d;
+	DWIS:MicroStateThresholds([DWIS:MicroStateThresholds]) --> opc:string([opc:string]):::opcClass
+	DWIS:MicroStateThresholds_01([DWIS:MicroStateThresholds_01]) --> ConfigurationData([ConfigurationData]):::typeClass
+	DWIS:MicroStateInterpreter([DWIS:MicroStateInterpreter]) --> DWISDrillingProcessStateInterpreter([DWISDrillingProcessStateInterpreter]):::typeClass
+	DWIS:MicroStateThresholds_01([DWIS:MicroStateThresholds_01]) -- http://ddhub.no/HasDynamicValue --> DWIS:MicroStateThresholds([DWIS:MicroStateThresholds]):::classClass
+	DWIS:MicroStateThresholds_01([DWIS:MicroStateThresholds_01]) -- http://ddhub.no/IsProvidedTo --> DWIS:MicroStateInterpreter([DWIS:MicroStateInterpreter]):::classClass
+	DWIS:MicroStateThresholds_01([DWIS:MicroStateThresholds_01]) -- http://ddhub.no/IsLimitFor --> DWIS:MicroStateInterpreter([DWIS:MicroStateInterpreter]):::classClass
 ```
-### Query-DWIS.MicroState.Model.SignalGroup-AxialVelocityTopOfString-005
-```sparql
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX ddhub: <http://ddhub.no/>
-PREFIX quantity: <http://ddhub.no/UnitAndQuantity>
 
-SELECT ?v_tos, ?v_tos_fs, ?v_tos_prop, ?factOptionSet
-WHERE {
-	?v_tos rdf:type ddhub:DynamicDrillingSignal .
-	?v_tos#01 rdf:type ddhub:PhysicalData .
-	?v_tos#01 ddhub:HasDynamicValue ?v_tos .
-	?v_tos#01 ddhub:IsOfMeasurableQuantity quantity:BlockVelocity .
-	?tos#01 rdf:type ddhub:TopOfStringReferenceLocation .
-	?v_tos#01 ddhub:IsPhysicallyLocatedAt ?tos#01 .
-	?MovingAverage rdf:type ddhub:MovingAverage .
-	?v_tos#01 ddhub:IsTransformationOutput ?MovingAverage .
-	?v_tos_fs rdf:type ddhub:DrillingSignal .
-	?v_tos_fs#01 rdf:type ddhub:DrillingDataPoint .
-	?v_tos_fs#01 ddhub:HasValue ?v_tos_fs#01 .
-	?v_tos_prop rdf:type ddhub:DrillingSignal .
-	?v_tos_prop#01 rdf:type ddhub:DrillingDataPoint .
-	?v_tos_prop#01 ddhub:HasValue ?v_tos_prop#01 .
-	?FullScaleUncertainty#01 rdf:type ddhub:FullScaleUncertainty .
-	?FullScaleUncertainty#01 ddhub:HasFullScale ?v_tos_fs#01 .
-	?FullScaleUncertainty#01 ddhub:HasProportionError ?v_tos_prop#01 .
-	?v_tos#01 ddhub:HasUncertainty ?FullScaleUncertainty#01 .
-  BIND ("3" as ?factOptionSet)
-}
+# Data Model
+The data schemas of the information exchanged on the DWIS Blackboard can be found here:
+https://github.com/D-WIS/MicroStateEngine/blob/main/DWIS.MicroState.JsonSchema/MicroStates.json.
 
-```
-### Query-DWIS.MicroState.Model.SignalGroup-AxialVelocityTopOfString-006
-```sparql
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX ddhub: <http://ddhub.no/>
-PREFIX quantity: <http://ddhub.no/UnitAndQuantity>
+When working with .Net, two nugets are provided for convenience to access the exchanged data on the DWIS Blackboard. 
+The first one contains the whole model and is accessible here: https://www.nuget.org/packages/DWIS.MicroState.Model/2.0.1-build.53. 
+The second one only defines the data structures without the behavior and is available here: 
+https://www.nuget.org/packages/DWIS.MicroState.ModelShared/2.0.1-build.53.
 
-SELECT ?v_tos, ?v_tos_fs, ?v_tos_prop, ?factOptionSet
-WHERE {
-	?v_tos rdf:type ddhub:DynamicDrillingSignal .
-	?v_tos#01 rdf:type ddhub:PhysicalData .
-	?v_tos#01 ddhub:HasDynamicValue ?v_tos .
-	?v_tos#01 ddhub:IsOfMeasurableQuantity quantity:BlockVelocity .
-	?tos#01 rdf:type ddhub:TopOfStringReferenceLocation .
-	?v_tos#01 ddhub:IsPhysicallyLocatedAt ?tos#01 .
-	?MovingAverage rdf:type ddhub:MovingAverage .
-	?v_tos#01 ddhub:IsTransformationOutput ?MovingAverage .
-	?v_tos_fs rdf:type ddhub:DrillingSignal .
-	?v_tos_fs#01 rdf:type ddhub:DrillingDataPoint .
-	?v_tos_fs#01 ddhub:HasValue ?v_tos_fs#01 .
-	?v_tos_prop rdf:type ddhub:DrillingSignal .
-	?v_tos_prop#01 rdf:type ddhub:DrillingDataPoint .
-	?v_tos_prop#01 ddhub:HasValue ?v_tos_prop#01 .
-	?FullScaleUncertainty#01 rdf:type ddhub:FullScaleUncertainty .
-	?FullScaleUncertainty#01 ddhub:HasFullScale ?v_tos_fs#01 .
-	?FullScaleUncertainty#01 ddhub:HasProportionError ?v_tos_prop#01 .
-	?v_tos#01 ddhub:HasUncertainty ?FullScaleUncertainty#01 .
-	?FullScaleUncertainty#01 ddhub:HasUncertaintyMean ?v_tos#01 .
-  BIND ("3,31" as ?factOptionSet)
-}
+# Source Code
+The source code of the `DWIS Microstates Interpretation Engine` is written in C# and can be found here:
+https://github.com/D-WIS/MicroStateEngine/tree/main.
 
-```
-The semantic definition for the `DrillingProperty` makes use of optional facts to allow recovering alternative ways to define the uncertainty of the signal.
-In order to know which of those options correspond to each of the queries, an additional variable is provided by the semantic query that is bound to a comma separated
-list of the option indices used in the query.
-
-## Example Semantic Query for Thresholds used in Microstate Logical Statements
-Similarly, the threshold values are retrieved using `SparQL` queries. Below, you will find an example corresponding the queries used to retrieve the threshold for the axial
-velocity of the top of string:
-### Query-DWIS.MicroState.Model.Thresholds-ZeroAxialVelocityTopOfStringThreshold-000
-```sparql
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX ddhub: <http://ddhub.no/>
-PREFIX quantity: <http://ddhub.no/UnitAndQuantity>
-
-SELECT ?ZeroAxialVelocityTopOfStringThreshold
-WHERE {
-	?ZeroAxialVelocityTopOfStringThreshold rdf:type ddhub:DrillingSignal .
-	?ZeroAxialVelocityTopOfStringThreshold#01 rdf:type ddhub:Limit .
-	?ZeroAxialVelocityTopOfStringThreshold#01 ddhub:HasValue ?ZeroAxialVelocityTopOfStringThreshold .
-	?ZeroAxialVelocityTopOfStringThreshold#01 ddhub:IsOfMeasurableQuantity quantity:BlockVelocity .
-	?tos#01 rdf:type ddhub:TopOfStringReferenceLocation .
-	?ZeroAxialVelocityTopOfStringThreshold#01 ddhub:IsPhysicallyLocatedAt ?tos#01 .
-	?MovingAverage rdf:type ddhub:MovingAverage .
-	?signal#01 rdf:type ddhub:DrillingDataPoint .
-	?signal#01 ddhub:IsTransformationOutput ?MovingAverage .
-}
-
-```
-### Query-DWIS.MicroState.Model.Thresholds-ZeroAxialVelocityTopOfStringThreshold-001
-```sparql
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX ddhub: <http://ddhub.no/>
-PREFIX quantity: <http://ddhub.no/UnitAndQuantity>
-
-SELECT ?ZeroAxialVelocityTopOfStringThreshold, ?factOptionSet
-WHERE {
-	?ZeroAxialVelocityTopOfStringThreshold rdf:type ddhub:DrillingSignal .
-	?ZeroAxialVelocityTopOfStringThreshold#01 rdf:type ddhub:Limit .
-	?ZeroAxialVelocityTopOfStringThreshold#01 ddhub:HasValue ?ZeroAxialVelocityTopOfStringThreshold .
-	?ZeroAxialVelocityTopOfStringThreshold#01 ddhub:IsOfMeasurableQuantity quantity:BlockVelocity .
-	?tos#01 rdf:type ddhub:TopOfStringReferenceLocation .
-	?ZeroAxialVelocityTopOfStringThreshold#01 ddhub:IsPhysicallyLocatedAt ?tos#01 .
-	?MovingAverage rdf:type ddhub:MovingAverage .
-	?signal#01 rdf:type ddhub:DrillingDataPoint .
-	?signal#01 ddhub:IsTransformationOutput ?MovingAverage .
-	?ZeroAxialVelocityTopOfStringThreshold#01 ddhub:IsToBeComparedWith ?signal#01 .
-  BIND ("1" as ?factOptionSet)
-}
-
-```
-### Query-DWIS.MicroState.Model.Thresholds-ZeroAxialVelocityTopOfStringThreshold-002
-```sparql
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX ddhub: <http://ddhub.no/>
-PREFIX quantity: <http://ddhub.no/UnitAndQuantity>
-
-SELECT ?ZeroAxialVelocityTopOfStringThreshold, ?factOptionSet
-WHERE {
-	?ZeroAxialVelocityTopOfStringThreshold rdf:type ddhub:DrillingSignal .
-	?ZeroAxialVelocityTopOfStringThreshold#01 rdf:type ddhub:Limit .
-	?ZeroAxialVelocityTopOfStringThreshold#01 ddhub:HasValue ?ZeroAxialVelocityTopOfStringThreshold .
-	?ZeroAxialVelocityTopOfStringThreshold#01 ddhub:IsOfMeasurableQuantity quantity:BlockVelocity .
-	?tos#01 rdf:type ddhub:TopOfStringReferenceLocation .
-	?ZeroAxialVelocityTopOfStringThreshold#01 ddhub:IsPhysicallyLocatedAt ?tos#01 .
-	?MovingAverage rdf:type ddhub:MovingAverage .
-	?signal#01 rdf:type ddhub:DrillingDataPoint .
-	?signal#01 ddhub:IsTransformationOutput ?MovingAverage .
-	?signal#01 ddhub:IsToBeComparedWith ?ZeroAxialVelocityTopOfStringThreshold#01 .
-  BIND ("2" as ?factOptionSet)
-}
-
-```
-## Docker Image
-A docker of the microstate interpreter is automatically generated on dockerhub each time the source code on github is changed.
-To retrieve the lastest stable docker image use the following command:
-```docker
-docker pull digiwells/dwismicrostateinterpretationengine:stable
-```
-The docker image makes use of a shared volume. In this shared volume, the application reads a configuration file called `config.json`. The configuration has two properties:
-- `LoopDuration`: a string that represents the loop duration using the following format: "hh:mm:ss"
-- `OPCUAURL`: an URL that define how to access the OPC-UA server associated with the DDHub, e.g., `opc.tcp://localhost:48030`
-
-## Dependences
+# Dependences
 This service depends on:
-- OSDC.DotnetLibraries.Drilling.DrillingProperties
+- OSDC.DotnetLibraries.Drilling.DrillingProperties: the nuget is available here: https://www.nuget.org/packages/OSDC.DotnetLibraries.Drilling.DrillingProperties/10.2.2-build.7
 
-## References
+# References
 There are two references for the `DWIS Microstates Interpretation Engine`:
 - Cayeux, Eric, Macpherson, John, Pirovolou, Dimitrios, Laing, Moray, and Fred Florence. "A General Framework to Describe Drilling Process States." 
 Paper presented at the SPE/IADC International Drilling Conference and Exhibition, Stavanger, Norway, March 2023. doi: https://doi.org/10.2118/212537-MS
 - Cayeux, E., Macpherson, J., Pirovolou, D., Laing, M., and F. Florence. "A General Framework to Describe Drilling Process States." SPE J. (2024;): doi: https://doi.org/10.2118/212537-PA
 
-## Contributors
+# Contributors
 The code of the `DWIS Microstates Interpretation Engine` is developed and maintained by Eric Cayeux (NORCE Norwegian Research Center).
