@@ -45,17 +45,17 @@ namespace DWIS.MicroState.UnitTests
                     data.Add(new Tuple<DateTime, GaussianDrillingProperty>(starts[k] + i * steps[k], prop));
                 }
             }
-            Dictionary<DWISNodeID, CalibrationParameters> calibrations = new Dictionary<DWISNodeID, CalibrationParameters>();
+            Dictionary<string, CalibrationParameters> calibrations = new Dictionary<string, CalibrationParameters>();
     
             FuseAndCalibrateSignals.ManageCalibrations(values, calibrations);
-            Assert.IsTrue(calibrations.ContainsKey(nodes[0]));
-            Assert.IsTrue(calibrations.ContainsKey(nodes[1]));
-            Assert.AreEqual(alphas[0], calibrations[nodes[0]].Scaling, 1e-4);
-            Assert.AreEqual(betas[0], calibrations[nodes[0]].Bias, 1e-4);
-            Assert.AreEqual(incrs[0], calibrations[nodes[0]].Delay.TotalSeconds, 0.5);
-            Assert.AreEqual(alphas[1], calibrations[nodes[1]].Scaling, 1e-4);
-            Assert.AreEqual(betas[1], calibrations[nodes[1]].Bias, 1e-4);
-            Assert.AreEqual(incrs[1], calibrations[nodes[1]].Delay.TotalSeconds, 0.5);
+            Assert.IsTrue(calibrations.ContainsKey(nodes[0].ToString()));
+            Assert.IsTrue(calibrations.ContainsKey(nodes[1].ToString()));
+            Assert.AreEqual(alphas[0], calibrations[nodes[0].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[0], calibrations[nodes[0].ToString()].Bias, 1e-4);
+            Assert.AreEqual(incrs[0], calibrations[nodes[0].ToString()].Delay.TotalSeconds, 0.5);
+            Assert.AreEqual(alphas[1], calibrations[nodes[1].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[1], calibrations[nodes[1].ToString()].Bias, 1e-4);
+            Assert.AreEqual(incrs[1], calibrations[nodes[1].ToString()].Delay.TotalSeconds, 0.5);
         }
 
         [Test]
@@ -92,17 +92,17 @@ namespace DWIS.MicroState.UnitTests
                     data.Add(new Tuple<DateTime, GaussianDrillingProperty>(starts[k] + i * steps[k], prop));
                 }
             }
-            Dictionary<DWISNodeID, CalibrationParameters> calibrations = new Dictionary<DWISNodeID, CalibrationParameters>();
+            Dictionary<string, CalibrationParameters> calibrations = new Dictionary<string, CalibrationParameters>();
 
             FuseAndCalibrateSignals.ManageCalibrations(values, calibrations);
-            Assert.IsTrue(calibrations.ContainsKey(nodes[0]));
-            Assert.IsTrue(calibrations.ContainsKey(nodes[1]));
-            Assert.AreEqual(alphas[0], calibrations[nodes[0]].Scaling, 1e-4);
-            Assert.AreEqual(betas[0], calibrations[nodes[0]].Bias, 1e-4);
-            Assert.AreEqual(incrs[0], calibrations[nodes[0]].Delay.TotalSeconds, 0.5);
-            Assert.AreEqual(alphas[1], calibrations[nodes[1]].Scaling, 1e-4);
-            Assert.AreEqual(betas[1], calibrations[nodes[1]].Bias, 1e-4);
-            Assert.AreEqual(incrs[1], calibrations[nodes[1]].Delay.TotalSeconds, 0.5);
+            Assert.IsTrue(calibrations.ContainsKey(nodes[0].ToString()));
+            Assert.IsTrue(calibrations.ContainsKey(nodes[1].ToString()));
+            Assert.AreEqual(alphas[0], calibrations[nodes[0].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[0], calibrations[nodes[0].ToString()].Bias, 1e-4);
+            Assert.AreEqual(incrs[0], calibrations[nodes[0].ToString()].Delay.TotalSeconds, 0.5);
+            Assert.AreEqual(alphas[1], calibrations[nodes[1].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[1], calibrations[nodes[1].ToString()].Bias, 1e-4);
+            Assert.AreEqual(incrs[1], calibrations[nodes[1].ToString()].Delay.TotalSeconds, 0.5);
         }
 
         [Test]
@@ -139,17 +139,17 @@ namespace DWIS.MicroState.UnitTests
                     data.Add(new Tuple<DateTime, GaussianDrillingProperty>(starts[k] + i * steps[k], prop));
                 }
             }
-            Dictionary<DWISNodeID, CalibrationParameters> calibrations = new Dictionary<DWISNodeID, CalibrationParameters>();
+            Dictionary<string, CalibrationParameters> calibrations = new Dictionary<string, CalibrationParameters>();
 
             FuseAndCalibrateSignals.ManageCalibrations(values, calibrations);
-            Assert.IsTrue(calibrations.ContainsKey(nodes[0]));
-            Assert.IsTrue(calibrations.ContainsKey(nodes[1]));
-            Assert.AreEqual(alphas[0], calibrations[nodes[0]].Scaling, 1e-4);
-            Assert.AreEqual(betas[0], calibrations[nodes[0]].Bias, 1e-4);
-            Assert.AreEqual(incrs[0], calibrations[nodes[0]].Delay.TotalSeconds, 0.75);
-            Assert.AreEqual(alphas[1], calibrations[nodes[1]].Scaling, 1e-4);
-            Assert.AreEqual(betas[1], calibrations[nodes[1]].Bias, 1e-4);
-            Assert.AreEqual(incrs[1], calibrations[nodes[1]].Delay.TotalSeconds, 0.75);
+            Assert.IsTrue(calibrations.ContainsKey(nodes[0].ToString()));
+            Assert.IsTrue(calibrations.ContainsKey(nodes[1].ToString()));
+            Assert.AreEqual(alphas[0], calibrations[nodes[0].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[0], calibrations[nodes[0].ToString()].Bias, 1e-4);
+            Assert.AreEqual(incrs[0], calibrations[nodes[0].ToString()].Delay.TotalSeconds, 0.75);
+            Assert.AreEqual(alphas[1], calibrations[nodes[1].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[1], calibrations[nodes[1].ToString()].Bias, 1e-4);
+            Assert.AreEqual(incrs[1], calibrations[nodes[1].ToString()].Delay.TotalSeconds, 0.75);
         }
         [Test]
         public void Test4()
@@ -185,17 +185,17 @@ namespace DWIS.MicroState.UnitTests
                     data.Add(new Tuple<DateTime, GaussianDrillingProperty>(starts[k] + i * steps[k], prop));
                 }
             }
-            Dictionary<DWISNodeID, CalibrationParameters> calibrations = new Dictionary<DWISNodeID, CalibrationParameters>();
+            Dictionary<string, CalibrationParameters> calibrations = new Dictionary<string, CalibrationParameters>();
 
             FuseAndCalibrateSignals.ManageCalibrations(values, calibrations);
-            Assert.IsTrue(calibrations.ContainsKey(nodes[0]));
-            Assert.IsTrue(calibrations.ContainsKey(nodes[1]));
-            Assert.AreEqual(alphas[0], calibrations[nodes[0]].Scaling, 1e-4);
-            Assert.AreEqual(betas[0], calibrations[nodes[0]].Bias, 1e-4);
-            Assert.AreEqual(0.0, calibrations[nodes[0]].Delay.TotalSeconds, 0.5);
-            Assert.AreEqual(alphas[1], calibrations[nodes[1]].Scaling, 1e-4);
-            Assert.AreEqual(betas[1], calibrations[nodes[1]].Bias, 1e-4);
-            Assert.AreEqual(incrs[1], calibrations[nodes[1]].Delay.TotalSeconds, 0.5);
+            Assert.IsTrue(calibrations.ContainsKey(nodes[0].ToString()));
+            Assert.IsTrue(calibrations.ContainsKey(nodes[1].ToString()));
+            Assert.AreEqual(alphas[0], calibrations[nodes[0].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[0], calibrations[nodes[0].ToString()].Bias, 1e-4);
+            Assert.AreEqual(0.0, calibrations[nodes[0].ToString()].Delay.TotalSeconds, 0.5);
+            Assert.AreEqual(alphas[1], calibrations[nodes[1].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[1], calibrations[nodes[1].ToString()].Bias, 1e-4);
+            Assert.AreEqual(incrs[1], calibrations[nodes[1].ToString()].Delay.TotalSeconds, 0.5);
         }
 
         [Test]
@@ -232,17 +232,17 @@ namespace DWIS.MicroState.UnitTests
                     data.Add(new Tuple<DateTime, GaussianDrillingProperty>(starts[k] + i * steps[k], prop));
                 }
             }
-            Dictionary<DWISNodeID, CalibrationParameters> calibrations = new Dictionary<DWISNodeID, CalibrationParameters>();
+            Dictionary<string, CalibrationParameters> calibrations = new Dictionary<string, CalibrationParameters>();
 
             FuseAndCalibrateSignals.ManageCalibrations(values, calibrations);
-            Assert.IsTrue(calibrations.ContainsKey(nodes[0]));
-            Assert.IsTrue(calibrations.ContainsKey(nodes[1]));
-            Assert.AreEqual(alphas[0], calibrations[nodes[0]].Scaling, 0.2);
-            Assert.AreEqual(betas[0], calibrations[nodes[0]].Bias, 0.2);
-            Assert.AreEqual(1.0, calibrations[nodes[0]].Delay.TotalSeconds, 0.5);
-            Assert.AreEqual(alphas[1], calibrations[nodes[1]].Scaling, 1e-4);
-            Assert.AreEqual(betas[1], calibrations[nodes[1]].Bias, 1e-4);
-            Assert.AreEqual(incrs[1], calibrations[nodes[1]].Delay.TotalSeconds, 0.5);
+            Assert.IsTrue(calibrations.ContainsKey(nodes[0].ToString()));
+            Assert.IsTrue(calibrations.ContainsKey(nodes[1].ToString()));
+            Assert.AreEqual(alphas[0], calibrations[nodes[0].ToString()].Scaling, 0.2);
+            Assert.AreEqual(betas[0], calibrations[nodes[0].ToString()].Bias, 0.2);
+            Assert.AreEqual(1.0, calibrations[nodes[0].ToString()].Delay.TotalSeconds, 0.5);
+            Assert.AreEqual(alphas[1], calibrations[nodes[1].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[1], calibrations[nodes[1].ToString()].Bias, 1e-4);
+            Assert.AreEqual(incrs[1], calibrations[nodes[1].ToString()].Delay.TotalSeconds, 0.5);
         }
         [Test]
         public void Test6()
@@ -278,17 +278,17 @@ namespace DWIS.MicroState.UnitTests
                     data.Add(new Tuple<DateTime, GaussianDrillingProperty>(starts[k] + i * steps[k], prop));
                 }
             }
-            Dictionary<DWISNodeID, CalibrationParameters> calibrations = new Dictionary<DWISNodeID, CalibrationParameters>();
+            Dictionary<string, CalibrationParameters> calibrations = new Dictionary<string, CalibrationParameters>();
 
             FuseAndCalibrateSignals.ManageCalibrations(values, calibrations);
-            Assert.IsTrue(calibrations.ContainsKey(nodes[0]));
-            Assert.IsTrue(calibrations.ContainsKey(nodes[1]));
-            Assert.AreEqual(alphas[0], calibrations[nodes[0]].Scaling, 0.3);
-            Assert.AreEqual(betas[0], calibrations[nodes[0]].Bias, 0.2);
-            Assert.AreEqual(5.0, calibrations[nodes[0]].Delay.TotalSeconds, 0.75);
-            Assert.AreEqual(alphas[1], calibrations[nodes[1]].Scaling, 1e-4);
-            Assert.AreEqual(betas[1], calibrations[nodes[1]].Bias, 1e-4);
-            Assert.AreEqual(incrs[1], calibrations[nodes[1]].Delay.TotalSeconds, 0.75);
+            Assert.IsTrue(calibrations.ContainsKey(nodes[0].ToString()));
+            Assert.IsTrue(calibrations.ContainsKey(nodes[1].ToString()));
+            Assert.AreEqual(alphas[0], calibrations[nodes[0].ToString()].Scaling, 0.3);
+            Assert.AreEqual(betas[0], calibrations[nodes[0].ToString()].Bias, 0.2);
+            Assert.AreEqual(5.0, calibrations[nodes[0].ToString()].Delay.TotalSeconds, 0.75);
+            Assert.AreEqual(alphas[1], calibrations[nodes[1].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[1], calibrations[nodes[1].ToString()].Bias, 1e-4);
+            Assert.AreEqual(incrs[1], calibrations[nodes[1].ToString()].Delay.TotalSeconds, 0.75);
         }
 
         [Test]
@@ -324,17 +324,17 @@ namespace DWIS.MicroState.UnitTests
                     data.Add(new Tuple<DateTime, ScalarDrillingProperty>(starts[k] + i * steps[k], prop));
                 }
             }
-            Dictionary<DWISNodeID, CalibrationParameters> calibrations = new Dictionary<DWISNodeID, CalibrationParameters>();
+            Dictionary<string, CalibrationParameters> calibrations = new Dictionary<string, CalibrationParameters>();
 
             FuseAndCalibrateSignals.ManageCalibrations(values, calibrations);
-            Assert.IsTrue(calibrations.ContainsKey(nodes[0]));
-            Assert.IsTrue(calibrations.ContainsKey(nodes[1]));
-            Assert.AreEqual(alphas[0], calibrations[nodes[0]].Scaling, 1e-4);
-            Assert.AreEqual(betas[0], calibrations[nodes[0]].Bias, 1e-4);
-            Assert.AreEqual(incrs[0], calibrations[nodes[0]].Delay.TotalSeconds, 0.5);
-            Assert.AreEqual(alphas[1], calibrations[nodes[1]].Scaling, 1e-4);
-            Assert.AreEqual(betas[1], calibrations[nodes[1]].Bias, 1e-4);
-            Assert.AreEqual(incrs[1], calibrations[nodes[1]].Delay.TotalSeconds, 0.5);
+            Assert.IsTrue(calibrations.ContainsKey(nodes[0].ToString()));
+            Assert.IsTrue(calibrations.ContainsKey(nodes[1].ToString()));
+            Assert.AreEqual(alphas[0], calibrations[nodes[0].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[0], calibrations[nodes[0].ToString()].Bias, 1e-4);
+            Assert.AreEqual(incrs[0], calibrations[nodes[0].ToString()].Delay.TotalSeconds, 0.5);
+            Assert.AreEqual(alphas[1], calibrations[nodes[1].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[1], calibrations[nodes[1].ToString()].Bias, 1e-4);
+            Assert.AreEqual(incrs[1], calibrations[nodes[1].ToString()].Delay.TotalSeconds, 0.5);
         }
 
         [Test]
@@ -370,17 +370,17 @@ namespace DWIS.MicroState.UnitTests
                     data.Add(new Tuple<DateTime, ScalarDrillingProperty>(starts[k] + i * steps[k], prop));
                 }
             }
-            Dictionary<DWISNodeID, CalibrationParameters> calibrations = new Dictionary<DWISNodeID, CalibrationParameters>();
+            Dictionary<string, CalibrationParameters> calibrations = new Dictionary<string, CalibrationParameters>();
 
             FuseAndCalibrateSignals.ManageCalibrations(values, calibrations);
-            Assert.IsTrue(calibrations.ContainsKey(nodes[0]));
-            Assert.IsTrue(calibrations.ContainsKey(nodes[1]));
-            Assert.AreEqual(alphas[0], calibrations[nodes[0]].Scaling, 1e-4);
-            Assert.AreEqual(betas[0], calibrations[nodes[0]].Bias, 1e-4);
-            Assert.AreEqual(incrs[0], calibrations[nodes[0]].Delay.TotalSeconds, 0.5);
-            Assert.AreEqual(alphas[1], calibrations[nodes[1]].Scaling, 1e-4);
-            Assert.AreEqual(betas[1], calibrations[nodes[1]].Bias, 1e-4);
-            Assert.AreEqual(incrs[1], calibrations[nodes[1]].Delay.TotalSeconds, 0.5);
+            Assert.IsTrue(calibrations.ContainsKey(nodes[0].ToString()));
+            Assert.IsTrue(calibrations.ContainsKey(nodes[1].ToString()));
+            Assert.AreEqual(alphas[0], calibrations[nodes[0].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[0], calibrations[nodes[0].ToString()].Bias, 1e-4);
+            Assert.AreEqual(incrs[0], calibrations[nodes[0].ToString()].Delay.TotalSeconds, 0.5);
+            Assert.AreEqual(alphas[1], calibrations[nodes[1].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[1], calibrations[nodes[1].ToString()].Bias, 1e-4);
+            Assert.AreEqual(incrs[1], calibrations[nodes[1].ToString()].Delay.TotalSeconds, 0.5);
         }
 
         [Test]
@@ -416,17 +416,17 @@ namespace DWIS.MicroState.UnitTests
                     data.Add(new Tuple<DateTime, ScalarDrillingProperty>(starts[k] + i * steps[k], prop));
                 }
             }
-            Dictionary<DWISNodeID, CalibrationParameters> calibrations = new Dictionary<DWISNodeID, CalibrationParameters>();
+            Dictionary<string, CalibrationParameters> calibrations = new Dictionary<string, CalibrationParameters>();
 
             FuseAndCalibrateSignals.ManageCalibrations(values, calibrations);
-            Assert.IsTrue(calibrations.ContainsKey(nodes[0]));
-            Assert.IsTrue(calibrations.ContainsKey(nodes[1]));
-            Assert.AreEqual(alphas[0], calibrations[nodes[0]].Scaling, 1e-4);
-            Assert.AreEqual(betas[0], calibrations[nodes[0]].Bias, 1e-4);
-            Assert.AreEqual(incrs[0], calibrations[nodes[0]].Delay.TotalSeconds, 0.75);
-            Assert.AreEqual(alphas[1], calibrations[nodes[1]].Scaling, 1e-4);
-            Assert.AreEqual(betas[1], calibrations[nodes[1]].Bias, 1e-4);
-            Assert.AreEqual(incrs[1], calibrations[nodes[1]].Delay.TotalSeconds, 0.75);
+            Assert.IsTrue(calibrations.ContainsKey(nodes[0].ToString()));
+            Assert.IsTrue(calibrations.ContainsKey(nodes[1].ToString()));
+            Assert.AreEqual(alphas[0], calibrations[nodes[0].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[0], calibrations[nodes[0].ToString()].Bias, 1e-4);
+            Assert.AreEqual(incrs[0], calibrations[nodes[0].ToString()].Delay.TotalSeconds, 0.75);
+            Assert.AreEqual(alphas[1], calibrations[nodes[1].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[1], calibrations[nodes[1].ToString()].Bias, 1e-4);
+            Assert.AreEqual(incrs[1], calibrations[nodes[1].ToString()].Delay.TotalSeconds, 0.75);
         }
         [Test]
         public void Test10()
@@ -461,17 +461,17 @@ namespace DWIS.MicroState.UnitTests
                     data.Add(new Tuple<DateTime, ScalarDrillingProperty>(starts[k] + i * steps[k], prop));
                 }
             }
-            Dictionary<DWISNodeID, CalibrationParameters> calibrations = new Dictionary<DWISNodeID, CalibrationParameters>();
+            Dictionary<string, CalibrationParameters> calibrations = new Dictionary<string, CalibrationParameters>();
 
             FuseAndCalibrateSignals.ManageCalibrations(values, calibrations);
-            Assert.IsTrue(calibrations.ContainsKey(nodes[0]));
-            Assert.IsTrue(calibrations.ContainsKey(nodes[1]));
-            Assert.AreEqual(alphas[0], calibrations[nodes[0]].Scaling, 1e-4);
-            Assert.AreEqual(betas[0], calibrations[nodes[0]].Bias, 1e-4);
-            Assert.AreEqual(0.0, calibrations[nodes[0]].Delay.TotalSeconds, 0.5);
-            Assert.AreEqual(alphas[1], calibrations[nodes[1]].Scaling, 1e-4);
-            Assert.AreEqual(betas[1], calibrations[nodes[1]].Bias, 1e-4);
-            Assert.AreEqual(incrs[1], calibrations[nodes[1]].Delay.TotalSeconds, 0.5);
+            Assert.IsTrue(calibrations.ContainsKey(nodes[0].ToString()));
+            Assert.IsTrue(calibrations.ContainsKey(nodes[1].ToString()));
+            Assert.AreEqual(alphas[0], calibrations[nodes[0].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[0], calibrations[nodes[0].ToString()].Bias, 1e-4);
+            Assert.AreEqual(0.0, calibrations[nodes[0].ToString()].Delay.TotalSeconds, 0.5);
+            Assert.AreEqual(alphas[1], calibrations[nodes[1].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[1], calibrations[nodes[1].ToString()].Bias, 1e-4);
+            Assert.AreEqual(incrs[1], calibrations[nodes[1].ToString()].Delay.TotalSeconds, 0.5);
         }
 
         [Test]
@@ -507,17 +507,17 @@ namespace DWIS.MicroState.UnitTests
                     data.Add(new Tuple<DateTime, ScalarDrillingProperty>(starts[k] + i * steps[k], prop));
                 }
             }
-            Dictionary<DWISNodeID, CalibrationParameters> calibrations = new Dictionary<DWISNodeID, CalibrationParameters>();
+            Dictionary<string, CalibrationParameters> calibrations = new Dictionary<string, CalibrationParameters>();
 
             FuseAndCalibrateSignals.ManageCalibrations(values, calibrations);
-            Assert.IsTrue(calibrations.ContainsKey(nodes[0]));
-            Assert.IsTrue(calibrations.ContainsKey(nodes[1]));
-            Assert.AreEqual(alphas[0], calibrations[nodes[0]].Scaling, 0.2);
-            Assert.AreEqual(betas[0], calibrations[nodes[0]].Bias, 0.2);
-            Assert.AreEqual(1.0, calibrations[nodes[0]].Delay.TotalSeconds, 0.5);
-            Assert.AreEqual(alphas[1], calibrations[nodes[1]].Scaling, 1e-4);
-            Assert.AreEqual(betas[1], calibrations[nodes[1]].Bias, 1e-4);
-            Assert.AreEqual(incrs[1], calibrations[nodes[1]].Delay.TotalSeconds, 0.5);
+            Assert.IsTrue(calibrations.ContainsKey(nodes[0].ToString()));
+            Assert.IsTrue(calibrations.ContainsKey(nodes[1].ToString()));
+            Assert.AreEqual(alphas[0], calibrations[nodes[0].ToString()].Scaling, 0.2);
+            Assert.AreEqual(betas[0], calibrations[nodes[0].ToString()].Bias, 0.2);
+            Assert.AreEqual(1.0, calibrations[nodes[0].ToString()].Delay.TotalSeconds, 0.5);
+            Assert.AreEqual(alphas[1], calibrations[nodes[1].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[1], calibrations[nodes[1].ToString()].Bias, 1e-4);
+            Assert.AreEqual(incrs[1], calibrations[nodes[1].ToString()].Delay.TotalSeconds, 0.5);
         }
         [Test]
         public void Test12()
@@ -552,17 +552,17 @@ namespace DWIS.MicroState.UnitTests
                     data.Add(new Tuple<DateTime, ScalarDrillingProperty>(starts[k] + i * steps[k], prop));
                 }
             }
-            Dictionary<DWISNodeID, CalibrationParameters> calibrations = new Dictionary<DWISNodeID, CalibrationParameters>();
+            Dictionary<string, CalibrationParameters> calibrations = new Dictionary<string, CalibrationParameters>();
 
             FuseAndCalibrateSignals.ManageCalibrations(values, calibrations);
-            Assert.IsTrue(calibrations.ContainsKey(nodes[0]));
-            Assert.IsTrue(calibrations.ContainsKey(nodes[1]));
-            Assert.AreEqual(alphas[0], calibrations[nodes[0]].Scaling, 0.3);
-            Assert.AreEqual(betas[0], calibrations[nodes[0]].Bias, 0.2);
-            Assert.AreEqual(5.0, calibrations[nodes[0]].Delay.TotalSeconds, 0.75);
-            Assert.AreEqual(alphas[1], calibrations[nodes[1]].Scaling, 1e-4);
-            Assert.AreEqual(betas[1], calibrations[nodes[1]].Bias, 1e-4);
-            Assert.AreEqual(incrs[1], calibrations[nodes[1]].Delay.TotalSeconds, 0.75);
+            Assert.IsTrue(calibrations.ContainsKey(nodes[0].ToString()));
+            Assert.IsTrue(calibrations.ContainsKey(nodes[1].ToString()));
+            Assert.AreEqual(alphas[0], calibrations[nodes[0].ToString()].Scaling, 0.3);
+            Assert.AreEqual(betas[0], calibrations[nodes[0].ToString()].Bias, 0.2);
+            Assert.AreEqual(5.0, calibrations[nodes[0].ToString()].Delay.TotalSeconds, 0.75);
+            Assert.AreEqual(alphas[1], calibrations[nodes[1].ToString()].Scaling, 1e-4);
+            Assert.AreEqual(betas[1], calibrations[nodes[1].ToString()].Bias, 1e-4);
+            Assert.AreEqual(incrs[1], calibrations[nodes[1].ToString()].Delay.TotalSeconds, 0.75);
         }
     }
 }

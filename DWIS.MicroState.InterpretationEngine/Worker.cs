@@ -407,16 +407,16 @@ namespace DWIS.MicroState.InterpretationEngine
                                 }
                                 if (valuesToFuse.Any() && currentCalibrations_.Values != null)
                                 {
-                                    if (!currentCalibrations_.Values.ContainsKey(propInfo))
+                                    if (!currentCalibrations_.Values.ContainsKey(propInfo.Name))
                                     {
-                                        currentCalibrations_.Values.Add(propInfo, new Dictionary<DWISNodeID, CalibrationParameters>());
+                                        currentCalibrations_.Values.Add(propInfo.Name, new Dictionary<string, CalibrationParameters>());
                                     }
                                     DefaultStandardDeviationAttribute? defaultStdDeviationAttr = propInfo.GetCustomAttribute<DefaultStandardDeviationAttribute>();
                                     if (defaultStdDeviationAttr != null && defaultStdDeviationAttr.StandardDeviation > 0)
                                     {
                                         defaultStandardDeviation = defaultStdDeviationAttr.StandardDeviation;
                                     }
-                                    FuseAndCalibrateSignals.FuseAndCalibrateData(drillingProperty, valuesToFuse, currentCalibrations_.Values[propInfo], defaultStandardDeviation);
+                                    FuseAndCalibrateSignals.FuseAndCalibrateData(drillingProperty, valuesToFuse, currentCalibrations_.Values[propInfo.Name], defaultStandardDeviation);
                                 }
                             }
                             else if (obj is not null and BernoulliDrillingProperty binaryDrillingProperty)
@@ -458,16 +458,16 @@ namespace DWIS.MicroState.InterpretationEngine
                                 }
                                 if (valuesToFuse.Any() && currentCalibrations_.Values != null)
                                 {
-                                    if (!currentCalibrations_.Values.ContainsKey(propInfo))
+                                    if (!currentCalibrations_.Values.ContainsKey(propInfo.Name))
                                     {
-                                        currentCalibrations_.Values.Add(propInfo, new Dictionary<DWISNodeID, CalibrationParameters>());
+                                        currentCalibrations_.Values.Add(propInfo.Name, new Dictionary<string, CalibrationParameters>());
                                     }
                                     DefaultProbabilityAttribute? defaultProbabilityAttr = propInfo.GetCustomAttribute<DefaultProbabilityAttribute>();
                                     if (defaultProbabilityAttr != null && defaultProbabilityAttr.Probability > 0)
                                     {
                                         defaultProbability = defaultProbabilityAttr.Probability;
                                     }
-                                    FuseAndCalibrateSignals.FuseAndCalibrateData(binaryDrillingProperty, valuesToFuse, currentCalibrations_.Values[propInfo], defaultProbability);
+                                    FuseAndCalibrateSignals.FuseAndCalibrateData(binaryDrillingProperty, valuesToFuse, currentCalibrations_.Values[propInfo.Name], defaultProbability);
                                 }
                             }
                             else if (obj is not null and ScalarDrillingProperty scalarDrillingProperty)
@@ -503,19 +503,23 @@ namespace DWIS.MicroState.InterpretationEngine
                                 }
                                 if (valuesToFuse.Any() && currentCalibrations_.Values != null)
                                 {
-                                    if (!currentCalibrations_.Values.ContainsKey(propInfo))
+                                    if (!currentCalibrations_.Values.ContainsKey(propInfo.Name))
                                     {
-                                        currentCalibrations_.Values.Add(propInfo, new Dictionary<DWISNodeID, CalibrationParameters>());
+                                        currentCalibrations_.Values.Add(propInfo.Name, new Dictionary<string, CalibrationParameters>());
                                     }
-                                    FuseAndCalibrateSignals.FuseAndCalibrateData(scalarDrillingProperty, valuesToFuse, currentCalibrations_.Values[propInfo]);
+                                    FuseAndCalibrateSignals.FuseAndCalibrateData(scalarDrillingProperty, valuesToFuse, currentCalibrations_.Values[propInfo.Name]);
                                 }
                             }
-                            else
+                            else if (obj is not null and DateTime timeStamp)
+                            {
+                                // nothing to do
+                            }
+                            else 
                             {
                                 // should never arrive here!
                                 if (_logger != null)
                                 {
-                                    _logger.LogError("DrillingPropertyType not managed by the sensor fusion and data sourc calibration algorithm!");
+                                    _logger.LogError("DrillingPropertyType not managed by the sensor fusion and data source calibration algorithm!");
                                 }
                             }
                         }

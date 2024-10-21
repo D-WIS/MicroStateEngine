@@ -1293,10 +1293,15 @@ namespace DWIS.MicroState.Model
                     if (queries != null && queries.Count > 0 && manifestFile != null)
                     {
                         QueryResult? res = null;
+                        List<List<string>> vars = new List<List<string>>();
                         foreach (var kvp in queries)
                         {
                             if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Value.SparQL))
                             {
+                                if (kvp.Value.Variables != null)
+                                {
+                                    vars.Add(kvp.Value.Variables);
+                                }
                                 var result = DWISClient.GetQueryResult(kvp.Value.SparQL);
                                 if (result != null && result.Results != null && result.Results.Count > 0)
                                 {
@@ -1305,29 +1310,26 @@ namespace DWIS.MicroState.Model
                                 }
                             }
                         }
+                        List<string>? variables = Utils.CommonVariables(vars);
                         // if we couldn't find any answer then the manifest must be injected
                         if (res == null)
                         {
                             var r = DWISClient.Inject(manifestFile);
                             if (r != null && r.Success)
                             {
-                                res = null;
-                                foreach (var kvp in queries)
+                                if (r.ProvidedVariables != null && r.ProvidedVariables.Count > 0)
                                 {
-                                    if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Value.SparQL))
+                                    placeHolder = new QueryResult();
+                                    QueryResultRow row = new QueryResultRow();
+                                    List<NodeIdentifier> items = new List<NodeIdentifier>();
+                                    placeHolder.VariablesHeader = variables;
+                                    row.Items = items;
+                                    foreach (var kvp in r.ProvidedVariables)
                                     {
-                                        var result = DWISClient.GetQueryResult(kvp.Value.SparQL);
-                                        if (result != null && result.Results != null && result.Results.Count > 0)
-                                        {
-                                            res = result;
-                                            break;
-                                        }
+                                        DWISClient.GetNameSpace(kvp.InjectedID.NameSpaceIndex, out string ns);
+                                        items.Add(new NodeIdentifier() { ID = kvp.InjectedID.ID, NameSpace = ns });
                                     }
-                                }
-                                if (res != null)
-                                {
-                                    placeHolder = res;
-                                    ok = true;
+                                    placeHolder.Add(row);
                                 }
                             }
                         }
@@ -1363,8 +1365,7 @@ namespace DWIS.MicroState.Model
                                 outputs[0].id = id.ID;
                                 outputs[0].value = json;
                                 outputs[0].sourceTimestamp = DateTime.UtcNow;
-                                DWISClient.UpdateAnyVariables(outputs);
-                                ok = true;
+                                ok = DWISClient.UpdateAnyVariables(outputs);
                             }
                         }
                     }

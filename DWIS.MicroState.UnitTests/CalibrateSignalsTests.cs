@@ -611,10 +611,10 @@ namespace DWIS.MicroState.UnitTests
             reinterpolatedValues.Add(new DWISNodeID() { NameSpaceIndex = 0, ID = "1" }, data1);
             reinterpolatedValues.Add(new DWISNodeID() { NameSpaceIndex = 0, ID = "2" }, data2);
 
-            Dictionary<DWISNodeID, CalibrationParameters> calibrations = new Dictionary<DWISNodeID, CalibrationParameters>();
+            Dictionary<string, CalibrationParameters> calibrations = new Dictionary<string, CalibrationParameters>();
             foreach (var kvp in reinterpolatedValues) 
             {
-                calibrations.Add(kvp.Key, new CalibrationParameters() { Scaling = 1.0, Bias = 0.0, Delay = TimeSpan.Zero });
+                calibrations.Add(kvp.Key.ToString(), new CalibrationParameters() { Scaling = 1.0, Bias = 0.0, Delay = TimeSpan.Zero });
             }
             FuseAndCalibrateSignals.Optimize(reinterpolatedValues, calibrations, TimeSpan.FromSeconds(1));
             foreach (var kvp in calibrations)
@@ -661,79 +661,79 @@ namespace DWIS.MicroState.UnitTests
             reinterpolatedValues.Add(nodeID1, data1);
             reinterpolatedValues.Add(nodeID2, data2);
             TimeSpan timeStep = TimeSpan.FromSeconds(1);
-            Dictionary<DWISNodeID, CalibrationParameters> calibrations = new Dictionary<DWISNodeID, CalibrationParameters>();
+            Dictionary<string, CalibrationParameters> calibrations = new Dictionary<string, CalibrationParameters>();
             foreach (var kvp in reinterpolatedValues)
             {
-                calibrations.Add(kvp.Key, new CalibrationParameters() { Scaling = 1.0, Bias = 0.0, Delay = TimeSpan.Zero });
+                calibrations.Add(kvp.Key.ToString(), new CalibrationParameters() { Scaling = 1.0, Bias = 0.0, Delay = TimeSpan.Zero });
             }
-            calibrations[nodeID1].Scaling = alpha;
-            calibrations[nodeID1].Bias = beta;
-            calibrations[nodeID1].Delay = incr * timeStep;
+            calibrations[nodeID1.ToString()].Scaling = alpha;
+            calibrations[nodeID1.ToString()].Bias = beta;
+            calibrations[nodeID1.ToString()].Delay = incr * timeStep;
             FuseAndCalibrateSignals.Optimize(reinterpolatedValues, calibrations, timeStep);
 
-            Assert.AreEqual(alpha, calibrations[nodeID1].Scaling, 1e-6);
-            Assert.AreEqual(beta, calibrations[nodeID1].Bias, 1e-6);
-            Assert.AreEqual(incr * timeStep.TotalSeconds, calibrations[nodeID1].Delay.TotalSeconds, 1e-6);
-            Assert.AreEqual(1, calibrations[nodeID2].Scaling, 1e-6);
-            Assert.AreEqual(0, calibrations[nodeID2].Bias, 1e-6);
-            Assert.AreEqual(0, calibrations[nodeID2].Delay.TotalSeconds, 1e-6);
+            Assert.AreEqual(alpha, calibrations[nodeID1.ToString()].Scaling, 1e-6);
+            Assert.AreEqual(beta, calibrations[nodeID1.ToString()].Bias, 1e-6);
+            Assert.AreEqual(incr * timeStep.TotalSeconds, calibrations[nodeID1.ToString()].Delay.TotalSeconds, 1e-6);
+            Assert.AreEqual(1, calibrations[nodeID2.ToString()].Scaling, 1e-6);
+            Assert.AreEqual(0, calibrations[nodeID2.ToString()].Bias, 1e-6);
+            Assert.AreEqual(0, calibrations[nodeID2.ToString()].Delay.TotalSeconds, 1e-6);
 
-            calibrations = new Dictionary<DWISNodeID, CalibrationParameters>();
+            calibrations = new Dictionary<string, CalibrationParameters>();
             foreach (var kvp in reinterpolatedValues)
             {
-                calibrations.Add(kvp.Key, new CalibrationParameters() { Scaling = 1.0, Bias = 0.0, Delay = TimeSpan.Zero });
+                calibrations.Add(kvp.Key.ToString(), new CalibrationParameters() { Scaling = 1.0, Bias = 0.0, Delay = TimeSpan.Zero });
             }
             double factor = 0.98;
-            calibrations[nodeID1].Scaling = alpha* factor;
-            calibrations[nodeID1].Bias = beta* factor;
-            calibrations[nodeID1].Delay = (int)(incr* factor) * timeStep;
+            calibrations[nodeID1.ToString()].Scaling = alpha* factor;
+            calibrations[nodeID1.ToString()].Bias = beta* factor;
+            calibrations[nodeID1.ToString()].Delay = (int)(incr* factor) * timeStep;
             FuseAndCalibrateSignals.Optimize(reinterpolatedValues, calibrations, timeStep);
 
-            Assert.AreEqual(alpha, calibrations[nodeID1].Scaling, 1e-3);
-            Assert.AreEqual(beta, calibrations[nodeID1].Bias, 1e-3);
-            Assert.AreEqual(incr * timeStep.TotalSeconds, calibrations[nodeID1].Delay.TotalSeconds, 0.5);
-            Assert.AreEqual(1, calibrations[nodeID2].Scaling, 1e-6);
-            Assert.AreEqual(0, calibrations[nodeID2].Bias, 1e-6);
-            Assert.AreEqual(0, calibrations[nodeID2].Delay.TotalSeconds, 1e-6);
+            Assert.AreEqual(alpha, calibrations[nodeID1.ToString()].Scaling, 1e-3);
+            Assert.AreEqual(beta, calibrations[nodeID1.ToString()].Bias, 1e-3);
+            Assert.AreEqual(incr * timeStep.TotalSeconds, calibrations[nodeID1.ToString()].Delay.TotalSeconds, 0.5);
+            Assert.AreEqual(1, calibrations[nodeID2.ToString()].Scaling, 1e-6);
+            Assert.AreEqual(0, calibrations[nodeID2.ToString()].Bias, 1e-6);
+            Assert.AreEqual(0, calibrations[nodeID2.ToString()].Delay.TotalSeconds, 1e-6);
 
             factor = 0.90;
-            calibrations[nodeID1].Scaling = alpha * factor;
-            calibrations[nodeID1].Bias = beta * factor;
-            calibrations[nodeID1].Delay = (int)(incr * factor) * timeStep;
+            calibrations[nodeID1.ToString()].Scaling = alpha * factor;
+            calibrations[nodeID1.ToString()].Bias = beta * factor;
+            calibrations[nodeID1.ToString()].Delay = (int)(incr * factor) * timeStep;
             FuseAndCalibrateSignals.Optimize(reinterpolatedValues, calibrations, timeStep);
 
-            Assert.AreEqual(alpha, calibrations[nodeID1].Scaling, 1e-3);
-            Assert.AreEqual(beta, calibrations[nodeID1].Bias, 1e-3);
-            Assert.AreEqual(incr * timeStep.TotalSeconds, calibrations[nodeID1].Delay.TotalSeconds, 0.5);
-            Assert.AreEqual(1, calibrations[nodeID2].Scaling, 1e-6);
-            Assert.AreEqual(0, calibrations[nodeID2].Bias, 1e-6);
-            Assert.AreEqual(0, calibrations[nodeID2].Delay.TotalSeconds, 1e-6);
+            Assert.AreEqual(alpha, calibrations[nodeID1.ToString()].Scaling, 1e-3);
+            Assert.AreEqual(beta, calibrations[nodeID1.ToString()].Bias, 1e-3);
+            Assert.AreEqual(incr * timeStep.TotalSeconds, calibrations[nodeID1.ToString()].Delay.TotalSeconds, 0.5);
+            Assert.AreEqual(1, calibrations[nodeID2.ToString()].Scaling, 1e-6);
+            Assert.AreEqual(0, calibrations[nodeID2.ToString()].Bias, 1e-6);
+            Assert.AreEqual(0, calibrations[nodeID2.ToString()].Delay.TotalSeconds, 1e-6);
 
             factor = 0.50;
-            calibrations[nodeID1].Scaling = alpha * factor;
-            calibrations[nodeID1].Bias = beta * factor;
-            calibrations[nodeID1].Delay = (int)(incr * factor) * timeStep;
+            calibrations[nodeID1.ToString()].Scaling = alpha * factor;
+            calibrations[nodeID1.ToString()].Bias = beta * factor;
+            calibrations[nodeID1.ToString()].Delay = (int)(incr * factor) * timeStep;
             FuseAndCalibrateSignals.Optimize(reinterpolatedValues, calibrations, timeStep);
 
-            Assert.AreEqual(alpha, calibrations[nodeID1].Scaling, 1e-3);
-            Assert.AreEqual(beta, calibrations[nodeID1].Bias, 1e-3);
-            Assert.AreEqual(incr * timeStep.TotalSeconds, calibrations[nodeID1].Delay.TotalSeconds, 0.5);
-            Assert.AreEqual(1, calibrations[nodeID2].Scaling, 1e-6);
-            Assert.AreEqual(0, calibrations[nodeID2].Bias, 1e-6);
-            Assert.AreEqual(0, calibrations[nodeID2].Delay.TotalSeconds, 1e-6);
+            Assert.AreEqual(alpha, calibrations[nodeID1.ToString()].Scaling, 1e-3);
+            Assert.AreEqual(beta, calibrations[nodeID1.ToString()].Bias, 1e-3);
+            Assert.AreEqual(incr * timeStep.TotalSeconds, calibrations[nodeID1.ToString()].Delay.TotalSeconds, 0.5);
+            Assert.AreEqual(1, calibrations[nodeID2.ToString()].Scaling, 1e-6);
+            Assert.AreEqual(0, calibrations[nodeID2.ToString()].Bias, 1e-6);
+            Assert.AreEqual(0, calibrations[nodeID2.ToString()].Delay.TotalSeconds, 1e-6);
 
             factor = 0.20;
-            calibrations[nodeID1].Scaling = alpha * factor;
-            calibrations[nodeID1].Bias = beta * factor;
-            calibrations[nodeID1].Delay = (int)(incr * factor) * timeStep;
+            calibrations[nodeID1.ToString()].Scaling = alpha * factor;
+            calibrations[nodeID1.ToString()].Bias = beta * factor;
+            calibrations[nodeID1.ToString()].Delay = (int)(incr * factor) * timeStep;
             FuseAndCalibrateSignals.Optimize(reinterpolatedValues, calibrations, timeStep);
 
-            Assert.AreEqual(alpha, calibrations[nodeID1].Scaling, 1e-3);
-            Assert.AreEqual(beta, calibrations[nodeID1].Bias, 1e-3);
-            Assert.AreEqual(incr * timeStep.TotalSeconds, calibrations[nodeID1].Delay.TotalSeconds, 0.5);
-            Assert.AreEqual(1, calibrations[nodeID2].Scaling, 1e-6);
-            Assert.AreEqual(0, calibrations[nodeID2].Bias, 1e-6);
-            Assert.AreEqual(0, calibrations[nodeID2].Delay.TotalSeconds, 1e-6);
+            Assert.AreEqual(alpha, calibrations[nodeID1.ToString()].Scaling, 1e-3);
+            Assert.AreEqual(beta, calibrations[nodeID1.ToString()].Bias, 1e-3);
+            Assert.AreEqual(incr * timeStep.TotalSeconds, calibrations[nodeID1.ToString()].Delay.TotalSeconds, 0.5);
+            Assert.AreEqual(1, calibrations[nodeID2.ToString()].Scaling, 1e-6);
+            Assert.AreEqual(0, calibrations[nodeID2.ToString()].Bias, 1e-6);
+            Assert.AreEqual(0, calibrations[nodeID2.ToString()].Delay.TotalSeconds, 1e-6);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace DWIS.MicroState.Model
         public static double ConvergenceTolerance = 1e-6;
         public static int MaxNumberOfIterations = 1000;
 
-        public static void FuseAndCalibrateData(GaussianDrillingProperty drillProp, Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, GaussianDrillingProperty>>> valuesToFuse, Dictionary<DWISNodeID, CalibrationParameters> calibrations, double defaultStandardDeviation)
+        public static void FuseAndCalibrateData(GaussianDrillingProperty drillProp, Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, GaussianDrillingProperty>>> valuesToFuse, Dictionary<string, CalibrationParameters> calibrations, double defaultStandardDeviation)
         {
             if (drillProp != null && valuesToFuse != null)
             {
@@ -36,7 +36,7 @@ namespace DWIS.MicroState.Model
                         {
                             double scaling = 1.0;
                             double bias = 0.0;
-                            CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key);
+                            CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
                             if (calibrationParameters != null)
                             {
                                 scaling = calibrationParameters.Scaling;
@@ -63,7 +63,7 @@ namespace DWIS.MicroState.Model
                             double scaling = 1.0;
                             double bias = 0.0;
                             TimeSpan delay = TimeSpan.Zero;
-                            CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key);
+                            CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
                             if (calibrationParameters != null)
                             {
                                 delay = calibrationParameters.Delay;
@@ -108,7 +108,7 @@ namespace DWIS.MicroState.Model
                 }
             }
         }
-        public static void FuseAndCalibrateData(BernoulliDrillingProperty drillProp, Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, BernoulliDrillingProperty>>> valuesToFuse, Dictionary<DWISNodeID, CalibrationParameters> calibrations, double defaultProbability)
+        public static void FuseAndCalibrateData(BernoulliDrillingProperty drillProp, Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, BernoulliDrillingProperty>>> valuesToFuse, Dictionary<string, CalibrationParameters> calibrations, double defaultProbability)
         {
             if (drillProp != null)
             {
@@ -126,7 +126,7 @@ namespace DWIS.MicroState.Model
                         {
                             double scaling = 1.0;
                             double bias = 0.0;
-                            CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key);
+                            CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
                             if (calibrationParameters != null)
                             {
                                 scaling = calibrationParameters.Scaling;
@@ -152,7 +152,7 @@ namespace DWIS.MicroState.Model
                             double scaling = 1.0;
                             double bias = 0.0;
                             TimeSpan delay = TimeSpan.Zero;
-                            CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key);
+                            CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
                             if (calibrationParameters != null)
                             {
                                 delay = calibrationParameters.Delay;
@@ -191,7 +191,7 @@ namespace DWIS.MicroState.Model
                 }
             }
         }
-        public static void FuseAndCalibrateData(ScalarDrillingProperty drillProp, Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, ScalarDrillingProperty>>> valuesToFuse, Dictionary<DWISNodeID, CalibrationParameters> calibrations)
+        public static void FuseAndCalibrateData(ScalarDrillingProperty drillProp, Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, ScalarDrillingProperty>>> valuesToFuse, Dictionary<string, CalibrationParameters> calibrations)
         {
             if (drillProp != null)
             {
@@ -211,9 +211,9 @@ namespace DWIS.MicroState.Model
                             DateTime lastTimeStamp = data.Item1;
                             // find the calibrated delay
                             TimeSpan delay = TimeSpan.Zero;
-                            if (calibrations != null && calibrations.ContainsKey(kpv.Key))
+                            if (calibrations != null && calibrations.ContainsKey(kpv.Key.ToString()))
                             {
-                                CalibrationParameters calibrationParameters = calibrations[kpv.Key];
+                                CalibrationParameters calibrationParameters = calibrations[kpv.Key.ToString()];
                                 if (calibrationParameters != null)
                                 {
                                     delay = calibrationParameters.Delay;
@@ -234,7 +234,7 @@ namespace DWIS.MicroState.Model
                         {
                             double scaling = 1.0;
                             double bias = 0.0;
-                            CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key);
+                            CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
                             if (calibrationParameters != null)
                             {
                                 scaling = calibrationParameters.Scaling;
@@ -260,7 +260,7 @@ namespace DWIS.MicroState.Model
                             double scaling = 1.0;
                             double bias = 0.0;
                             TimeSpan delay = TimeSpan.Zero;
-                            CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key);
+                            CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
                             if (calibrationParameters != null)
                             {
                                 delay = calibrationParameters.Delay;
@@ -297,15 +297,15 @@ namespace DWIS.MicroState.Model
             }
         }
 
-        public static void ManageCalibrations(Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, GaussianDrillingProperty>>> valuesToFuse, Dictionary<DWISNodeID, CalibrationParameters> calibrations)
+        public static void ManageCalibrations(Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, GaussianDrillingProperty>>> valuesToFuse, Dictionary<string, CalibrationParameters> calibrations)
         {
             if (valuesToFuse != null && calibrations != null)
             {
                 foreach (var kvp in valuesToFuse)
                 {
-                    if (!calibrations.ContainsKey(kvp.Key))
+                    if (!calibrations.ContainsKey(kvp.Key.ToString()))
                     {
-                        calibrations.Add(kvp.Key, new CalibrationParameters() { Scaling = 1.0, Bias = 0.0, Delay = TimeSpan.Zero });
+                        calibrations.Add(kvp.Key.ToString(), new CalibrationParameters() { Scaling = 1.0, Bias = 0.0, Delay = TimeSpan.Zero });
                     }
                 }
                 // Reinterpolate all the signals with a constant time step and such that the timestamps are synchrone for a common time interval
@@ -325,24 +325,24 @@ namespace DWIS.MicroState.Model
             }
         }
 
-        public static void ManageCalibrations(Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, BernoulliDrillingProperty>>> valuesToFuse, Dictionary<DWISNodeID, CalibrationParameters> calibrations)
+        public static void ManageCalibrations(Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, BernoulliDrillingProperty>>> valuesToFuse, Dictionary<string, CalibrationParameters> calibrations)
         {
             foreach (var kvp in valuesToFuse)
             {
-                if (!calibrations.ContainsKey(kvp.Key))
+                if (!calibrations.ContainsKey(kvp.Key.ToString()))
                 {
-                    calibrations.Add(kvp.Key, new CalibrationParameters() { Scaling = 1.0, Bias = 0.0, Delay = TimeSpan.Zero });
+                    calibrations.Add(kvp.Key.ToString(), new CalibrationParameters() { Scaling = 1.0, Bias = 0.0, Delay = TimeSpan.Zero });
                 }
             }
         }
 
-        public static void ManageCalibrations(Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, ScalarDrillingProperty>>> valuesToFuse, Dictionary<DWISNodeID, CalibrationParameters> calibrations)
+        public static void ManageCalibrations(Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, ScalarDrillingProperty>>> valuesToFuse, Dictionary<string, CalibrationParameters> calibrations)
         {
             foreach (var kvp in valuesToFuse)
             {
-                if (!calibrations.ContainsKey(kvp.Key))
+                if (!calibrations.ContainsKey(kvp.Key.ToString()))
                 {
-                    calibrations.Add(kvp.Key, new CalibrationParameters() { Scaling = 1.0, Bias = 0.0, Delay = TimeSpan.Zero });
+                    calibrations.Add(kvp.Key.ToString(), new CalibrationParameters() { Scaling = 1.0, Bias = 0.0, Delay = TimeSpan.Zero });
                 }
             }
             // Reinterpolate all the signals with a constant time step and such that the timestamps are synchrone for a common time interval
@@ -361,7 +361,7 @@ namespace DWIS.MicroState.Model
             }
         }
 
-        public static DateTime FindInterpolationTime<T>(Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, T>>> valuesToFuse, Dictionary<DWISNodeID, CalibrationParameters> calibrations)
+        public static DateTime FindInterpolationTime<T>(Dictionary<DWISNodeID, CircularBuffer<Tuple<DateTime, T>>> valuesToFuse, Dictionary<string, CalibrationParameters> calibrations)
         {
             DateTime interpolationTime = DateTime.MaxValue;
             foreach (var kpv in valuesToFuse)
@@ -374,8 +374,8 @@ namespace DWIS.MicroState.Model
                         DateTime lastTimeStamp = data.Item1;
                         // find the calibrated delay
                         TimeSpan delay = TimeSpan.Zero;
-                        CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key);
-                        if (calibrationParameters != null && calibrations.ContainsKey(kpv.Key))
+                        CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
+                        if (calibrationParameters != null && calibrations.ContainsKey(kpv.Key.ToString()))
                         {
                             delay = calibrationParameters.Delay;
                         }
@@ -389,7 +389,7 @@ namespace DWIS.MicroState.Model
             return interpolationTime;
         }
 
-        public static CalibrationParameters? FindCalibration(Dictionary<DWISNodeID, CalibrationParameters>? calibrations, DWISNodeID? nodeID )
+        public static CalibrationParameters? FindCalibration(Dictionary<string, CalibrationParameters>? calibrations, string? nodeID )
         {
             if (calibrations != null && nodeID != null && calibrations.ContainsKey(nodeID))
             {
@@ -670,18 +670,18 @@ namespace DWIS.MicroState.Model
             }
         }
 
-        public static void Optimize(Dictionary<DWISNodeID, double[]> reinterpolated, Dictionary<DWISNodeID, CalibrationParameters> calibrations, TimeSpan timeStep)
+        public static void Optimize(Dictionary<DWISNodeID, double[]> reinterpolated, Dictionary<string, CalibrationParameters> calibrations, TimeSpan timeStep)
         {
             if (reinterpolated != null && calibrations != null && reinterpolated.Count >= 2)
             {
                 List<double> guesses = new List<double>();
                 foreach ( var kvp in reinterpolated )
                 {
-                    if (!calibrations.ContainsKey(kvp.Key))
+                    if (!calibrations.ContainsKey(kvp.Key.ToString()))
                     {
-                        calibrations.Add(kvp.Key, new CalibrationParameters() { Scaling = 1.0, Bias = 0, Delay = TimeSpan.Zero });
+                        calibrations.Add(kvp.Key.ToString(), new CalibrationParameters() { Scaling = 1.0, Bias = 0, Delay = TimeSpan.Zero });
                     }
-                    var parameters = calibrations[kvp.Key];
+                    var parameters = calibrations[kvp.Key.ToString()];
                     guesses.Add(parameters.Scaling);
                     guesses.Add(parameters.Bias);
                     guesses.Add(parameters.Delay.TotalSeconds/timeStep.TotalSeconds);
