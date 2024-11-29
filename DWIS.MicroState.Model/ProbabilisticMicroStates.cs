@@ -7,6 +7,7 @@ using DWIS.Vocabulary.Schemas;
 using static System.Net.WebRequestMethods;
 using System.Text;
 using System.Text.Json;
+using MathNet.Numerics;
 
 namespace DWIS.MicroState.Model
 {
@@ -1454,6 +1455,67 @@ namespace DWIS.MicroState.Model
                     }
                 }
             }
+        }
+
+        public bool RegisterToBlackBoard_InjectAnyway(IOPCUADWISClient? DWISClient, ref QueryResult? placeHolder)
+        {
+            bool ok = false;
+            if (DWISClient != null)
+            {
+                Type type = GetType();
+                Assembly assembly = type.Assembly;
+
+                string? manifestName = type.FullName;
+
+                Dictionary<string, QuerySpecification>? queries = GeneratorSparQLManifestFile.GetSparQLQueries(assembly, type.FullName);
+
+                if (!string.IsNullOrEmpty(manifestName))
+                {
+                    List<List<string>> vars = new List<List<string>>();
+                    foreach (var kvp in queries)
+                    {
+                        if (kvp.Value.Variables != null)
+                        {
+                            vars.Add(kvp.Value.Variables);
+                        }
+                        if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Value.SparQL))
+                        {
+                            if (kvp.Value.Variables != null)
+                            {
+                                vars.Add(kvp.Value.Variables);
+                            }
+                            //var result =  DWISClient.GetQueryResult(kvp.Value.SparQL);
+                            //if (result != null && result.Results != null && result.Results.Count > 0)
+                            //{
+                            //    break;
+                            //}
+                        }
+                    }
+
+                    ManifestFile? manifestFile = GeneratorSparQLManifestFile.GetManifestFile(assembly, type.FullName, manifestName, companyName_, prefix_);
+                    List<string>? variables = Utils.CommonVariables(vars);
+                    var r = DWISClient.Inject(manifestFile);
+                    if (r != null && r.Success)
+                    {
+                        if (r.ProvidedVariables != null && r.ProvidedVariables.Count > 0)
+                        {
+                            placeHolder = new QueryResult();
+                            QueryResultRow row = new QueryResultRow();
+                            List<NodeIdentifier> items = new List<NodeIdentifier>();
+                            placeHolder.VariablesHeader = variables;
+                            row.Items = items;
+                            foreach (var kvp in r.ProvidedVariables)
+                            {
+                                DWISClient.GetNameSpace(kvp.InjectedID.NameSpaceIndex, out string ns);
+                                items.Add(new NodeIdentifier() { ID = kvp.InjectedID.ID, NameSpace = ns });
+                            }
+                            placeHolder.Add(row);
+                        }
+                    }
+                }
+            }
+
+            return ok;
         }
         public bool RegisterToBlackboard(IOPCUADWISClient? DWISClient, ref QueryResult? placeHolder)
         {
