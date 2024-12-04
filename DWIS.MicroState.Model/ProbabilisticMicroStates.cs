@@ -1536,7 +1536,7 @@ namespace DWIS.MicroState.Model
                         List<List<string>> vars = new List<List<string>>();
                         foreach (var kvp in queries)
                         {
-                            if (kvp.Value.Variables != null)
+                            if (kvp.Value != null && kvp.Value.Variables != null)
                             {
                                 vars.Add(kvp.Value.Variables);
                             }

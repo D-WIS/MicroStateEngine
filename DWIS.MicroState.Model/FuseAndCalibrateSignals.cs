@@ -569,7 +569,7 @@ namespace DWIS.MicroState.Model
         {
             if (valuesToFuse != null && reinterpolated != null && minTimeStamp < maxTimeStamp && timeStep > TimeSpan.Zero)
             {
-                int count = (int)((maxTimeStamp - timeStep - minTimeStamp).TotalSeconds / timeStep.TotalSeconds);
+                int count = (int)  System.Math.Round(   ((maxTimeStamp /*- timeStep*/ - minTimeStamp).TotalSeconds / timeStep.TotalSeconds));
                 if (count >= MinTimeWindow.TotalSeconds)
                 {
                     foreach (var kvp in valuesToFuse)
@@ -590,6 +590,10 @@ namespace DWIS.MicroState.Model
                                         DateTime timeStamp = minTimeStamp + i * timeStep;
                                         while (Numeric.LT(timeStamp, tuple.Item1, 0.5))
                                         {
+                                            if (i >= vals.Length)
+                                            {
+                                                int pi = 3;
+                                            }
                                             if (previousTimeStamp != DateTime.MinValue)
                                             {
                                                 double factor = (timeStamp - previousTimeStamp).TotalSeconds / (tuple.Item1- previousTimeStamp).TotalSeconds;

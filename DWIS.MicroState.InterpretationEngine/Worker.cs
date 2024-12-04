@@ -148,6 +148,73 @@ namespace DWIS.MicroState.InterpretationEngine
                 };
             }
         }
+
+        private void AcquireSignalInput_() 
+        {
+            if (DWISClient_ != null && DWISClient_.Connected)
+            {
+                Type type = typeof(SignalGroup);
+                Assembly assembly = type.Assembly;
+                var queries = GeneratorSparQLManifestFile.GetSparQLQueries(assembly, type.FullName);
+                if (queries != null && queries.Count > 0)
+                {
+                    if (microStateSignalPlaceHolders_ == null)
+                    {
+                        microStateSignalPlaceHolders_ = new List<AcquiredSignals>();
+                    }
+                    microStateSignalPlaceHolders_.Clear();
+                    foreach (var kvp in queries)
+                    {
+                        if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Value.SparQL))
+                        {
+                            string sparql = kvp.Value.SparQL;
+                            var result = DWISClient_.RegisterQuery(sparql, MicroStateCallBack);// DWISClient_.GetQueryResult(sparql);
+
+                            if (!string.IsNullOrEmpty(result.jsonQueryDiff))
+                            {
+                                var queryDiff = QueryResultsDiff.FromJsonString(result.jsonQueryDiff);
+                                if (queryDiff != null && queryDiff.Added != null && queryDiff.Added.Any())
+                                {
+                                    registeredQueriesSparqls_.Add(queryDiff.QueryID, (sparql, kvp.Key));
+                                    microStateSignalPlaceHolders_.Add(AcquiredSignals.CreateWithSubscription(new string[] { kvp.Value.SparQL }, new string[] { kvp.Key }, 0, DWISClient_));
+                                }
+                            }
+
+                            //if (result != null && result.Results != null && result.Results.Count > 0)
+                            //{
+                            //    microStateSignalPlaceHolders_.Add(AcquiredSignals.CreateWithSubscription(new string[] { kvp.Value.SparQL }, new string[] { kvp.Key }, 0, DWISClient_));
+                            //}
+                        }
+                    }
+                };
+            }
+        }
+        private Dictionary<string, (string sparql, string key)> registeredQueriesSparqls_ = new Dictionary<string, (string sparql, string key)>();
+        private void MicroStateCallBack(QueryResultsDiff resultsDiff)
+        {
+            if (resultsDiff != null && resultsDiff.Added != null && resultsDiff.Added.Any())
+            {
+                if (registeredQueriesSparqls_.ContainsKey(resultsDiff.QueryID))
+                {
+                    var pair = registeredQueriesSparqls_[resultsDiff.QueryID];
+                    var ac = AcquiredSignals.CreateWithSubscription(new string[] { pair.sparql }, new string[] { pair.key }, 0, DWISClient_);
+
+                    var existing = microStateSignalPlaceHolders_.FirstOrDefault(ph => ph.Any() && ph.First().Key == pair.key);
+                    if (existing != null)
+                    {
+                        int idx = microStateSignalPlaceHolders_.IndexOf(existing);
+                        microStateSignalPlaceHolders_[idx] = ac;
+                        //microStateSignalPlaceHolders_.Remove(existing);//risk for multithread problem there...
+                    }
+                    else
+                    {
+                        //risk for multithread problem there...
+                        microStateSignalPlaceHolders_.Add(ac);
+                    }
+                }
+            }
+        }
+
         private void RefreshThresholds()
         {
             bool exists = false;
