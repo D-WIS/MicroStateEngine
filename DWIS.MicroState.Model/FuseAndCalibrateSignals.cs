@@ -23,87 +23,111 @@ namespace DWIS.MicroState.Model
         {
             if (drillProp != null && valuesToFuse != null)
             {
-                List<GaussianDrillingProperty> signals = new List<GaussianDrillingProperty>();
-                //manage calibrations
-                ManageCalibrations(valuesToFuse, calibrations);
-                // find the interpolation time
-                DateTime interpolationTime = FindInterpolationTime<GaussianDrillingProperty>(valuesToFuse, calibrations);
-                if (interpolationTime == DateTime.MaxValue)
+                if (valuesToFuse.Count == 1)
                 {
-                    foreach (var kpv in valuesToFuse)
+                    DateTime interpolationTime = DateTime.MaxValue;
+                    foreach (var kvp in valuesToFuse)
                     {
-                        if (kpv.Value != null && kpv.Value.Count > 0 && kpv.Value.Peek() != null)
+                        if (kvp.Value != null)
                         {
-                            double scaling = 1.0;
-                            double bias = 0.0;
-                            CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
-                            if (calibrationParameters != null)
+                            interpolationTime = FindInterpolationTime(kvp.Value, kvp.Key, calibrations, interpolationTime);
+                            if (interpolationTime != DateTime.MaxValue)
                             {
-                                scaling = calibrationParameters.Scaling;
-                                bias = calibrationParameters.Bias;
-                            }
-                            GaussianDrillingProperty val = kpv.Value.Peek().Item2;
-                            if (val != null)
-                            {
-                                GaussianDrillingProperty newValue = new GaussianDrillingProperty();
-                                newValue.Mean = val.Mean * scaling + bias;
-                                newValue.StandardDeviation = val.StandardDeviation * scaling;
-                                signals.Add(newValue);
+                                GaussianDrillingProperty? interpolatedProp = Interpolate(kvp.Value, interpolationTime, TimeSpan.Zero, 1.0, 0.0);
+                                if ( interpolatedProp != null)  
+                                {
+                                    drillProp.Mean = interpolatedProp.Mean;
+                                    drillProp.StandardDeviation = interpolatedProp.StandardDeviation;
+                                }
                             }
                         }
+                        break;
                     }
                 }
                 else
                 {
-                    // interpolate
-                    foreach (var kpv in valuesToFuse)
+                    List<GaussianDrillingProperty> signals = new List<GaussianDrillingProperty>();
+                    //manage calibrations
+                    ManageCalibrations(valuesToFuse, calibrations);
+                    // find the interpolation time
+                    DateTime interpolationTime = FindInterpolationTime<GaussianDrillingProperty>(valuesToFuse, calibrations);
+                    if (interpolationTime == DateTime.MaxValue)
                     {
-                        if (kpv.Value != null && kpv.Value.Count > 0)
+                        foreach (var kpv in valuesToFuse)
                         {
-                            double scaling = 1.0;
-                            double bias = 0.0;
-                            TimeSpan delay = TimeSpan.Zero;
-                            CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
-                            if (calibrationParameters != null)
+                            if (kpv.Value != null && kpv.Value.Count > 0 && kpv.Value.Peek() != null)
                             {
-                                delay = calibrationParameters.Delay;
-                                scaling = calibrationParameters.Scaling;
-                                bias = calibrationParameters.Bias;
-                            }
-                            GaussianDrillingProperty? newValue = Interpolate(kpv.Value, interpolationTime, delay, scaling, bias);
-                            if (newValue != null)
-                            {
-                                signals.Add(newValue);
-                            }
-                        }
-                    }
-                }
-                // fuse the values
-                if (signals.Count > 0)
-                {
-                    double meanSum = 0;
-                    double invVarSum = 0;
-                    foreach (var signal in signals)
-                    {
-                        if (signal.GaussianValue != null)
-                        {
-                            double? mean = signal.GaussianValue.Mean;
-                            if (mean != null)
-                            {
-                                double? stdDev = signal.GaussianValue.StandardDeviation;
-                                if (stdDev == null)
+                                double scaling = 1.0;
+                                double bias = 0.0;
+                                CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
+                                if (calibrationParameters != null)
                                 {
-                                    stdDev = defaultStandardDeviation;
+                                    scaling = calibrationParameters.Scaling;
+                                    bias = calibrationParameters.Bias;
                                 }
-                                invVarSum += 1.0 / (stdDev.Value * stdDev.Value);
-                                meanSum += mean.Value / (stdDev.Value * stdDev.Value);
+                                GaussianDrillingProperty val = kpv.Value.Peek().Item2;
+                                if (val != null)
+                                {
+                                    GaussianDrillingProperty newValue = new GaussianDrillingProperty();
+                                    newValue.Mean = val.Mean * scaling + bias;
+                                    newValue.StandardDeviation = val.StandardDeviation * scaling;
+                                    signals.Add(newValue);
+                                }
                             }
                         }
                     }
-                    if (!Numeric.EQ(invVarSum, 0))
+                    else
                     {
-                        drillProp.Mean = meanSum / invVarSum;
-                        drillProp.StandardDeviation = 1.0 / Numeric.SqrtEqual(invVarSum);
+                        // interpolate
+                        foreach (var kpv in valuesToFuse)
+                        {
+                            if (kpv.Value != null && kpv.Value.Count > 0)
+                            {
+                                double scaling = 1.0;
+                                double bias = 0.0;
+                                TimeSpan delay = TimeSpan.Zero;
+                                CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
+                                if (calibrationParameters != null)
+                                {
+                                    delay = calibrationParameters.Delay;
+                                    scaling = calibrationParameters.Scaling;
+                                    bias = calibrationParameters.Bias;
+                                }
+                                GaussianDrillingProperty? newValue = Interpolate(kpv.Value, interpolationTime, delay, scaling, bias);
+                                if (newValue != null)
+                                {
+                                    signals.Add(newValue);
+                                }
+                            }
+                        }
+                    }
+                    // fuse the values
+                    if (signals.Count > 0)
+                    {
+                        double meanSum = 0;
+                        double invVarSum = 0;
+                        foreach (var signal in signals)
+                        {
+                            if (signal.GaussianValue != null)
+                            {
+                                double? mean = signal.GaussianValue.Mean;
+                                if (mean != null)
+                                {
+                                    double? stdDev = signal.GaussianValue.StandardDeviation;
+                                    if (stdDev == null)
+                                    {
+                                        stdDev = defaultStandardDeviation;
+                                    }
+                                    invVarSum += 1.0 / (stdDev.Value * stdDev.Value);
+                                    meanSum += mean.Value / (stdDev.Value * stdDev.Value);
+                                }
+                            }
+                        }
+                        if (!Numeric.EQ(invVarSum, 0))
+                        {
+                            drillProp.Mean = meanSum / invVarSum;
+                            drillProp.StandardDeviation = 1.0 / Numeric.SqrtEqual(invVarSum);
+                        }
                     }
                 }
             }
@@ -112,82 +136,105 @@ namespace DWIS.MicroState.Model
         {
             if (drillProp != null)
             {
-                List<BernoulliDrillingProperty> signals = new List<BernoulliDrillingProperty>();
-                // manage calibrations
-                ManageCalibrations(valuesToFuse, calibrations);
-
-                // find the interpolation time
-                DateTime interpolationTime = FindInterpolationTime<BernoulliDrillingProperty>(valuesToFuse, calibrations);
-                if (interpolationTime == DateTime.MaxValue)
+                if (valuesToFuse.Count == 1)
                 {
-                    foreach (var kpv in valuesToFuse)
+                    DateTime interpolationTime = DateTime.MaxValue;
+                    foreach (var kvp in valuesToFuse)
                     {
-                        if (kpv.Value != null && kpv.Value.Count > 0 && kpv.Value.Peek() != null)
+                        if (kvp.Value != null)
                         {
-                            double scaling = 1.0;
-                            double bias = 0.0;
-                            CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
-                            if (calibrationParameters != null)
+                            interpolationTime = FindInterpolationTime(kvp.Value, kvp.Key, calibrations, interpolationTime);
+                            if (interpolationTime != DateTime.MaxValue)
                             {
-                                scaling = calibrationParameters.Scaling;
-                                bias = calibrationParameters.Bias;
-                            }
-                            BernoulliDrillingProperty val = kpv.Value.Peek().Item2;
-                            if (val != null)
-                            {
-                                BernoulliDrillingProperty newValue = new BernoulliDrillingProperty();
-                                newValue.Probability = val.Probability;
-                                signals.Add(newValue);
+                                BernoulliDrillingProperty? interpolatedProp = Interpolate(kvp.Value, interpolationTime, TimeSpan.Zero);
+                                if (interpolatedProp != null)
+                                {
+                                    drillProp.Probability = interpolatedProp.Probability;
+                                }
                             }
                         }
+                        break;
                     }
                 }
                 else
                 {
-                    // interpolate
-                    foreach (var kpv in valuesToFuse)
-                    {
-                        if (kpv.Value != null && kpv.Value.Count > 0)
-                        {
-                            double scaling = 1.0;
-                            double bias = 0.0;
-                            TimeSpan delay = TimeSpan.Zero;
-                            CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
-                            if (calibrationParameters != null)
-                            {
-                                delay = calibrationParameters.Delay;
-                                scaling = calibrationParameters.Scaling;
-                                bias = calibrationParameters.Bias;
-                            }
-                            BernoulliDrillingProperty? newValue = Interpolate(kpv.Value, interpolationTime, delay);
-                            if (newValue != null)
-                            {
-                                signals.Add(newValue);
-                            }
-                        }
-                    }
-                }
+                    List<BernoulliDrillingProperty> signals = new List<BernoulliDrillingProperty>();
+                    // manage calibrations
+                    ManageCalibrations(valuesToFuse, calibrations);
 
-                // fuse the values
-                if (signals.Count > 0)
-                {
-                    double sumProbability = 0;
-                    double productProbability = 1;
-                    foreach (var signal in signals)
+                    // find the interpolation time
+                    DateTime interpolationTime = FindInterpolationTime<BernoulliDrillingProperty>(valuesToFuse, calibrations);
+                    if (interpolationTime == DateTime.MaxValue)
                     {
-                        if (signal.BernoulliValue != null)
+                        foreach (var kpv in valuesToFuse)
                         {
-                            double? probability = signal.BernoulliValue.Probability;
-                            if (probability == null)
+                            if (kpv.Value != null && kpv.Value.Count > 0 && kpv.Value.Peek() != null)
                             {
-                                probability = defaultProbability;
+                                double scaling = 1.0;
+                                double bias = 0.0;
+                                CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
+                                if (calibrationParameters != null)
+                                {
+                                    scaling = calibrationParameters.Scaling;
+                                    bias = calibrationParameters.Bias;
+                                }
+                                BernoulliDrillingProperty val = kpv.Value.Peek().Item2;
+                                if (val != null)
+                                {
+                                    BernoulliDrillingProperty newValue = new BernoulliDrillingProperty();
+                                    newValue.Probability = val.Probability;
+                                    signals.Add(newValue);
+                                }
                             }
-                            sumProbability += probability.Value;
-                            productProbability *= probability.Value;
                         }
                     }
-                    double fusedProbability = sumProbability - productProbability;
-                    drillProp.Probability = fusedProbability;
+                    else
+                    {
+                        // interpolate
+                        foreach (var kpv in valuesToFuse)
+                        {
+                            if (kpv.Value != null && kpv.Value.Count > 0)
+                            {
+                                double scaling = 1.0;
+                                double bias = 0.0;
+                                TimeSpan delay = TimeSpan.Zero;
+                                CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
+                                if (calibrationParameters != null)
+                                {
+                                    delay = calibrationParameters.Delay;
+                                    scaling = calibrationParameters.Scaling;
+                                    bias = calibrationParameters.Bias;
+                                }
+                                BernoulliDrillingProperty? newValue = Interpolate(kpv.Value, interpolationTime, delay);
+                                if (newValue != null)
+                                {
+                                    signals.Add(newValue);
+                                }
+                            }
+                        }
+                    }
+
+                    // fuse the values
+                    if (signals.Count > 0)
+                    {
+                        double sumProbability = 0;
+                        double productProbability = 1;
+                        foreach (var signal in signals)
+                        {
+                            if (signal.BernoulliValue != null)
+                            {
+                                double? probability = signal.BernoulliValue.Probability;
+                                if (probability == null)
+                                {
+                                    probability = defaultProbability;
+                                }
+                                sumProbability += probability.Value;
+                                productProbability *= probability.Value;
+                            }
+                        }
+                        double fusedProbability = sumProbability - productProbability;
+                        drillProp.Probability = fusedProbability;
+                    }
                 }
             }
         }
@@ -195,103 +242,126 @@ namespace DWIS.MicroState.Model
         {
             if (drillProp != null)
             {
-                List<ScalarDrillingProperty> signals = new List<ScalarDrillingProperty>();
-                // manage calibrations
-                ManageCalibrations(valuesToFuse, calibrations);
-
-                // find the interpolation time
-                DateTime interpolationTime = FindInterpolationTime<ScalarDrillingProperty>(valuesToFuse, calibrations);
-                foreach (var kpv in valuesToFuse)
+                if (valuesToFuse.Count == 1)
                 {
-                    if (kpv.Value != null && kpv.Value.Count > 0)
+                    DateTime interpolationTime = DateTime.MaxValue;
+                    foreach (var kvp in valuesToFuse)
                     {
-                        var data = kpv.Value.Peek();
-                        if (data != null && data.Item2 != null)
+                        if (kvp.Value != null)
                         {
-                            DateTime lastTimeStamp = data.Item1;
-                            // find the calibrated delay
-                            TimeSpan delay = TimeSpan.Zero;
-                            if (calibrations != null && calibrations.ContainsKey(kpv.Key.ToString()))
+                            interpolationTime = FindInterpolationTime(kvp.Value, kvp.Key, calibrations, interpolationTime);
+                            if (interpolationTime != DateTime.MaxValue)
                             {
-                                CalibrationParameters calibrationParameters = calibrations[kpv.Key.ToString()];
-                                if (calibrationParameters != null)
+                                ScalarDrillingProperty? interpolatedProp = Interpolate(kvp.Value, interpolationTime, TimeSpan.Zero, 1.0, 0.0);
+                                if (interpolatedProp != null)
                                 {
-                                    delay = calibrationParameters.Delay;
+                                    drillProp.ScalarValue = interpolatedProp.ScalarValue;
                                 }
                             }
-                            if (lastTimeStamp < interpolationTime)
-                            {
-                                interpolationTime = lastTimeStamp + delay;
-                            }
                         }
-                    }
-                }
-                if (interpolationTime == DateTime.MaxValue)
-                {
-                    foreach (var kpv in valuesToFuse)
-                    {
-                        if (kpv.Value != null && kpv.Value.Count > 0 && kpv.Value.Peek() != null)
-                        {
-                            double scaling = 1.0;
-                            double bias = 0.0;
-                            CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
-                            if (calibrationParameters != null)
-                            {
-                                scaling = calibrationParameters.Scaling;
-                                bias = calibrationParameters.Bias;
-                            }
-                            ScalarDrillingProperty val = kpv.Value.Peek().Item2;
-                            if (val != null)
-                            {
-                                ScalarDrillingProperty newValue = new ScalarDrillingProperty();
-                                newValue.ScalarValue = val.ScalarValue * scaling + bias;
-                                signals.Add(newValue);
-                            }
-                        }
+                        break;
                     }
                 }
                 else
                 {
-                    // interpolate
+                    List<ScalarDrillingProperty> signals = new List<ScalarDrillingProperty>();
+                    // manage calibrations
+                    ManageCalibrations(valuesToFuse, calibrations);
+
+                    // find the interpolation time
+                    DateTime interpolationTime = FindInterpolationTime<ScalarDrillingProperty>(valuesToFuse, calibrations);
                     foreach (var kpv in valuesToFuse)
                     {
                         if (kpv.Value != null && kpv.Value.Count > 0)
                         {
-                            double scaling = 1.0;
-                            double bias = 0.0;
-                            TimeSpan delay = TimeSpan.Zero;
-                            CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
-                            if (calibrationParameters != null)
+                            var data = kpv.Value.Peek();
+                            if (data != null && data.Item2 != null)
                             {
-                                delay = calibrationParameters.Delay;
-                                scaling = calibrationParameters.Scaling;
-                                bias = calibrationParameters.Bias;
-                            }
-                            ScalarDrillingProperty? newValue = Interpolate(kpv.Value, interpolationTime, delay, scaling, bias);
-                            if (newValue != null)
-                            {
-                                signals.Add(newValue);
+                                DateTime lastTimeStamp = data.Item1;
+                                // find the calibrated delay
+                                TimeSpan delay = TimeSpan.Zero;
+                                if (calibrations != null && calibrations.ContainsKey(kpv.Key.ToString()))
+                                {
+                                    CalibrationParameters calibrationParameters = calibrations[kpv.Key.ToString()];
+                                    if (calibrationParameters != null)
+                                    {
+                                        delay = calibrationParameters.Delay;
+                                    }
+                                }
+                                if (lastTimeStamp < interpolationTime)
+                                {
+                                    interpolationTime = lastTimeStamp + delay;
+                                }
                             }
                         }
                     }
-                }
-
-                // fuse the values
-                if (signals.Count > 0)
-                {
-                    double sum = 0;
-                    int count = 0;
-                    foreach (var signal in signals)
+                    if (interpolationTime == DateTime.MaxValue)
                     {
-                        if (signal.ScalarValue != null)
+                        foreach (var kpv in valuesToFuse)
                         {
-                            sum += signal.ScalarValue.Value;
-                            count++;
+                            if (kpv.Value != null && kpv.Value.Count > 0 && kpv.Value.Peek() != null)
+                            {
+                                double scaling = 1.0;
+                                double bias = 0.0;
+                                CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
+                                if (calibrationParameters != null)
+                                {
+                                    scaling = calibrationParameters.Scaling;
+                                    bias = calibrationParameters.Bias;
+                                }
+                                ScalarDrillingProperty val = kpv.Value.Peek().Item2;
+                                if (val != null)
+                                {
+                                    ScalarDrillingProperty newValue = new ScalarDrillingProperty();
+                                    newValue.ScalarValue = val.ScalarValue * scaling + bias;
+                                    signals.Add(newValue);
+                                }
+                            }
                         }
                     }
-                    if (count > 0)
+                    else
                     {
-                        drillProp.ScalarValue = sum / count;
+                        // interpolate
+                        foreach (var kpv in valuesToFuse)
+                        {
+                            if (kpv.Value != null && kpv.Value.Count > 0)
+                            {
+                                double scaling = 1.0;
+                                double bias = 0.0;
+                                TimeSpan delay = TimeSpan.Zero;
+                                CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
+                                if (calibrationParameters != null)
+                                {
+                                    delay = calibrationParameters.Delay;
+                                    scaling = calibrationParameters.Scaling;
+                                    bias = calibrationParameters.Bias;
+                                }
+                                ScalarDrillingProperty? newValue = Interpolate(kpv.Value, interpolationTime, delay, scaling, bias);
+                                if (newValue != null)
+                                {
+                                    signals.Add(newValue);
+                                }
+                            }
+                        }
+                    }
+
+                    // fuse the values
+                    if (signals.Count > 0)
+                    {
+                        double sum = 0;
+                        int count = 0;
+                        foreach (var signal in signals)
+                        {
+                            if (signal.ScalarValue != null)
+                            {
+                                sum += signal.ScalarValue.Value;
+                                count++;
+                            }
+                        }
+                        if (count > 0)
+                        {
+                            drillProp.ScalarValue = sum / count;
+                        }
                     }
                 }
             }
@@ -368,21 +438,30 @@ namespace DWIS.MicroState.Model
             {
                 if (kpv.Value != null && kpv.Value.Count > 0)
                 {
-                    var data = kpv.Value.Peek();
-                    if (data != null && data.Item2 != null)
+                    interpolationTime = FindInterpolationTime(kpv.Value, kpv.Key, calibrations,  interpolationTime);
+                }
+            }
+            return interpolationTime;
+        }
+
+        private static DateTime FindInterpolationTime<T>(CircularBuffer<Tuple<DateTime, T>> values, DWISNodeID nodeID, Dictionary<string, CalibrationParameters> calibrations, DateTime interpolationTime)
+        {
+            if (values != null && values.Count > 0 && nodeID != null)
+            {
+                var data = values.Peek();
+                if (data != null && data.Item2 != null)
+                {
+                    DateTime lastTimeStamp = data.Item1;
+                    // find the calibrated delay
+                    TimeSpan delay = TimeSpan.Zero;
+                    CalibrationParameters? calibrationParameters = FindCalibration(calibrations, nodeID.ToString());
+                    if (calibrationParameters != null && calibrations.ContainsKey(nodeID.ToString()))
                     {
-                        DateTime lastTimeStamp = data.Item1;
-                        // find the calibrated delay
-                        TimeSpan delay = TimeSpan.Zero;
-                        CalibrationParameters? calibrationParameters = FindCalibration(calibrations, kpv.Key.ToString());
-                        if (calibrationParameters != null && calibrations.ContainsKey(kpv.Key.ToString()))
-                        {
-                            delay = calibrationParameters.Delay;
-                        }
-                        if (lastTimeStamp < interpolationTime)
-                        {
-                            interpolationTime = lastTimeStamp + delay;
-                        }
+                        delay = calibrationParameters.Delay;
+                    }
+                    if (lastTimeStamp < interpolationTime)
+                    {
+                        interpolationTime = lastTimeStamp + delay;
                     }
                 }
             }
