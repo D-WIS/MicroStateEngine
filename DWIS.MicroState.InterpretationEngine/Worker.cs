@@ -85,7 +85,7 @@ namespace DWIS.MicroState.InterpretationEngine
                 }
                 if (fusedSignalGroup_ != null)
                 {
-                    fusedSignalGroup_.RegisterToBlackboard(DWISClient_, ref fusedSignalGroupPlaceHolder_);
+                   fusedSignalGroup_.RegisterToBlackboard(DWISClient_, ref fusedSignalGroupPlaceHolder_);
                 }
             }
         }
@@ -149,7 +149,7 @@ namespace DWIS.MicroState.InterpretationEngine
             }
         }
 
-        private void AcquireSignalInput_() 
+        private void AcquireSignalInputs_() 
         {
             if (DWISClient_ != null && DWISClient_.Connected)
             {
@@ -179,11 +179,6 @@ namespace DWIS.MicroState.InterpretationEngine
                                     microStateSignalPlaceHolders_.Add(AcquiredSignals.CreateWithSubscription(new string[] { kvp.Value.SparQL }, new string[] { kvp.Key }, 0, DWISClient_));
                                 }
                             }
-
-                            //if (result != null && result.Results != null && result.Results.Count > 0)
-                            //{
-                            //    microStateSignalPlaceHolders_.Add(AcquiredSignals.CreateWithSubscription(new string[] { kvp.Value.SparQL }, new string[] { kvp.Key }, 0, DWISClient_));
-                            //}
                         }
                     }
                 };
@@ -192,6 +187,9 @@ namespace DWIS.MicroState.InterpretationEngine
         private Dictionary<string, (string sparql, string key)> registeredQueriesSparqls_ = new Dictionary<string, (string sparql, string key)>();
         private void MicroStateCallBack(QueryResultsDiff resultsDiff)
         {
+            _logger?.LogInformation("Callback for microstate input data");
+
+
             if (resultsDiff != null && resultsDiff.Added != null && resultsDiff.Added.Any())
             {
                 if (registeredQueriesSparqls_.ContainsKey(resultsDiff.QueryID))
@@ -271,7 +269,7 @@ namespace DWIS.MicroState.InterpretationEngine
             ConnectToBlackboard();
             DefineSemantic();
             AcquireMicroStatesThresholds();
-            AcquireSignalInputs();
+            AcquireSignalInputs_();
             while (!stoppingToken.IsCancellationRequested)
             {
                 DateTime d1 = DateTime.UtcNow;
@@ -2341,10 +2339,18 @@ namespace DWIS.MicroState.InterpretationEngine
                     microStates.Part5 = rnd.Next();
                 }
             }
-            _logger?.LogInformation("processed data");
+           // _logger?.LogInformation("processed data");
             bool changed = false;
             lock (lock_)
             {
+                _logger?.LogInformation("Current microstate:");
+                _logger?.LogInformation($"\t Part1: {currentDeterministicMicroStates_.Part1}");
+                _logger?.LogInformation($"\t Part2: {currentDeterministicMicroStates_.Part2}");
+                _logger?.LogInformation($"\t Part3: {currentDeterministicMicroStates_.Part3}");
+                _logger?.LogInformation($"\t Part4: {currentDeterministicMicroStates_.Part4}");
+                _logger?.LogInformation($"\t Part5: {currentDeterministicMicroStates_.Part5}");
+
+
                 changed |= currentDeterministicMicroStates_.Part1 != microStates.Part1;
                 changed |= currentDeterministicMicroStates_.Part2 != microStates.Part2;
                 changed |= currentDeterministicMicroStates_.Part3 != microStates.Part3;
