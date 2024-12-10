@@ -4033,7 +4033,7 @@ namespace DWIS.MicroState.Model
                     PropertyInfo? destinationProperty = destinationType.GetProperty(property.Name);
                     if (destinationProperty != null && destinationProperty.CanWrite)
                     {
-                        object? value = property.GetValue(this);
+                        object? value = property.GetValue(src);
                         destinationProperty.SetValue(this, value);
                     }
                 }

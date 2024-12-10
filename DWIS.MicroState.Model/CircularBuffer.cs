@@ -31,6 +31,11 @@ namespace DWIS.MicroState.Model
             return _queue.Peek();
         }
 
+        public T GetLast() 
+        { 
+            return _queue.Last();
+        }
+
         public IEnumerable<T> GetItems()
         {
             return _queue.ToArray();
