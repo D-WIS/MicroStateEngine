@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DWIS.Client.ReferenceImplementation" Version="2.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DWIS.MicroState.Model\DWIS.MicroState.Model.csproj" />
   </ItemGroup>
 

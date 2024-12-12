@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DWIS.Client.ReferenceImplementation" Version="2.1.9" />
     <PackageReference Include="NJsonSchema" Version="10.9.0" />
   </ItemGroup>
 
