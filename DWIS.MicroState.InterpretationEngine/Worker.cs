@@ -168,6 +168,7 @@ namespace DWIS.MicroState.InterpretationEngine
                         if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Value.SparQL))
                         {
                             string sparql = kvp.Value.SparQL;
+                            
 
                             var result = DWISClient_.RegisterQuery(sparql, MicroStateCallBack);// DWISClient_.GetQueryResult(sparql);
 
