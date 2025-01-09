@@ -120,7 +120,7 @@ WHERE {
 
 ## Semantic Description of a Probabilistic Microstate
 The individual probabilitic microstate have their own semantic description. At the moment, there are 
-76 microstates. In this README file only one example is given.
+80 microstates. In this README file only one example is given.
 
 The semantic description of the axial velocity of the top of string probabilistic state is:
 ```mermaid
