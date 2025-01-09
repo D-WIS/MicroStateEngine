@@ -448,10 +448,10 @@ namespace DWIS.MicroState.Model
         {
             if (values != null && values.Count > 0 && nodeID != null)
             {
-                var data = values.Peek();
+                var data = values.GetLast();//.Peek();
                 if (data != null && data.Item2 != null)
                 {
-                    DateTime lastTimeStamp = data.Item1;
+                    DateTime lastTimeStamp = data.Item1 - TimeSpan.FromMilliseconds(50);
                     // find the calibrated delay
                     TimeSpan delay = TimeSpan.Zero;
                     CalibrationParameters? calibrationParameters = FindCalibration(calibrations, nodeID.ToString());
