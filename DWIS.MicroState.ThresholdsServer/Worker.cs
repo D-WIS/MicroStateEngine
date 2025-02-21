@@ -168,7 +168,7 @@ namespace DWIS.MicroState.ThresholdsServer
                                         break;
                                     }
                                 }
-                                bool assigned = false;
+                                bool managed = false;
                                 if (configurationProperty != null && configurationProperty.PropertyType == typeof(double))
                                 {
                                     lock (_lock)
@@ -176,16 +176,16 @@ namespace DWIS.MicroState.ThresholdsServer
                                         object? configurationValue = configurationProperty.GetValue(Configuration);
                                         if (configurationValue != null && configurationValue is double dvalue2)
                                         {
+                                            managed = true;
                                             if (!Numeric.EQ(dvalue1, dvalue2))
                                             {
                                                 scalarDrillProp.ScalarValue = dvalue2;
-                                                assigned = true;
                                                 changed = true;
                                             }
                                         }
                                     }
                                 }
-                                if (!assigned)
+                                if (!managed)
                                 { 
                                     FieldInfo? configurationField = null;
                                     foreach (var confField in configurationStaticFields)
