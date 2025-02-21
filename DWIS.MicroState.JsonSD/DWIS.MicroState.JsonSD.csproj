@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DWIS.Client.ReferenceImplementation" Version="2.1.9" />
+    <PackageReference Include="DWIS.Client.ReferenceImplementation" Version="2.1.21" />
     <PackageReference Include="NJsonSchema" Version="10.9.0" />
-    <PackageReference Include="OSDC.DotnetLibraries.Drilling.DrillingProperties" Version="10.2.2-build.16" />
+    <PackageReference Include="OSDC.DotnetLibraries.Drilling.DrillingProperties" Version="10.2.2-build.71" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,20 +1,19 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>dotnet-DWIS.MicroState.InterpretationEngine-8e91b615-f8ae-4dcb-9891-5093fcb40e33</UserSecretsId>
+    <UserSecretsId>dotnet-DWIS.MicroState.ThresholdsServer-a19aae5b-41b9-4729-82cc-6568b7df4e80</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="DWIS.Client.ReferenceImplementation" Version="2.1.21" />
     <PackageReference Include="DWIS.Client.ReferenceImplementation.OPCFoundation" Version="2.1.21" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
-    <PackageReference Include="OSDC.DotnetLibraries.Drilling.DrillingProperties" Version="10.2.2-build.71" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <PackageReference Include="OSDC.UnitConversion.Conversion.DrillingEngineering" Version="3.3.15" />
   </ItemGroup>
 
   <ItemGroup>
