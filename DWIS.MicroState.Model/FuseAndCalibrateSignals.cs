@@ -449,7 +449,7 @@ namespace DWIS.MicroState.Model
             if (values != null && values.Count > 0 && nodeID != null)
             {
                 var data = values.GetLast();//.Peek();
-                if (data != null && data.Item2 != null)
+                if (data != null && data.Item2 != null && data.Item1 != DateTime.MinValue)
                 {
                     DateTime lastTimeStamp = data.Item1 - TimeSpan.FromMilliseconds(50);
                     // find the calibrated delay
