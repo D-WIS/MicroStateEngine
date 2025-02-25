@@ -168,17 +168,17 @@ namespace DWIS.MicroState.InterpretationEngine
                         if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Value.SparQL))
                         {
                             string sparql = kvp.Value.SparQL;
-                            
-
-                            var result = DWISClient_.RegisterQuery(sparql, MicroStateCallBack);// DWISClient_.GetQueryResult(sparql);
-
+                            var result = DWISClient_.RegisterQuery(sparql, MicroStateCallBack);
                             if (!string.IsNullOrEmpty(result.jsonQueryDiff))
                             {
                                 var queryDiff = QueryResultsDiff.FromJsonString(result.jsonQueryDiff);
-                                if (queryDiff != null && queryDiff.Added != null && queryDiff.Added.Any())
+                                if (queryDiff != null && !string.IsNullOrEmpty(queryDiff.QueryID))
                                 {
                                     registeredQueriesSparqls_.Add(queryDiff.QueryID, (sparql, kvp.Key));
-                                    microStateSignalPlaceHolders_.Add(AcquiredSignals.CreateWithSubscription(new string[] { kvp.Value.SparQL }, new string[] { kvp.Key }, 0, DWISClient_));
+                                    if (queryDiff.Added != null && queryDiff.Added.Any())
+                                    {
+                                        microStateSignalPlaceHolders_.Add(AcquiredSignals.CreateWithSubscription(new string[] { kvp.Value.SparQL }, new string[] { kvp.Key }, 0, DWISClient_));
+                                    }
                                 }
                             }
                         }
@@ -190,9 +190,7 @@ namespace DWIS.MicroState.InterpretationEngine
         private void MicroStateCallBack(QueryResultsDiff resultsDiff)
         {
             _logger?.LogInformation("Callback for microstate input data");
-
-
-            if (resultsDiff != null && resultsDiff.Added != null && resultsDiff.Added.Any())
+            if (DWISClient_ != null && resultsDiff != null && resultsDiff.Added != null && resultsDiff.Added.Any())
             {
                 if (registeredQueriesSparqls_.ContainsKey(resultsDiff.QueryID))
                 {
