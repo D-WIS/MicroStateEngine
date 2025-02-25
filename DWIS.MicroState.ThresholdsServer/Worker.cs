@@ -137,7 +137,6 @@ namespace DWIS.MicroState.ThresholdsServer
 
         private async Task Loop(CancellationToken cancellationToken)
         {
-            Random rnd = new Random();
             PeriodicTimer timer = new PeriodicTimer(_loopSpan);
             PropertyInfo[] thresholdsProperties = typeof(Thresholds).GetProperties();
             PropertyInfo[] configurationProperties = typeof(Configuration).GetProperties();
