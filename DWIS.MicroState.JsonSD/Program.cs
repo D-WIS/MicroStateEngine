@@ -29,6 +29,7 @@ static void GenerateJsonSchemas()
     {
         writer.WriteLine(schemaJson);
     }
+    /*
     MicroStates microStates = new MicroStates();
     Assembly assy = microStates.GetType().Assembly;
     var dict = MetaDataDrillingProperty.GetDrillingPropertyMetaData(assy);
@@ -43,4 +44,5 @@ static void GenerateJsonSchemas()
             }
         }
     }
+    */
 }
