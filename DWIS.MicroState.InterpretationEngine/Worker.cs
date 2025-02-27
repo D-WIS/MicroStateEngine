@@ -18,6 +18,11 @@ namespace DWIS.MicroState.InterpretationEngine
         private ILogger<DWISClientOPCF>? _loggerDWISClient;
         private IOPCUADWISClient? DWISClient_ = null;
 
+        private Dictionary<string, Entry> RegisteredQueries { get; set; } = new Dictionary<string, Entry>();
+        private Dictionary<string, (string sparql, string key)> registeredQueriesSparqls_ = new Dictionary<string, (string sparql, string key)>();
+
+        private Guid SignalGroupID { get; set; } = Guid.Empty;
+
         private MicroStates currentDeterministicMicroStates_ = new MicroStates();
         private QueryResult? deterministicMicroStatePlaceHolder_ = null;
 
@@ -33,7 +38,6 @@ namespace DWIS.MicroState.InterpretationEngine
         private Thresholds microStateThresholds_ = new Thresholds();
         private List<AcquiredSignals> microStateThresholdsPlaceHolders_ = new List<AcquiredSignals>();
 
-        private List<AcquiredSignals> microStateSignalPlaceHolders_ = new List<AcquiredSignals>();
         private Dictionary<DWISNodeID, CircularBuffer<SignalGroup>> signalGroups_ = new Dictionary<DWISNodeID, CircularBuffer<SignalGroup>>();
 
         private object lock_ = new object();
@@ -119,95 +123,115 @@ namespace DWIS.MicroState.InterpretationEngine
             }
         }
 
-        private void AcquireSignalInputs()
+        private void AcquireSignalInputs(Guid key) 
         {
             if (DWISClient_ != null && DWISClient_.Connected)
             {
                 Type type = typeof(SignalGroup);
                 Assembly assembly = type.Assembly;
                 var queries = GeneratorSparQLManifestFile.GetSparQLQueries(assembly, type.FullName);
-                if (queries != null && queries.Count > 0)
+                if (queries != null &&
+                    queries.Count > 0 &&
+                    queries.First().Value != null &&
+                    !string.IsNullOrEmpty(queries.First().Value.SparQL) &&
+                    queries.First().Value.Variables != null &&
+                    queries.First().Value.Variables!.Count > 0)
                 {
-                    if (microStateSignalPlaceHolders_ == null)
+                    string sparql = queries.First().Value.SparQL!;
+                    var result = DWISClient_.RegisterQuery(sparql, ManageQueryDiff);
+
+                    if (!string.IsNullOrEmpty(result.jsonQueryDiff))
                     {
-                        microStateSignalPlaceHolders_ = new List<AcquiredSignals>();
-                    }
-                    microStateSignalPlaceHolders_.Clear();
-                    foreach (var kvp in queries)
-                    {
-                        if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Value.SparQL))
+                        var queryDiff = QueryResultsDiff.FromJsonString(result.jsonQueryDiff);
+                        if (queryDiff != null && !string.IsNullOrEmpty(queryDiff.QueryID) && RegisteredQueries != null)
                         {
-                            string sparql = kvp.Value.SparQL;
-                            var result = DWISClient_.GetQueryResult(sparql);
-                            if (result != null && result.Results != null && result.Results.Count > 0)
+                            lock (lock_)
                             {
-                                microStateSignalPlaceHolders_.Add(AcquiredSignals.CreateWithSubscription(new string[] { kvp.Value.SparQL }, new string[] { kvp.Key }, 0, DWISClient_));
+                                if (!RegisteredQueries.ContainsKey(queryDiff.QueryID))
+                                {
+                                    Entry entry = new Entry() { sparql = sparql, Key = key };
+                                    RegisteredQueries.Add(queryDiff.QueryID, entry);
+                                }
+                            }
+                            if (queryDiff.Added != null && queryDiff.Added.Any())
+                            {
+                                ManageQueryDiff(queryDiff);
                             }
                         }
                     }
-                };
+                }
             }
         }
 
-        private void AcquireSignalInputs_() 
+        private void ManageQueryDiff(QueryResultsDiff queryDiff)
         {
-            if (DWISClient_ != null && DWISClient_.Connected)
+            lock (lock_)
             {
-                Type type = typeof(SignalGroup);
-                Assembly assembly = type.Assembly;
-                var queries = GeneratorSparQLManifestFile.GetSparQLQueries(assembly, type.FullName);
-                if (queries != null && queries.Count > 0)
+                if (RegisteredQueries.ContainsKey(queryDiff.QueryID))
                 {
-                    if (microStateSignalPlaceHolders_ == null)
+                    var entry = RegisteredQueries[queryDiff.QueryID];
+                    if (entry.Results == null)
                     {
-                        microStateSignalPlaceHolders_ = new List<AcquiredSignals>();
+                        entry.Results = new List<QueryResultRow>();
                     }
-                    microStateSignalPlaceHolders_.Clear();
-                    foreach (var kvp in queries)
+                    if (queryDiff.Removed != null)
                     {
-                        if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Value.SparQL))
+                        foreach (QueryResultRow row in queryDiff.Removed)
                         {
-                            string sparql = kvp.Value.SparQL;
-                            var result = DWISClient_.RegisterQuery(sparql, MicroStateCallBack);
-                            if (!string.IsNullOrEmpty(result.jsonQueryDiff))
+                            entry.Results.Remove(row);
+                        }
+                    }
+                    if (queryDiff.Added != null)
+                    {
+                        foreach (QueryResultRow row in queryDiff.Added)
+                        {
+                            entry.Results.Add(row);
+                        }
+                    }
+                    // this code supposes that the first variable of the sparql query is an OPC-UA live variable
+                    List<NodeIdentifier> nodes = new List<NodeIdentifier>();
+                    foreach (var row in entry.Results)
+                    {
+                        if (row != null && row.Items != null && row.Items.Count > 0)
+                        {
+                            NodeIdentifier node = row.Items[0]; // this is where it is supposed that the first variable of the query is an OPC-UA live variable
+                            if (node != null)
                             {
-                                var queryDiff = QueryResultsDiff.FromJsonString(result.jsonQueryDiff);
-                                if (queryDiff != null && !string.IsNullOrEmpty(queryDiff.QueryID))
+                                if (!nodes.Exists(n => n.ID == node.ID && n.NameSpace == node.NameSpace))
                                 {
-                                    registeredQueriesSparqls_.Add(queryDiff.QueryID, (sparql, kvp.Key));
-                                    if (queryDiff.Added != null && queryDiff.Added.Any())
-                                    {
-                                        microStateSignalPlaceHolders_.Add(AcquiredSignals.CreateWithSubscription(new string[] { kvp.Value.SparQL }, new string[] { kvp.Key }, 0, DWISClient_));
-                                    }
+                                    nodes.Add(node);
                                 }
                             }
                         }
                     }
-                };
+                    if (DWISClient_ != null)
+                    {
+                        foreach (NodeIdentifier node in nodes)
+                        {
+                            if (!entry.LiveValues.Values.Any(v => v.ns == node.NameSpace && v.id == node.ID))
+                            {
+                                Guid guid = Guid.NewGuid();
+                                LiveValue liveValue = new(node.NameSpace, node.ID, null);
+                                entry.LiveValues.Add(guid, liveValue);
+                                DWISClient_.Subscribe(entry, CallbackOPCUA, new (string, string, object)[] { new(liveValue.ns, liveValue.id, guid) });
+                            }
+                        }
+                    }
+                }
             }
         }
-        private Dictionary<string, (string sparql, string key)> registeredQueriesSparqls_ = new Dictionary<string, (string sparql, string key)>();
-        private void MicroStateCallBack(QueryResultsDiff resultsDiff)
-        {
-            _logger?.LogInformation("Callback for microstate input data");
-            if (DWISClient_ != null && resultsDiff != null && resultsDiff.Added != null && resultsDiff.Added.Any())
-            {
-                if (registeredQueriesSparqls_.ContainsKey(resultsDiff.QueryID))
-                {
-                    var pair = registeredQueriesSparqls_[resultsDiff.QueryID];
-                    var ac = AcquiredSignals.CreateWithSubscription(new string[] { pair.sparql }, new string[] { pair.key }, 0, DWISClient_);
 
-                    var existing = microStateSignalPlaceHolders_.FirstOrDefault(ph => ph.Any() && ph.First().Key == pair.key);
-                    if (existing != null)
+        private void CallbackOPCUA(object subscriptionData, UADataChange[] changes)
+        {
+            if (subscriptionData != null && subscriptionData is Entry entry && entry.LiveValues != null && changes != null && changes.Length > 0)
+            {
+                UADataChange dataChange = changes[0];
+                if (dataChange != null && entry.LiveValues.Count > 0)
+                {
+                    LiveValue? lv = entry.LiveValues.First().Value;
+                    if (lv != null)
                     {
-                        int idx = microStateSignalPlaceHolders_.IndexOf(existing);
-                        microStateSignalPlaceHolders_[idx] = ac;
-                        //microStateSignalPlaceHolders_.Remove(existing);//risk for multithread problem there...
-                    }
-                    else
-                    {
-                        //risk for multithread problem there...
-                        microStateSignalPlaceHolders_.Add(ac);
+                        lv.val = dataChange.Value;
                     }
                 }
             }
@@ -269,7 +293,8 @@ namespace DWIS.MicroState.InterpretationEngine
             ConnectToBlackboard();
             DefineSemantic();
             AcquireMicroStatesThresholds();
-            AcquireSignalInputs_();
+            SignalGroupID = Guid.NewGuid();
+            AcquireSignalInputs(SignalGroupID);
             while (!stoppingToken.IsCancellationRequested)
             {
                 DateTime d1 = DateTime.UtcNow;
@@ -370,8 +395,52 @@ namespace DWIS.MicroState.InterpretationEngine
             MicroStates microStates = new();
             SignalGroup? signals = null;
             Thresholds? thresholds = null;
-            if (fusedSignalGroup_ != null && microStateSignalPlaceHolders_ != null)
+            if (fusedSignalGroup_ != null && RegisteredQueries != null && DWISClient_ != null && DWISClient_.Connected)
             {
+                string json = string.Empty;
+                lock (lock_)
+                {
+                    if (RegisteredQueries != null && SignalGroupID != Guid.Empty)
+                    {
+                        Entry? entry = FindEntry(SignalGroupID);
+                        if (entry != null)
+                        {
+                            if (entry.LiveValues != null && entry.LiveValues.Count > 0)
+                            {
+                                foreach (var kpv in entry.LiveValues)
+                                {
+                                    if (kpv.Value != null && kpv.Value.val != null && kpv.Value.val is string jsonString)
+                                    {
+                                        SignalGroup? signalGroup = null;
+                                        if (!string.IsNullOrEmpty(jsonString))
+                                        {
+                                            signalGroup = JsonConvert.DeserializeObject<SignalGroup>(jsonString);
+                                        }
+                                        if (signalGroup != null)
+                                        {
+                                            if (DWISClient_.GetNameSpaceIndex(kpv.Value.ns, out ushort nsi))
+                                            {
+                                                DWISNodeID nodeID = new DWISNodeID() { NameSpaceIndex = nsi, ID = kpv.Value.id };
+                                                if (signalGroups_.ContainsKey(nodeID))
+                                                {
+                                                    if (signalGroups_[nodeID] == null)
+                                                    {
+                                                        signalGroups_[nodeID] = new CircularBuffer<SignalGroup>(Configuration.CircularBufferSize);
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    signalGroups_.Add(nodeID, new CircularBuffer<SignalGroup>(Configuration.CircularBufferSize));
+                                                }
+                                                signalGroups_[nodeID].Add(signalGroup);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
                 lock (lock_)
                 {
                     signals = new SignalGroup(fusedSignalGroup_);
@@ -380,45 +449,6 @@ namespace DWIS.MicroState.InterpretationEngine
                 if (signalGroups_ == null)
                 {
                     signalGroups_ = new Dictionary<DWISNodeID, CircularBuffer<SignalGroup>>();
-                }
-                foreach (var acquiredSignals in microStateSignalPlaceHolders_)
-                {
-                    if (acquiredSignals != null && acquiredSignals.Count > 0)
-                    {
-                        foreach (var kpv in acquiredSignals)
-                        {
-                            if (kpv.Value != null && kpv.Value.Count > 0)
-                            {
-                                foreach (AcquiredSignal signal in kpv.Value)
-                                {
-                                    if (signal != null)
-                                    {
-                                        SignalGroup? signalGroup = null;
-                                        string? jsonString = kpv.Value[0].GetValue<string>();
-                                        if (!string.IsNullOrEmpty(jsonString))
-                                        {
-                                            signalGroup = JsonConvert.DeserializeObject<SignalGroup>(jsonString);
-                                        }
-                                        if (signalGroup != null) {
-                                            DWISNodeID nodeID = signal.AcquisitionCriteriaResultItem;                                           
-                                            if (signalGroups_.ContainsKey(nodeID))
-                                            {
-                                                if (signalGroups_[nodeID] == null)
-                                                {
-                                                    signalGroups_[nodeID] = new CircularBuffer<SignalGroup>(Configuration.CircularBufferSize);
-                                                }
-                                            }
-                                            else
-                                            {
-                                                signalGroups_.Add(nodeID, new CircularBuffer<SignalGroup>(Configuration.CircularBufferSize));
-                                            }
-                                            signalGroups_[nodeID].Add(signalGroup);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
                 }
                 if (signalGroups_.Count > 0)
                 {
@@ -631,8 +661,12 @@ namespace DWIS.MicroState.InterpretationEngine
                         code = 3;
                     }
                     microStates.UpdateMicroState(MicroStateIndex.AxialVelocityTopOfString, code);
-                    if (probMicroStates.AxialVelocityTopOfString != null && probMicroStates.AxialVelocityTopOfString.Probabilities != null && probMicroStates.AxialVelocityTopOfString.Probabilities.Length == 3)
+                    if (probMicroStates.AxialVelocityTopOfString != null)
                     {
+                        if (probMicroStates.AxialVelocityTopOfString.Probabilities == null || probMicroStates.AxialVelocityTopOfString.Probabilities.Length != 3)
+                        {
+                            probMicroStates.AxialVelocityTopOfString.Probabilities = new double[3];
+                        }
                         double? prob2 = signals.AxialVelocityTopOfString.ProbabilityGT(thresholds.ZeroAxialVelocityTopOfStringThreshold.ScalarValue.Value);
                         double? prob3 = signals.AxialVelocityTopOfString.ProbabilityLT(-thresholds.ZeroAxialVelocityTopOfStringThreshold.ScalarValue.Value);
                         if (prob2 != null && prob3 != null)
@@ -1539,7 +1573,7 @@ namespace DWIS.MicroState.InterpretationEngine
                         probMicroStates.FloatSub.Probability = signals.DifferentialPressureFloatValve.ProbabilityGT(thresholds.MinimumPressureFloatValve.ScalarValue.Value);
                     }
                 }
-                if (signals.UnderReamerOpen != null && signals.UnderReamerOpen.BooleanValue != null)
+                if (signals.UnderReamerOpen != null && signals.UnderReamerOpen.BooleanValue != null && false)
                 {
                     atLeastOne = true;
                     uint code;
@@ -1557,7 +1591,7 @@ namespace DWIS.MicroState.InterpretationEngine
                         probMicroStates.UnderReamer.Probability = signals.UnderReamerOpen.Probability;
                     }
                 }
-                if (signals.CirculationSubOpen != null && signals.CirculationSubOpen.BooleanValue != null)
+                if (signals.CirculationSubOpen != null && signals.CirculationSubOpen.BooleanValue != null && false)
                 {
                     atLeastOne = true;
                     uint code;
@@ -1575,7 +1609,7 @@ namespace DWIS.MicroState.InterpretationEngine
                         probMicroStates.CirculationSub.Probability = signals.CirculationSubOpen.Probability;
                     }
                 }
-                if (signals.PortedFloatOpen != null && signals.PortedFloatOpen.BooleanValue != null)
+                if (signals.PortedFloatOpen != null && signals.PortedFloatOpen.BooleanValue != null && false)
                 {
                     atLeastOne = true;
                     uint code;
@@ -1593,7 +1627,7 @@ namespace DWIS.MicroState.InterpretationEngine
                         probMicroStates.PortedFloat.Probability = signals.PortedFloatOpen.Probability;
                     }
                 }
-                if (signals.WhipstockAttached != null && signals.WhipstockAttached.BooleanValue != null)
+                if (signals.WhipstockAttached != null && signals.WhipstockAttached.BooleanValue != null && false)
                 {
                     atLeastOne = true;
                     uint code;
@@ -1611,7 +1645,7 @@ namespace DWIS.MicroState.InterpretationEngine
                         probMicroStates.Whipstock.Probability = signals.WhipstockAttached.Probability;
                     }
                 }
-                if (signals.PlugAttached != null && signals.PlugAttached.BooleanValue != null)
+                if (signals.PlugAttached != null && signals.PlugAttached.BooleanValue != null && false)
                 {
                     atLeastOne = true;
                     uint code;
@@ -1629,7 +1663,7 @@ namespace DWIS.MicroState.InterpretationEngine
                         probMicroStates.Plug.Probability = signals.PlugAttached.Probability;
                     }
                 }
-                if (signals.LinerAttached != null && signals.LinerAttached.BooleanValue != null)
+                if (signals.LinerAttached != null && signals.LinerAttached.BooleanValue != null && false)
                 {
                     atLeastOne = true;
                     uint code;
@@ -1766,7 +1800,7 @@ namespace DWIS.MicroState.InterpretationEngine
                         probMicroStates.RCDSealing.Probability = signals.DifferentialPressureRCD.ProbabilityGT(thresholds.MinimumDifferentialPressureRCDSealingThreshold.ScalarValue.Value);
                     }
                 }
-                if (signals.IsolationSealActivated != null && signals.IsolationSealActivated.BooleanValue != null)
+                if (signals.IsolationSealActivated != null && signals.IsolationSealActivated.BooleanValue != null && false)
                 {
                     atLeastOne = true;
                     uint code;
@@ -1802,7 +1836,7 @@ namespace DWIS.MicroState.InterpretationEngine
                         probMicroStates.IsolationSealPressureBalance.Probability = signals.DifferentialPressureIsolationSeal.ProbabilityGT(thresholds.MinimumDifferentialPressureSealBalanceThreshold.ScalarValue.Value);
                     }
                 }
-                if (signals.BearingAssemblyLatched != null && signals.BearingAssemblyLatched.BooleanValue != null)
+                if (signals.BearingAssemblyLatched != null && signals.BearingAssemblyLatched.BooleanValue != null && false)
                 {
                     atLeastOne = true;
                     uint code;
@@ -1820,7 +1854,7 @@ namespace DWIS.MicroState.InterpretationEngine
                         probMicroStates.BearingAssemblyLatched.Probability = signals.BearingAssemblyLatched.Probability;
                     }
                 }
-                if (signals.ScreenMPDChokePlugged != null && signals.ScreenMPDChokePlugged.BooleanValue != null)
+                if (signals.ScreenMPDChokePlugged != null && signals.ScreenMPDChokePlugged.BooleanValue != null && false)
                 {
                     atLeastOne = true;
                     uint code;
@@ -1838,7 +1872,7 @@ namespace DWIS.MicroState.InterpretationEngine
                         probMicroStates.ScreenMPDChokePlugged.Probability = 1.0 - signals.ScreenMPDChokePlugged.Probability;
                     }
                 }
-                if (signals.MainFlowPathMPDEstablished != null && signals.MainFlowPathMPDEstablished.BooleanValue != null)
+                if (signals.MainFlowPathMPDEstablished != null && signals.MainFlowPathMPDEstablished.BooleanValue != null && false)
                 {
                     atLeastOne = true;
                     uint code;
@@ -1856,7 +1890,7 @@ namespace DWIS.MicroState.InterpretationEngine
                         probMicroStates.MainFlowPathStable.Probability = signals.MainFlowPathMPDEstablished.Probability;
                     }
                 }
-                if (signals.AlternateFlowPathMPDEstablished != null && signals.AlternateFlowPathMPDEstablished.BooleanValue != null)
+                if (signals.AlternateFlowPathMPDEstablished != null && signals.AlternateFlowPathMPDEstablished.BooleanValue != null && false)
                 {
                     atLeastOne = true;
                     uint code;
@@ -2087,7 +2121,7 @@ namespace DWIS.MicroState.InterpretationEngine
                 if (signals.HeaveCompensationInactive != null &&
                     signals.HeaveCompensationInactive.BooleanValue != null &&
                     signals.HeaveCompensationActive != null &&
-                    signals.HeaveCompensationActive.BooleanValue != null)
+                    signals.HeaveCompensationActive.BooleanValue != null && false)
                 {
                     atLeastOne = true;
                     uint code = 0;
@@ -2393,7 +2427,22 @@ namespace DWIS.MicroState.InterpretationEngine
                 }
             }
         }
+        private Entry? FindEntry(Guid id)
+        {
+            Entry? entry = null;
+            if (RegisteredQueries != null)
+            {
+                foreach (var kvp in RegisteredQueries)
+                {
+                    if (kvp.Value.Key == id)
+                    {
+                        entry = kvp.Value;
+                        break;
+                    }
+                }
+            }
+            return entry;
+        }
 
-  
     }
 }
