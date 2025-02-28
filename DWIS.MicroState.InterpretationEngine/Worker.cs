@@ -2374,7 +2374,7 @@ namespace DWIS.MicroState.InterpretationEngine
                 }
             }
            // _logger?.LogInformation("processed data");
-            bool changed = false;
+            bool changed = true; // force a refresh at each cycle
             lock (lock_)
             {
                 _logger?.LogInformation("Current microstate:");
