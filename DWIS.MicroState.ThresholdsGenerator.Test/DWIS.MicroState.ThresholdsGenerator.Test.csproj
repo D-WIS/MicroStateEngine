@@ -18,10 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DWIS.Client.ReferenceImplementation" Version="2.1.21" />
-    <PackageReference Include="DWIS.Client.ReferenceImplementation.OPCFoundation" Version="2.1.21" />
+    <PackageReference Include="DWIS.Client.ReferenceImplementation.OPCFoundation" Version="2.2.12" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
-    <PackageReference Include="OSDC.DotnetLibraries.Drilling.DrillingProperties" Version="10.2.2-build.71" />
+    <PackageReference Include="OSDC.DotnetLibraries.Drilling.DrillingProperties" Version="10.2.2-build.74" />
   </ItemGroup>
 
   <ItemGroup>
