@@ -16,8 +16,8 @@
 
   <ItemGroup>
     <PackageReference Include="Accord.Math" Version="3.8.0" />
-    <PackageReference Include="DWIS.Client.ReferenceImplementation" Version="2.2.44" />
-    <PackageReference Include="OSDC.DotnetLibraries.Drilling.DrillingProperties" Version="10.2.2-build.147" />
+    <PackageReference Include="DWIS.Client.ReferenceImplementation" Version="2.2.49" />
+    <PackageReference Include="OSDC.DotnetLibraries.Drilling.DrillingProperties" Version="10.2.5" />
   </ItemGroup>
 
   <ItemGroup>
